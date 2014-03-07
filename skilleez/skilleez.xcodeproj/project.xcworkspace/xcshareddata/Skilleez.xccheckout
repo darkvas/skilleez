@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>19C3AA67-3487-433A-BF7E-D912080408B7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Skilleez</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>28AE1911-B737-4967-A03F-3F27D70E959B</key>
+		<string>https://github.com/darkvas/skilleez.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Skilleez/Skilleez.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>28AE1911-B737-4967-A03F-3F27D70E959B</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/darkvas/skilleez.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>28AE1911-B737-4967-A03F-3F27D70E959B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>28AE1911-B737-4967-A03F-3F27D70E959B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>skilleez</string>
+		</dict>
+	</array>
+</dict>
+</plist>
