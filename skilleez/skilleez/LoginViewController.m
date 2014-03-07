@@ -42,4 +42,19 @@
     [alert show];
 }
 
+-(IBAction) rememberMePressed:(UIButton*)sender
+{
+    
+}
+
+-(IBAction) forgotPasswordPressed:(UIButton*)sender
+{
+    
+}
+
+-(IBAction) registerPressed:(UIButton*)sender
+{
+    
+}
+
 @end

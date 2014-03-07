@@ -22,7 +22,6 @@
 		84D9E08118C9C45600516E2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9E08018C9C45600516E2D /* LoginViewController.m */; };
 		84D9E08518C9C89A00516E2D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E07D18C9C42500516E2D /* LoginView.xib */; };
 		84D9E08B18C9D2ED00516E2D /* Eraser.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E08918C9D2ED00516E2D /* Eraser.ttf */; };
-		84D9E08F18C9D73000516E2D /* LoopActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E08E18C9D73000516E2D /* LoopActivityView.xib */; };
 		84D9E09318C9D97100516E2D /* LoopActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9E09118C9D97100516E2D /* LoopActivityViewController.m */; };
 		84D9E09418C9D97100516E2D /* LoopActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E09218C9D97100516E2D /* LoopActivityViewController.xib */; };
 		84D9E0A118C9F32E00516E2D /* BG.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E09618C9F32D00516E2D /* BG.png */; };
@@ -113,7 +112,6 @@
 		84D9E07F18C9C45600516E2D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		84D9E08018C9C45600516E2D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		84D9E08918C9D2ED00516E2D /* Eraser.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Eraser.ttf; sourceTree = "<group>"; };
-		84D9E08E18C9D73000516E2D /* LoopActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoopActivityView.xib; sourceTree = "<group>"; };
 		84D9E09018C9D97100516E2D /* LoopActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopActivityViewController.h; sourceTree = "<group>"; };
 		84D9E09118C9D97100516E2D /* LoopActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoopActivityViewController.m; sourceTree = "<group>"; };
 		84D9E09218C9D97100516E2D /* LoopActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoopActivityViewController.xib; sourceTree = "<group>"; };
@@ -240,7 +238,6 @@
 				84D9E07D18C9C42500516E2D /* LoginView.xib */,
 				84D9E07F18C9C45600516E2D /* LoginViewController.h */,
 				84D9E08018C9C45600516E2D /* LoginViewController.m */,
-				84D9E08E18C9D73000516E2D /* LoopActivityView.xib */,
 				84D9E09018C9D97100516E2D /* LoopActivityViewController.h */,
 				84D9E09118C9D97100516E2D /* LoopActivityViewController.m */,
 				84D9E09218C9D97100516E2D /* LoopActivityViewController.xib */,
@@ -497,7 +494,6 @@
 				84D9E0C718C9F3E900516E2D /* extra_BTN_press.png in Resources */,
 				84D9E0AB18C9F32F00516E2D /* plane_img@2x.png in Resources */,
 				84D9E0F718C9FD4900516E2D /* rocket_BTN@2x.png in Resources */,
-				84D9E08F18C9D73000516E2D /* LoopActivityView.xib in Resources */,
 				84D9E0F818C9FD4900516E2D /* star_opaque_BTN.png in Resources */,
 				84D9E0C618C9F3E900516E2D /* extra_BTN@2x.png in Resources */,
 				84D9E10618C9FD4900516E2D /* skilleez_settings@2x.png in Resources */,
