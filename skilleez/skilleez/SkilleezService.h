@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
 
 @interface SkilleezService : NSObject
+
++ (id) sharedInstance;
 
 @end

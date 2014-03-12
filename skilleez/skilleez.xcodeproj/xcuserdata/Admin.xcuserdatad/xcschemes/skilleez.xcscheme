@@ -17,7 +17,7 @@
                BlueprintIdentifier = "84D9E04A18C9C3D400516E2D"
                BuildableName = "Skilleez.app"
                BlueprintName = "Skilleez"
-               ReferencedContainer = "container:Skilleez.xcodeproj">
+               ReferencedContainer = "container:skilleez.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "84D9E06518C9C3D500516E2D"
                BuildableName = "SkilleezTests.xctest"
                BlueprintName = "SkilleezTests"
-               ReferencedContainer = "container:Skilleez.xcodeproj">
+               ReferencedContainer = "container:skilleez.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +45,7 @@
             BlueprintIdentifier = "84D9E04A18C9C3D400516E2D"
             BuildableName = "Skilleez.app"
             BlueprintName = "Skilleez"
-            ReferencedContainer = "container:Skilleez.xcodeproj">
+            ReferencedContainer = "container:skilleez.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "84D9E04A18C9C3D400516E2D"
             BuildableName = "Skilleez.app"
             BlueprintName = "Skilleez"
-            ReferencedContainer = "container:Skilleez.xcodeproj">
+            ReferencedContainer = "container:skilleez.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -82,7 +82,7 @@
             BlueprintIdentifier = "84D9E04A18C9C3D400516E2D"
             BuildableName = "Skilleez.app"
             BlueprintName = "Skilleez"
-            ReferencedContainer = "container:Skilleez.xcodeproj">
+            ReferencedContainer = "container:skilleez.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
