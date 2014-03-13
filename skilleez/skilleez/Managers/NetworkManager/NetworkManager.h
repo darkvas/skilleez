@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
-@interface SkilleezService : NSObject
+@interface NetworkManager : NSObject
 
-+ (id) sharedInstance;
++ (instancetype)sharedInstance;
 
 @end

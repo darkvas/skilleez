@@ -6,22 +6,26 @@
 //  Copyright (c) 2014 MobileSoft365. All rights reserved.
 //
 
-#import "SkilleezService.h"
+#import "NetworkManager.h"
 
 #define skilleezUrl @"http://skilleezv3.elasticbeanstalk.com/"
 #define loginUri @"/Account/LogOn"
 
-@implementation SkilleezService
+@implementation NetworkManager
 
-+ (id) sharedInstance {
-    static SkilleezService *_sharedInstance = nil;
-    @synchronized(self)
-    {
-        if (_sharedInstance == nil)
-            _sharedInstance = [[self alloc] init];
-    }
-    return _sharedInstance;
+#pragma mark - Public Metods
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t once;
+    static id sharedInstance;
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    
+    return sharedInstance;
 }
+
+#pragma mark - Private Metods
 
 - (id)init
 {

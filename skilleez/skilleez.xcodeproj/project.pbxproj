@@ -13,6 +13,11 @@
 		8417A48118CF0BE100E6BAE4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */; };
 		8417A48218CF0BE100E6BAE4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47D18CF0BE100E6BAE4 /* Security.framework */; };
 		8417A48318CF0BE100E6BAE4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47E18CF0BE100E6BAE4 /* SystemConfiguration.framework */; };
+		84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */; };
+		84D6CE2318D1BF1F008ABB5E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */; };
+		84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1E18D1BF1F008ABB5E /* LoginViewController.m */; };
+		84D6CE2518D1BF1F008ABB5E /* LoopActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE2118D1BF1F008ABB5E /* LoopActivityViewController.m */; };
+		84D6CE2618D1BF1F008ABB5E /* LoopActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D6CE2218D1BF1F008ABB5E /* LoopActivityViewController.xib */; };
 		84D9E04F18C9C3D400516E2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D9E04E18C9C3D400516E2D /* Foundation.framework */; };
 		84D9E05118C9C3D500516E2D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D9E05018C9C3D500516E2D /* CoreGraphics.framework */; };
 		84D9E05318C9C3D500516E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D9E05218C9C3D500516E2D /* UIKit.framework */; };
@@ -25,11 +30,7 @@
 		84D9E06A18C9C3D500516E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D9E05218C9C3D500516E2D /* UIKit.framework */; };
 		84D9E07218C9C3D500516E2D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E07018C9C3D500516E2D /* InfoPlist.strings */; };
 		84D9E07418C9C3D500516E2D /* SkilleezTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9E07318C9C3D500516E2D /* SkilleezTests.m */; };
-		84D9E08118C9C45600516E2D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9E08018C9C45600516E2D /* LoginViewController.m */; };
-		84D9E08518C9C89A00516E2D /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E07D18C9C42500516E2D /* LoginView.xib */; };
 		84D9E08B18C9D2ED00516E2D /* Eraser.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E08918C9D2ED00516E2D /* Eraser.ttf */; };
-		84D9E09318C9D97100516E2D /* LoopActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9E09118C9D97100516E2D /* LoopActivityViewController.m */; };
-		84D9E09418C9D97100516E2D /* LoopActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E09218C9D97100516E2D /* LoopActivityViewController.xib */; };
 		84D9E0A118C9F32E00516E2D /* BG.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E09618C9F32D00516E2D /* BG.png */; };
 		84D9E0A218C9F32F00516E2D /* BG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E09718C9F32D00516E2D /* BG@2x.png */; };
 		84D9E0A318C9F32F00516E2D /* line_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E09818C9F32D00516E2D /* line_img.png */; };
@@ -84,7 +85,6 @@
 		84D9E10A18CA01CC00516E2D /* skilleez_spotlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10818CA01CC00516E2D /* skilleez_spotlight@2x.png */; };
 		84D9E10D18CA01D800516E2D /* BG_loading_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10B18CA01D800516E2D /* BG_loading_img.png */; };
 		84D9E10E18CA01D800516E2D /* BG_loading_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10C18CA01D800516E2D /* BG_loading_img@2x.png */; };
-		84D9E11218CA05CF00516E2D /* SkilleezService.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D9E11118CA05CF00516E2D /* SkilleezService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +103,14 @@
 		8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8417A47D18CF0BE100E6BAE4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8417A47E18CF0BE100E6BAE4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		84D6CE1618D1BE6D008ABB5E /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
+		84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
+		84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		84D6CE1D18D1BF1F008ABB5E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		84D6CE1E18D1BF1F008ABB5E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		84D6CE2018D1BF1F008ABB5E /* LoopActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopActivityViewController.h; sourceTree = "<group>"; };
+		84D6CE2118D1BF1F008ABB5E /* LoopActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoopActivityViewController.m; sourceTree = "<group>"; };
+		84D6CE2218D1BF1F008ABB5E /* LoopActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoopActivityViewController.xib; sourceTree = "<group>"; };
 		84D9E04B18C9C3D400516E2D /* Skilleez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skilleez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D9E04E18C9C3D400516E2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84D9E05018C9C3D500516E2D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -119,13 +127,7 @@
 		84D9E06F18C9C3D500516E2D /* SkilleezTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SkilleezTests-Info.plist"; sourceTree = "<group>"; };
 		84D9E07118C9C3D500516E2D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84D9E07318C9C3D500516E2D /* SkilleezTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SkilleezTests.m; sourceTree = "<group>"; };
-		84D9E07D18C9C42500516E2D /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
-		84D9E07F18C9C45600516E2D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		84D9E08018C9C45600516E2D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		84D9E08918C9D2ED00516E2D /* Eraser.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Eraser.ttf; sourceTree = "<group>"; };
-		84D9E09018C9D97100516E2D /* LoopActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopActivityViewController.h; sourceTree = "<group>"; };
-		84D9E09118C9D97100516E2D /* LoopActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoopActivityViewController.m; sourceTree = "<group>"; };
-		84D9E09218C9D97100516E2D /* LoopActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoopActivityViewController.xib; sourceTree = "<group>"; };
 		84D9E09618C9F32D00516E2D /* BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG.png; sourceTree = "<group>"; };
 		84D9E09718C9F32D00516E2D /* BG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BG@2x.png"; sourceTree = "<group>"; };
 		84D9E09818C9F32D00516E2D /* line_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line_img.png; sourceTree = "<group>"; };
@@ -180,8 +182,6 @@
 		84D9E10818CA01CC00516E2D /* skilleez_spotlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skilleez_spotlight@2x.png"; sourceTree = "<group>"; };
 		84D9E10B18CA01D800516E2D /* BG_loading_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG_loading_img.png; sourceTree = "<group>"; };
 		84D9E10C18CA01D800516E2D /* BG_loading_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BG_loading_img@2x.png"; sourceTree = "<group>"; };
-		84D9E11018CA05CF00516E2D /* SkilleezService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkilleezService.h; sourceTree = "<group>"; };
-		84D9E11118CA05CF00516E2D /* SkilleezService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkilleezService.m; sourceTree = "<group>"; };
 		B028B704D8FA47F1BD1B63D5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		BE3445939C78449D922E4C3C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -216,6 +216,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84D6CE1418D1BE6D008ABB5E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				84D6CE1518D1BE6D008ABB5E /* NetworkManager */,
+			);
+			name = Managers;
+			path = skilleez/Managers;
+			sourceTree = SOURCE_ROOT;
+		};
+		84D6CE1518D1BE6D008ABB5E /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				84D6CE1618D1BE6D008ABB5E /* NetworkManager.h */,
+				84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		84D6CE1918D1BF1F008ABB5E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				84D6CE1A18D1BF1F008ABB5E /* ViewController */,
+			);
+			name = Classes;
+			path = skilleez/Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		84D6CE1A18D1BF1F008ABB5E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84D6CE1B18D1BF1F008ABB5E /* LoginViewController */,
+				84D6CE1F18D1BF1F008ABB5E /* LoopActivityViewController */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		84D6CE1B18D1BF1F008ABB5E /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */,
+				84D6CE1D18D1BF1F008ABB5E /* LoginViewController.h */,
+				84D6CE1E18D1BF1F008ABB5E /* LoginViewController.m */,
+			);
+			path = LoginViewController;
+			sourceTree = "<group>";
+		};
+		84D6CE1F18D1BF1F008ABB5E /* LoopActivityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84D6CE2018D1BF1F008ABB5E /* LoopActivityViewController.h */,
+				84D6CE2118D1BF1F008ABB5E /* LoopActivityViewController.m */,
+				84D6CE2218D1BF1F008ABB5E /* LoopActivityViewController.xib */,
+			);
+			path = LoopActivityViewController;
+			sourceTree = "<group>";
+		};
 		84D9E04218C9C3D400516E2D = {
 			isa = PBXGroup;
 			children = (
@@ -256,19 +312,13 @@
 		84D9E05418C9C3D500516E2D /* Skilleez */ = {
 			isa = PBXGroup;
 			children = (
+				84D6CE1918D1BF1F008ABB5E /* Classes */,
+				84D6CE1418D1BE6D008ABB5E /* Managers */,
 				84D9E08718C9D2ED00516E2D /* Resources */,
 				84D9E05D18C9C3D500516E2D /* AppDelegate.h */,
 				84D9E05E18C9C3D500516E2D /* AppDelegate.m */,
 				84D9E06018C9C3D500516E2D /* Images.xcassets */,
 				84D9E05518C9C3D500516E2D /* Supporting Files */,
-				84D9E07D18C9C42500516E2D /* LoginView.xib */,
-				84D9E07F18C9C45600516E2D /* LoginViewController.h */,
-				84D9E08018C9C45600516E2D /* LoginViewController.m */,
-				84D9E09018C9D97100516E2D /* LoopActivityViewController.h */,
-				84D9E09118C9D97100516E2D /* LoopActivityViewController.m */,
-				84D9E09218C9D97100516E2D /* LoopActivityViewController.xib */,
-				84D9E11018CA05CF00516E2D /* SkilleezService.h */,
-				84D9E11118CA05CF00516E2D /* SkilleezService.m */,
 			);
 			path = Skilleez;
 			sourceTree = "<group>";
@@ -485,7 +535,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D9E0FB18C9FD4900516E2D /* thumb_down_BTN@2x.png in Resources */,
-				84D9E08518C9C89A00516E2D /* LoginView.xib in Resources */,
 				84D9E10218C9FD4900516E2D /* skilleez_app_icon_512.png in Resources */,
 				84D9E0F518C9FD4900516E2D /* film_strip_icon@2x.png in Resources */,
 				84D9E0CC18C9F3E900516E2D /* loop_BTN.png in Resources */,
@@ -510,8 +559,8 @@
 				84D9E0A918C9F32F00516E2D /* logo_img@2x.png in Resources */,
 				84D9E0C918C9F3E900516E2D /* favorites_BTN@2x.png in Resources */,
 				84D9E08B18C9D2ED00516E2D /* Eraser.ttf in Resources */,
-				84D9E09418C9D97100516E2D /* LoopActivityViewController.xib in Resources */,
 				84D9E10418C9FD4900516E2D /* skilleez_home_screen@2x.png in Resources */,
+				84D6CE2318D1BF1F008ABB5E /* LoginViewController.xib in Resources */,
 				84D9E0CD18C9F3E900516E2D /* loop_BTN@2x.png in Resources */,
 				84D9E10318C9FD4900516E2D /* skilleez_home_screen.png in Resources */,
 				84D9E0C518C9F3E900516E2D /* extra_BTN.png in Resources */,
@@ -532,6 +581,7 @@
 				84D9E0D218C9F3E900516E2D /* pandimg_BTN@2x.png in Resources */,
 				84D9E0F318C9FD4900516E2D /* Camera_icon@2x.png in Resources */,
 				84D9E0CA18C9F3E900516E2D /* favorites_BTN_press.png in Resources */,
+				84D6CE2618D1BF1F008ABB5E /* LoopActivityViewController.xib in Resources */,
 				84D9E0CB18C9F3E900516E2D /* favorites_BTN_press@2x.png in Resources */,
 				84D9E0F918C9FD4900516E2D /* star_opaque_BTN@2x.png in Resources */,
 				84D9E10D18CA01D800516E2D /* BG_loading_img.png in Resources */,
@@ -594,11 +644,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84D6CE2518D1BF1F008ABB5E /* LoopActivityViewController.m in Sources */,
+				84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */,
 				84D9E05F18C9C3D500516E2D /* AppDelegate.m in Sources */,
-				84D9E11218CA05CF00516E2D /* SkilleezService.m in Sources */,
-				84D9E09318C9D97100516E2D /* LoopActivityViewController.m in Sources */,
+				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,
-				84D9E08118C9C45600516E2D /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
