@@ -10,6 +10,14 @@
 
 @interface LoginViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldUserName;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldUserPassword;
+
+-(IBAction) loginPressed:(UIButton*) sender;
+-(IBAction) rememberMePressed:(UIButton*)sender;
+-(IBAction) forgotPasswordPressed:(UIButton*)sender;
+-(IBAction) registerPressed:(UIButton*)sender;
+
 @end
 
 @implementation LoginViewController
@@ -37,7 +45,7 @@
 
 -(IBAction) loginPressed:(UIButton*) sender
 {
-    NSString* message = [NSString stringWithFormat:@"Log: %@, pass: %@", tfUsername.text, tfPassword.text];
+    NSString* message = [NSString stringWithFormat:@"Log: %@, pass: %@", self.txtFieldUserName.text, self.txtFieldUserPassword.text];
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [alert show];
 }

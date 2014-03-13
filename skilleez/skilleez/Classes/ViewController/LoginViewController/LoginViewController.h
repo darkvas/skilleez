@@ -9,16 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginViewController : UIViewController
-{
-    IBOutlet UITextField* tfUsername;
-    IBOutlet UITextField* tfPassword;
-    
-    IBOutlet UIButton* btnRememberMe;
-}
-
--(IBAction) loginPressed:(UIButton*) sender;
--(IBAction) rememberMePressed:(UIButton*)sender;
--(IBAction) forgotPasswordPressed:(UIButton*)sender;
--(IBAction) registerPressed:(UIButton*)sender;
 
 @end
