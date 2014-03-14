@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "NetworkManager.h"
 
 @interface LoginViewController ()
 
@@ -40,6 +41,14 @@
     NSString* message = [NSString stringWithFormat:@"Log: %@, pass: %@", tfUsername.text, tfPassword.text];
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [alert show];
+    
+    [[NetworkManager sharedInstance] LoginWithUserName:tfUsername.text password:tfPassword.text];
+    [[NetworkManager sharedInstance] getUserInfo:^(UserInfo *userInfo) {
+        NSLog(@"%@ - %@", userInfo.Email, userInfo.FullName);
+        NSLog(@"%@", userInfo);
+    } failure:^(NSError *error) {
+        NSLog(@"GetUserInfo error: %@", error);
+    }];
 }
 
 -(IBAction) rememberMePressed:(UIButton*)sender
@@ -55,6 +64,11 @@
 -(IBAction) registerPressed:(UIButton*)sender
 {
     
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [[self view] endEditing:YES];
 }
 
 @end

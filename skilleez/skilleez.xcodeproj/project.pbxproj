@@ -13,6 +13,9 @@
 		8417A48118CF0BE100E6BAE4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */; };
 		8417A48218CF0BE100E6BAE4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47D18CF0BE100E6BAE4 /* Security.framework */; };
 		8417A48318CF0BE100E6BAE4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47E18CF0BE100E6BAE4 /* SystemConfiguration.framework */; };
+		84CDA75D18D1F889002A6D78 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDA75C18D1F889002A6D78 /* LoginRequest.m */; };
+		84CDA76018D1FA59002A6D78 /* LoginResponce.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDA75F18D1FA59002A6D78 /* LoginResponce.m */; };
+		84CDA76318D2F94A002A6D78 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDA76218D2F949002A6D78 /* UserInfo.m */; };
 		84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */; };
 		84D6CE2318D1BF1F008ABB5E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */; };
 		84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1E18D1BF1F008ABB5E /* LoginViewController.m */; };
@@ -103,6 +106,12 @@
 		8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8417A47D18CF0BE100E6BAE4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8417A47E18CF0BE100E6BAE4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		84CDA75B18D1F889002A6D78 /* LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRequest.h; sourceTree = "<group>"; };
+		84CDA75C18D1F889002A6D78 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
+		84CDA75E18D1FA59002A6D78 /* LoginResponce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponce.h; sourceTree = "<group>"; };
+		84CDA75F18D1FA59002A6D78 /* LoginResponce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponce.m; sourceTree = "<group>"; };
+		84CDA76118D2F949002A6D78 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		84CDA76218D2F949002A6D78 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		84D6CE1618D1BE6D008ABB5E /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -230,6 +239,12 @@
 			children = (
 				84D6CE1618D1BE6D008ABB5E /* NetworkManager.h */,
 				84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */,
+				84CDA75B18D1F889002A6D78 /* LoginRequest.h */,
+				84CDA75C18D1F889002A6D78 /* LoginRequest.m */,
+				84CDA75E18D1FA59002A6D78 /* LoginResponce.h */,
+				84CDA75F18D1FA59002A6D78 /* LoginResponce.m */,
+				84CDA76118D2F949002A6D78 /* UserInfo.h */,
+				84CDA76218D2F949002A6D78 /* UserInfo.m */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -644,9 +659,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84CDA76318D2F94A002A6D78 /* UserInfo.m in Sources */,
 				84D6CE2518D1BF1F008ABB5E /* LoopActivityViewController.m in Sources */,
 				84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */,
 				84D9E05F18C9C3D500516E2D /* AppDelegate.m in Sources */,
+				84CDA75D18D1F889002A6D78 /* LoginRequest.m in Sources */,
+				84CDA76018D1FA59002A6D78 /* LoginResponce.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,
 			);

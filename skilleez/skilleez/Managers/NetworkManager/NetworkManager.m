@@ -7,11 +7,19 @@
 //
 
 #import "NetworkManager.h"
+#import "LoginRequest.h"
+#import "LoginResponce.h"
 
-#define skilleezUrl @"http://skilleezv3.elasticbeanstalk.com/"
-#define loginUri @"/Account/LogOn"
+#define SKILLEEZ_URL @"http://skilleezv3.elasticbeanstalk.com/"
+#define LOGIN_URI @"Account/LogOn"
+#define GETUSERINFO_URI @"api/User/GetMyInfo"
 
 @implementation NetworkManager
+{
+    RKObjectManager* manager;
+    NSString* _username;
+    NSString* _password;
+}
 
 #pragma mark - Public Metods
 + (instancetype)sharedInstance
@@ -32,10 +40,112 @@
     self = [super init];
     if (self)
     {
-        [RKObjectManager sharedManager].HTTPClient;
+        //[self setupRestKit];
        // observerCollection = [[NSMutableSet alloc] init];
     }
     return self;
+}
+
+- (void)setupRestKit{
+    
+    manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:SKILLEEZ_URL]];
+    
+    //[[manager HTTPClient] setDefaultHeader:@"X-Parse-REST-API-Key" value:@"your key"];
+    //[[manager HTTPClient] setDefaultHeader:@"X-Parse-Application-Id" value:@"your key"];
+    
+    NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+    RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:managedObjectModel];
+    manager.managedObjectStore = managedObjectStore;
+    
+    [self setupRestKitError];
+}
+
+-(void) setupRestKitError {
+    RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[RKErrorMessage class]];
+    [errorMapping addPropertyMapping:
+    [RKAttributeMapping attributeMappingFromKeyPath:nil toKeyPath:@"errorMessage"]];
+    RKResponseDescriptor *errorDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping
+                                                                                    pathPattern:nil
+                                                                                        keyPath:@"error" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
+    [manager addResponseDescriptorsFromArray:@[errorDescriptor]];
+}
+
+LoginRequest *dataObject;
+RKObjectManager *objectManager;
+AFHTTPClient * client;
+
+-(void)LoginWithUserName:(NSString *)username password:(NSString*)password {
+    
+    LoginRequest *dataObject = [[LoginRequest alloc] init];
+    _username = username;
+    _password = password;
+    [dataObject setUsername:username];
+    [dataObject setPassword:password];   
+    
+    NSURL *baseURL = [NSURL URLWithString:[SKILLEEZ_URL stringByAppendingString:LOGIN_URI]];
+    
+    AFHTTPClient * client = [AFHTTPClient clientWithBaseURL:baseURL];
+    [client setDefaultHeader:@"Accept" value:RKMIMETypeJSON];
+    
+    RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
+    
+    
+    RKObjectMapping *requestMapping =  [[LoginRequest defineLoginRequestMapping] inverseMapping];
+    
+    [objectManager addRequestDescriptor: [RKRequestDescriptor requestDescriptorWithMapping:requestMapping objectClass:[LoginRequest class] rootKeyPath:nil]];
+    
+    // what to print
+    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
+    RKLogConfigureByName("Restkit/Network", RKLogLevelDebug);
+    
+    RKObjectMapping *responseMapping = [LoginResponce defineLoginResponseMapping];
+    
+    [objectManager addResponseDescriptor:[RKResponseDescriptor
+                                          responseDescriptorWithMapping:responseMapping method:RKRequestMethodAny pathPattern:@"" keyPath:nil statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)
+                                          ]];
+    
+    
+    [objectManager setRequestSerializationMIMEType: RKMIMETypeJSON];
+    
+    [objectManager postObject:dataObject path:@""
+                   parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                       NSLog(@"It Worked: %@", [mappingResult array]);
+                       
+                   } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                       NSLog(@"It Failed: %@", error);
+                       
+                   }];
+}
+
+-(void) getUserInfo:(void (^)(UserInfo *userInfo))successUserInfo failure:(void (^)(NSError *error))failure
+{
+    NSURL *baseURL = [NSURL URLWithString:SKILLEEZ_URL];
+    AFHTTPClient * client = [AFHTTPClient clientWithBaseURL:baseURL];
+    [client setDefaultHeader:@"Accept" value:RKMIMETypeJSON];
+    RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
+
+    [objectManager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKObjectMapping *userInfoMapping = [UserInfo defineObjectMapping];
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userInfoMapping
+                                                                                             method:RKRequestMethodGET
+                                                                                        pathPattern:nil
+                                                                                            keyPath:@"ReturnValue"
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [objectManager addResponseDescriptor:responseDescriptor];
+
+    [objectManager getObjectsAtPath:[SKILLEEZ_URL stringByAppendingString:GETUSERINFO_URI]
+                         parameters:nil
+                            success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         NSLog(@"success: mappings: %@", mappingResult.firstObject);
+         dispatch_async(dispatch_get_main_queue(), ^{successUserInfo(mappingResult.firstObject);});
+     }
+                            failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         NSLog (@"failure: operation: %@ \n\nerror: %@", operaton, error);
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
 }
 
 /*- (void)tryLoginWithURL:(NSString *)url userName:(NSString*)userName password:(NSString*)password handler:(ObjectLoaderCompletionHandler)handler {

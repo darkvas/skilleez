@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
+#import "UserInfo.h"
 
 @interface NetworkManager : NSObject
 
-+ (instancetype)sharedInstance;
++(instancetype)sharedInstance;
+
+-(void) LoginWithUserName:(NSString *)username password:(NSString*)password;
+-(void) getUserInfo:(void (^)(UserInfo *userInfo))successUserInfo failure:(void (^)(NSError *error))failure;
 
 @end
