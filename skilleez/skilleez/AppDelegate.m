@@ -17,23 +17,15 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    LoginViewController *test = [[LoginViewController alloc] initWithNibName:@"LoginView" bundle:nil];
+    LoginViewController *test = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     //UINavigationController *nav = [[UINavigationController alloc]  initWithRootViewController:test];
     self.window.rootViewController = test;
     
     [self.window makeKeyAndVisible];
     
-    [self setDefaultCustomFonts];
+    //
     
     return YES;
-}
-
--(void) setDefaultCustomFonts
-{
-    UIFont *newFont = [UIFont fontWithName:@"Eraser" size:14];
-    [[UILabel appearance] setFont:newFont];
-    [[UITextField appearance] setFont:newFont];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
