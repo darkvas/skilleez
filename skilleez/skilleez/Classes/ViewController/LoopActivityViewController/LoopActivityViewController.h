@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoopActivityViewController : UIViewController
+@interface LoopActivityViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

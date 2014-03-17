@@ -7,9 +7,10 @@
 //
 
 #import "LoginViewController.h"
+#import "LoopActivityViewController.h"
+#import "UIFont+DefaultFont.h"
 
 NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Register";
-NSString *DEFAULT_FONT = @"DKCrayonCrumble";
 
 @interface LoginViewController ()
 
@@ -57,12 +58,12 @@ NSString *DEFAULT_FONT = @"DKCrayonCrumble";
 
 - (void)setCustomFonts
 {
-    [self.txtFieldUserName setFont:[UIFont fontWithName:DEFAULT_FONT size:36]];
-    [self.txtFieldUserPassword setFont:[UIFont fontWithName:DEFAULT_FONT size:36]];
-    [self.loginBtn.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:36]];
-    [self.rememberMeBtn.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:18]];
-    [self.registerBtn.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:18]];
-    [self.forgotPasswordBtn.titleLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:18]];
+    [self.txtFieldUserName setFont:[UIFont getDKCrayonFontWithSize:36]];
+    [self.txtFieldUserPassword setFont:[UIFont getDKCrayonFontWithSize:36]];
+    [self.loginBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:36]];
+    [self.rememberMeBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:18]];
+    [self.registerBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:18]];
+    [self.forgotPasswordBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:18]];
 }
 
 -(IBAction) loginPressed:(UIButton*) sender
@@ -74,7 +75,8 @@ NSString *DEFAULT_FONT = @"DKCrayonCrumble";
 
 -(IBAction) rememberMePressed:(UIButton*)sender
 {
-    
+    LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
+    [self presentViewController:loop animated:YES completion:nil];
 }
 
 -(IBAction) forgotPasswordPressed:(UIButton*)sender
