@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSString* LastName;
 @property (nonatomic, strong) NSString* FullName;
 @property (nonatomic, strong) NSString* AvatarUrl;
-@property (nonatomic, strong) NSArray* Roles;
+@property (nonatomic, strong) NSSet* Roles;
 @property (nonatomic) BOOL IsAdmin;
 @property (nonatomic) BOOL IsVerified;
 @property (nonatomic) BOOL IsAdult;

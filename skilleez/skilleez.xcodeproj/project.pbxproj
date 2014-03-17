@@ -16,6 +16,7 @@
 		84CDA75D18D1F889002A6D78 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDA75C18D1F889002A6D78 /* LoginRequest.m */; };
 		84CDA76018D1FA59002A6D78 /* LoginResponce.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDA75F18D1FA59002A6D78 /* LoginResponce.m */; };
 		84CDA76318D2F94A002A6D78 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDA76218D2F949002A6D78 /* UserInfo.m */; };
+		84CDA76618D33BD4002A6D78 /* SkilleeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDA76518D33BD4002A6D78 /* SkilleeModel.m */; };
 		84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */; };
 		84D6CE2318D1BF1F008ABB5E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */; };
 		84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1E18D1BF1F008ABB5E /* LoginViewController.m */; };
@@ -112,6 +113,8 @@
 		84CDA75F18D1FA59002A6D78 /* LoginResponce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponce.m; sourceTree = "<group>"; };
 		84CDA76118D2F949002A6D78 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		84CDA76218D2F949002A6D78 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		84CDA76418D33BD3002A6D78 /* SkilleeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkilleeModel.h; sourceTree = "<group>"; };
+		84CDA76518D33BD4002A6D78 /* SkilleeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkilleeModel.m; sourceTree = "<group>"; };
 		84D6CE1618D1BE6D008ABB5E /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				84CDA75F18D1FA59002A6D78 /* LoginResponce.m */,
 				84CDA76118D2F949002A6D78 /* UserInfo.h */,
 				84CDA76218D2F949002A6D78 /* UserInfo.m */,
+				84CDA76418D33BD3002A6D78 /* SkilleeModel.h */,
+				84CDA76518D33BD4002A6D78 /* SkilleeModel.m */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -666,6 +671,7 @@
 				84CDA75D18D1F889002A6D78 /* LoginRequest.m in Sources */,
 				84CDA76018D1FA59002A6D78 /* LoginResponce.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
+				84CDA76618D33BD4002A6D78 /* SkilleeModel.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

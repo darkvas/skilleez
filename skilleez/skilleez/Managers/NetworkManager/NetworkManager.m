@@ -13,6 +13,7 @@
 #define SKILLEEZ_URL @"http://skilleezv3.elasticbeanstalk.com/"
 #define LOGIN_URI @"Account/LogOn"
 #define GETUSERINFO_URI @"api/User/GetMyInfo"
+#define GETSKILLEELIST_URI @"api/Skillee/GetList"
 
 @implementation NetworkManager
 {
@@ -40,8 +41,7 @@
     self = [super init];
     if (self)
     {
-        //[self setupRestKit];
-       // observerCollection = [[NSMutableSet alloc] init];
+        [self setupRestKit];
     }
     return self;
 }
@@ -49,33 +49,11 @@
 - (void)setupRestKit{
     
     manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:SKILLEEZ_URL]];
-    
-    //[[manager HTTPClient] setDefaultHeader:@"X-Parse-REST-API-Key" value:@"your key"];
-    //[[manager HTTPClient] setDefaultHeader:@"X-Parse-Application-Id" value:@"your key"];
-    
-    NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
-    RKManagedObjectStore *managedObjectStore = [[RKManagedObjectStore alloc] initWithManagedObjectModel:managedObjectModel];
-    manager.managedObjectStore = managedObjectStore;
-    
-    [self setupRestKitError];
+    [manager.HTTPClient setDefaultHeader: @"Accept" value:RKMIMETypeJSON];
 }
-
--(void) setupRestKitError {
-    RKObjectMapping *errorMapping = [RKObjectMapping mappingForClass:[RKErrorMessage class]];
-    [errorMapping addPropertyMapping:
-    [RKAttributeMapping attributeMappingFromKeyPath:nil toKeyPath:@"errorMessage"]];
-    RKResponseDescriptor *errorDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:errorMapping
-                                                                                    pathPattern:nil
-                                                                                        keyPath:@"error" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassClientError)];
-    [manager addResponseDescriptorsFromArray:@[errorDescriptor]];
-}
-
-LoginRequest *dataObject;
-RKObjectManager *objectManager;
-AFHTTPClient * client;
 
 -(void)LoginWithUserName:(NSString *)username password:(NSString*)password {
-    
+
     LoginRequest *dataObject = [[LoginRequest alloc] init];
     _username = username;
     _password = password;
@@ -88,7 +66,6 @@ AFHTTPClient * client;
     [client setDefaultHeader:@"Accept" value:RKMIMETypeJSON];
     
     RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
-    
     
     RKObjectMapping *requestMapping =  [[LoginRequest defineLoginRequestMapping] inverseMapping];
     
@@ -117,14 +94,21 @@ AFHTTPClient * client;
                    }];
 }
 
+-(void) tryLogin:(NSString *)username password:(NSString*)password withLoginCallBeck: (void(^)(BOOL loginResult)) loginCallBack
+{
+    _username = username;
+    _password = password;
+    
+    [self getUserInfo:^(UserInfo *userInfo) {
+        dispatch_async(dispatch_get_main_queue(), ^{loginCallBack(YES);});
+    } failure:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{loginCallBack(NO);});
+    }];
+}
+
 -(void) getUserInfo:(void (^)(UserInfo *userInfo))successUserInfo failure:(void (^)(NSError *error))failure
 {
-    NSURL *baseURL = [NSURL URLWithString:SKILLEEZ_URL];
-    AFHTTPClient * client = [AFHTTPClient clientWithBaseURL:baseURL];
-    [client setDefaultHeader:@"Accept" value:RKMIMETypeJSON];
-    RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
-
-    [objectManager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
     RKObjectMapping *userInfoMapping = [UserInfo defineObjectMapping];
     RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userInfoMapping
@@ -132,14 +116,40 @@ AFHTTPClient * client;
                                                                                         pathPattern:nil
                                                                                             keyPath:@"ReturnValue"
                                                                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [objectManager addResponseDescriptor:responseDescriptor];
+    [manager addResponseDescriptor:responseDescriptor];
 
-    [objectManager getObjectsAtPath:[SKILLEEZ_URL stringByAppendingString:GETUSERINFO_URI]
+    [manager getObjectsAtPath:[SKILLEEZ_URL stringByAppendingString:GETUSERINFO_URI]
                          parameters:nil
                             success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          NSLog(@"success: mappings: %@", mappingResult.firstObject);
          dispatch_async(dispatch_get_main_queue(), ^{successUserInfo(mappingResult.firstObject);});
+     }
+                            failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         NSLog (@"failure: operation: %@ \n\nerror: %@", operaton, error);
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) getSkilleeList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKObjectMapping *skilleeMapping = [SkilleeModel defineObjectMapping];
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
+                                                                                             method:RKRequestMethodGET
+                                                                                        pathPattern:nil
+                                                                                            keyPath:@"ReturnValue"
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GETSKILLEELIST_URI, count, offset]
+                         parameters:nil
+                            success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         NSLog(@"success: mappings: %@", mappingResult.firstObject);
+         dispatch_async(dispatch_get_main_queue(), ^{successGetSkilleeList(mappingResult.array);});
      }
                             failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {

@@ -35,7 +35,7 @@ NSString *DEFAULT_FONT = @"DKCrayonCrumble";
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-   }
+    }
     return self;
 }
 
@@ -72,10 +72,23 @@ NSString *DEFAULT_FONT = @"DKCrayonCrumble";
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [alert show];
     
-    [[NetworkManager sharedInstance] LoginWithUserName:tfUsername.text password:tfPassword.text];
+    [[NetworkManager sharedInstance] tryLogin:self.txtFieldUserName.text password:self.txtFieldUserPassword.text withLoginCallBeck:^(BOOL loginResult) {
+        if(loginResult)
+            NSLog(@"login success");
+        else
+            NSLog(@"login failed");
+    }];
+    
     [[NetworkManager sharedInstance] getUserInfo:^(UserInfo *userInfo) {
         NSLog(@"%@ - %@", userInfo.Email, userInfo.FullName);
         NSLog(@"%@", userInfo);
+    } failure:^(NSError *error) {
+        NSLog(@"GetUserInfo error: %@", error);
+    }];
+    
+    [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
+        NSLog(@"skillees count: %i", skilleeList.count);
+        NSLog(@"%@", skilleeList[0]);
     } failure:^(NSError *error) {
         NSLog(@"GetUserInfo error: %@", error);
     }];
@@ -94,11 +107,6 @@ NSString *DEFAULT_FONT = @"DKCrayonCrumble";
 -(IBAction) registerPressed:(UIButton*)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:REGISTER_URL]];
-}
-
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [[self view] endEditing:YES];
 }
 
 @end
