@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Skilleez.h"
+#import "SkilleeModel.h"
 
 @interface SkilleezTableCell : UITableViewCell
 
-- (void)setSkilleezCell:(SkilleezTableCell *)cell andSkilleez:(Skilleez *)element;
+- (void)setSkilleezCell:(SkilleezTableCell *)cell andSkilleez:(SkilleeModel *)element;
 
 @end

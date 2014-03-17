@@ -8,9 +8,11 @@
 
 #import "LoopActivityViewController.h"
 #import "SkilleezTableCell.h"
-#import "Skilleez.h"
+#import "NetworkManager.h"
 
 @interface LoopActivityViewController ()
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -31,10 +33,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    Skilleez *el1 = [[Skilleez alloc] initWithUsername:@"User Userovuch 1" andDate:[NSDate date]  andUserAvatar:@"http://goodfilmguide.co.uk/wp-content/uploads/2010/04/avatar12.jpg" andAttachment:@"http://www.militarymentalhealth.org/blog/wp-content/uploads/2012/03/fishing-image.jpg" andSkilleezTitle:@"Gone fishing" andSkilleezComment:@"I like nutella with mushrooms"];
-    Skilleez *el2 = [[Skilleez alloc] initWithUsername:@"User Userovuch 2" andDate:[NSDate date]  andUserAvatar:@"http://goodfilmguide.co.uk/wp-content/uploads/2010/04/avatar12.jpg" andAttachment:@"http://www.militarymentalhealth.org/blog/wp-content/uploads/2012/03/fishing-image.jpg" andSkilleezTitle:@"Gone fishing" andSkilleezComment:@"I like honey with mushrooms"];
-    Skilleez *el3 = [[Skilleez alloc] initWithUsername:@"User Userovuch 3" andDate:[NSDate date]  andUserAvatar:@"http://goodfilmguide.co.uk/wp-content/uploads/2010/04/avatar12.jpg" andAttachment:@"http://www.militarymentalhealth.org/blog/wp-content/uploads/2012/03/fishing-image.jpg" andSkilleezTitle:@"Gone fishing" andSkilleezComment:@"I like jam with mushrooms"];
-    data = [[NSArray alloc] initWithObjects:el1, el2, el3, nil];
+    
+    [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
+        NSLog(@"skillees count: %i", skilleeList.count);
+        NSLog(@"%@", skilleeList[0]);
+        data = [[NSArray alloc] initWithArray: skilleeList];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"GetUserInfo error: %@", error);
+    }];
     // Do any additional setup after loading the view from its nib.
 }
 

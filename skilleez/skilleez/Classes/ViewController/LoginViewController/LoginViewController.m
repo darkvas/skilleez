@@ -7,6 +7,8 @@
 //
 
 #import "LoginViewController.h"
+#import "LoopActivityViewController.h"
+#import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 
 NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Register";
@@ -67,15 +69,15 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 
 -(IBAction) loginPressed:(UIButton*) sender
 {
-    NSString* message = [NSString stringWithFormat:@"Log: %@, pass: %@", self.txtFieldUserName.text, self.txtFieldUserPassword.text];
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    [alert show];
-    
     [[NetworkManager sharedInstance] tryLogin:self.txtFieldUserName.text password:self.txtFieldUserPassword.text withLoginCallBeck:^(BOOL loginResult) {
-        if(loginResult)
-            NSLog(@"login success");
-        else
-            NSLog(@"login failed");
+        if(loginResult){
+            LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
+            [self presentViewController:loop animated:YES completion:nil];
+        }
+        else {
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:@"Incorrect login or password" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
     }];
     
     [[NetworkManager sharedInstance] getUserInfo:^(UserInfo *userInfo) {
@@ -84,19 +86,11 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     } failure:^(NSError *error) {
         NSLog(@"GetUserInfo error: %@", error);
     }];
-    
-    [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
-        NSLog(@"skillees count: %i", skilleeList.count);
-        NSLog(@"%@", skilleeList[0]);
-    } failure:^(NSError *error) {
-        NSLog(@"GetUserInfo error: %@", error);
-    }];
 }
 
 -(IBAction) rememberMePressed:(UIButton*)sender
 {
-    LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
-    [self presentViewController:loop animated:YES completion:nil];
+    
 }
 
 -(IBAction) forgotPasswordPressed:(UIButton*)sender

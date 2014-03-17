@@ -22,24 +22,24 @@
 
 @implementation SkilleezTableCell
 
-- (void)setSkilleezCell:(SkilleezTableCell *)cell andSkilleez:(Skilleez *)element
+- (void)setSkilleezCell:(SkilleezTableCell *)cell andSkilleez:(SkilleeModel *)element
 {
     [cell setCellFonts:cell];
-    cell.usernameLbl.text = element.userName;
+    cell.usernameLbl.text = element.UserName;
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setTimeStyle:NSDateFormatterNoStyle];
     [format setDateStyle:NSDateFormatterMediumStyle];
     NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [format setLocale:usLocale];
-    cell.dateLbl.text = [format stringFromDate:element.date];
-    [cell.avatarImg setImageWithURL:[NSURL URLWithString:element.userAvatar]];
+    cell.dateLbl.text = element.PostedDate; //[format stringFromDate:element.PostedDate];
+    [cell.avatarImg setImageWithURL:[NSURL URLWithString:element.UserAvatarUrl]];
     cell.avatarImg.layer.cornerRadius = 20.0;
     cell.avatarImg.layer.masksToBounds = YES;
     cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
     cell.avatarImg.layer.borderWidth = 3.0;
-    [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.attachment]];
-    cell.skilleezTitleLbl.text = element.skilleezTitle;
-    cell.skilleezCommentLbl.text = element.skilleezComment;
+    [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaUrl]];
+    cell.skilleezTitleLbl.text = element.Title;
+    cell.skilleezCommentLbl.text = element.Comment;
     
 }
 

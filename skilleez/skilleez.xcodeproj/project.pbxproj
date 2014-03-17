@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		14873ABD18D3319D00969306 /* SkilleezTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14873ABB18D3319D00969306 /* SkilleezTableCell.m */; };
 		14873ABE18D3319D00969306 /* SkilleezTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14873ABC18D3319D00969306 /* SkilleezTableCell.xib */; };
-		14873AC118D331B400969306 /* Skilleez.m in Sources */ = {isa = PBXBuildFile; fileRef = 14873AC018D331B400969306 /* Skilleez.m */; };
-		1492329818D6D45A001BAE8C /* strasbourg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1492329718D6D45A001BAE8C /* strasbourg.jpg */; };
-		1492329A18D6D4A7001BAE8C /* avatar.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1492329918D6D4A7001BAE8C /* avatar.jpeg */; };
 		1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 1492329D18D6DD90001BAE8C /* UIFont+DefaultFont.m */; };
 		41D4F1C2FD1C46CF88200BA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3445939C78449D922E4C3C /* libPods.a */; };
 		8417A47F18CF0BE100E6BAE4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47A18CF0BE100E6BAE4 /* CFNetwork.framework */; };
@@ -111,8 +108,6 @@
 		14873ABA18D3319D00969306 /* SkilleezTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkilleezTableCell.h; sourceTree = "<group>"; };
 		14873ABB18D3319D00969306 /* SkilleezTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkilleezTableCell.m; sourceTree = "<group>"; };
 		14873ABC18D3319D00969306 /* SkilleezTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SkilleezTableCell.xib; sourceTree = "<group>"; };
-		14873ABF18D331B400969306 /* Skilleez.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Skilleez.h; sourceTree = "<group>"; };
-		14873AC018D331B400969306 /* Skilleez.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Skilleez.m; sourceTree = "<group>"; };
 		1492329718D6D45A001BAE8C /* strasbourg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = strasbourg.jpg; path = ../../../../../../Downloads/strasbourg.jpg; sourceTree = "<group>"; };
 		1492329918D6D4A7001BAE8C /* avatar.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = avatar.jpeg; path = ../../../../../../Downloads/avatar.jpeg; sourceTree = "<group>"; };
 		1492329C18D6DD90001BAE8C /* UIFont+DefaultFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+DefaultFont.h"; sourceTree = "<group>"; };
@@ -126,10 +121,10 @@
 		84CDA75C18D1F889002A6D78 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
 		84CDA75E18D1FA59002A6D78 /* LoginResponce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponce.h; sourceTree = "<group>"; };
 		84CDA75F18D1FA59002A6D78 /* LoginResponce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponce.m; sourceTree = "<group>"; };
-		84CDA76118D2F949002A6D78 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
-		84CDA76218D2F949002A6D78 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
-		84CDA76418D33BD3002A6D78 /* SkilleeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkilleeModel.h; sourceTree = "<group>"; };
-		84CDA76518D33BD4002A6D78 /* SkilleeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkilleeModel.m; sourceTree = "<group>"; };
+		84CDA76118D2F949002A6D78 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = ../../Managers/NetworkManager/UserInfo.h; sourceTree = "<group>"; };
+		84CDA76218D2F949002A6D78 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = ../../Managers/NetworkManager/UserInfo.m; sourceTree = "<group>"; };
+		84CDA76418D33BD3002A6D78 /* SkilleeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkilleeModel.h; path = ../../Managers/NetworkManager/SkilleeModel.h; sourceTree = "<group>"; };
+		84CDA76518D33BD4002A6D78 /* SkilleeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkilleeModel.m; path = ../../Managers/NetworkManager/SkilleeModel.m; sourceTree = "<group>"; };
 		84D6CE1618D1BE6D008ABB5E /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -246,8 +241,10 @@
 		14873AB718D3319200969306 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				14873ABF18D331B400969306 /* Skilleez.h */,
-				14873AC018D331B400969306 /* Skilleez.m */,
+				84CDA76118D2F949002A6D78 /* UserInfo.h */,
+				84CDA76218D2F949002A6D78 /* UserInfo.m */,
+				84CDA76418D33BD3002A6D78 /* SkilleeModel.h */,
+				84CDA76518D33BD4002A6D78 /* SkilleeModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -297,10 +294,6 @@
 				84CDA75C18D1F889002A6D78 /* LoginRequest.m */,
 				84CDA75E18D1FA59002A6D78 /* LoginResponce.h */,
 				84CDA75F18D1FA59002A6D78 /* LoginResponce.m */,
-				84CDA76118D2F949002A6D78 /* UserInfo.h */,
-				84CDA76218D2F949002A6D78 /* UserInfo.m */,
-				84CDA76418D33BD3002A6D78 /* SkilleeModel.h */,
-				84CDA76518D33BD4002A6D78 /* SkilleeModel.m */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -613,7 +606,6 @@
 				84D9E0FB18C9FD4900516E2D /* thumb_down_BTN@2x.png in Resources */,
 				84D9E10218C9FD4900516E2D /* skilleez_app_icon_512.png in Resources */,
 				84D9E0F518C9FD4900516E2D /* film_strip_icon@2x.png in Resources */,
-				1492329818D6D45A001BAE8C /* strasbourg.jpg in Resources */,
 				84D9E0CC18C9F3E900516E2D /* loop_BTN.png in Resources */,
 				84D9E0FF18C9FD4900516E2D /* warning_BTN@2x.png in Resources */,
 				84D9E05918C9C3D500516E2D /* InfoPlist.strings in Resources */,
@@ -650,7 +642,6 @@
 				84D9E0AB18C9F32F00516E2D /* plane_img@2x.png in Resources */,
 				84D9E0F718C9FD4900516E2D /* rocket_BTN@2x.png in Resources */,
 				84D9E0F818C9FD4900516E2D /* star_opaque_BTN.png in Resources */,
-				1492329A18D6D4A7001BAE8C /* avatar.jpeg in Resources */,
 				84D9E0C618C9F3E900516E2D /* extra_BTN@2x.png in Resources */,
 				84D9E10618C9FD4900516E2D /* skilleez_settings@2x.png in Resources */,
 				84D9E0D818C9FB0500516E2D /* DKCrayonCrumble2.ttf in Resources */,
@@ -727,6 +718,7 @@
 				84D6CE2518D1BF1F008ABB5E /* LoopActivityViewController.m in Sources */,
 				84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */,
 				84D9E05F18C9C3D500516E2D /* AppDelegate.m in Sources */,
+				1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */,
 				84CDA75D18D1F889002A6D78 /* LoginRequest.m in Sources */,
 				84CDA76018D1FA59002A6D78 /* LoginResponce.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
