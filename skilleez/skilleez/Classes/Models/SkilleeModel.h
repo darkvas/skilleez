@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSString* UserName;
 @property (nonatomic, strong) NSString* UserAvatarUrl;
 @property (nonatomic, strong) NSString* UserColor;
-@property (nonatomic, strong) NSString* PostedDate;
+@property (nonatomic, strong) NSDate* PostedDate;
 @property (nonatomic, strong) NSString* MediaUrl;
 @property (nonatomic, strong) NSString* MediaThumbnailUrl;
 @property (nonatomic, strong) NSString* Title;

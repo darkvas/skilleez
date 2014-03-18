@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "SkilleeModel.h"
 
-@interface SkilleezTableCell : UITableViewCell
+@interface SimpleTableCell : UITableViewCell
 
-- (void)setSkilleezCell:(SkilleezTableCell *)cell andSkilleez:(SkilleeModel *)element;
+- (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element;
 
 @end

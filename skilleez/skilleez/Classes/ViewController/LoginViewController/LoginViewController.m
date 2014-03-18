@@ -44,6 +44,8 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 {
     [super viewDidLoad];
     [self setCustomFonts];
+    self.txtFieldUserName.delegate = self;
+    self.txtFieldUserPassword.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,6 +59,19 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     [self.view endEditing:YES];
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    if (textField == self.txtFieldUserName)
+    {
+        [self.txtFieldUserPassword becomeFirstResponder];
+    } else if (textField == self.txtFieldUserPassword)
+    {
+        [self login];
+    }
+    return YES;
+}
+
 - (void)setCustomFonts
 {
     [self.txtFieldUserName setFont:[UIFont getDKCrayonFontWithSize:36]];
@@ -68,6 +83,11 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 }
 
 -(IBAction) loginPressed:(UIButton*) sender
+{
+    [self login];
+}
+
+- (void)login
 {
     [[NetworkManager sharedInstance] tryLogin:self.txtFieldUserName.text password:self.txtFieldUserPassword.text withLoginCallBeck:^(BOOL loginResult) {
         if(loginResult){
