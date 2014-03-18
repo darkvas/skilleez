@@ -42,7 +42,7 @@
     [super viewDidLoad];
     isChildApproval = NO;
     className = [NSMutableString stringWithString:@"SimpleTableCell"];
-    [self loadTestSkillee];
+    [self loadSkilleeList];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -79,7 +79,7 @@
     return cell;
 }
 
-- (void)loadTestSkillee
+- (UIActivityIndicatorView *)getLoaderIndicator
 {
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
@@ -88,33 +88,67 @@
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
     [self.view addSubview: activityIndicator];
     [activityIndicator startAnimating];
-    [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
+    return activityIndicator;
+}
+
+- (void)loadSkilleeList
+{
+    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+        [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
         NSLog(@"skillees count: %i", skilleeList.count);
         NSLog(@"%@", skilleeList[0]);
         data = [[NSArray alloc] initWithArray: skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
     } failure:^(NSError *error) {
-        NSLog(@"GetUserInfo error: %@", error);
+        NSLog(@"loadSkilleeList error: %@", error);
+    }];
+}
+
+- (void)loadFavoriteList
+{
+    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[NetworkManager sharedInstance] getFavoriteList:10 offset:0 success:^(NSArray *skilleeList) {
+        NSLog(@"skillees count: %i", skilleeList.count);
+        NSLog(@"%@", skilleeList[0]);
+        data = [[NSArray alloc] initWithArray: skilleeList];
+        [self.tableView reloadData];
+        [activityIndicator stopAnimating];
+    } failure:^(NSError *error) {
+        NSLog(@"loadFavoriteList error: %@", error);
+    }];
+}
+
+- (void)loadWaitingForApprovalList
+{
+    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[NetworkManager sharedInstance] getWaitingForApproval:10 offset:0 success:^(NSArray *skilleeList) {
+        NSLog(@"skillees count: %i", skilleeList.count);
+        //NSLog(@"%@", skilleeList[0]);
+        data = [[NSArray alloc] initWithArray: skilleeList];
+        [self.tableView reloadData];
+        [activityIndicator stopAnimating];
+    } failure:^(NSError *error) {
+        NSLog(@"loadWaitingForApprovalList error: %@", error);
     }];
 }
 
 - (IBAction)loadTop:(id)sender {
     isChildApproval = NO;
     className = [NSMutableString stringWithString:@"SimpleTableCell"];
-    [self loadTestSkillee];
+    [self loadSkilleeList];
 }
 
 - (IBAction)loadApproves:(id)sender {
     isChildApproval = YES;
     className = [NSMutableString stringWithString:@"ChildApprovalTableCell"];
-    [self loadTestSkillee];
+    [self loadWaitingForApprovalList];
 }
 
 - (IBAction)loadFavorites:(id)sender {
     isChildApproval = NO;
     className = [NSMutableString stringWithString:@"FavoriteTableCell"];
-    [self loadTestSkillee];
+    [self loadFavoriteList];
 }
 
 - (IBAction)createSkillee:(id)sender {
