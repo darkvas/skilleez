@@ -10,6 +10,7 @@
 #import "LoopActivityViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
+#import "UserSettingsManager.h"
 
 NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Register";
 
@@ -44,6 +45,17 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 {
     [super viewDidLoad];
     [self setCustomFonts];
+    
+    [self loadSettings];
+}
+
+-(void) loadSettings
+{
+    UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
+    [userSettings loadSettings];
+    if(userSettings.remember) {
+        [self loginWithUsername:userSettings.username andPassword:userSettings.password];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,7 +81,12 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 
 -(IBAction) loginPressed:(UIButton*) sender
 {
-    [[NetworkManager sharedInstance] tryLogin:self.txtFieldUserName.text password:self.txtFieldUserPassword.text withLoginCallBeck:^(BOOL loginResult) {
+    [self loginWithUsername:self.txtFieldUserName.text andPassword:self.txtFieldUserPassword.text];
+}
+
+-(void) loginWithUsername:(NSString*) username andPassword:(NSString*) password
+{
+    [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL loginResult) {
         if(loginResult){
             LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
             [self presentViewController:loop animated:YES completion:nil];
@@ -79,18 +96,17 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
             [alert show];
         }
     }];
-    
-    [[NetworkManager sharedInstance] getUserInfo:^(UserInfo *userInfo) {
-        NSLog(@"%@ - %@", userInfo.Email, userInfo.FullName);
-        NSLog(@"%@", userInfo);
-    } failure:^(NSError *error) {
-        NSLog(@"GetUserInfo error: %@", error);
-    }];
 }
 
 -(IBAction) rememberMePressed:(UIButton*)sender
 {
+    [sender setSelected:YES];
+    UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
+    userSettings.username = self.txtFieldUserName.text;
+    userSettings.password = self.txtFieldUserPassword.text;
+    userSettings.remember = YES;
     
+    [userSettings saveSettings];
 }
 
 -(IBAction) forgotPasswordPressed:(UIButton*)sender

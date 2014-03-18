@@ -35,8 +35,6 @@
     [super viewDidLoad];
     
     [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
-        NSLog(@"skillees count: %i", skilleeList.count);
-        NSLog(@"%@", skilleeList[0]);
         data = [[NSArray alloc] initWithArray: skilleeList];
         [self.tableView reloadData];
     } failure:^(NSError *error) {

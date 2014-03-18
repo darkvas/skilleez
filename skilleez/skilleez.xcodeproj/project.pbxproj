@@ -16,8 +16,6 @@
 		8417A48118CF0BE100E6BAE4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */; };
 		8417A48218CF0BE100E6BAE4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47D18CF0BE100E6BAE4 /* Security.framework */; };
 		8417A48318CF0BE100E6BAE4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47E18CF0BE100E6BAE4 /* SystemConfiguration.framework */; };
-		84CDA75D18D1F889002A6D78 /* LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDA75C18D1F889002A6D78 /* LoginRequest.m */; };
-		84CDA76018D1FA59002A6D78 /* LoginResponce.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CDA75F18D1FA59002A6D78 /* LoginResponce.m */; };
 		84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */; };
 		84D6CE2318D1BF1F008ABB5E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */; };
 		84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1E18D1BF1F008ABB5E /* LoginViewController.m */; };
@@ -92,6 +90,7 @@
 		84D9E10E18CA01D800516E2D /* BG_loading_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10C18CA01D800516E2D /* BG_loading_img@2x.png */; };
 		84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA05C718D6F5FF008D940D /* SkilleeModel.m */; };
 		84EA05CB18D6F5FF008D940D /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA05C918D6F5FF008D940D /* UserInfo.m */; };
+		84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA05CD18D6FC3A008D940D /* UserSettingsManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,10 +116,6 @@
 		8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8417A47D18CF0BE100E6BAE4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8417A47E18CF0BE100E6BAE4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		84CDA75B18D1F889002A6D78 /* LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRequest.h; sourceTree = "<group>"; };
-		84CDA75C18D1F889002A6D78 /* LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRequest.m; sourceTree = "<group>"; };
-		84CDA75E18D1FA59002A6D78 /* LoginResponce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponce.h; sourceTree = "<group>"; };
-		84CDA75F18D1FA59002A6D78 /* LoginResponce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponce.m; sourceTree = "<group>"; };
 		84D6CE1618D1BE6D008ABB5E /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -204,6 +199,8 @@
 		84EA05C718D6F5FF008D940D /* SkilleeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkilleeModel.m; sourceTree = "<group>"; };
 		84EA05C818D6F5FF008D940D /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		84EA05C918D6F5FF008D940D /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		84EA05CC18D6FC3A008D940D /* UserSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsManager.h; sourceTree = "<group>"; };
+		84EA05CD18D6FC3A008D940D /* UserSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsManager.m; sourceTree = "<group>"; };
 		B028B704D8FA47F1BD1B63D5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		BE3445939C78449D922E4C3C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -269,6 +266,8 @@
 			isa = PBXGroup;
 			children = (
 				84D6CE1518D1BE6D008ABB5E /* NetworkManager */,
+				84EA05CC18D6FC3A008D940D /* UserSettingsManager.h */,
+				84EA05CD18D6FC3A008D940D /* UserSettingsManager.m */,
 			);
 			name = Managers;
 			path = skilleez/Managers;
@@ -279,10 +278,6 @@
 			children = (
 				84D6CE1618D1BE6D008ABB5E /* NetworkManager.h */,
 				84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */,
-				84CDA75B18D1F889002A6D78 /* LoginRequest.h */,
-				84CDA75C18D1F889002A6D78 /* LoginRequest.m */,
-				84CDA75E18D1FA59002A6D78 /* LoginResponce.h */,
-				84CDA75F18D1FA59002A6D78 /* LoginResponce.m */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -718,10 +713,9 @@
 				84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */,
 				84D9E05F18C9C3D500516E2D /* AppDelegate.m in Sources */,
 				1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */,
-				84CDA75D18D1F889002A6D78 /* LoginRequest.m in Sources */,
 				84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */,
-				84CDA76018D1FA59002A6D78 /* LoginResponce.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
+				84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */,
 				84EA05CB18D6F5FF008D940D /* UserInfo.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,
 				14873ABD18D3319D00969306 /* SkilleezTableCell.m in Sources */,
