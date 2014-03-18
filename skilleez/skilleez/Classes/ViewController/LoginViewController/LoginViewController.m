@@ -47,6 +47,17 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     [self setCustomFonts];
     self.txtFieldUserName.delegate = self;
     self.txtFieldUserPassword.delegate = self;
+    
+    [self loadSettings];
+}
+
+-(void) loadSettings
+{
+    UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
+    [userSettings loadSettings];
+    if(userSettings.remember) {
+        [self loginWithUsername:userSettings.username andPassword:userSettings.password];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,7 +79,7 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
         [self.txtFieldUserPassword becomeFirstResponder];
     } else if (textField == self.txtFieldUserPassword)
     {
-        [self login];
+        [self loginWithUsername:self.txtFieldUserName.text andPassword:self.txtFieldUserPassword.text];
     }
     return YES;
 }
@@ -85,12 +96,12 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 
 -(IBAction) loginPressed:(UIButton*) sender
 {
-    [self login];
+    [self loginWithUsername:self.txtFieldUserName.text andPassword:self.txtFieldUserPassword.text];
 }
 
-- (void)login
+-(void) loginWithUsername:(NSString*) username andPassword:(NSString*) password
 {
-    [[NetworkManager sharedInstance] tryLogin:self.txtFieldUserName.text password:self.txtFieldUserPassword.text withLoginCallBeck:^(BOOL loginResult) {
+    [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL loginResult) {
         if(loginResult){
             LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
             [self presentViewController:loop animated:YES completion:nil];
