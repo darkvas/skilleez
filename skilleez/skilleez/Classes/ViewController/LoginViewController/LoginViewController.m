@@ -10,6 +10,7 @@
 #import "LoopActivityViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
+#import "UserSettingsManager.h"
 
 NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Register";
 
@@ -99,18 +100,17 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
             [alert show];
         }
     }];
-    
-    [[NetworkManager sharedInstance] getUserInfo:^(UserInfo *userInfo) {
-        NSLog(@"%@ - %@", userInfo.Email, userInfo.FullName);
-        NSLog(@"%@", userInfo);
-    } failure:^(NSError *error) {
-        NSLog(@"GetUserInfo error: %@", error);
-    }];
 }
 
 -(IBAction) rememberMePressed:(UIButton*)sender
 {
+    [sender setSelected:YES];
+    UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
+    userSettings.username = self.txtFieldUserName.text;
+    userSettings.password = self.txtFieldUserPassword.text;
+    userSettings.remember = YES;
     
+    [userSettings saveSettings];
 }
 
 -(IBAction) forgotPasswordPressed:(UIButton*)sender
