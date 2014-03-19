@@ -10,10 +10,13 @@
 #import "SimpleTableCell.h"
 #import "ChildApprovalTableCell.h"
 #import "NetworkManager.h"
+#import "SkilleeDetailViewController.h"
 #import "UITableViewCell+SkilleeTableCell.h"
+#import "CreateChildSkilleeViewController.h"
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 - (IBAction)loadTop:(id)sender;
 - (IBAction)loadApproves:(id)sender;
 - (IBAction)loadFavorites:(id)sender;
@@ -46,6 +49,11 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)processCompleted
+{
+    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithNibName:@"SkilleeDetailViewController" bundle:nil];
+    [self presentViewController:detail animated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -69,11 +77,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:className];
+    SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:className];
     if (cell == nil)
     {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
         cell = [nib objectAtIndex:0];
+        cell.delegate = self;
     }
     [cell setSkilleezCell:cell andSkilleez:[data objectAtIndex:indexPath.row]];
     return cell;
@@ -133,24 +142,57 @@
     }];
 }
 
+- (void)hideCreateView
+{
+    self.tableView.hidden = NO;
+    for (UIView *subView in self.contentView.subviews)
+    {
+        if (subView.tag == 2)
+        {
+            [subView removeFromSuperview];
+        }
+    }
+}
+
+- (BOOL)isCreateViewExists
+{
+    for (UIView *sub in self.contentView.subviews)
+    {
+        if (sub.tag == 2)
+        return YES;
+    }
+    return NO;
+}
+
 - (IBAction)loadTop:(id)sender {
+    [self hideCreateView];
     isChildApproval = NO;
     className = [NSMutableString stringWithString:@"SimpleTableCell"];
     [self loadSkilleeList];
 }
 
 - (IBAction)loadApproves:(id)sender {
+    [self hideCreateView];
     isChildApproval = YES;
     className = [NSMutableString stringWithString:@"ChildApprovalTableCell"];
     [self loadWaitingForApprovalList];
 }
 
 - (IBAction)loadFavorites:(id)sender {
+    [self hideCreateView];
     isChildApproval = NO;
     className = [NSMutableString stringWithString:@"FavoriteTableCell"];
     [self loadFavoriteList];
 }
 
 - (IBAction)createSkillee:(id)sender {
+    if (![self isCreateViewExists])
+    {
+        CreateChildSkilleeViewController *createChild = [[CreateChildSkilleeViewController alloc] initWithNibName:@"CreateChildSkilleeViewController" bundle:nil];
+        [self.contentView addSubview:createChild.view];
+        [createChild removeFromParentViewController];
+        [self addChildViewController:createChild];
+    }
 }
+
 @end

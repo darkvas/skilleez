@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoopActivityViewController">
             <connections>
+                <outlet property="contentView" destination="mvS-kh-Fzg" id="fBN-e2-LPR"/>
                 <outlet property="tableView" destination="YLV-yI-KQl" id="wty-bb-nBx"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -74,14 +75,14 @@
                             <state key="highlighted" image="extra_BTN_press.png"/>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.95686274510000002" green="0.85490196080000003" blue="0.1843137255" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="backgroundColor" red="0.96470588235294119" green="0.76862745098039209" blue="0.16078431372549018" alpha="1" colorSpace="deviceRGB"/>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mvS-kh-Fzg">
-                    <rect key="frame" x="0.0" y="64" width="320" height="517"/>
+                    <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="400" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YLV-yI-KQl">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="517"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -99,15 +100,15 @@
         </view>
     </objects>
     <resources>
-        <image name="create_BTN.png" width="20" height="20"/>
-        <image name="create_BTN_press.png" width="20" height="20"/>
-        <image name="extra_BTN.png" width="20" height="20"/>
-        <image name="extra_BTN_press.png" width="20" height="20"/>
-        <image name="favorites_BTN.png" width="20" height="20"/>
-        <image name="favorites_BTN_press.png" width="20" height="20"/>
-        <image name="loop_BTN.png" width="40" height="40"/>
-        <image name="loop_BTN_press.png" width="20" height="20"/>
-        <image name="pandimg_BTN.png" width="20" height="20"/>
-        <image name="pandimg_BTN_press.png" width="20" height="20"/>
+        <image name="create_BTN.png" width="34" height="34"/>
+        <image name="create_BTN_press.png" width="36" height="36"/>
+        <image name="extra_BTN.png" width="34" height="34"/>
+        <image name="extra_BTN_press.png" width="34" height="34"/>
+        <image name="favorites_BTN.png" width="34" height="34"/>
+        <image name="favorites_BTN_press.png" width="34" height="34"/>
+        <image name="loop_BTN.png" width="34" height="34"/>
+        <image name="loop_BTN_press.png" width="34" height="34"/>
+        <image name="pandimg_BTN.png" width="34" height="34"/>
+        <image name="pandimg_BTN_press.png" width="34" height="34"/>
     </resources>
 </document>
