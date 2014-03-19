@@ -9,7 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "SkilleeModel.h"
 
+@protocol SimpleCellDelegate <NSObject>
+@required
+- (void)processCompleted;
+@end
+
+
 @interface SimpleTableCell : UITableViewCell
+
+@property (nonatomic,strong) id delegate;
 
 - (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element;
 

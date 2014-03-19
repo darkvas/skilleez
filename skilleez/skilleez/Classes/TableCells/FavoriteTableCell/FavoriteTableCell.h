@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "SkilleeModel.h"
+#import "SimpleTableCell.h"
 
-@interface FavoriteTableCell : UITableViewCell
+@interface FavoriteTableCell : SimpleTableCell
 
 - (void)setSkilleezCell:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element;
 

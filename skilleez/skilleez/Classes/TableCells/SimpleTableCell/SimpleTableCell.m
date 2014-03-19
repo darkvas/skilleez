@@ -8,6 +8,8 @@
 
 #import "SimpleTableCell.h"
 #import "UIFont+DefaultFont.h"
+#import "SkilleeDetailViewController.h"
+#import "LoopActivityViewController.h"
 
 @interface SimpleTableCell()
 
@@ -17,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *skilleezTitleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *skilleezCommentLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentImg;
+
+- (IBAction)showSkille:(id)sender;
 
 @end
 
@@ -49,6 +53,14 @@
     [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:13]];
     [self.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
+}
+
+- (IBAction)showSkille:(id)sender
+{
+    [self.delegate processCompleted];
+    NSLog(@"here");
+
+    //[[[[NSBundle mainBundle] loadNibNamed:@"LoopActivityViewController" owner:nil options:nil] objectAtIndex:0] presentViewController:detail animated:YES completion:nil];
 }
 
 @end

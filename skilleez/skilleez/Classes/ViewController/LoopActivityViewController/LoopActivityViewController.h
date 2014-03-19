@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SimpleTableCell.h"
 
-@interface LoopActivityViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface LoopActivityViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SimpleCellDelegate>
 
 @end

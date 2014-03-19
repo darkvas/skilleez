@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "SkilleeModel.h"
+#import "SimpleTableCell.h"
 
-@interface ChildApprovalTableCell : UITableViewCell
+@interface ChildApprovalTableCell : SimpleTableCell
 
 - (void)setSkilleezCell:(ChildApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element;
 
