@@ -112,6 +112,8 @@
 		84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA05C718D6F5FF008D940D /* SkilleeModel.m */; };
 		84EA05CB18D6F5FF008D940D /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA05C918D6F5FF008D940D /* UserInfo.m */; };
 		84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA05CD18D6FC3A008D940D /* UserSettingsManager.m */; };
+		84EA05D518D881A1008D940D /* SkilleeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA05D418D881A1008D940D /* SkilleeRequest.m */; };
+		84EA05D818D8A266008D940D /* PostResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA05D718D8A266008D940D /* PostResponse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +248,10 @@
 		84EA05C918D6F5FF008D940D /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		84EA05CC18D6FC3A008D940D /* UserSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSettingsManager.h; sourceTree = "<group>"; };
 		84EA05CD18D6FC3A008D940D /* UserSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSettingsManager.m; sourceTree = "<group>"; };
+		84EA05D318D881A1008D940D /* SkilleeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkilleeRequest.h; sourceTree = "<group>"; };
+		84EA05D418D881A1008D940D /* SkilleeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkilleeRequest.m; sourceTree = "<group>"; };
+		84EA05D618D8A266008D940D /* PostResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostResponse.h; sourceTree = "<group>"; };
+		84EA05D718D8A266008D940D /* PostResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostResponse.m; sourceTree = "<group>"; };
 		B028B704D8FA47F1BD1B63D5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		BE3445939C78449D922E4C3C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -624,6 +630,10 @@
 				84EA05C718D6F5FF008D940D /* SkilleeModel.m */,
 				84EA05C818D6F5FF008D940D /* UserInfo.h */,
 				84EA05C918D6F5FF008D940D /* UserInfo.m */,
+				84EA05D318D881A1008D940D /* SkilleeRequest.h */,
+				84EA05D418D881A1008D940D /* SkilleeRequest.m */,
+				84EA05D618D8A266008D940D /* PostResponse.h */,
+				84EA05D718D8A266008D940D /* PostResponse.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -842,14 +852,14 @@
 				149232B718D73A40001BAE8C /* ChildApprovalTableCell.m in Sources */,
 				84D9E05F18C9C3D500516E2D /* AppDelegate.m in Sources */,
 				1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */,
-				84CDA75D18D1F889002A6D78 /* LoginRequest.m in Sources */,
 				148104DB18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m in Sources */,
 				84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */,
 				149232B518D73A40001BAE8C /* AdultApprovalTableCell.m in Sources */,
-				84CDA76018D1FA59002A6D78 /* LoginResponce.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
 				84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */,
 				84EA05CB18D6F5FF008D940D /* UserInfo.m in Sources */,
+				84EA05D818D8A266008D940D /* PostResponse.m in Sources */,
+				84EA05D518D881A1008D940D /* SkilleeRequest.m in Sources */,
 				149232B918D73A40001BAE8C /* SimpleTableCell.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,
 			);

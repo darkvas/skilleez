@@ -100,6 +100,54 @@
         data = [[NSArray alloc] initWithArray: skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
+            
+            [self testCreateSkillee];
+            //[self testRemoveSkillee:((SkilleeModel*)skilleeList[1]).Id];
+            //[self testAddToFavorite:((SkilleeModel*)skilleeList[2]).Id];
+            //[self testRemoveFromFavorite:((SkilleeModel*)skilleeList[0]).Id];
+            
+    } failure:^(NSError *error) {
+        NSLog(@"loadSkilleeList error: %@", error);
+    }];
+}
+
+-(void) testCreateSkillee
+{
+    SkilleeRequest* skilleeRequest = [SkilleeRequest new];
+    skilleeRequest.BehalfUserId = @"";
+    skilleeRequest.Title = @"Test post create";
+    skilleeRequest.Comment = @"some test comments";
+    skilleeRequest.Media = UIImagePNGRepresentation([UIImage imageNamed:@"BG_loading_img"]);
+    
+    [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest success:^{
+        NSLog(@"success create post");
+    } failure:^(NSError *error) {
+        NSLog(@"loadSkilleeList error: %@", error);
+    }];
+}
+
+-(void) testRemoveSkillee:(NSString*) skilleeId
+{
+    [[NetworkManager sharedInstance] postRemoveSkillee:skilleeId success:^{
+        NSLog(@"success remove skillee");
+    } failure:^(NSError *error) {
+        NSLog(@"removeSkillee error: %@", error);
+    }];
+}
+
+-(void) testAddToFavorite :(NSString*) skilleeId
+{
+    [[NetworkManager sharedInstance] postAddToFavorites:skilleeId success:^{
+        NSLog(@"success add to favorite post");
+    } failure:^(NSError *error) {
+        NSLog(@"loadSkilleeList error: %@", error);
+    }];
+}
+
+-(void) testRemoveFromFavorite :(NSString*) skilleeId
+{
+    [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeId success:^{
+        NSLog(@"success add to favorite post");
     } failure:^(NSError *error) {
         NSLog(@"loadSkilleeList error: %@", error);
     }];
