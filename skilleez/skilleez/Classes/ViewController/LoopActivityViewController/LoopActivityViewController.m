@@ -13,13 +13,19 @@
 #import "SkilleeDetailViewController.h"
 #import "UITableViewCell+SkilleeTableCell.h"
 #import "CreateChildSkilleeViewController.h"
-
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIButton *topSkilleeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *approvalSkilleeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteSkilleeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *createSkilleeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *menuBtn;
 
-- (IBAction)createSkillee:(id)sender;
+- (IBAction)loadTop:(id)sender;
+- (IBAction)loadApproves:(id)sender;
+- (IBAction)loadFavorites:(id)sender;
 
 @end
 
@@ -87,6 +93,10 @@
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag]];
         [self.navigationController pushViewController:detail animated:YES];
     }
+    else if ([className isEqualToString:@"FavoriteTableCell"])
+    {
+        [self loadFavoriteList];
+    }
 }
 
 - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
@@ -95,12 +105,12 @@
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row]];
         [self.navigationController pushViewController:detail animated:YES];
     } /*else if ([className isEqualToString:@"FavoriteTableCell"]) {
-        NSLog(@"");
-    } else if([className isEqualToString:@"ChildApprovalTableCell"]) {
-        
-    } else {
-        
-    }*/
+       NSLog(@"");
+       } else if([className isEqualToString:@"ChildApprovalTableCell"]) {
+       
+       } else {
+       
+       }*/
 }
 
 - (UIActivityIndicatorView *)getLoaderIndicator
@@ -118,54 +128,12 @@
 - (void)loadSkilleeList
 {
     UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
-        [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
+    [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
         NSLog(@"skillees count: %i", skilleeList.count);
         NSLog(@"%@", skilleeList[0]);
         data = [[NSArray alloc] initWithArray: skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
-    } failure:^(NSError *error) {
-        NSLog(@"loadSkilleeList error: %@", error);
-    }];
-}
-
--(void) testCreateSkillee
-{
-    SkilleeRequest* skilleeRequest = [SkilleeRequest new];
-    skilleeRequest.BehalfUserId = @"";
-    skilleeRequest.Title = @"Test post create";
-    skilleeRequest.Comment = @"some test comments";
-    skilleeRequest.Media = UIImagePNGRepresentation([UIImage imageNamed:@"BG_loading_img"]);
-    
-    [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest success:^{
-        NSLog(@"success create post");
-    } failure:^(NSError *error) {
-        NSLog(@"loadSkilleeList error: %@", error);
-    }];
-}
-
--(void) testRemoveSkillee:(NSString*) skilleeId
-{
-    [[NetworkManager sharedInstance] postRemoveSkillee:skilleeId success:^{
-        NSLog(@"success remove skillee");
-    } failure:^(NSError *error) {
-        NSLog(@"removeSkillee error: %@", error);
-    }];
-}
-
--(void) testAddToFavorite :(NSString*) skilleeId
-{
-    [[NetworkManager sharedInstance] postAddToFavorites:skilleeId success:^{
-        NSLog(@"success add to favorite post");
-    } failure:^(NSError *error) {
-        NSLog(@"loadSkilleeList error: %@", error);
-    }];
-}
-
--(void) testRemoveFromFavorite :(NSString*) skilleeId
-{
-    [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeId success:^{
-        NSLog(@"success add to favorite post");
     } failure:^(NSError *error) {
         NSLog(@"loadSkilleeList error: %@", error);
     }];
