@@ -11,4 +11,8 @@
 
 @interface LoopActivityViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SimpleCellDelegate>
 
+- (IBAction)loadTop:(id)sender;
+- (IBAction)loadApproves:(id)sender;
+- (IBAction)loadFavorites:(id)sender;
+
 @end

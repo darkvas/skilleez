@@ -18,9 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-- (IBAction)loadTop:(id)sender;
-- (IBAction)loadApproves:(id)sender;
-- (IBAction)loadFavorites:(id)sender;
+
 - (IBAction)createSkillee:(id)sender;
 
 @end
