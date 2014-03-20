@@ -8,9 +8,13 @@
 
 #import "CreateChildSkilleeViewController.h"
 #import "UIFont+DefaultFont.h"
+#import "NetworkManager.h"
+
 @interface CreateChildSkilleeViewController (){
     UIImagePickerController *imagePicker;
+    NSData* chosenData;
 }
+
 @property (weak, nonatomic) IBOutlet UILabel *createSkilleeLbl;
 @property (weak, nonatomic) IBOutlet UITextField *titleTxt;
 @property (weak, nonatomic) IBOutlet UITextView *commentTxt;
@@ -83,12 +87,10 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    //NSString *mediaType = [info valueForKey:UIImagePickerControllerMediaType];
-    //if ([mediaType isEqualToString:@"public.image"])
-    NSURL *fileUrl = [info objectForKey:@"UIImagePickerControllerReferenceURL"];
-    NSString *filePath = [fileUrl absoluteString];
-    NSLog(filePath);
-    [self dismissModalViewControllerAnimated:YES];
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+    UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
+    chosenData = UIImageJPEGRepresentation(chosenImage, 1.0f);
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -142,7 +144,18 @@
 }
 
 - (IBAction)launchSkillee:(id)sender {
-    NSLog(@"launch");
+    SkilleeRequest* skilleeRequest = [SkilleeRequest new];
+    skilleeRequest.Title = self.titleTxt.text;
+    skilleeRequest.Comment = self.commentTxt.text;
+    skilleeRequest.BehalfUserId = self.postOnTxt.text;
+    skilleeRequest.Media = chosenData;
+    
+    [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest success:^{
+        NSLog(@"Done");
+    } failure:^(NSError *error) {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Launch failed" message:@"Launch skillee failed" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }];
 }
 
 - (IBAction)pickImage:(id)sender {

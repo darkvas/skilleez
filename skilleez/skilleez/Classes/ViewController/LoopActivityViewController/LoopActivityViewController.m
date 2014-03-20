@@ -13,6 +13,7 @@
 #import "SkilleeDetailViewController.h"
 #import "UITableViewCell+SkilleeTableCell.h"
 #import "CreateChildSkilleeViewController.h"
+
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -109,12 +110,6 @@
         data = [[NSArray alloc] initWithArray: skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
-            
-            [self testCreateSkillee];
-            //[self testRemoveSkillee:((SkilleeModel*)skilleeList[1]).Id];
-            //[self testAddToFavorite:((SkilleeModel*)skilleeList[2]).Id];
-            //[self testRemoveFromFavorite:((SkilleeModel*)skilleeList[0]).Id];
-            
     } failure:^(NSError *error) {
         NSLog(@"loadSkilleeList error: %@", error);
     }];

@@ -80,7 +80,7 @@
     RKObjectMapping *userInfoMapping = [UserInfo defineObjectMapping];
     RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userInfoMapping
                                                                                              method:RKRequestMethodGET
-                                                                                        pathPattern:nil
+                                                                                        pathPattern:GET_USERINFO_URI
                                                                                             keyPath:@"ReturnValue"
                                                                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [manager addResponseDescriptor:responseDescriptor];
@@ -101,18 +101,18 @@
 
 -(void) getSkilleeList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
-    [self prepareSkilleeRequest];
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_SKILLEE_LIST_URI, count, offset];
+    [self prepareSkilleeRequest: GET_SKILLEE_LIST_URI];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
--(void) prepareSkilleeRequest
+-(void) prepareSkilleeRequest:(NSString*) urlPattern
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     RKObjectMapping *skilleeMapping = [SkilleeModel defineObjectMapping];
     RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
                                                                                              method:RKRequestMethodGET
-                                                                                        pathPattern:nil
+                                                                                        pathPattern:urlPattern
                                                                                             keyPath:@"ReturnValue"
                                                                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [manager addResponseDescriptor:responseDescriptor];
@@ -139,22 +139,22 @@
 
 -(void) getSkilleeListForUser:(int) userId count: (int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
-    [self prepareSkilleeRequest];
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?UserId=%iCount=%i&Offset=%i", SKILLEEZ_URL, GET_USER_SKILLEE_LIST_URI, userId, count, offset];
+    [self prepareSkilleeRequest:GET_USER_SKILLEE_LIST_URI];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
 -(void) getWaitingForApproval:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
-    [self prepareSkilleeRequest];
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_WAITING_FOR_APPROVAL_URI, count, offset];
+    [self prepareSkilleeRequest:GET_WAITING_FOR_APPROVAL_URI];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
 -(void) getFavoriteList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
-    [self prepareSkilleeRequest];
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_FAVORITE_LIST, count, offset];
+    [self prepareSkilleeRequest:GET_FAVORITE_LIST];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
@@ -173,38 +173,59 @@ POST api/Skillee/Remove*/
                                                                                         pathPattern:nil
                                                                                             keyPath:nil
                                                                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    
     [manager addResponseDescriptor:responseDescriptor];
     
-    /*RKRequestDescriptor *requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:[[SkilleeRequest defineObjectMapping] inverseMapping]
-                                                                                   objectClass:[SkilleeRequest class]
-                                                                                   rootKeyPath:nil
-                                                                                        method:RKRequestMethodPOST];
-    [manager addRequestDescriptor:requestDescriptor];*/
-    
-    /*NSDictionary *jsonData = @{@"BehalfUserId":skilleeRequest.BehalfUserId,
-                               @"Title":skilleeRequest.Title,
-                               @"Comment":skilleeRequest.Comment,
-                               @"Media": @""
-                               };
-    */
-    
     NSMutableURLRequest *request = [manager multipartFormRequestWithObject:skilleeRequest
-                                     method:RKRequestMethodPOST
-                                       path:[SKILLEEZ_URL stringByAppendingString:POST_CREATE_SKILLEE]
-                                 parameters:nil
-                  constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                      [formData
-                       appendPartWithFileData:skilleeRequest.Media
-                       name:@"Media"
-                       fileName:@"BG_loading_img.png"
-                       mimeType:@"image/png"];
-                  }];
+                                                                    method:RKRequestMethodPOST
+                                                                      path:[SKILLEEZ_URL stringByAppendingString:POST_CREATE_SKILLEE]
+                                                                parameters:nil
+                                                 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) { }];
+    [request setHTTPMethod:@"POST"];
     
-    //[manager setRequestSerializationMIMEType:RKMIMETypeJSON];
-    //[manager setAcceptHeaderWithMIMEType:RKMIMETypeJSON];
+    NSString *boundary = @"----WebKitFormBoundarycC4YiaUFwM44F6rT";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    /*------WebKitFormBoundarycMAsAB11DxnDngJ3
+     Content-Disposition: form-data; name="BehalfUserId"
+     
+     
+     ------WebKitFormBoundarycMAsAB11DxnDngJ3
+     Content-Disposition: form-data; name="Title"
+     
+     one more skillee test
+     ------WebKitFormBoundarycMAsAB11DxnDngJ3
+     Content-Disposition: form-data; name="Comment"
+     
+     there is one more skillee
+     ------WebKitFormBoundarycMAsAB11DxnDngJ3
+     Content-Disposition: form-data; name="Media"; filename="images.jpeg"
+     Content-Type: image/jpeg
+     
+     
+     ------WebKitFormBoundarycMAsAB11DxnDngJ3--*/
+    
+    NSMutableData *body = [NSMutableData data];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"BehalfUserId\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n%@", skilleeRequest.BehalfUserId] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"Title\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n%@", skilleeRequest.Title] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"Comment\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n%@", skilleeRequest.Comment] dataUsingEncoding:NSUTF8StringEncoding]];
 
-    [request setValue:@"multipart/form-data; boundary=----WebKitFormBoundarynIA8MxGIz6YCfuIx" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"Media\";filename=\"picture.jpeg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:skilleeRequest.Media];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	
+    [request setHTTPBody:body];
     
     RKObjectRequestOperation *operation = [manager objectRequestOperationWithRequest:request
                                                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
@@ -213,97 +234,32 @@ POST api/Skillee/Remove*/
                                                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                                                  NSLog(@"Failed");
                                                                              }];
-    
     [manager enqueueObjectRequestOperation:operation];
-
-    
-    /*[manager postObject:skilleeRequest path:[SKILLEEZ_URL stringByAppendingString:POST_CREATE_SKILLEE] parameters:nil
-                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{success();});
-    }
-                failure:^(RKObjectRequestOperation * operaton, NSError * error)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
-    }];*/
 }
 
-/*- (void)denyAccessToItemWithPath:(NSString *)aPath
-              forUsersWithEmails:(NSSet *)aEmails
-                    rightsToDeny:(NSSet *)aRights
+-(void) postRemoveSkillee:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    NSString *emails = [[aEmails allObjects] componentsJoinedByString:@";"];
-    NSString *rights = [[aRights allObjects] componentsJoinedByString:@";"];
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
     
+    NSDictionary *jsonData = @{@"Id": skilleeId};
     
-    
-    NSDictionary *jsonData = @{@"emails":emails,
-                               @"path":aPath,
-                               @"rights":rights,
-                               @"fileId": @""
-                               };
-    
-    NSString *serviceCallName = [NSString stringWithFormat:@"%@/deny", [NBSession sharedSession].accessToken];
-    
-    AFHTTPClient *client = [RKObjectManager sharedManager].HTTPClient;
-    [client postPath:serviceCallName parameters:jsonData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([self.delegate respondsToSelector:@selector(restClient:didDenyAccessToItemWithPath:)]) {
-            [self.delegate restClient:self didDenyAccessToItemWithPath:aPath];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (error.code == NSURLErrorNotConnectedToInternet || error.code == NSURLErrorTimedOut)
-        {
-            [self connectionProblem];
-        }else{
-            if ([self.delegate respondsToSelector:@selector(restClient:didFailDenyAccessToItemWithPath:error:)]) {
-                [self.delegate restClient:self didFailDenyAccessToItemWithPath:aPath error:error];
-            }
-        }
-    }];
-}*/
-
-/*-(void)postObjects:(id)object path:(NSString *)path handler:(ObjectLoaderCompletionHandler)handler
-{
-    NSMutableURLRequest * request = [[RKObjectManager sharedManager] requestWithObject:[ServiceResponse new]
-                                                                                method:RKRequestMethodPOST
-                                                                                  path:path parameters:nil];
-    
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    CJSONSerializer *serializer = [CJSONSerializer serializer];
-    NSError * error = nil;
-    NSData *data  = [serializer serializeDictionary:object error:&error];
-    if(!error) {
-        [request setHTTPBody:data];
-    }
-    [request setValue:[NSString stringWithFormat:@"%d", [data length]] forHTTPHeaderField:@"Content-Length"];
-    
-    RKObjectRequestOperation * operation = [[RKObjectManager sharedManager] objectRequestOperationWithRequest:request
-                                                                                                      success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                                                                          if(handler) {
-                                                                                                              ServiceResponse * response = (ServiceResponse*)[mappingResult firstObject];
-                                                                                                              id responseToHandle;
-                                                                                                              if (response.resultCode != 0) {
-                                                                                                                  responseToHandle = response;
-                                                                                                              }
-                                                                                                              else // else - return returnedValue
-                                                                                                              {
-                                                                                                                  responseToHandle = response.returnedValue;
-                                                                                                              }
-                                                                                                              handler(YES, responseToHandle, operation.HTTPRequestOperation.responseData, nil);
-                                                                                                          }
-                                                                                                      }
-                                                                                                      failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                                                                                          NSLog(@"%@", operation.HTTPRequestOperation.responseString);
-                                                                                                          NSLog(@"%@", error);
-                                                                                                          if(handler) {
-                                                                                                              NSData * responseData = operation.HTTPRequestOperation.responseData;
-                                                                                                              handler(NO, nil, responseData, error);
-                                                                                                          }
-                                                                                                      }];
-    [[RKObjectManager sharedManager].operationQueue addOperation:operation];
-}*/
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
 
 -(void) postAddToFavorites:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
@@ -367,30 +323,6 @@ POST api/Skillee/Remove*/
     NSDictionary *jsonData = @{@"Id": skilleeId};
     
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_MARK_AS_TATTLE] parameters:jsonData
-                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
-     {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
-     }
-                failure:^(RKObjectRequestOperation * operaton, NSError * error)
-     {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
-     }];
-}
-
--(void) postRemoveSkillee:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
-{
-    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:nil
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
-    
-    NSDictionary *jsonData = @{@"Id": skilleeId};
-    
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{success();});
