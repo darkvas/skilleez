@@ -7,8 +7,32 @@
 //
 
 #import "SkilleeDetailViewController.h"
+#import "SimpleTableCell.h"
+#import "UIFont+DefaultFont.h"
+#import "LoopActivityViewController.h"
 
-@interface SkilleeDetailViewController ()
+@interface SkilleeDetailViewController () {
+    SkilleeModel *skillee;
+}
+@property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
+@property (weak, nonatomic) IBOutlet UIButton *doneBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLbl;
+@property (weak, nonatomic) IBOutlet UILabel *skilleeDateLbl;
+@property (weak, nonatomic) IBOutlet UIImageView *skilleeMediaImg;
+@property (weak, nonatomic) IBOutlet UILabel *skilleeTitleLbl;
+@property (weak, nonatomic) IBOutlet UILabel *skilleeCommentLbl;
+@property (weak, nonatomic) IBOutlet UIButton *denyBtn;
+@property (weak, nonatomic) IBOutlet UIButton *approveBtn;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteBtn;
+@property (weak, nonatomic) IBOutlet UIButton *tattleBtn;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)done:(id)sender;
+- (IBAction)deny:(id)sender;
+- (IBAction)approve:(id)sender;
+- (IBAction)favorite:(id)sender;
+- (IBAction)tattle:(id)sender;
 
 @end
 
@@ -23,9 +47,20 @@
     return self;
 }
 
+- (id)initWithSkillee:(SkilleeModel *)skilleeEl
+{
+    if (self = [super init]) {
+        skillee = skilleeEl;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setCellFonts];
+    [self setSkillee];
+    
 	// Do any additional setup after loading the view.
 }
 
@@ -35,4 +70,64 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setCellFonts
+{
+    [self.userNameLbl setFont:[UIFont getDKCrayonFontWithSize:25]];
+    [self.cancelBtn setFont:[UIFont getDKCrayonFontWithSize:21]];
+    [self.doneBtn setFont:[UIFont getDKCrayonFontWithSize:21]];
+    [self.skilleeDateLbl setFont:[UIFont getDKCrayonFontWithSize:13]];
+    [self.skilleeTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
+    [self.skilleeCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
+    [self.denyBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.approveBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.favoriteBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.tattleBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
+}
+
+- (void)setSkillee
+{
+    self.userNameLbl.text = skillee.UserName;
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setTimeStyle:NSDateFormatterNoStyle];
+    [format setDateStyle:NSDateFormatterMediumStyle];
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [format setLocale:usLocale];
+    self.skilleeDateLbl.text =[format stringFromDate:skillee.PostedDate];
+    [self.userAvatarImg setImageWithURL:[NSURL URLWithString:skillee.UserAvatarUrl]];
+    self.userAvatarImg.layer.cornerRadius = 28.0;
+    self.userAvatarImg.layer.masksToBounds = YES;
+    self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userAvatarImg.layer.borderWidth = 3.0;
+    self.denyBtn.layer.borderWidth = 1.0;
+    self.denyBtn.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.approveBtn.layer.borderWidth = 1.0;
+    self.approveBtn.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.favoriteBtn.layer.borderWidth = 1.0;
+    self.favoriteBtn.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.tattleBtn.layer.borderWidth = 1.0;
+    self.tattleBtn.layer.borderColor = [[UIColor grayColor] CGColor];
+    [self.skilleeMediaImg setImageWithURL:[NSURL URLWithString:skillee.MediaUrl]];
+    self.skilleeTitleLbl.text = skillee.Title;
+    self.skilleeCommentLbl.text = skillee.Comment;
+}
+
+- (IBAction)cancel:(id)sender {
+    LoopActivityViewController *topView = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
+    [self presentViewController:topView animated:NO completion:nil];
+}
+
+- (IBAction)done:(id)sender {
+}
+
+- (IBAction)deny:(id)sender {
+}
+
+- (IBAction)approve:(id)sender {
+}
+
+- (IBAction)favorite:(id)sender {
+}
+
+- (IBAction)tattle:(id)sender {
+}
 @end

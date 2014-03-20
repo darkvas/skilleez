@@ -44,7 +44,6 @@
     [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaUrl]];
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;
-    
 }
 
 - (void)setCellFonts
@@ -57,7 +56,7 @@
 
 - (IBAction)showSkille:(id)sender
 {
-    [self.delegate processCompleted];
+    [self.delegate didSkiilleSelect];
     NSLog(@"here");
 
     //[[[[NSBundle mainBundle] loadNibNamed:@"LoopActivityViewController" owner:nil options:nil] objectAtIndex:0] presentViewController:detail animated:YES completion:nil];

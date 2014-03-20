@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SkilleeModel.h"
 
 @interface SkilleeDetailViewController : UIViewController
+
+- (id)initWithSkillee:(SkilleeModel *)skillee;
 
 @end

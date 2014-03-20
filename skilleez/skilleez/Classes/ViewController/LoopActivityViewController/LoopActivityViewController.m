@@ -49,11 +49,12 @@
     // Do any additional setup after loading the view from its nib.
 }
 
--(void)processCompleted
+- (void)didSkiilleSelect
 {
     SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithNibName:@"SkilleeDetailViewController" bundle:nil];
     [self presentViewController:detail animated:YES completion:nil];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -86,6 +87,12 @@
     }
     [cell setSkilleezCell:cell andSkilleez:[data objectAtIndex:indexPath.row]];
     return cell;
+}
+
+- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row]];
+    [self presentViewController:detail animated:YES completion:nil];
 }
 
 - (UIActivityIndicatorView *)getLoaderIndicator

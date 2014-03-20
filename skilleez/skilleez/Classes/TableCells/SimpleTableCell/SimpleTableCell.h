@@ -11,7 +11,7 @@
 
 @protocol SimpleCellDelegate <NSObject>
 @required
-- (void)processCompleted;
+- (void)didSkiilleSelect;
 @end
 
 
