@@ -50,11 +50,6 @@
     // Do any additional setup after loading the view from its nib.
 }
 
--(void)processCompleted
-{
-    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithNibName:@"SkilleeDetailViewController" bundle:nil];
-    [self presentViewController:detail animated:YES completion:nil];
-}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -85,8 +80,30 @@
         cell = [nib objectAtIndex:0];
         cell.delegate = self;
     }
-    [cell setSkilleezCell:cell andSkilleez:[data objectAtIndex:indexPath.row]];
+    [cell setSkilleezCell:cell andSkilleez:[data objectAtIndex:indexPath.row] andTag:indexPath.row];
     return cell;
+}
+
+- (void)didSkiilleSelect:(NSInteger)tag
+{
+    if ([className isEqualToString:@"SimpleTableCell"]) {
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag]];
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+}
+
+- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    if ([className isEqualToString:@"SimpleTableCell"]) {
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row]];
+        [self.navigationController pushViewController:detail animated:YES];
+    } /*else if ([className isEqualToString:@"FavoriteTableCell"]) {
+        NSLog(@"");
+    } else if([className isEqualToString:@"ChildApprovalTableCell"]) {
+        
+    } else {
+        
+    }*/
 }
 
 - (UIActivityIndicatorView *)getLoaderIndicator
@@ -233,7 +250,6 @@
     {
         CreateChildSkilleeViewController *createChild = [[CreateChildSkilleeViewController alloc] initWithNibName:@"CreateChildSkilleeViewController" bundle:nil];
         [self.contentView addSubview:createChild.view];
-        [createChild removeFromParentViewController];
         [self addChildViewController:createChild];
     }
 }

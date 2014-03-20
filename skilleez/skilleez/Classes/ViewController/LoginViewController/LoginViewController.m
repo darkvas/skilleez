@@ -104,7 +104,7 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL loginResult) {
         if(loginResult){
             LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
-            [self presentViewController:loop animated:YES completion:nil];
+            [self.navigationController pushViewController:loop animated:YES];
         }
         else {
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:@"Incorrect login or password" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];

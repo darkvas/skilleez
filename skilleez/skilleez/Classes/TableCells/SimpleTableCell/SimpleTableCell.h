@@ -11,7 +11,7 @@
 
 @protocol SimpleCellDelegate <NSObject>
 @required
-- (void)processCompleted;
+- (void)didSkiilleSelect:(NSInteger) tag;
 @end
 
 
@@ -19,6 +19,6 @@
 
 @property (nonatomic,strong) id delegate;
 
-- (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element;
+- (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
 
 @end

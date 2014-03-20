@@ -17,10 +17,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    LoginViewController *test = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    //UINavigationController *nav = [[UINavigationController alloc]  initWithRootViewController:test];
-    self.window.rootViewController = test;
-    
+    self.navigationCtrl = [[UINavigationController alloc] init];
+    self.window.rootViewController = self.navigationCtrl;
+    LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    self.navigationCtrl.navigationBarHidden = YES;
+    [self.navigationCtrl pushViewController:login animated:NO];
     [self.window makeKeyAndVisible];
     
     return YES;
