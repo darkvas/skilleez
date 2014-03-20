@@ -23,7 +23,7 @@
 
 @implementation ChildApprovalTableCell
 
-- (void)setSkilleezCell:(ChildApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element
+- (void)setSkilleezCell:(ChildApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     [cell setCellFonts];
     cell.usernameLbl.text = element.UserName;

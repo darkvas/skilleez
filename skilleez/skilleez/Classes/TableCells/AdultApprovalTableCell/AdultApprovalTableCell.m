@@ -22,7 +22,7 @@
 
 @implementation AdultApprovalTableCell
 
-- (void)setSkilleezCell:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element
+- (void)setSkilleezCell:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     [cell setCellFonts];
     cell.usernameLbl.text = element.UserName;

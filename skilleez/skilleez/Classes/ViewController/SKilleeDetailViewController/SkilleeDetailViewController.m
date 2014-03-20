@@ -119,7 +119,7 @@
     self.skilleeCommentLbl.text = skillee.Comment;
 }
 
--(void)showDisabledButtons {
+- (void)showDisabledButtons {
     self.denyDisabledBtn.hidden = NO;
     self.approveDisabledBtn.hidden = NO;
     self.approveBtn.hidden = YES;

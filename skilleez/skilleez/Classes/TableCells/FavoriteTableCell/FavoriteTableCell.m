@@ -22,7 +22,7 @@
 
 @implementation FavoriteTableCell
 
-- (void)setSkilleezCell:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element
+- (void)setSkilleezCell:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     [cell setCellFonts];
     cell.usernameLbl.text = element.UserName;
@@ -40,7 +40,7 @@
     [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaUrl]];
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;
-    
+
 }
 
 - (void)setCellFonts

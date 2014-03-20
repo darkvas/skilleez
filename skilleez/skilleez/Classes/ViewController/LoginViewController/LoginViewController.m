@@ -55,7 +55,7 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 {
     UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
     [userSettings loadSettings];
-    if(userSettings.remember) {
+    if (userSettings.remember) {
         [self loginWithUsername:userSettings.username andPassword:userSettings.password];
     }
 }
@@ -74,11 +74,9 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    if (textField == self.txtFieldUserName)
-    {
+    if (textField == self.txtFieldUserName) {
         [self.txtFieldUserPassword becomeFirstResponder];
-    } else if (textField == self.txtFieldUserPassword)
-    {
+    } else if (textField == self.txtFieldUserPassword) {
         [self loginWithUsername:self.txtFieldUserName.text andPassword:self.txtFieldUserPassword.text];
     }
     return YES;
@@ -102,11 +100,10 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 -(void) loginWithUsername:(NSString*) username andPassword:(NSString*) password
 {
     [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL loginResult) {
-        if(loginResult){
+        if (loginResult) {
             LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
             [self.navigationController pushViewController:loop animated:YES];
-        }
-        else {
+        } else {
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:@"Incorrect login or password" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [alert show];
         }
