@@ -7,8 +7,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SkilleeDetailViewController">
             <connections>
                 <outlet property="approveBtn" destination="SY2-Xk-WcG" id="2XD-oM-IAL"/>
+                <outlet property="approveDisabledBtn" destination="J5O-9B-az6" id="dON-C3-dfh"/>
                 <outlet property="cancelBtn" destination="6fk-qb-wN6" id="XAf-d7-D4q"/>
                 <outlet property="denyBtn" destination="lfg-nI-wNi" id="dAj-bs-GJd"/>
+                <outlet property="denyDisabledBtn" destination="gse-4h-w7z" id="GcZ-Bt-yLB"/>
                 <outlet property="doneBtn" destination="Adq-AZ-ite" id="Sfx-Cw-q8d"/>
                 <outlet property="favoriteBtn" destination="DWK-ml-fsj" id="hJ8-R2-Jj8"/>
                 <outlet property="skilleeCommentLbl" destination="f1g-li-2ME" id="xy4-wo-qur"/>
@@ -30,32 +32,6 @@
                     <rect key="frame" x="0.0" y="488" width="320" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfg-nI-wNi">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="30"/>
-                            <state key="normal" title="DENY" image="thumb_down_BTN.png">
-                                <color key="titleColor" red="0.27450980392156865" green="0.2627450980392157" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="deny:" destination="-1" eventType="touchUpInside" id="OXV-if-jQp"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SY2-Xk-WcG">
-                            <rect key="frame" x="80" y="0.0" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="30"/>
-                            <state key="normal" title="APPROVE" image="thumb_up_BTN-1.png">
-                                <color key="titleColor" red="0.27450980392156865" green="0.2627450980392157" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="approve:" destination="-1" eventType="touchUpInside" id="Jo0-vd-WoT"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DWK-ml-fsj">
                             <rect key="frame" x="160" y="0.0" width="80" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -80,6 +56,52 @@
                             </state>
                             <connections>
                                 <action selector="tattle:" destination="-1" eventType="touchUpInside" id="FFJ-j9-RrB"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5O-9B-az6">
+                            <rect key="frame" x="80" y="0.0" width="80" height="80"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="30"/>
+                            <state key="normal" title="APPROVE" image="thumb_up_BTN_press.png">
+                                <color key="titleColor" red="0.27450980390000002" green="0.26274509800000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SY2-Xk-WcG">
+                            <rect key="frame" x="80" y="0.0" width="80" height="80"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="30"/>
+                            <state key="normal" title="APPROVE" image="thumb_up_BTN-1.png">
+                                <color key="titleColor" red="0.27450980392156865" green="0.2627450980392157" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="approve:" destination="-1" eventType="touchUpInside" id="Jo0-vd-WoT"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gse-4h-w7z">
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="30"/>
+                            <state key="normal" title="DENY" image="thumb_down_BTN_press.png">
+                                <color key="titleColor" red="0.27450980390000002" green="0.26274509800000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfg-nI-wNi">
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="30"/>
+                            <state key="normal" title="DENY" image="thumb_down_BTN.png">
+                                <color key="titleColor" red="0.27450980392156865" green="0.2627450980392157" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="deny:" destination="-1" eventType="touchUpInside" id="OXV-if-jQp"/>
                             </connections>
                         </button>
                     </subviews>
@@ -180,7 +202,9 @@
         <image name="back_BTN_press.png" width="12" height="21"/>
         <image name="star_opaque_BTN.png" width="40" height="40"/>
         <image name="thumb_down_BTN.png" width="40" height="40"/>
+        <image name="thumb_down_BTN_press.png" width="40" height="40"/>
         <image name="thumb_up_BTN-1.png" width="40" height="40"/>
+        <image name="thumb_up_BTN_press.png" width="40" height="40"/>
         <image name="warning_BTN.png" width="40" height="40"/>
     </resources>
 </document>

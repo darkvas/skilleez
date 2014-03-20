@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *skilleezTitleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *skilleezCommentLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentImg;
+@property (weak, nonatomic) IBOutlet UIButton *detailBtn;
 
 - (IBAction)showSkille:(id)sender;
 
@@ -26,7 +27,7 @@
 
 @implementation SimpleTableCell
 
-- (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element
+- (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     [cell setCellFonts];
     cell.usernameLbl.text = element.UserName;
@@ -44,6 +45,7 @@
     [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaUrl]];
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;
+    cell.detailBtn.tag = tag;
 }
 
 - (void)setCellFonts
@@ -56,10 +58,8 @@
 
 - (IBAction)showSkille:(id)sender
 {
-    [self.delegate didSkiilleSelect];
+    [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
     NSLog(@"here");
-
-    //[[[[NSBundle mainBundle] loadNibNamed:@"LoopActivityViewController" owner:nil options:nil] objectAtIndex:0] presentViewController:detail animated:YES completion:nil];
 }
 
 @end

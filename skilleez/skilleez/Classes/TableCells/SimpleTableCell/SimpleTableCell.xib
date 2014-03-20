@@ -74,6 +74,7 @@
                 <outlet property="attachmentImg" destination="We8-Y3-QQd" id="fFf-F5-Ovp"/>
                 <outlet property="avatarImg" destination="JmF-VM-kUr" id="WZz-b0-Yum"/>
                 <outlet property="dateLbl" destination="f2P-2D-46p" id="dzU-w8-qen"/>
+                <outlet property="detailBtn" destination="3mH-M9-gdf" id="Vxk-3x-LgB"/>
                 <outlet property="skilleezCommentLbl" destination="XuC-s9-U9i" id="A9a-0Z-hH1"/>
                 <outlet property="skilleezTitleLbl" destination="SNF-Yk-sUv" id="hxP-7Q-xRl"/>
                 <outlet property="usernameLbl" destination="0G0-CT-pXZ" id="3hZ-ve-88P"/>

@@ -521,9 +521,9 @@
 		84D6CE1B18D1BF1F008ABB5E /* LoginViewController */ = {
 			isa = PBXGroup;
 			children = (
-				84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */,
 				84D6CE1D18D1BF1F008ABB5E /* LoginViewController.h */,
 				84D6CE1E18D1BF1F008ABB5E /* LoginViewController.m */,
+				84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */,
 			);
 			path = LoginViewController;
 			sourceTree = "<group>";

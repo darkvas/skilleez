@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *approveBtn;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteBtn;
 @property (weak, nonatomic) IBOutlet UIButton *tattleBtn;
+@property (weak, nonatomic) IBOutlet UIButton *denyDisabledBtn;
+@property (weak, nonatomic) IBOutlet UIButton *approveDisabledBtn;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
@@ -60,7 +62,7 @@
     [super viewDidLoad];
     [self setCellFonts];
     [self setSkillee];
-    
+    //[self showDisabledButtons];
 	// Do any additional setup after loading the view.
 }
 
@@ -80,8 +82,26 @@
     [self.skilleeCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
     [self.denyBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
     [self.approveBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.denyDisabledBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.approveDisabledBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
     [self.favoriteBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
     [self.tattleBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
+    self.userAvatarImg.layer.cornerRadius = 28.0;
+    self.userAvatarImg.layer.masksToBounds = YES;
+    self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userAvatarImg.layer.borderWidth = 3.0;
+    self.denyBtn.layer.borderWidth = 1.0;
+    self.denyBtn.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.approveBtn.layer.borderWidth = 1.0;
+    self.approveBtn.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.denyDisabledBtn.layer.borderWidth = 1.0;
+    self.denyDisabledBtn.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.approveDisabledBtn.layer.borderWidth = 1.0;
+    self.approveDisabledBtn.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.favoriteBtn.layer.borderWidth = 1.0;
+    self.favoriteBtn.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.tattleBtn.layer.borderWidth = 1.0;
+    self.tattleBtn.layer.borderColor = [[UIColor grayColor] CGColor];
 }
 
 - (void)setSkillee
@@ -94,26 +114,20 @@
     [format setLocale:usLocale];
     self.skilleeDateLbl.text =[format stringFromDate:skillee.PostedDate];
     [self.userAvatarImg setImageWithURL:[NSURL URLWithString:skillee.UserAvatarUrl]];
-    self.userAvatarImg.layer.cornerRadius = 28.0;
-    self.userAvatarImg.layer.masksToBounds = YES;
-    self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.userAvatarImg.layer.borderWidth = 3.0;
-    self.denyBtn.layer.borderWidth = 1.0;
-    self.denyBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.approveBtn.layer.borderWidth = 1.0;
-    self.approveBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.favoriteBtn.layer.borderWidth = 1.0;
-    self.favoriteBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.tattleBtn.layer.borderWidth = 1.0;
-    self.tattleBtn.layer.borderColor = [[UIColor grayColor] CGColor];
     [self.skilleeMediaImg setImageWithURL:[NSURL URLWithString:skillee.MediaUrl]];
     self.skilleeTitleLbl.text = skillee.Title;
     self.skilleeCommentLbl.text = skillee.Comment;
 }
 
+-(void)showDisabledButtons {
+    self.denyDisabledBtn.hidden = NO;
+    self.approveDisabledBtn.hidden = NO;
+    self.approveBtn.hidden = YES;
+    self.denyBtn.hidden = YES;
+}
+
 - (IBAction)cancel:(id)sender {
-    LoopActivityViewController *topView = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
-    [self presentViewController:topView animated:NO completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)done:(id)sender {
