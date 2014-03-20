@@ -12,6 +12,6 @@
 
 @interface FavoriteTableCell : SimpleTableCell
 
-- (void)setSkilleezCell:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element;
+- (void)setSkilleezCell:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
 
 @end

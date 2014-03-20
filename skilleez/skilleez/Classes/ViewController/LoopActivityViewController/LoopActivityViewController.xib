@@ -6,8 +6,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoopActivityViewController">
             <connections>
+                <outlet property="approvalSkilleeBtn" destination="7py-1t-T9V" id="4eH-SV-XSd"/>
                 <outlet property="contentView" destination="mvS-kh-Fzg" id="fBN-e2-LPR"/>
+                <outlet property="createSkilleeBtn" destination="OEZ-Jj-Qz8" id="mLZ-r9-AMp"/>
+                <outlet property="favoriteSkilleeBtn" destination="48O-Or-K7E" id="tpk-3U-U0d"/>
+                <outlet property="menuBtn" destination="N59-pa-WO8" id="7sh-VI-aoF"/>
                 <outlet property="tableView" destination="YLV-yI-KQl" id="wty-bb-nBx"/>
+                <outlet property="topSkilleeBtn" destination="5lU-gM-4kC" id="CkU-sH-0hY"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -39,17 +44,17 @@
                             <state key="normal" image="pandimg_BTN.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <state key="selected" image="pandimg_BTN_press.png"/>
                             <state key="highlighted" image="pandimg_BTN_press.png"/>
                             <connections>
-                                <action selector="loadApproves:" destination="-1" eventType="touchUpInside" id="Z9U-ui-WEv"/>
+                                <action selector="loadApproves:" destination="-1" eventType="touchUpInside" id="ssy-FZ-ock"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48O-Or-K7E">
+                        <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48O-Or-K7E">
                             <rect key="frame" x="128" y="0.0" width="64" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="favorites_BTN.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
+                            <state key="normal" image="favorites_BTN.png"/>
+                            <state key="selected" image="favorites_BTN_press.png"/>
                             <state key="highlighted" image="favorites_BTN_press.png"/>
                             <connections>
                                 <action selector="loadFavorites:" destination="-1" eventType="touchUpInside" id="y5g-3u-27h"/>
@@ -61,6 +66,7 @@
                             <state key="normal" image="create_BTN.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <state key="selected" image="create_BTN_press.png"/>
                             <state key="highlighted" image="create_BTN_press.png"/>
                             <connections>
                                 <action selector="createSkillee:" destination="-1" eventType="touchUpInside" id="tMe-i1-7yk"/>
@@ -72,6 +78,7 @@
                             <state key="normal" image="extra_BTN.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <state key="selected" image="extra_BTN_press.png"/>
                             <state key="highlighted" image="extra_BTN_press.png"/>
                         </button>
                     </subviews>

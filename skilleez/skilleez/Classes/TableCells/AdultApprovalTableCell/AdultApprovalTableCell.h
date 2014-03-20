@@ -12,6 +12,6 @@
 
 @interface AdultApprovalTableCell : SimpleTableCell
 
-- (void)setSkilleezCell:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element;
+- (void)setSkilleezCell:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
 
 @end

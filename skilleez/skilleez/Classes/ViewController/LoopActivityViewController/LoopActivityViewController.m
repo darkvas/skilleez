@@ -43,6 +43,7 @@
 {
     [super viewDidLoad];
     isChildApproval = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     className = [NSMutableString stringWithString:@"SimpleTableCell"];
     [self loadSkilleeList];
     // Do any additional setup after loading the view from its nib.
@@ -63,17 +64,15 @@
 {
     if (isChildApproval) {
         return 460;
-    } else
-    {
-        return 415;
+    } else {
+        return 417;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:className];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
         cell = [nib objectAtIndex:0];
         cell.delegate = self;
@@ -214,10 +213,9 @@
 
 - (BOOL)isCreateViewExists
 {
-    for (UIView *sub in self.contentView.subviews)
-    {
+    for (UIView *sub in self.contentView.subviews) {
         if (sub.tag == 2)
-        return YES;
+            return YES;
     }
     return NO;
 }
@@ -244,8 +242,7 @@
 }
 
 - (IBAction)createSkillee:(id)sender {
-    if (![self isCreateViewExists])
-    {
+    if (![self isCreateViewExists]) {
         CreateChildSkilleeViewController *createChild = [[CreateChildSkilleeViewController alloc] initWithNibName:@"CreateChildSkilleeViewController" bundle:nil];
         [self.contentView addSubview:createChild.view];
         [self addChildViewController:createChild];
