@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Oct 21, 2014" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2P-2D-46p">
-                                <rect key="frame" x="57" y="42" width="106" height="14"/>
+                                <rect key="frame" x="57" y="40" width="106" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -38,10 +38,10 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIX-dE-QcS">
                                 <rect key="frame" x="272" y="13" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="circle_delete_.png">
+                                <state key="normal" image="circle_delete.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="circle_delete_press_.png"/>
+                                <state key="highlighted" image="circle_delete_press.png"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.27843138579999999" green="0.74509805439999999" blue="0.082352943720000002" alpha="1" colorSpace="deviceRGB"/>
@@ -99,7 +99,7 @@
     </objects>
     <resources>
         <image name="BG.png" width="320" height="568"/>
-        <image name="circle_delete_.png" width="20" height="20"/>
-        <image name="circle_delete_press_.png" width="20" height="20"/>
+        <image name="circle_delete.png" width="30" height="30"/>
+        <image name="circle_delete_press.png" width="30" height="30"/>
     </resources>
 </document>

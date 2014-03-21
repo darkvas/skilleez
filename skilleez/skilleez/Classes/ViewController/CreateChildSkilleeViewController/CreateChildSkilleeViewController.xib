@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateChildSkilleeViewController">
@@ -29,7 +29,7 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Post on behalf of" minimumFontSize="17" background="small_text_view_BG.png" translatesAutoresizingMaskIntoConstraints="NO" id="fFb-Tg-5QX">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Post on behalf of" minimumFontSize="17" background="small_text_view_BG.png" translatesAutoresizingMaskIntoConstraints="NO" id="fFb-Tg-5QX">
                     <rect key="frame" x="13" y="63" width="250" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,15 +46,15 @@
                     <rect key="frame" x="258" y="63" width="50" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.94901960784313721" green="0.37254901960784315" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" image="arrow_next_.png">
+                    <state key="normal" image="go_btn.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cEI-6L-tJd">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cEI-6L-tJd">
                     <rect key="frame" x="0.0" y="114" width="320" height="454"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IX-oR-bHi">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IX-oR-bHi">
                             <rect key="frame" x="0.0" y="357" width="320" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
@@ -66,7 +66,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpS-Kg-9ga">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpS-Kg-9ga">
                             <rect key="frame" x="75" y="288" width="170" height="68"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.46274509800000002" green="0.7843137255" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -166,11 +166,11 @@
                         <constraint firstItem="DXS-OC-xtO" firstAttribute="leading" secondItem="3JL-0p-DBQ" secondAttribute="trailing" constant="8" id="31q-gC-g69"/>
                         <constraint firstAttribute="bottom" secondItem="7IX-oR-bHi" secondAttribute="bottom" constant="67" id="4NA-7Q-bPJ"/>
                         <constraint firstItem="DXS-OC-xtO" firstAttribute="top" secondItem="jOo-nY-Jkx" secondAttribute="bottom" constant="24" id="9sY-Uq-IBB"/>
+                        <constraint firstItem="KZt-8c-NgR" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="75" id="ABi-GH-dBR"/>
                         <constraint firstItem="tpS-Kg-9ga" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="75" id="B9h-t1-XA3"/>
                         <constraint firstItem="gZv-O7-7Za" firstAttribute="top" secondItem="cEI-6L-tJd" secondAttribute="top" constant="1" id="Bsd-7K-APc"/>
                         <constraint firstItem="tpS-Kg-9ga" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3JL-0p-DBQ" secondAttribute="bottom" constant="64" id="CZN-b6-VZZ"/>
                         <constraint firstItem="tpS-Kg-9ga" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KZt-8c-NgR" secondAttribute="bottom" constant="64" id="IWf-86-78H"/>
-                        <constraint firstItem="KZt-8c-NgR" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="75" id="QnS-Ca-lZf"/>
                         <constraint firstItem="7IX-oR-bHi" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" id="RbP-Zh-D0O"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="453" id="VaL-VX-6rD"/>
                         <constraint firstItem="7IX-oR-bHi" firstAttribute="top" secondItem="tpS-Kg-9ga" secondAttribute="bottom" constant="1" id="WBh-Fj-h0M"/>
@@ -181,6 +181,7 @@
                         <constraint firstItem="jOo-nY-Jkx" firstAttribute="top" secondItem="gZv-O7-7Za" secondAttribute="bottom" constant="15" id="qs5-dM-fDh"/>
                         <constraint firstItem="jOo-nY-Jkx" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="13" id="rhg-dY-zzr"/>
                         <constraint firstAttribute="width" constant="320" id="uNn-Jt-g00"/>
+                        <constraint firstItem="tpS-Kg-9ga" firstAttribute="top" secondItem="KZt-8c-NgR" secondAttribute="bottom" priority="700" constant="64" id="ued-lo-WZQ"/>
                         <constraint firstItem="gZv-O7-7Za" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="13" id="ynU-pg-LTy"/>
                     </constraints>
                 </view>
@@ -198,8 +199,8 @@
     </objects>
     <resources>
         <image name="Camera_icon.png" width="23" height="19"/>
-        <image name="arrow_next_.png" width="11" height="20"/>
         <image name="film_strip_icon.png" width="19" height="19"/>
+        <image name="go_btn.png" width="12" height="21"/>
         <image name="rocket_BTN.png" width="52" height="52"/>
         <image name="small_text_view_BG.png" width="295" height="36"/>
     </resources>

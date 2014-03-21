@@ -53,7 +53,8 @@
     imgView.frame = CGRectMake(0, 0, 295, 128);
     [self.commentTxt addSubview: imgView];
     UILabel *placeholder = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 195, 36)];
-    placeholder.textColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.12 alpha:1.0];
+    //placeholder.textColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.12 alpha:1.0];
+    placeholder.textColor = [UIColor whiteColor];
     [placeholder setFont:[UIFont getDKCrayonFontWithSize:22]];
     placeholder.text = @"Enter Comments here";
     [self.commentTxt addSubview:placeholder];
@@ -74,16 +75,6 @@
 {
     [self.view endEditing:YES];
 }
-
-/*- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    if (textField == self.titleTxt)
-    {
-        [self.commentTxt becomeFirstResponder];
-    }
-    return YES;
-}*/
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -141,6 +132,8 @@
     [self.addMediaLbl setFont:[UIFont getDKCrayonFontWithSize:18]];
     [self.launchBtn setFont:[UIFont getDKCrayonFontWithSize:31]];
     [self.termsBtn setFont:[UIFont getDKCrayonFontWithSize:16]];
+    [self.titleTxt setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.postOnTxt setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
 
 - (IBAction)launchSkillee:(id)sender {
