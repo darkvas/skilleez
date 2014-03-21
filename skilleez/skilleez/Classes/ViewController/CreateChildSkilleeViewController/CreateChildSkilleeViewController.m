@@ -29,6 +29,7 @@
 - (IBAction)launchSkillee:(id)sender;
 - (IBAction)pickImage:(id)sender;
 - (IBAction)pickVideo:(id)sender;
+- (IBAction)titleTextViewDidChange:(id)sender;
 
 @end
 
@@ -64,6 +65,8 @@
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.delegate = self;
+    
+    self.launchBtn.enabled = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,6 +93,21 @@
         chosenData = [[NSData alloc] initWithContentsOfFile:filePath];
         dataMediaType = mediaTypeVideo;
     }
+    [self checkLaunchAbility];
+}
+
+- (void)checkLaunchAbility
+{
+    if (chosenData && self.titleTxt.text.length > 0) {
+        self.launchBtn.enabled = YES;
+    } else {
+        self.launchBtn.enabled = NO;
+    }
+}
+
+- (IBAction)titleTextViewDidChange:(id)sender
+{
+    [self checkLaunchAbility];
 }
 
 - (void)textViewDidChange:(UITextView *)textView

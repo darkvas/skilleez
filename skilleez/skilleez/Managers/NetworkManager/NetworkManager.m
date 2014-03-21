@@ -61,15 +61,15 @@
     [manager.HTTPClient setDefaultHeader: @"Accept" value:RKMIMETypeJSON];
 }
 
--(void) tryLogin:(NSString *)username password:(NSString*)password withLoginCallBeck: (void(^)(BOOL loginResult)) loginCallBack
+-(void) tryLogin:(NSString *)username password:(NSString*)password withLoginCallBeck: (void(^)(BOOL loginResult, NSError* error)) loginCallBack
 {
     _username = username;
     _password = password;
     
     [self getUserInfo:^(UserInfo *userInfo) {
-        dispatch_async(dispatch_get_main_queue(), ^{loginCallBack(YES);});
+        dispatch_async(dispatch_get_main_queue(), ^{loginCallBack(YES, nil);});
     } failure:^(NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{loginCallBack(NO);});
+        dispatch_async(dispatch_get_main_queue(), ^{loginCallBack(NO, error);});
     }];
 }
 

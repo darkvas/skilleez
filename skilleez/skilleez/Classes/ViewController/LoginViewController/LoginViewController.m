@@ -12,7 +12,9 @@
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
 
-NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Register";
+#define REGISTER_URL @"http://skilleezv3.elasticbeanstalk.com/Account/Register"
+#define FORGOT_RASSWORD_URL @"http://skilleezv3.elasticbeanstalk.com/Account/ForgotPassword"
+
 
 @interface LoginViewController ()
 
@@ -55,6 +57,7 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
     [userSettings loadSettings];
     if (userSettings.remember) {
+        self.rememberMeBtn.selected = userSettings.remember;
         [self loginWithUsername:userSettings.username andPassword:userSettings.password];
     }
 }
@@ -100,12 +103,15 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password
 {
-    [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL loginResult) {
+    [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL loginResult, NSError* error) {
         if (loginResult) {
             LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
             [self.navigationController pushViewController:loop animated:YES];
         } else {
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:@"Incorrect login or password" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+            if([message isEqualToString:@"Expected status code in (200-299), got 401"])
+                message = @"Incorrect login or password";
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [alert show];
         }
     }];
@@ -113,18 +119,19 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
 
 - (IBAction)rememberMePressed:(UIButton *)sender
 {
-    [sender setSelected:YES];
     UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
+    
+    userSettings.remember = !userSettings.remember;
+    [sender setSelected:userSettings.remember];
     userSettings.username = self.txtFieldUserName.text;
     userSettings.password = self.txtFieldUserPassword.text;
-    userSettings.remember = YES;
     
     [userSettings saveSettings];
 }
 
 - (IBAction)forgotPasswordPressed:(UIButton *)sender
 {
-    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:FORGOT_RASSWORD_URL]];
 }
 
 - (IBAction)registerPressed:(UIButton *)sender
