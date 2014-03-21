@@ -12,6 +12,7 @@
 #import "LoopActivityViewController.h"
 #import "NetworkManager.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface SkilleeDetailViewController () {
     SkilleeModel *skillee;
@@ -66,6 +67,7 @@
     [super viewDidLoad];
     [self setCellFonts];
     [self setSkillee];
+    //self.movie = [[MPMoviePlayerController alloc] init];
     /*MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] init];
     player.moviePlayer.movieSourceType= MPMovieSourceTypeStreaming;
     [player.moviePlayer setContentURL:[NSURL URLWithString:@"http://techslides.com/demos/sample-videos/small.mp4"]];
@@ -91,7 +93,7 @@
     [self.userNameLbl setFont:[UIFont getDKCrayonFontWithSize:25]];
     [self.cancelBtn setFont:[UIFont getDKCrayonFontWithSize:21]];
     [self.doneBtn setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.skilleeDateLbl setFont:[UIFont getDKCrayonFontWithSize:13]];
+    [self.skilleeDateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
     [self.skilleeTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleeCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
     [self.denyBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
@@ -128,9 +130,45 @@
     [format setLocale:usLocale];
     self.skilleeDateLbl.text =[format stringFromDate:skillee.PostedDate];
     [self.userAvatarImg setImageWithURL:[NSURL URLWithString:skillee.UserAvatarUrl]];
-    [self.skilleeMediaImg setImageWithURL:[NSURL URLWithString:skillee.MediaUrl]];
+    if ([self isVideo:skillee.MediaUrl]) {
+        /*MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:skillee.MediaUrl]];
+        [player.moviePlayer prepareToPlay];
+        player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
+        [player.view setFrame:self.skilleeMediaImg.frame];
+        [player.moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
+        player.moviePlayer.shouldAutoplay = NO;
+        [self.view addSubview:player.view];
+        //[player.moviePlayer stop];
+        [player.moviePlayer play];*/
+        //[self presentMoviePlayerViewControllerAnimated:player]*/
+        AVPlayer *player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:skillee.MediaUrl]];
+        AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
+        [layer setBackgroundColor:[[UIColor blackColor] CGColor]];
+        player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+        layer.frame = self.skilleeMediaImg.frame;
+        [self.view.layer addSublayer: layer];
+        player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd:)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:[player currentItem]];
+        [player play];
+    } else {
+        [self.skilleeMediaImg setImageWithURL:[NSURL URLWithString:skillee.MediaUrl]];
+    }
     self.skilleeTitleLbl.text = skillee.Title;
     self.skilleeCommentLbl.text = skillee.Comment;
+}
+
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    AVPlayerItem *p = [notification object];
+    [p seekToTime:kCMTimeZero];
+}
+
+- (BOOL)isVideo:(NSString *)url
+{
+    return [url hasSuffix:@"mp4"];
 }
 
 - (void)showDisabledButtons {
