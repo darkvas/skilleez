@@ -47,11 +47,10 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     [self setCustomFonts];
     self.txtFieldUserName.delegate = self;
     self.txtFieldUserPassword.delegate = self;
-    
     [self loadSettings];
 }
 
--(void) loadSettings
+- (void)loadSettings
 {
     UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
     [userSettings loadSettings];
@@ -71,20 +70,22 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     [self.view endEditing:YES];
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    if (textField == self.txtFieldUserName) {
+    /*if (textField == self.txtFieldUserName) {
         [self.txtFieldUserPassword becomeFirstResponder];
     } else if (textField == self.txtFieldUserPassword) {
         [self loginWithUsername:self.txtFieldUserName.text andPassword:self.txtFieldUserPassword.text];
-    }
+    }*/
     return YES;
 }
 
 - (void)setCustomFonts
 {
     [self.txtFieldUserName setFont:[UIFont getDKCrayonFontWithSize:36]];
+    [self.txtFieldUserName setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.txtFieldUserPassword setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.txtFieldUserPassword setFont:[UIFont getDKCrayonFontWithSize:36]];
     [self.loginBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:36]];
     [self.rememberMeBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:18]];
@@ -92,12 +93,12 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     [self.forgotPasswordBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:18]];
 }
 
--(IBAction) loginPressed:(UIButton*) sender
+- (IBAction)loginPressed:(UIButton *)sender
 {
     [self loginWithUsername:self.txtFieldUserName.text andPassword:self.txtFieldUserPassword.text];
 }
 
--(void) loginWithUsername:(NSString*) username andPassword:(NSString*) password
+- (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password
 {
     [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL loginResult) {
         if (loginResult) {
@@ -110,7 +111,7 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     }];
 }
 
--(IBAction) rememberMePressed:(UIButton*)sender
+- (IBAction)rememberMePressed:(UIButton *)sender
 {
     [sender setSelected:YES];
     UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
@@ -121,12 +122,12 @@ NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Regist
     [userSettings saveSettings];
 }
 
--(IBAction) forgotPasswordPressed:(UIButton*)sender
+- (IBAction)forgotPasswordPressed:(UIButton *)sender
 {
     
 }
 
--(IBAction) registerPressed:(UIButton*)sender
+- (IBAction)registerPressed:(UIButton *)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:REGISTER_URL]];
 }

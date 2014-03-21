@@ -11,6 +11,6 @@
 
 @interface SkilleeDetailViewController : UIViewController
 
-- (id)initWithSkillee:(SkilleeModel *)skillee;
+- (id)initWithSkillee:(SkilleeModel *)skillee andApproveOpportunity:(BOOL)enabled;
 
 @end

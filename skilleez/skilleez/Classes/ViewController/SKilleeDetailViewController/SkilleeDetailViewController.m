@@ -11,9 +11,11 @@
 #import "UIFont+DefaultFont.h"
 #import "LoopActivityViewController.h"
 #import "NetworkManager.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface SkilleeDetailViewController () {
     SkilleeModel *skillee;
+    BOOL enabledApprove;
 }
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *doneBtn;
@@ -50,10 +52,11 @@
     return self;
 }
 
-- (id)initWithSkillee:(SkilleeModel *)skilleeEl
+- (id)initWithSkillee:(SkilleeModel *)skilleeEl andApproveOpportunity:(BOOL)enabled
 {
     if (self = [super init]) {
         skillee = skilleeEl;
+        enabledApprove = enabled;
     }
     return self;
 }
@@ -63,7 +66,17 @@
     [super viewDidLoad];
     [self setCellFonts];
     [self setSkillee];
-    //[self showDisabledButtons];
+    /*MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] init];
+    player.moviePlayer.movieSourceType= MPMovieSourceTypeStreaming;
+    [player.moviePlayer setContentURL:[NSURL URLWithString:@"http://techslides.com/demos/sample-videos/small.mp4"]];
+    [player.moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
+    [self.view addSubview:player.view];
+    [player.moviePlayer prepareToPlay];
+    [player.moviePlayer play];*/
+    //[self presentMoviePlayerViewControllerAnimated:player];
+    if (!enabledApprove) {
+        [self showDisabledButtons];   
+    }
 	// Do any additional setup after loading the view.
 }
 

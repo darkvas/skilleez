@@ -55,7 +55,7 @@
 - (void)setCellFonts
 {
     [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:13]];
+    [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
     [self.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
 }

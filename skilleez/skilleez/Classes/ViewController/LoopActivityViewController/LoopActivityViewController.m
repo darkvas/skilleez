@@ -69,7 +69,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (isChildApproval) {
-        return 460;
+        return 462;
     } else {
         return 417;
     }
@@ -90,27 +90,29 @@
 - (void)didSkiilleSelect:(NSInteger)tag
 {
     if ([className isEqualToString:@"SimpleTableCell"]) {
-        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag]];
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag] andApproveOpportunity:NO];
         [self.navigationController pushViewController:detail animated:YES];
-    }
-    else if ([className isEqualToString:@"FavoriteTableCell"])
-    {
+    } else if ([className isEqualToString:@"FavoriteTableCell"]) {
         [self loadFavoriteList];
+    } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag] andApproveOpportunity:YES];
+        [self.navigationController pushViewController:detail animated:YES];
     }
 }
 
-- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([className isEqualToString:@"SimpleTableCell"]) {
-        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row]];
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:NO];
         [self.navigationController pushViewController:detail animated:YES];
-    } /*else if ([className isEqualToString:@"FavoriteTableCell"]) {
-       NSLog(@"");
-       } else if([className isEqualToString:@"ChildApprovalTableCell"]) {
+    } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:YES];
+        [self.navigationController pushViewController:detail animated:YES];
+    } else if([className isEqualToString:@"ChildApprovalTableCell"]) {
        
-       } else {
+    } else {
        
-       }*/
+    }
 }
 
 - (UIActivityIndicatorView *)getLoaderIndicator
@@ -167,14 +169,14 @@
     }];
 }
 
-- (void)hideCreateView
+- (void)hideCreateView:(BOOL)hide
 {
-    self.tableView.hidden = NO;
+    self.tableView.hidden = !hide;
     for (UIView *subView in self.contentView.subviews)
     {
         if (subView.tag == 2)
         {
-            [subView removeFromSuperview];
+            [subView setHidden:hide];
         }
     }
 }
@@ -189,21 +191,21 @@
 }
 
 - (IBAction)loadTop:(id)sender {
-    [self hideCreateView];
+    [self hideCreateView:YES];
     isChildApproval = NO;
     className = [NSMutableString stringWithString:@"SimpleTableCell"];
     [self loadSkilleeList];
 }
 
 - (IBAction)loadApproves:(id)sender {
-    [self hideCreateView];
+    [self hideCreateView:YES];
     isChildApproval = YES;
-    className = [NSMutableString stringWithString:@"ChildApprovalTableCell"];
+    className = [NSMutableString stringWithString:@"AdultApprovalTableCell"];
     [self loadWaitingForApprovalList];
 }
 
 - (IBAction)loadFavorites:(id)sender {
-    [self hideCreateView];
+    [self hideCreateView:YES];
     isChildApproval = NO;
     className = [NSMutableString stringWithString:@"FavoriteTableCell"];
     [self loadFavoriteList];
@@ -214,6 +216,8 @@
         CreateChildSkilleeViewController *createChild = [[CreateChildSkilleeViewController alloc] initWithNibName:@"CreateChildSkilleeViewController" bundle:nil];
         [self.contentView addSubview:createChild.view];
         [self addChildViewController:createChild];
+    } else {
+        [self hideCreateView:NO];
     }
 }
 

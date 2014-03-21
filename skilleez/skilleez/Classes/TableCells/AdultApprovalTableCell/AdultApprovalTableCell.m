@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *skilleezTitleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *skilleezCommentLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentImg;
+@property (weak, nonatomic) IBOutlet UIButton *detailBtn;
+
+- (IBAction)showSkillee:(id)sender;
 
 @end
 
@@ -40,15 +43,18 @@
     [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaUrl]];
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;
-    
+    cell.detailBtn.tag = tag;
 }
 
 - (void)setCellFonts
 {
     [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:13]];
+    [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
     [self.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
 }
 
+- (IBAction)showSkillee:(id)sender {
+    [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
+}
 @end
