@@ -8,8 +8,13 @@
 
 #import "FavoriteTableCell.h"
 #import "UIFont+DefaultFont.h"
+#import "NetworkManager.h"
+#import "LoopActivityViewController.h"
 
 @interface FavoriteTableCell()
+{
+    SkilleeModel* skillee;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImg;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLbl;
@@ -17,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *skilleezTitleLbl;
 @property (weak, nonatomic) IBOutlet UILabel *skilleezCommentLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentImg;
+@property (weak, nonatomic) IBOutlet UIButton *removeFavBtn;
+
+- (IBAction) removeFromFavorites:(id)sender;
 
 @end
 
@@ -24,6 +32,7 @@
 
 - (void)setSkilleezCell:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
+    skillee = element;
     [cell setCellFonts];
     cell.usernameLbl.text = element.UserName;
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -49,6 +58,15 @@
     [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:13]];
     [self.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
+}
+
+- (IBAction) removeFromFavorites:(id)sender
+{
+    [[NetworkManager sharedInstance] postRemoveFromFavorites:skillee.Id success:^{
+         [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
+    } failure:^(NSError *error) {
+        NSLog(@"Failed remove from Favorites: %@, error: %@", skillee.Id, error);
+    }];
 }
 
 @end

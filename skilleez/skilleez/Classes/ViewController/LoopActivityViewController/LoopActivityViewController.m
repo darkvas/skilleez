@@ -26,7 +26,6 @@
 - (IBAction)loadTop:(id)sender;
 - (IBAction)loadApproves:(id)sender;
 - (IBAction)loadFavorites:(id)sender;
-- (IBAction)createSkillee:(id)sender;
 
 @end
 
@@ -94,6 +93,10 @@
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag]];
         [self.navigationController pushViewController:detail animated:YES];
     }
+    else if ([className isEqualToString:@"FavoriteTableCell"])
+    {
+        [self loadFavoriteList];
+    }
 }
 
 - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath
@@ -102,12 +105,12 @@
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row]];
         [self.navigationController pushViewController:detail animated:YES];
     } /*else if ([className isEqualToString:@"FavoriteTableCell"]) {
-        NSLog(@"");
-    } else if([className isEqualToString:@"ChildApprovalTableCell"]) {
-        
-    } else {
-        
-    }*/
+       NSLog(@"");
+       } else if([className isEqualToString:@"ChildApprovalTableCell"]) {
+       
+       } else {
+       
+       }*/
 }
 
 - (UIActivityIndicatorView *)getLoaderIndicator
@@ -125,7 +128,7 @@
 - (void)loadSkilleeList
 {
     UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
-        [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
+    [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
         NSLog(@"skillees count: %i", skilleeList.count);
         NSLog(@"%@", skilleeList[0]);
         data = [[NSArray alloc] initWithArray: skilleeList];

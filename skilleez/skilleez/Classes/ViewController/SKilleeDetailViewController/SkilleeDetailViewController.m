@@ -10,6 +10,7 @@
 #import "SimpleTableCell.h"
 #import "UIFont+DefaultFont.h"
 #import "LoopActivityViewController.h"
+#import "NetworkManager.h"
 
 @interface SkilleeDetailViewController () {
     SkilleeModel *skillee;
@@ -140,8 +141,18 @@
 }
 
 - (IBAction)favorite:(id)sender {
+    [[NetworkManager sharedInstance] postAddToFavorites:skillee.Id success:^{
+        NSLog(@"Success add to Favorites: %@", skillee.Id);
+    } failure:^(NSError *error) {
+        NSLog(@"Failed add to Favorites: %@, error: %@", skillee.Id, error);
+    }];
 }
 
 - (IBAction)tattle:(id)sender {
+    [[NetworkManager sharedInstance] postMarkAsTatle:skillee.Id success:^{
+        NSLog(@"Success mark as Tatle: %@", skillee.Id);
+    } failure:^(NSError *error) {
+        NSLog(@"Failed mark as Tatle: %@, error: %@", skillee.Id, error);
+    }];
 }
 @end

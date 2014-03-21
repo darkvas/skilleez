@@ -7,6 +7,7 @@
 //
 
 #import "NetworkManager.h"
+#import "PostResponse.h"
 
 #define SKILLEEZ_URL @"http://skilleezv3.elasticbeanstalk.com/"
 #define LOGIN_URI @"Account/LogOn"
@@ -17,6 +18,11 @@
 #define GET_FAVORITE_LIST @"api/Skillee/GetFavoriteList"
 
 #define POST_CREATE_SKILLEE @"api/Skillee/CreateSkilleez"
+#define POST_REMOVE @"api/Skillee/Remove"
+#define POST_ADD_TO_FAVORITES @"api/Skillee/AddToFavorites"
+#define POST_REMOVE_FROM_FAVORITES @"api/Skillee/RemoveFromFavorites"
+#define POST_MARK_AS_TATTLE @"api/Skillee/MarkAsTattle"
+#define POST_APPROVE_OR_DENY @"api/Skillee/ApproveOrDeny"
 
 @implementation NetworkManager
 {
@@ -74,7 +80,7 @@
     RKObjectMapping *userInfoMapping = [UserInfo defineObjectMapping];
     RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userInfoMapping
                                                                                              method:RKRequestMethodGET
-                                                                                        pathPattern:nil
+                                                                                        pathPattern:GET_USERINFO_URI
                                                                                             keyPath:@"ReturnValue"
                                                                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [manager addResponseDescriptor:responseDescriptor];
@@ -95,18 +101,18 @@
 
 -(void) getSkilleeList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
-    [self prepareSkilleeRequest];
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_SKILLEE_LIST_URI, count, offset];
+    [self prepareSkilleeRequest: GET_SKILLEE_LIST_URI];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
--(void) prepareSkilleeRequest
+-(void) prepareSkilleeRequest:(NSString*) urlPattern
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     RKObjectMapping *skilleeMapping = [SkilleeModel defineObjectMapping];
     RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
                                                                                              method:RKRequestMethodGET
-                                                                                        pathPattern:nil
+                                                                                        pathPattern:urlPattern
                                                                                             keyPath:@"ReturnValue"
                                                                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [manager addResponseDescriptor:responseDescriptor];
@@ -118,7 +124,12 @@
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{successSkillee(mappingResult.array);});
+         NSMutableArray* skilleArray = [NSMutableArray new];
+         for (NSObject* obj in mappingResult.array) {
+             if([obj isKindOfClass:[SkilleeModel class]])
+                 [skilleArray addObject:obj];
+         }
+         dispatch_async(dispatch_get_main_queue(), ^{successSkillee(skilleArray);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
@@ -128,70 +139,226 @@
 
 -(void) getSkilleeListForUser:(int) userId count: (int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
-    [self prepareSkilleeRequest];
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?UserId=%iCount=%i&Offset=%i", SKILLEEZ_URL, GET_USER_SKILLEE_LIST_URI, userId, count, offset];
+    [self prepareSkilleeRequest:GET_USER_SKILLEE_LIST_URI];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
 -(void) getWaitingForApproval:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
-    [self prepareSkilleeRequest];
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_WAITING_FOR_APPROVAL_URI, count, offset];
+    [self prepareSkilleeRequest:GET_WAITING_FOR_APPROVAL_URI];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
 -(void) getFavoriteList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
-    [self prepareSkilleeRequest];
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_FAVORITE_LIST, count, offset];
+    [self prepareSkilleeRequest:GET_FAVORITE_LIST];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
-/*POST api/Skillee/AddToFavorites
-POST api/Skillee/RemoveFromFavorites
+/*
 POST api/Skillee/MarkAsTattle
 GET api/Skillee/CanApprove
 POST api/Skillee/ApproveOrDeny
 POST api/Skillee/Remove*/
 
--(void) postSkillee:(SkilleeModel*) skillee withBehalfUserId: (NSString*) behalfUserId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
 
-    //This is used for mapping responses, you already should have one of this. PS:[Data mapping] is a method that returns an RKObjectMapping for my model
-    /*RKObjectMapping *skilleeMapping = [SkilleeModel defineObjectMapping];
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
-                                                                                             method:RKRequestMethodGET
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
                                                                                         pathPattern:nil
-                                                                                            keyPath:@"ReturnValue"
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSMutableURLRequest *request = [manager multipartFormRequestWithObject:skilleeRequest
+                                                                    method:RKRequestMethodPOST
+                                                                      path:[SKILLEEZ_URL stringByAppendingString:POST_CREATE_SKILLEE]
+                                                                parameters:nil
+                                                 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) { }];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *boundary = @"----WebKitFormBoundarycC4YiaUFwM44F6rT";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    /*------WebKitFormBoundarycMAsAB11DxnDngJ3
+     Content-Disposition: form-data; name="BehalfUserId"
+     
+     
+     ------WebKitFormBoundarycMAsAB11DxnDngJ3
+     Content-Disposition: form-data; name="Title"
+     
+     one more skillee test
+     ------WebKitFormBoundarycMAsAB11DxnDngJ3
+     Content-Disposition: form-data; name="Comment"
+     
+     there is one more skillee
+     ------WebKitFormBoundarycMAsAB11DxnDngJ3
+     Content-Disposition: form-data; name="Media"; filename="images.jpeg"
+     Content-Type: image/jpeg
+     
+     
+     ------WebKitFormBoundarycMAsAB11DxnDngJ3--*/
+    
+    NSMutableData *body = [NSMutableData data];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"BehalfUserId\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n%@", skilleeRequest.BehalfUserId] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"Title\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n%@", skilleeRequest.Title] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"Comment\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n%@", skilleeRequest.Comment] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Disposition: form-data; name=\"Media\";filename=\"picture.jpeg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:skilleeRequest.Media];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	
+    [request setHTTPBody:body];
+    
+    RKObjectRequestOperation *operation = [manager objectRequestOperationWithRequest:request
+                                                                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                                                 NSLog(@"Success");
+                                                                             }
+                                                                             failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                                                 NSLog(@"Failed");
+                                                                             }];
+    [manager enqueueObjectRequestOperation:operation];
+}
+
+-(void) postRemoveSkillee:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:nil
                                                                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [manager addResponseDescriptor:responseDescriptor];
     
-    RKRequestDescriptor *requestDescriptor = [RKRequestDescriptor requestDescriptorWithMapping:[skilleeMapping inverseMapping] objectClass:[SkilleeModel class] rootKeyPath:@"data" method:RKRequestMethodPOST];
-    [manager addRequestDescriptor:requestDescriptor];*/
+    NSDictionary *jsonData = @{@"Id": skilleeId};
     
-    NSDictionary *jsonData = @{@"BehalfUserId":behalfUserId,
-                               @"Title":skillee.Title,
-                               @"Comment":skillee.Comment,
-                               @"Media": @""
-                               };
-    
-    /*NSString* myFilePath = @"/some/path/to/picture.gif";
-    RKParams* params = [RKParams params];
-    
-    // Set some simple values -- just like we would with NSDictionary
-    [params setValue:@"Blake" forParam:@"name"];
-    [params setValue:@"blake@restkit.org" forParam:@"email"];*/
-    
-    [manager postObject:skillee path:[SKILLEEZ_URL stringByAppendingString:POST_CREATE_SKILLEE] parameters:jsonData
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{success();});
-    }
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
-    }];
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) postAddToFavorites:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSDictionary *jsonData = @{@"Id": skilleeId};
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_ADD_TO_FAVORITES] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) postRemoveFromFavorites:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSDictionary *jsonData = @{@"Id": skilleeId};
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE_FROM_FAVORITES] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) postMarkAsTatle:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSDictionary *jsonData = @{@"Id": skilleeId};
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_MARK_AS_TATTLE] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+//need check and test
+-(void) postApproveSkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSDictionary *jsonData = @{
+        @"SkilleeID": skilleeId,
+        @"IsApproved": @(approved),
+    };
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_APPROVE_OR_DENY] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
 }
 
 @end
