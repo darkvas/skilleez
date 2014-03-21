@@ -70,7 +70,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (isChildApproval) {
-        return 460;
+        return 462;
     } else {
         return 417;
     }
