@@ -298,6 +298,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14C8F37A18DC6B770052E915 /* AVFoundation.framework in Frameworks */,
 				14C8F37318DC427D0052E915 /* MediaPlayer.framework in Frameworks */,
 				8417A47F18CF0BE100E6BAE4 /* CFNetwork.framework in Frameworks */,
 				8417A48018CF0BE100E6BAE4 /* CoreData.framework in Frameworks */,
@@ -576,6 +577,7 @@
 		84D9E04D18C9C3D400516E2D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				14C8F37918DC6B770052E915 /* AVFoundation.framework */,
 				14C8F37218DC427D0052E915 /* MediaPlayer.framework */,
 				8417A47A18CF0BE100E6BAE4 /* CFNetwork.framework */,
 				8417A47B18CF0BE100E6BAE4 /* CoreData.framework */,
