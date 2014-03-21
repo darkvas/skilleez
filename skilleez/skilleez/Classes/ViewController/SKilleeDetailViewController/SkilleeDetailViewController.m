@@ -67,15 +67,6 @@
     [super viewDidLoad];
     [self setCellFonts];
     [self setSkillee];
-    //self.movie = [[MPMoviePlayerController alloc] init];
-    /*MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] init];
-    player.moviePlayer.movieSourceType= MPMovieSourceTypeStreaming;
-    [player.moviePlayer setContentURL:[NSURL URLWithString:@"http://techslides.com/demos/sample-videos/small.mp4"]];
-    [player.moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
-    [self.view addSubview:player.view];
-    [player.moviePlayer prepareToPlay];
-    [player.moviePlayer play];*/
-    //[self presentMoviePlayerViewControllerAnimated:player];
     if (!enabledApprove) {
         [self showDisabledButtons];   
     }
