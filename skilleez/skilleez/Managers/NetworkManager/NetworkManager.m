@@ -220,8 +220,13 @@ POST api/Skillee/Remove*/
     [body appendData:[[NSString stringWithFormat:@"\r\n%@", skilleeRequest.Comment] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"Content-Disposition: form-data; name=\"Media\";filename=\"picture.jpeg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    if(skilleeRequest.MediaType == mediaTypeImage){
+        [body appendData:[@"Content-Disposition: form-data; name=\"Media\";filename=\"picture.jpeg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    }else if(skilleeRequest.MediaType == mediaTypeVideo){
+        [body appendData:[@"Content-Disposition: form-data; name=\"Media\";filename=\"video.mp4\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[@"Content-Type: video/mp4\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    }
     [body appendData:skilleeRequest.Media];
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 	

@@ -13,6 +13,7 @@
 @interface CreateChildSkilleeViewController (){
     UIImagePickerController *imagePicker;
     NSData* chosenData;
+    enum mediaType dataMediaType;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *createSkilleeLbl;
@@ -88,9 +89,16 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:NULL];
-    
-    UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
-    chosenData = UIImageJPEGRepresentation(chosenImage, 1.0f);
+    NSString* contentType = info[UIImagePickerControllerMediaType];
+    if([contentType isEqualToString:@"public.image"]) {
+        UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
+        chosenData = UIImageJPEGRepresentation(chosenImage, 1.0f);
+        dataMediaType = mediaTypeImage;
+    } else if([contentType isEqualToString:@"public.movie"]){
+        NSString* filePath = info[@"UIImagePickerControllerMediaURL"];
+        chosenData = [[NSData alloc] initWithContentsOfFile:filePath];
+        dataMediaType = mediaTypeVideo;
+    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -149,6 +157,7 @@
     skilleeRequest.Comment = self.commentTxt.text;
     skilleeRequest.BehalfUserId = self.postOnTxt.text;
     skilleeRequest.Media = chosenData;
+    skilleeRequest.MediaType = dataMediaType;
     
     [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest success:^{
         NSLog(@"Done");
@@ -159,6 +168,7 @@
 }
 
 - (IBAction)pickImage:(id)sender {
+    imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString*) kUTTypeImage];
     [self presentModalViewController:imagePicker animated:YES];
 }
 
