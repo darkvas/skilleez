@@ -16,6 +16,7 @@
 #define GET_USER_SKILLEE_LIST_URI @"api/Skillee/GetUserSkilleezList"
 #define GET_WAITING_FOR_APPROVAL_URI @"api/Skillee/GetWaitingForApprovalList"
 #define GET_FAVORITE_LIST @"api/Skillee/GetFavoriteList"
+#define GET_CAN_APPROVE @"api/Skillee/CanApprove"
 
 #define POST_CREATE_SKILLEE @"api/Skillee/CreateSkilleez"
 #define POST_REMOVE @"api/Skillee/Remove"
@@ -89,12 +90,10 @@
                          parameters:nil
                             success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         NSLog(@"success: mappings: %@", mappingResult.firstObject);
          dispatch_async(dispatch_get_main_queue(), ^{successUserInfo(mappingResult.firstObject);});
      }
                             failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         NSLog (@"failure: operation: %@ \n\nerror: %@", operaton, error);
          dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
      }];
 }
@@ -158,12 +157,6 @@
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
-/*
-POST api/Skillee/MarkAsTattle
-GET api/Skillee/CanApprove
-POST api/Skillee/ApproveOrDeny
-POST api/Skillee/Remove*/
-
 -(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
@@ -186,25 +179,6 @@ POST api/Skillee/Remove*/
     NSString *boundary = @"----WebKitFormBoundarycC4YiaUFwM44F6rT";
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
     [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-    /*------WebKitFormBoundarycMAsAB11DxnDngJ3
-     Content-Disposition: form-data; name="BehalfUserId"
-     
-     
-     ------WebKitFormBoundarycMAsAB11DxnDngJ3
-     Content-Disposition: form-data; name="Title"
-     
-     one more skillee test
-     ------WebKitFormBoundarycMAsAB11DxnDngJ3
-     Content-Disposition: form-data; name="Comment"
-     
-     there is one more skillee
-     ------WebKitFormBoundarycMAsAB11DxnDngJ3
-     Content-Disposition: form-data; name="Media"; filename="images.jpeg"
-     Content-Type: image/jpeg
-     
-     
-     ------WebKitFormBoundarycMAsAB11DxnDngJ3--*/
     
     NSMutableData *body = [NSMutableData data];
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -362,6 +336,32 @@ POST api/Skillee/Remove*/
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+//TODO: service always return error - check it later
+-(void) getCanApprove:(void (^)(bool *canApprove))successResult failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodGET
+                                                                                        pathPattern:GET_CAN_APPROVE
+                                                                                            keyPath:@"ReturnValue"
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    [manager getObjectsAtPath:[SKILLEEZ_URL stringByAppendingString:GET_CAN_APPROVE]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         NSLog(@"success: mappings: %@", mappingResult.firstObject);
+         dispatch_async(dispatch_get_main_queue(), ^{successResult(YES);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         NSLog (@"failure: operation: %@ \n\nerror: %@", operaton, error);
          dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
      }];
 }

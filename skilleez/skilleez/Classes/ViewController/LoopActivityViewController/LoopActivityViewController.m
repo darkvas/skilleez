@@ -131,8 +131,6 @@
 {
     UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
     [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
-        NSLog(@"skillees count: %i", skilleeList.count);
-        NSLog(@"%@", skilleeList[0]);
         data = [[NSArray alloc] initWithArray: skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
@@ -145,8 +143,6 @@
 {
     UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
     [[NetworkManager sharedInstance] getFavoriteList:10 offset:0 success:^(NSArray *skilleeList) {
-        NSLog(@"skillees count: %i", skilleeList.count);
-        NSLog(@"%@", skilleeList[0]);
         data = [[NSArray alloc] initWithArray: skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
@@ -159,8 +155,6 @@
 {
     UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
     [[NetworkManager sharedInstance] getWaitingForApproval:10 offset:0 success:^(NSArray *skilleeList) {
-        NSLog(@"skillees count: %i", skilleeList.count);
-        //NSLog(@"%@", skilleeList[0]);
         data = [[NSArray alloc] initWithArray: skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
