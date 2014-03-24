@@ -138,7 +138,7 @@
 
 - (BOOL)isVideo:(NSString *)url
 {
-    return [url hasSuffix:@"mp4"];
+    return [url hasSuffix:@"mp4"] || [url hasSuffix:@"3gp" ] || [url hasSuffix:@"mpeg"];
 }
 
 - (void)showDisabledButtons {

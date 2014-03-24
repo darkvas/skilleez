@@ -9,6 +9,7 @@
 #import "CreateChildSkilleeViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
+#import "UserSettingsManager.h"
 
 @interface CreateChildSkilleeViewController (){
     UIImagePickerController *imagePicker;
@@ -48,8 +49,8 @@
 {
     [super viewDidLoad];
     self.titleTxt.delegate = self;
-    //self.heightCon.constant = 506;
     self.commentTxt.delegate = self;
+    self.heightCon.constant = [UserSettingsManager sharedInstance].IsAdult ? 453 : 506;
     [self setDefaultFonts];
     UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"big_text_view_BG.png"]];
     imgView.frame = CGRectMake(0, 0, 295, 128);
@@ -65,7 +66,6 @@
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.delegate = self;
-    
     self.launchBtn.enabled = NO;
 }
 
