@@ -10,4 +10,6 @@
 
 @interface LoginViewController : UIViewController <UITextFieldDelegate>
 
+- (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password;
+
 @end

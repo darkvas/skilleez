@@ -12,7 +12,6 @@
 #import "LoopActivityViewController.h"
 #import "NetworkManager.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import <AVFoundation/AVFoundation.h>
 
 @interface SkilleeDetailViewController () {
     SkilleeModel *skillee;

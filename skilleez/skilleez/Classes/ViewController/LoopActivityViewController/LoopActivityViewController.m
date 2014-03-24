@@ -33,6 +33,7 @@
 {
     NSArray *data;
     BOOL isChildApproval;
+    BOOL child;
     NSMutableString *className;
 }
 

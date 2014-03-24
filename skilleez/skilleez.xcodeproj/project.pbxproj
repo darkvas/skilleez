@@ -82,6 +82,8 @@
 		14C8F37018DC3F6E0052E915 /* circle_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C8F36C18DC3F6E0052E915 /* circle_delete.png */; };
 		14C8F37118DC3F6E0052E915 /* circle_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C8F36D18DC3F6E0052E915 /* circle_delete@2x.png */; };
 		14C8F37318DC427D0052E915 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14C8F37218DC427D0052E915 /* MediaPlayer.framework */; };
+		14DB8B4C18E0232700DEEC4C /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14DB8B4B18E0232700DEEC4C /* SplashViewController.xib */; };
+		14DB8B4F18E0233B00DEEC4C /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DB8B4E18E0233B00DEEC4C /* SplashViewController.m */; };
 		41D4F1C2FD1C46CF88200BA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3445939C78449D922E4C3C /* libPods.a */; };
 		8417A47F18CF0BE100E6BAE4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47A18CF0BE100E6BAE4 /* CFNetwork.framework */; };
 		8417A48018CF0BE100E6BAE4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47B18CF0BE100E6BAE4 /* CoreData.framework */; };
@@ -228,6 +230,9 @@
 		14C8F36C18DC3F6E0052E915 /* circle_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_delete.png; sourceTree = "<group>"; };
 		14C8F36D18DC3F6E0052E915 /* circle_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_delete@2x.png"; sourceTree = "<group>"; };
 		14C8F37218DC427D0052E915 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		14DB8B4B18E0232700DEEC4C /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
+		14DB8B4D18E0233B00DEEC4C /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		14DB8B4E18E0233B00DEEC4C /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		8417A47A18CF0BE100E6BAE4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8417A47B18CF0BE100E6BAE4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -490,6 +495,16 @@
 			path = "Navigation Icon Pack";
 			sourceTree = "<group>";
 		};
+		14DB8B4A18E022B600DEEC4C /* SplashViewController */ = {
+			isa = PBXGroup;
+			children = (
+				14DB8B4D18E0233B00DEEC4C /* SplashViewController.h */,
+				14DB8B4E18E0233B00DEEC4C /* SplashViewController.m */,
+				14DB8B4B18E0232700DEEC4C /* SplashViewController.xib */,
+			);
+			path = SplashViewController;
+			sourceTree = "<group>";
+		};
 		84D6CE1418D1BE6D008ABB5E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +540,7 @@
 		84D6CE1A18D1BF1F008ABB5E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				14DB8B4A18E022B600DEEC4C /* SplashViewController */,
 				14BCE63918D89A300047F490 /* CreateChildSkilleeViewController */,
 				14BCE63318D84F3E0047F490 /* SkilleeDetailViewController */,
 				84D6CE1B18D1BF1F008ABB5E /* LoginViewController */,
@@ -846,6 +862,7 @@
 				14BCE70318D9EEA40047F490 /* pandimg_BTN@2x.png in Resources */,
 				14BCE6FA18D9EEA40047F490 /* favorites_BTN.png in Resources */,
 				14BCE67E18D9B8E90047F490 /* film_strip_icon@2x.png in Resources */,
+				14DB8B4C18E0232700DEEC4C /* SplashViewController.xib in Resources */,
 				84D9E10A18CA01CC00516E2D /* skilleez_spotlight@2x.png in Resources */,
 				84D9E0AB18C9F32F00516E2D /* plane_img@2x.png in Resources */,
 				14BCE68118D9B8E90047F490 /* small_text_view_BG.png in Resources */,
@@ -942,6 +959,7 @@
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
 				84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */,
 				84EA05CB18D6F5FF008D940D /* UserInfo.m in Sources */,
+				14DB8B4F18E0233B00DEEC4C /* SplashViewController.m in Sources */,
 				84EA05D818D8A266008D940D /* PostResponse.m in Sources */,
 				84EA05D518D881A1008D940D /* SkilleeRequest.m in Sources */,
 				149232B918D73A40001BAE8C /* SimpleTableCell.m in Sources */,
