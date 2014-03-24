@@ -10,4 +10,6 @@
 
 @interface CreateChildSkilleeViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate>
 
+- (void)resignAll;
+
 @end

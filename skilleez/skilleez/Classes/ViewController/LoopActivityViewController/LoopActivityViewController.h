@@ -11,4 +11,7 @@
 
 @interface LoopActivityViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SimpleCellDelegate>
 
+- (void)hideMenu;
+- (IBAction)loadTop:(id)sender;
+
 @end

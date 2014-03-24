@@ -80,6 +80,9 @@
                             </state>
                             <state key="selected" image="extra_BTN_press.png"/>
                             <state key="highlighted" image="extra_BTN_press.png"/>
+                            <connections>
+                                <action selector="showMenu:" destination="-1" eventType="touchUpInside" id="jEZ-Bp-lgK"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.96470588235294119" green="0.76862745098039209" blue="0.16078431372549018" alpha="1" colorSpace="deviceRGB"/>

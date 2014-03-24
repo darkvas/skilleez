@@ -14,6 +14,7 @@
 #import "UITableViewCell+SkilleeTableCell.h"
 #import "CreateChildSkilleeViewController.h"
 #import "UserSettingsManager.h"
+#import "MenuViewController.h"
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -23,10 +24,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *favoriteSkilleeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *createSkilleeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *menuBtn;
+@property (strong, nonatomic) CreateChildSkilleeViewController *createViewCtrl;
+@property (strong, nonatomic) MenuViewController *menuCtrl;
 
-- (IBAction)loadTop:(id)sender;
 - (IBAction)loadApproves:(id)sender;
 - (IBAction)loadFavorites:(id)sender;
+- (IBAction)showMenu:(id)sender;
 
 @end
 
@@ -49,6 +52,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.createViewCtrl = [[CreateChildSkilleeViewController alloc] initWithNibName:@"CreateChildSkilleeViewController" bundle:nil];
+    self.menuCtrl = [[MenuViewController alloc] initWithLoopController:self];
+    self.menuCtrl.view.hidden = YES;
+    self.menuCtrl.view.frame = CGRectMake(-320, 0, 320, 568);
+    [self.view addSubview:self.menuCtrl.view];
     isChildApproval = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     className = [NSMutableString stringWithString:@"SimpleTableCell"];
@@ -186,6 +194,7 @@
 }
 
 - (IBAction)loadTop:(id)sender {
+    [self.createViewCtrl resignAll];
     [self hideCreateView:YES];
     isChildApproval = NO;
     className = [NSMutableString stringWithString:@"SimpleTableCell"];
@@ -193,6 +202,7 @@
 }
 
 - (IBAction)loadApproves:(id)sender {
+    [self.createViewCtrl resignAll];
     [self hideCreateView:YES];
     isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
     className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
@@ -200,6 +210,7 @@
 }
 
 - (IBAction)loadFavorites:(id)sender {
+    [self.createViewCtrl resignAll];
     [self hideCreateView:YES];
     isChildApproval = NO;
     className = [NSMutableString stringWithString:@"FavoriteTableCell"];
@@ -208,12 +219,53 @@
 
 - (IBAction)createSkillee:(id)sender {
     if (![self isCreateViewExists]) {
-        CreateChildSkilleeViewController *createChild = [[CreateChildSkilleeViewController alloc] initWithNibName:@"CreateChildSkilleeViewController" bundle:nil];
-        [self.contentView addSubview:createChild.view];
-        [self addChildViewController:createChild];
+        [self.contentView addSubview:self.createViewCtrl.view];
+        [self addChildViewController:self.createViewCtrl];
     } else {
         [self hideCreateView:NO];
     }
+}
+
+- (IBAction)showMenu:(id)sender
+{
+    UIView* view = self.menuCtrl.view;
+    if (view.frame.origin.x == -64) {
+        [UIView animateWithDuration:0.7
+                              delay:0.0
+                            options: UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             CGRect frame = view.frame;
+                             frame.origin.y = 0;
+                             frame.origin.x = (-320);
+                             view.frame = frame;
+                         }
+                         completion:^(BOOL finished)
+         {
+             NSLog(@"from right to left");
+             
+         }];
+    } else {
+        view.hidden = NO;
+        [UIView animateWithDuration:0.7
+                              delay:0.0
+                            options: UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+             CGRect frame = view.frame;
+             frame.origin.y = 0;
+             frame.origin.x = (-64);
+             view.frame = frame;
+         }
+                         completion:^(BOOL finished)
+         {
+             NSLog(@"Completed");
+             
+         }];
+    }
+}
+
+- (void)hideMenu
+{
+    self.menuCtrl.view.frame = CGRectMake(-320, 0, 320, 568);
 }
 
 @end

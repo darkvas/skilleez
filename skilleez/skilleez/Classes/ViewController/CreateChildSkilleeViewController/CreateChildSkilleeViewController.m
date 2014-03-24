@@ -80,6 +80,13 @@
     [self.view endEditing:YES];
 }
 
+- (void)resignAll
+{
+    [self.titleTxt resignFirstResponder];
+    [self.commentTxt resignFirstResponder];
+    [self.postOnTxt resignFirstResponder];
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:NULL];
