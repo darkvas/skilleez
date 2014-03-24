@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "LoginViewController.h"
+#import "SplashViewController.h"
 
 @implementation AppDelegate
 
@@ -19,7 +19,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.navigationCtrl = [[UINavigationController alloc] init];
     self.window.rootViewController = self.navigationCtrl;
-    LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    SplashViewController *login = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.navigationCtrl.navigationBarHidden = YES;
     [self.navigationCtrl pushViewController:login animated:NO];
     [self.window makeKeyAndVisible];
