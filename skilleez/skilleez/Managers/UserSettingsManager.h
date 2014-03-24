@@ -16,6 +16,10 @@
 @property (nonatomic, strong) NSString* password;
 @property (nonatomic) BOOL remember;
 
+@property (nonatomic) BOOL IsAdmin;
+@property (nonatomic) BOOL IsVerified;
+@property (nonatomic) BOOL IsAdult;
+
 -(void) loadSettings;
 -(void) saveSettings;
 

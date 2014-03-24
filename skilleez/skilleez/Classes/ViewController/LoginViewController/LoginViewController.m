@@ -103,10 +103,11 @@
 
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password
 {
-    [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL loginResult, NSError* error) {
-        if (loginResult) {
+    [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL isLogined, NSError* error) {
+        if (isLogined) {
             LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
             [self.navigationController pushViewController:loop animated:YES];
+            [self getAccountInformation];
         } else {
             NSString* message = error.userInfo[NSLocalizedDescriptionKey];
             if([message isEqualToString:@"Expected status code in (200-299), got 401"])
@@ -114,6 +115,17 @@
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             [alert show];
         }
+    }];
+}
+
+- (void) getAccountInformation
+{
+    [[NetworkManager sharedInstance] getUserInfo:^(UserInfo *userInfo) {
+        [UserSettingsManager sharedInstance].IsAdmin = userInfo.IsAdmin;
+        [UserSettingsManager sharedInstance].IsAdult = userInfo.IsAdult;
+        [UserSettingsManager sharedInstance].IsVerified = userInfo.IsVerified;
+    } failure:^(NSError *error) {
+        NSLog(@"Error on GetUserInfo: %@", error);
     }];
 }
 
