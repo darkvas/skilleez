@@ -139,7 +139,7 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qdH-gU-OLp">
                     <rect key="frame" x="0.0" y="144" width="320" height="264"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" patternImage="9A17CF1E-8F81-438E-B58B-D3B496583186" colorSpace="pattern"/>
+                    <color key="backgroundColor" patternImage="6A80F531-2568-42FE-BE49-D44F2F30AD6B" colorSpace="pattern"/>
                 </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tWT-AR-uld">
                     <rect key="frame" x="0.0" y="64" width="320" height="80"/>
@@ -194,7 +194,7 @@
         </view>
     </objects>
     <resources>
-        <image name="9A17CF1E-8F81-438E-B58B-D3B496583186" width="320" height="460">
+        <image name="6A80F531-2568-42FE-BE49-D44F2F30AD6B" width="320" height="460">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
