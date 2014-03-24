@@ -105,9 +105,9 @@
 {
     [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL isLogined, NSError* error) {
         if (isLogined) {
+            [self getAccountInformation];
             LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
             [self.navigationController pushViewController:loop animated:YES];
-            [self getAccountInformation];
         } else {
             NSString* message = error.userInfo[NSLocalizedDescriptionKey];
             if([message isEqualToString:@"Expected status code in (200-299), got 401"])

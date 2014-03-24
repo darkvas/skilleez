@@ -10,6 +10,7 @@
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
 #import "LoginViewController.h"
+#import "LoopActivityViewController.h"
 
 @interface SplashViewController ()
 
@@ -38,7 +39,19 @@
     LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     [userSettings loadSettings];
     if (userSettings.remember) {
-        [login loginWithUsername:userSettings.username andPassword:userSettings.password];
+        [[NetworkManager sharedInstance] tryLogin:userSettings.username password:userSettings.password withLoginCallBeck:^(BOOL isLogined, NSError* error) {
+            if (isLogined) {
+                [login getAccountInformation];
+                LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
+                [self.navigationController pushViewController:loop animated:YES];
+            } else {
+                NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+                if([message isEqualToString:@"Expected status code in (200-299), got 401"])
+                    message = @"Incorrect login or password";
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+            }
+        }];
     } else {
         [self.navigationController pushViewController:login animated:YES];
     }

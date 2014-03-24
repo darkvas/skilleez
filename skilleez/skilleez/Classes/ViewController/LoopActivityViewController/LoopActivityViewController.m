@@ -13,6 +13,7 @@
 #import "SkilleeDetailViewController.h"
 #import "UITableViewCell+SkilleeTableCell.h"
 #import "CreateChildSkilleeViewController.h"
+#import "UserSettingsManager.h"
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -33,7 +34,6 @@
 {
     NSArray *data;
     BOOL isChildApproval;
-    BOOL child;
     NSMutableString *className;
 }
 
@@ -194,8 +194,8 @@
 
 - (IBAction)loadApproves:(id)sender {
     [self hideCreateView:YES];
-    isChildApproval = YES;
-    className = [NSMutableString stringWithString:@"AdultApprovalTableCell"];
+    isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
+    className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
     [self loadWaitingForApprovalList];
 }
 
