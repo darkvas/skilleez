@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *tattleBtn;
 @property (weak, nonatomic) IBOutlet UIButton *denyDisabledBtn;
 @property (weak, nonatomic) IBOutlet UIButton *approveDisabledBtn;
+@property (strong, nonatomic) MPMoviePlayerViewController *player;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
@@ -122,39 +123,18 @@
     self.skilleeDateLbl.text =[format stringFromDate:skillee.PostedDate];
     [self.userAvatarImg setImageWithURL:[NSURL URLWithString:skillee.UserAvatarUrl]];
     if ([self isVideo:skillee.MediaUrl]) {
-        /*MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:skillee.MediaUrl]];
-        [player.moviePlayer prepareToPlay];
-        player.moviePlayer.movieSourceType = MPMovieSourceTypeStreaming;
-        [player.view setFrame:self.skilleeMediaImg.frame];
-        [player.moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
-        player.moviePlayer.shouldAutoplay = NO;
-        [self.view addSubview:player.view];
-        //[player.moviePlayer stop];
-        [player.moviePlayer play];*/
-        //[self presentMoviePlayerViewControllerAnimated:player]*/
-        AVPlayer *player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:skillee.MediaUrl]];
-        AVPlayerLayer *layer = [AVPlayerLayer playerLayerWithPlayer:player];
-        [layer setBackgroundColor:[[UIColor blackColor] CGColor]];
-        player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-        layer.frame = self.skilleeMediaImg.frame;
-        [self.view.layer addSublayer: layer];
-        player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(playerItemDidReachEnd:)
-                                                     name:AVPlayerItemDidPlayToEndTimeNotification
-                                                   object:[player currentItem]];
-        [player play];
+        _player = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:skillee.MediaUrl]];
+        _player.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+        [_player.view setFrame:self.skilleeMediaImg.frame];
+        [_player.moviePlayer setControlStyle:MPMovieControlStyleDefault];
+        _player.moviePlayer.shouldAutoplay = NO;
+        [self.view addSubview:_player.view];
+        [_player.moviePlayer prepareToPlay];
     } else {
         [self.skilleeMediaImg setImageWithURL:[NSURL URLWithString:skillee.MediaUrl]];
     }
     self.skilleeTitleLbl.text = skillee.Title;
     self.skilleeCommentLbl.text = skillee.Comment;
-}
-
-- (void)playerItemDidReachEnd:(NSNotification *)notification {
-    AVPlayerItem *p = [notification object];
-    [p seekToTime:kCMTimeZero];
 }
 
 - (BOOL)isVideo:(NSString *)url

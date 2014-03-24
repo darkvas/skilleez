@@ -11,6 +11,8 @@
 
 @interface SkilleeDetailViewController : UIViewController
 
+@property (nonatomic) BOOL controllsHidden;
+
 - (id)initWithSkillee:(SkilleeModel *)skillee andApproveOpportunity:(BOOL)enabled;
 
 @end
