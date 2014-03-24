@@ -561,6 +561,7 @@
 			isa = PBXGroup;
 			children = (
 				14A2CAEA18E05DBD00A87F86 /* MenuViewController */,
+				84E7F69418E076F4003662CA /* InviteCreateUserViewController */,
 				14DB8B4A18E022B600DEEC4C /* SplashViewController */,
 				14BCE63918D89A300047F490 /* CreateChildSkilleeViewController */,
 				14BCE63318D84F3E0047F490 /* SkilleeDetailViewController */,
@@ -730,9 +731,9 @@
 		84E7F69418E076F4003662CA /* InviteCreateUserViewController */ = {
 			isa = PBXGroup;
 			children = (
-				84E7F69518E07752003662CA /* FriendsFamilyViewController.xib */,
 				84E7F69718E077A4003662CA /* FriendsFamilyViewController.h */,
 				84E7F69818E077A4003662CA /* FriendsFamilyViewController.m */,
+				84E7F69518E07752003662CA /* FriendsFamilyViewController.xib */,
 			);
 			path = InviteCreateUserViewController;
 			sourceTree = "<group>";

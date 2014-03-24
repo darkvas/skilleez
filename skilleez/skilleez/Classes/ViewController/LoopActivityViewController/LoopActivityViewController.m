@@ -228,6 +228,7 @@
 
 - (IBAction)showMenu:(id)sender
 {
+    [self.createViewCtrl resignAll];
     UIView* view = self.menuCtrl.view;
     if (view.frame.origin.x == -64) {
         [UIView animateWithDuration:0.7
