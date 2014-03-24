@@ -13,6 +13,7 @@
 #import "SkilleeDetailViewController.h"
 #import "UITableViewCell+SkilleeTableCell.h"
 #import "CreateChildSkilleeViewController.h"
+#import "UserSettingsManager.h"
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -90,7 +91,7 @@
 - (void)didSkiilleSelect:(NSInteger)tag
 {
     if ([className isEqualToString:@"SimpleTableCell"]) {
-        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag] andApproveOpportunity:NO];
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag] andApproveOpportunity:[UserSettingsManager sharedInstance].IsAdult];
         [self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"FavoriteTableCell"]) {
         [self loadFavoriteList];
@@ -103,7 +104,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([className isEqualToString:@"SimpleTableCell"]) {
-        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:NO];
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:[UserSettingsManager sharedInstance].IsAdult];
         [self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:YES];
@@ -193,8 +194,8 @@
 
 - (IBAction)loadApproves:(id)sender {
     [self hideCreateView:YES];
-    isChildApproval = YES;
-    className = [NSMutableString stringWithString:@"AdultApprovalTableCell"];
+    isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
+    className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
     [self loadWaitingForApprovalList];
 }
 

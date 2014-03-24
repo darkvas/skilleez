@@ -12,7 +12,6 @@
 #import "LoopActivityViewController.h"
 #import "NetworkManager.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import <AVFoundation/AVFoundation.h>
 
 @interface SkilleeDetailViewController () {
     SkilleeModel *skillee;
@@ -139,7 +138,7 @@
 
 - (BOOL)isVideo:(NSString *)url
 {
-    return [url hasSuffix:@"mp4"];
+    return [url hasSuffix:@"mp4"] || [url hasSuffix:@"3gp" ] || [url hasSuffix:@"mpeg"];
 }
 
 - (void)showDisabledButtons {
