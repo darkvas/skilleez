@@ -134,6 +134,7 @@
     }
     self.skilleeTitleLbl.text = skillee.Title;
     self.skilleeCommentLbl.text = skillee.Comment;
+    self.view.backgroundColor = skillee.Color;
 }
 
 - (BOOL)isVideo:(NSString *)url
@@ -156,9 +157,19 @@
 }
 
 - (IBAction)deny:(id)sender {
+    [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:NO success:^{
+        NSLog(@"Success denied: %@", skillee.Id);
+    } failure:^(NSError *error) {
+        NSLog(@"Failed to deny: %@, error: %@", skillee.Id, error);
+    }];
 }
 
 - (IBAction)approve:(id)sender {
+    [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:YES success:^{
+        NSLog(@"Success approved: %@", skillee.Id);
+    } failure:^(NSError *error) {
+        NSLog(@"Failed to approve: %@, error: %@", skillee.Id, error);
+    }];
 }
 
 - (IBAction)favorite:(id)sender {

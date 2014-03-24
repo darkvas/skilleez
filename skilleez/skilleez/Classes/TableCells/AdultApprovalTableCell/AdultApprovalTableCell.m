@@ -44,6 +44,7 @@
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;
     cell.detailBtn.tag = tag;
+    cell.contentView.backgroundColor = element.Color;
 }
 
 - (void)setCellFonts

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UserInfo.h"
 
 @interface UserSettingsManager : NSObject
 
@@ -19,6 +20,8 @@
 @property (nonatomic) BOOL IsAdmin;
 @property (nonatomic) BOOL IsVerified;
 @property (nonatomic) BOOL IsAdult;
+
+@property (nonatomic, strong) UserInfo* userInfo;
 
 -(void) loadSettings;
 -(void) saveSettings;

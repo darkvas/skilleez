@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSString* MediaThumbnailUrl;
 @property (nonatomic, strong) NSString* Title;
 @property (nonatomic, strong) NSString* Comment;
+@property (nonatomic, strong, getter = getColor) UIColor* Color;
 
 +(RKObjectMapping*) defineObjectMapping;
 
