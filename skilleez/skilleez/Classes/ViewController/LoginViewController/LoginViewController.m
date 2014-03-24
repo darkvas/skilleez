@@ -124,6 +124,7 @@
         [UserSettingsManager sharedInstance].IsAdmin = userInfo.IsAdmin;
         [UserSettingsManager sharedInstance].IsAdult = userInfo.IsAdult;
         [UserSettingsManager sharedInstance].IsVerified = userInfo.IsVerified;
+        [UserSettingsManager sharedInstance].userInfo = userInfo;
     } failure:^(NSError *error) {
         NSLog(@"Error on GetUserInfo: %@", error);
     }];

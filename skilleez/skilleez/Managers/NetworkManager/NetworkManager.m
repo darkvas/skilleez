@@ -313,7 +313,7 @@
 }
 
 //need check and test
--(void) postApproveSkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postApproveOrDenySkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -326,7 +326,7 @@
     
     NSDictionary *jsonData = @{
         @"SkilleeID": skilleeId,
-        @"IsApproved": @(approved),
+        @"IsApproved": approved ? @"true" : @"false",
     };
     
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_APPROVE_OR_DENY] parameters:jsonData

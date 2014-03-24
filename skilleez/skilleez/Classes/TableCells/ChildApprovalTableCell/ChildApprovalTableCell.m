@@ -41,6 +41,7 @@
     [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaUrl]];
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;
+    cell.contentView.backgroundColor = element.Color;
 }
 
 - (void)setCellFonts
