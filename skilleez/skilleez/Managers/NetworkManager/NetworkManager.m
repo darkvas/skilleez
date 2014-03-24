@@ -366,4 +366,101 @@
      }];
 }
 
+#pragma mark User - need to test
+
+#define POST_ADD_CHILD_TO_FAMILY @"api/User/AddChildToTheFamily"
+#define POST_INVITE_ADULT_TO_FAMILY @"api/User/InviteAdultToTheFamily"
+#define POST_REMOVE_MEMBER_FROM_FAMILY @"api/User/DeleteMemberFromTheFamily"
+
+/*
+GET api/User/GetMyInfo
+POST api/User/AddChildToTheFamily
+POST api/User/InviteAdultToTheFamily
+POST api/User/DeleteMemberFromTheFamily
+POST api/User/ResendAdultFamilyInvitation
+GET api/User/GetInvitedEmails
+GET api/User/GetFriendsAndFamily/{Id}
+GET api/User/GetAdultPermissions?MainFamilyUserId={MainFamilyUserId}&AdultId={AdultId}
+POST api/User/SetAdultPermissions*/
+
+-(void) postAddChildToFamily:(NSString*) childId withPass:(NSString*) childPassword success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSDictionary *jsonData = @{
+                                   @"ChildID": childId,
+                                   @"ChildPassword": childPassword
+                               };
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_ADD_CHILD_TO_FAMILY] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) postInviteAdultToFamily:(NSString*) email success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSDictionary *jsonData = @{
+                               @"Email": email
+                               };
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_INVITE_ADULT_TO_FAMILY] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) postRemoveMemberFromFamily:(NSString*) mainFamilyUserId memberId: (NSString*) memberId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:nil
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSDictionary *jsonData = @{
+                               @"MainFamilyUserId": mainFamilyUserId,
+                               @"MemberId": memberId
+                               };
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_INVITE_ADULT_TO_FAMILY] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
 @end
