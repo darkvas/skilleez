@@ -15,6 +15,7 @@
 #import "CreateChildSkilleeViewController.h"
 #import "UserSettingsManager.h"
 #import "MenuViewController.h"
+#import "AppDelegate.h"
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -237,7 +238,7 @@
                          animations:^{
                              CGRect frame = view.frame;
                              frame.origin.y = 0;
-                             frame.origin.x = (-320);
+                             frame.origin.x = -320;
                              view.frame = frame;
                          }
                          completion:^(BOOL finished)

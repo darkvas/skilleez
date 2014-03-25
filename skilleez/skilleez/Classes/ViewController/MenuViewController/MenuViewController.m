@@ -9,6 +9,7 @@
 #import "MenuViewController.h"
 #import "LoopActivityViewController.h"
 #import "UIFont+DefaultFont.h"
+#import "UserSettingsManager.h"
 
 @interface MenuViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
@@ -48,6 +49,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.userAvatarImg setImageWithURL:[NSURL URLWithString:[UserSettingsManager sharedInstance].userInfo.AvatarUrl]];
+    self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.FullName;
     [self customize];
 	// Do any additional setup after loading the view.
 }

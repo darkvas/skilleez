@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "SplashViewController.h"
+#import "UIFont+DefaultFont.h"
 
 @implementation AppDelegate
 
@@ -23,8 +24,52 @@
     self.navigationCtrl.navigationBarHidden = YES;
     [self.navigationCtrl pushViewController:login animated:NO];
     [self.window makeKeyAndVisible];
-    
     return YES;
+}
+
+- (void)cutomizeNavigationBar:(UIViewController *)this withTitle:(NSString *)title leftTitle:(NSString *)leftTitle rightButton:(BOOL)rightButton rightTitle:(NSString *)rightTitle
+{
+    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    titleLbl.text = title;
+    titleLbl.textAlignment = NSTextAlignmentCenter;
+    titleLbl.font = [UIFont getDKCrayonFontWithSize:24];
+    titleLbl.textColor = [UIColor orangeColor];
+    this.navigationItem.titleView = titleLbl;
+    if (rightButton) {
+        this.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self makeRightButtonWithTitle:rightTitle view:this]];
+    }
+    this.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self makeLeftButtonWithTitle:leftTitle view:this]];
+    //this.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    UIView *back = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    back.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    [this.navigationController.navigationBar.layer addSublayer:back.layer];
+    this.navigationController.navigationBarHidden = NO;
+}
+
+- (UIButton *)makeLeftButtonWithTitle:(NSString *)title view:(UIViewController *)this
+{
+    UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+    [cancelBtn setImage:[UIImage imageNamed:@"back_BTN.png"] forState:UIControlStateNormal];
+    [cancelBtn setImage:[UIImage imageNamed:@"back_BTN_press.png"] forState:UIControlStateHighlighted];
+    [cancelBtn setTitle:title forState:UIControlStateNormal];
+    [cancelBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [cancelBtn addTarget:this action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+    [cancelBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
+    [cancelBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
+    [cancelBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
+    [cancelBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:21]];
+    return cancelBtn;
+}
+
+- (UIButton *)makeRightButtonWithTitle:(NSString *)title view:(UIViewController *)this
+{
+    UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+    [doneBtn setTitle:title forState:UIControlStateNormal];
+    [doneBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
+    [doneBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:21]];
+    [doneBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
+    [doneBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    return doneBtn;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
