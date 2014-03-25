@@ -12,13 +12,12 @@
 #import "LoopActivityViewController.h"
 #import "NetworkManager.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "AppDelegate.h"
 
 @interface SkilleeDetailViewController () {
     SkilleeModel *skillee;
     BOOL enabledApprove;
 }
-@property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
-@property (weak, nonatomic) IBOutlet UIButton *doneBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *skilleeDateLbl;
@@ -33,8 +32,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *approveDisabledBtn;
 @property (strong, nonatomic) MPMoviePlayerViewController *player;
 
-- (IBAction)cancel:(id)sender;
-- (IBAction)done:(id)sender;
 - (IBAction)deny:(id)sender;
 - (IBAction)approve:(id)sender;
 - (IBAction)favorite:(id)sender;
@@ -65,6 +62,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"detail" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self setCellFonts];
     [self setSkillee];
     if (!enabledApprove) {
@@ -79,20 +77,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)cancel
+{
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)setCellFonts
 {
     [self.userNameLbl setFont:[UIFont getDKCrayonFontWithSize:25]];
-    [self.cancelBtn setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.doneBtn setFont:[UIFont getDKCrayonFontWithSize:21]];
     [self.skilleeDateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
     [self.skilleeTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleeCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.denyBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
-    [self.approveBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
-    [self.denyDisabledBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
-    [self.approveDisabledBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
-    [self.favoriteBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
-    [self.tattleBtn setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.denyBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.approveBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.denyDisabledBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.approveDisabledBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.favoriteBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:19]];
+    [self.tattleBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:19]];
     self.userAvatarImg.layer.cornerRadius = 28.0;
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -148,14 +150,6 @@
     self.approveBtn.hidden = YES;
     self.denyBtn.hidden = YES;
 }
-
-- (IBAction)cancel:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)done:(id)sender {
-}
-
 - (IBAction)deny:(id)sender {
     [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:NO success:^{
         NSLog(@"Success denied: %@", skillee.Id);

@@ -13,4 +13,5 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *navigationCtrl;
 
+- (void)cutomizeNavigationBar:(UIViewController *)this withTitle:(NSString *)title leftTitle:(NSString *)leftTitle rightButton:(BOOL)rightButton rightTitle:(NSString *)rightTitle;
 @end
