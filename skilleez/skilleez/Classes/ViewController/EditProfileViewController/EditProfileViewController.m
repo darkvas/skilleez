@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "UIFont+DefaultFont.h"
 #import "ProfileViewController.h"
+#import "TableItem.h"
 
 @interface EditProfileViewController () {
     NSArray *questions;
@@ -45,11 +46,12 @@
 {
     [super viewDidLoad];
     [self cutomize];
-    /*UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapFrom:)];
-    [tapGesture setNumberOfTapsRequired:1];
-    [tapGesture setNumberOfTouchesRequired:1];
-    [self.scrollView addGestureRecognizer:tapGesture];*/
-    questions = [NSArray arrayWithObjects:@"Who am I", @"What's your favorite sport?", @"What's your favorite color", @"What's your favorite school subject?", @"My skilleez", nil];
+    questions = [NSArray arrayWithObjects:[[TableItem alloc] initWithName:@"Who am I" image:@"pandimg_BTN.png" method:@"showProfile"],
+                                          [[TableItem alloc] initWithName:@"What's your favorite sport?" image:@"pandimg_BTN.png" method:@"showProfile"],
+                                          [[TableItem alloc] initWithName:@"What's your favorite color" image:@"pandimg_BTN.png" method:@"showProfile"],
+                                          [[TableItem alloc] initWithName:@"What's your favorite school subject?" image:@"" method:@"showProfile"],
+                                          [[TableItem alloc] initWithName:@"My skilleez" image:@"pandimg_BTN.png" method:@"showProfile"],
+                                          nil];
     self.scrollView.contentSize = CGSizeMake(320, 530 + ([questions count] * 98));
     self.tableView.frame = CGRectMake(0, 505, 320, ([questions count] * 98) - 60);
     CGRect save = self.saveBtn.frame;
@@ -94,7 +96,7 @@
         bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
         [cell setSelectedBackgroundView:bgColorView];
         cell.textLabel.textColor = [UIColor whiteColor];
-        cell.textLabel.text = [questions objectAtIndex:indexPath.row];
+        cell.textLabel.text = ((TableItem *)[questions objectAtIndex:indexPath.row]).name;
         return cell;
     } else {
         ProfileTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProfileTableCell"];
@@ -102,7 +104,7 @@
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ProfileTableCell" owner:self options:nil];
             cell = [nib objectAtIndex:0];
         }
-        [cell fillCell:cell question:[questions objectAtIndex:indexPath.row] image:[UIImage imageNamed:@"pandimg_BTN.png"]];
+        [cell fillCell:cell question:((TableItem *)[questions objectAtIndex:indexPath.row]).name image:[UIImage imageNamed:((TableItem *)[questions objectAtIndex:indexPath.row]).image]];
         return cell;
     }
 }
@@ -125,23 +127,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0 || indexPath.row == ([questions count] - 1)) {
-        ProfileViewController *profile = [[ProfileViewController alloc] init];
-        [self.navigationController pushViewController:profile animated:YES];
-    } else {
-        
-    }
+    [self performSelector:NSSelectorFromString(((TableItem *)[questions objectAtIndex:indexPath.row]).method)];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Class methods
 
+- (void)showProfile
+{
+    ProfileViewController *profile = [[ProfileViewController alloc] init];
+    [self.navigationController pushViewController:profile animated:YES];
+}
+
 - (void)show
 {
     [self.scrollView setContentOffset:CGPointMake(0, 100) animated:YES];
-}
-
-- (IBAction)handleGesture:(id)sender {
-    [self.scrollView endEditing:YES];
 }
 
 - (void)cutomize

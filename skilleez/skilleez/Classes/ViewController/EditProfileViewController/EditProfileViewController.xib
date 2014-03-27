@@ -111,21 +111,14 @@
             <gestureRecognizers/>
             <connections>
                 <outlet property="delegate" destination="-1" id="N84-YR-TsU"/>
-                <outletCollection property="gestureRecognizers" destination="zzu-6Z-Zbu" appends="YES" id="DQt-fo-54P"/>
             </connections>
         </scrollView>
         <view contentMode="scaleToFill" id="M7j-Ga-GgI">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.96470588239999999" green="0.76862745099999996" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
-        <swipeGestureRecognizer direction="down" id="zzu-6Z-Zbu">
-            <connections>
-                <action selector="handleGesture:" destination="-1" id="ohT-ST-yGm"/>
-                <outlet property="delegate" destination="-1" id="k8T-Tu-8eD"/>
-            </connections>
-        </swipeGestureRecognizer>
     </objects>
     <resources>
         <image name="skilleez_app_icon_1024.png" width="1024" height="1024"/>

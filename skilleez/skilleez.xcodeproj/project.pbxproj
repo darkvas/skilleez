@@ -11,6 +11,7 @@
 		1465110018E31F60002C2B2A /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 146510FD18E31F5F002C2B2A /* EditProfileViewController.xib */; };
 		1465110218E31F83002C2B2A /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1465110118E31F83002C2B2A /* ProfileViewController.xib */; };
 		1465110518E31F98002C2B2A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1465110418E31F98002C2B2A /* ProfileViewController.m */; };
+		1465110818E42C47002C2B2A /* TableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1465110718E42C47002C2B2A /* TableItem.m */; };
 		148104DB18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 148104DA18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m */; };
 		1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 1492329D18D6DD90001BAE8C /* UIFont+DefaultFont.m */; };
 		149232B518D73A40001BAE8C /* AdultApprovalTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 149232AB18D73A40001BAE8C /* AdultApprovalTableCell.m */; };
@@ -172,6 +173,8 @@
 		1465110118E31F83002C2B2A /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		1465110318E31F98002C2B2A /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		1465110418E31F98002C2B2A /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		1465110618E42C47002C2B2A /* TableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableItem.h; sourceTree = "<group>"; };
+		1465110718E42C47002C2B2A /* TableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableItem.m; sourceTree = "<group>"; };
 		148104D918D82F1600B54790 /* UITableViewCell+SkilleeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+SkilleeTableCell.h"; sourceTree = "<group>"; };
 		148104DA18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+SkilleeTableCell.m"; sourceTree = "<group>"; };
 		1492329C18D6DD90001BAE8C /* UIFont+DefaultFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+DefaultFont.h"; sourceTree = "<group>"; };
@@ -834,6 +837,8 @@
 				84EA05D718D8A266008D940D /* PostResponse.m */,
 				849D2DB918E1C4CA00828ED4 /* FamilyMemberModel.h */,
 				849D2DBA18E1C4CB00828ED4 /* FamilyMemberModel.m */,
+				1465110618E42C47002C2B2A /* TableItem.h */,
+				1465110718E42C47002C2B2A /* TableItem.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1071,8 +1076,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849D2DBE18E1CB8000828ED4 /* FamilyMemberCell.m in Sources */,
 				14F090AF18E1C96B000DAF80 /* ProfileTableCell.m in Sources */,
 				149232C318D740CE001BAE8C /* FavoriteTableCell.m in Sources */,
+				1465110818E42C47002C2B2A /* TableItem.m in Sources */,
 				14BCE63C18D89AFE0047F490 /* CreateChildSkilleeViewController.m in Sources */,
 				84D6CE2518D1BF1F008ABB5E /* LoopActivityViewController.m in Sources */,
 				84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */,

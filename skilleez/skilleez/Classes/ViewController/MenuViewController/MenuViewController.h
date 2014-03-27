@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LoopActivityViewController.h"
 
-@interface MenuViewController : UIViewController
+@interface MenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 - (id)initWithLoopController:(LoopActivityViewController *)loop;
 

@@ -40,7 +40,7 @@
 - (void)cancel
 {
     [self.navigationController popViewControllerAnimated:YES];
-    self.navigationController.navigationBarHidden = YES;
+    //self.navigationController.navigationBarHidden = YES;
 }
 
 @end
