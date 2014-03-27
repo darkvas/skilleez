@@ -243,7 +243,6 @@
                          }
                          completion:^(BOOL finished)
          {
-             NSLog(@"from right to left");
              
          }];
     } else {
@@ -259,7 +258,6 @@
          }
                          completion:^(BOOL finished)
          {
-             NSLog(@"Completed");
              
          }];
     }
