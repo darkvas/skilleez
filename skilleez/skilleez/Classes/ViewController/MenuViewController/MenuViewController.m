@@ -10,6 +10,7 @@
 #import "LoopActivityViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "UserSettingsManager.h"
+#import "EditProfileViewController.h"
 
 @interface MenuViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
@@ -75,7 +76,9 @@
 }
 
 - (IBAction)showMyLoop:(id)sender {
-    [self.loopCtrl loadTop:sender];
+    EditProfileViewController *profile = [[EditProfileViewController alloc] initWithNibName:@"EditProfileViewController" bundle:nil];
+    [self.loopCtrl.navigationController pushViewController:profile animated:YES];
+    //[self.loopCtrl loadTop:sender];
     [self.loopCtrl hideMenu];
 }
 
