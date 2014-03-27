@@ -8,6 +8,7 @@
 
 #import "MenuViewController.h"
 #import "LoopActivityViewController.h"
+#import "FriendsFamilyViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "UserSettingsManager.h"
 #import "EditProfileViewController.h"
@@ -89,5 +90,7 @@
 }
 
 - (IBAction)showFamily:(id)sender {
+    FriendsFamilyViewController *familyCtrl = [[FriendsFamilyViewController alloc] initWithNibName:@"FriendsFamilyViewController" bundle:nil];
+    [((UIViewController*)self.view.superview.nextResponder).navigationController pushViewController:familyCtrl animated:YES];
 }
 @end

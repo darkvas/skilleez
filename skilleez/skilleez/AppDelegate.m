@@ -21,8 +21,26 @@
     self.navigationCtrl = [[UINavigationController alloc] init];
     self.window.rootViewController = self.navigationCtrl;
     SplashViewController *login = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
-    self.navigationCtrl.navigationBarHidden = YES;
     [self.navigationCtrl pushViewController:login animated:NO];
+    
+    UIColor* navBarColor = [UIColor colorWithRed:242.0/255.0 green:185.0/255.0 blue:32.0/255.0 alpha:1.f];
+    UINavigationBar *navigationBar = self.navigationCtrl.navigationBar;
+    
+    navigationBar.barTintColor = navBarColor;
+    navigationBar.translucent = YES;
+    navigationBar.opaque = YES;
+    navigationBar.barStyle = UIBarStyleBlack;
+    
+    CALayer *navBackLayer =  [CALayer layer];
+    navBackLayer.backgroundColor = [navBarColor CGColor];
+    navBackLayer.frame = CGRectMake(0.0, -20.0, self.navigationCtrl.navigationBar.frame.size.width, self.navigationCtrl.navigationBar.frame.size.height + 20);
+    navBackLayer.zPosition = -1;
+    [navigationBar.layer addSublayer:navBackLayer];
+    [navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [navigationBar setBackgroundColor:navBarColor];
+    
+    [self.navigationCtrl setNavigationBarHidden:YES animated:NO];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -33,16 +51,16 @@
     titleLbl.text = title;
     titleLbl.textAlignment = NSTextAlignmentCenter;
     titleLbl.font = [UIFont getDKCrayonFontWithSize:24];
-    titleLbl.textColor = [UIColor orangeColor];
+    titleLbl.textColor = [UIColor whiteColor];
     this.navigationItem.titleView = titleLbl;
     if (rightButton) {
         this.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self makeRightButtonWithTitle:rightTitle view:this]];
     }
     this.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[self makeLeftButtonWithTitle:leftTitle view:this]];
     //this.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
-    UIView *back = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    /*UIView *back = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     back.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
-    [this.navigationController.navigationBar.layer addSublayer:back.layer];
+    [this.navigationController.navigationBar.layer addSublayer:back.layer];*/
     this.navigationController.navigationBarHidden = NO;
 }
 

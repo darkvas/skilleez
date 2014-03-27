@@ -98,6 +98,15 @@
 		8417A48118CF0BE100E6BAE4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */; };
 		8417A48218CF0BE100E6BAE4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47D18CF0BE100E6BAE4 /* Security.framework */; };
 		8417A48318CF0BE100E6BAE4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47E18CF0BE100E6BAE4 /* SystemConfiguration.framework */; };
+		849D2DBB18E1C4CB00828ED4 /* FamilyMemberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 849D2DBA18E1C4CB00828ED4 /* FamilyMemberModel.m */; };
+		849D2DBE18E1CB8000828ED4 /* FamilyMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849D2DBD18E1CB8000828ED4 /* FamilyMemberCell.m */; };
+		849D2DC018E1CBFC00828ED4 /* FamilyMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849D2DBF18E1CBFC00828ED4 /* FamilyMemberCell.xib */; };
+		84CEC78A18E2DF0900DD55B5 /* NewUserTypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CEC78918E2DF0900DD55B5 /* NewUserTypeView.xib */; };
+		84CEC78D18E2DF3D00DD55B5 /* NewUserTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CEC78C18E2DF3D00DD55B5 /* NewUserTypeView.m */; };
+		84CEC78F18E2FCF300DD55B5 /* CreateChildViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CEC78E18E2FCF300DD55B5 /* CreateChildViewController.xib */; };
+		84CEC79218E2FD1400DD55B5 /* CreateChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CEC79118E2FD1400DD55B5 /* CreateChildViewController.m */; };
+		84CEC79418E2FD4400DD55B5 /* CreateAdultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84CEC79318E2FD4400DD55B5 /* CreateAdultViewController.xib */; };
+		84CEC79718E2FD5E00DD55B5 /* CreateAdultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CEC79618E2FD5E00DD55B5 /* CreateAdultViewController.m */; };
 		84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */; };
 		84D6CE2318D1BF1F008ABB5E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */; };
 		84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6CE1E18D1BF1F008ABB5E /* LoginViewController.m */; };
@@ -260,6 +269,20 @@
 		8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8417A47D18CF0BE100E6BAE4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8417A47E18CF0BE100E6BAE4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		849D2DB918E1C4CA00828ED4 /* FamilyMemberModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamilyMemberModel.h; sourceTree = "<group>"; };
+		849D2DBA18E1C4CB00828ED4 /* FamilyMemberModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamilyMemberModel.m; sourceTree = "<group>"; };
+		849D2DBC18E1CB8000828ED4 /* FamilyMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamilyMemberCell.h; sourceTree = "<group>"; };
+		849D2DBD18E1CB8000828ED4 /* FamilyMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamilyMemberCell.m; sourceTree = "<group>"; };
+		849D2DBF18E1CBFC00828ED4 /* FamilyMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FamilyMemberCell.xib; sourceTree = "<group>"; };
+		84CEC78918E2DF0900DD55B5 /* NewUserTypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewUserTypeView.xib; sourceTree = "<group>"; };
+		84CEC78B18E2DF3D00DD55B5 /* NewUserTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserTypeView.h; sourceTree = "<group>"; };
+		84CEC78C18E2DF3D00DD55B5 /* NewUserTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserTypeView.m; sourceTree = "<group>"; };
+		84CEC78E18E2FCF300DD55B5 /* CreateChildViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateChildViewController.xib; sourceTree = "<group>"; };
+		84CEC79018E2FD1400DD55B5 /* CreateChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateChildViewController.h; sourceTree = "<group>"; };
+		84CEC79118E2FD1400DD55B5 /* CreateChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateChildViewController.m; sourceTree = "<group>"; };
+		84CEC79318E2FD4400DD55B5 /* CreateAdultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAdultViewController.xib; sourceTree = "<group>"; };
+		84CEC79518E2FD5E00DD55B5 /* CreateAdultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAdultViewController.h; sourceTree = "<group>"; };
+		84CEC79618E2FD5E00DD55B5 /* CreateAdultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAdultViewController.m; sourceTree = "<group>"; };
 		84D6CE1618D1BE6D008ABB5E /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		84D6CE1718D1BE6D008ABB5E /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		84D6CE1C18D1BF1F008ABB5E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -782,6 +805,18 @@
 				84E7F69718E077A4003662CA /* FriendsFamilyViewController.h */,
 				84E7F69818E077A4003662CA /* FriendsFamilyViewController.m */,
 				84E7F69518E07752003662CA /* FriendsFamilyViewController.xib */,
+				849D2DBC18E1CB8000828ED4 /* FamilyMemberCell.h */,
+				849D2DBD18E1CB8000828ED4 /* FamilyMemberCell.m */,
+				849D2DBF18E1CBFC00828ED4 /* FamilyMemberCell.xib */,
+				84CEC78918E2DF0900DD55B5 /* NewUserTypeView.xib */,
+				84CEC78B18E2DF3D00DD55B5 /* NewUserTypeView.h */,
+				84CEC78C18E2DF3D00DD55B5 /* NewUserTypeView.m */,
+				84CEC78E18E2FCF300DD55B5 /* CreateChildViewController.xib */,
+				84CEC79018E2FD1400DD55B5 /* CreateChildViewController.h */,
+				84CEC79118E2FD1400DD55B5 /* CreateChildViewController.m */,
+				84CEC79318E2FD4400DD55B5 /* CreateAdultViewController.xib */,
+				84CEC79518E2FD5E00DD55B5 /* CreateAdultViewController.h */,
+				84CEC79618E2FD5E00DD55B5 /* CreateAdultViewController.m */,
 			);
 			path = InviteCreateUserViewController;
 			sourceTree = "<group>";
@@ -797,6 +832,8 @@
 				84EA05D418D881A1008D940D /* SkilleeRequest.m */,
 				84EA05D618D8A266008D940D /* PostResponse.h */,
 				84EA05D718D8A266008D940D /* PostResponse.m */,
+				849D2DB918E1C4CA00828ED4 /* FamilyMemberModel.h */,
+				849D2DBA18E1C4CB00828ED4 /* FamilyMemberModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -907,6 +944,7 @@
 				149232BA18D73A40001BAE8C /* SimpleTableCell.xib in Resources */,
 				84D9E0A118C9F32E00516E2D /* BG.png in Resources */,
 				14BCE6F618D9EEA40047F490 /* extra_BTN.png in Resources */,
+				84CEC78F18E2FCF300DD55B5 /* CreateChildViewController.xib in Resources */,
 				14AC9E2A18D836C500C3E228 /* thumb_up_.png in Resources */,
 				84D9E06118C9C3D500516E2D /* Images.xcassets in Resources */,
 				14BCE68218D9B8E90047F490 /* small_text_view_BG@2x.png in Resources */,
@@ -922,6 +960,7 @@
 				14C8F37018DC3F6E0052E915 /* circle_delete.png in Resources */,
 				1465110018E31F60002C2B2A /* EditProfileViewController.xib in Resources */,
 				14AC9E2918D836C500C3E228 /* thumb_down_@2x.png in Resources */,
+				84CEC78A18E2DF0900DD55B5 /* NewUserTypeView.xib in Resources */,
 				1494F26F18DAE31D00728C1B /* thumb_up_BTN@2x-1.png in Resources */,
 				84D9E0A818C9F32F00516E2D /* logo_img.png in Resources */,
 				84D9E0A918C9F32F00516E2D /* logo_img@2x.png in Resources */,
@@ -929,6 +968,7 @@
 				14BCE70518D9EEA40047F490 /* pandimg_BTN_press@2x.png in Resources */,
 				14C8F36918DC1EDC0052E915 /* back_BTN.png in Resources */,
 				84D9E08B18C9D2ED00516E2D /* Eraser.ttf in Resources */,
+				84CEC79418E2FD4400DD55B5 /* CreateAdultViewController.xib in Resources */,
 				84D9E10418C9FD4900516E2D /* skilleez_home_screen@2x.png in Resources */,
 				84D6CE2318D1BF1F008ABB5E /* LoginViewController.xib in Resources */,
 				14AC9E2818D836C500C3E228 /* thumb_down_.png in Resources */,
@@ -979,6 +1019,7 @@
 				14F090B318E1C9E9000DAF80 /* ProfileTableCell.xib in Resources */,
 				14BCE63518D84F630047F490 /* SkilleeDetailViewController.xib in Resources */,
 				1494F26E18DAE31D00728C1B /* thumb_up_BTN-1.png in Resources */,
+				849D2DC018E1CBFC00828ED4 /* FamilyMemberCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1038,11 +1079,15 @@
 				14BCE63818D84F7F0047F490 /* SkilleeDetailViewController.m in Sources */,
 				149232B718D73A40001BAE8C /* ChildApprovalTableCell.m in Sources */,
 				84D9E05F18C9C3D500516E2D /* AppDelegate.m in Sources */,
+				849D2DBB18E1C4CB00828ED4 /* FamilyMemberModel.m in Sources */,
 				1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */,
+				84CEC78D18E2DF3D00DD55B5 /* NewUserTypeView.m in Sources */,
+				84CEC79718E2FD5E00DD55B5 /* CreateAdultViewController.m in Sources */,
 				148104DB18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m in Sources */,
 				1465110518E31F98002C2B2A /* ProfileViewController.m in Sources */,
 				84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */,
 				149232B518D73A40001BAE8C /* AdultApprovalTableCell.m in Sources */,
+				84CEC79218E2FD1400DD55B5 /* CreateChildViewController.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
 				84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */,
 				84EA05CB18D6F5FF008D940D /* UserInfo.m in Sources */,
