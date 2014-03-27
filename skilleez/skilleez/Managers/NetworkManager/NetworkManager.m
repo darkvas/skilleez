@@ -371,6 +371,7 @@
 #define POST_ADD_CHILD_TO_FAMILY @"api/User/AddChildToTheFamily"
 #define POST_INVITE_ADULT_TO_FAMILY @"api/User/InviteAdultToTheFamily"
 #define POST_REMOVE_MEMBER_FROM_FAMILY @"api/User/DeleteMemberFromTheFamily"
+#define GET_FRIENDS_AND_FAMILY @"api/User/GetFriendsAndFamily"
 
 /*
 GET api/User/GetMyInfo
@@ -458,6 +459,30 @@ POST api/User/SetAdultPermissions*/
          dispatch_async(dispatch_get_main_queue(), ^{success();});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) getFriendsAnsFamily: (NSString*) userId success: (void (^)(NSArray *friends))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKObjectMapping *familyMemberMapping = [FamilyMemberModel defineObjectMapping];
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:familyMemberMapping
+                                                                                             method:RKRequestMethodGET
+                                                                                        pathPattern:GET_FRIENDS_AND_FAMILY
+                                                                                            keyPath:@"ReturnValue"
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Id=%@", SKILLEEZ_URL, GET_FRIENDS_AND_FAMILY, userId]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success(mappingResult.array);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
          dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
      }];

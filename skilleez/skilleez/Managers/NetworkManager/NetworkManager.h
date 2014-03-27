@@ -11,6 +11,7 @@
 #import "UserInfo.h"
 #import "SkilleeModel.h"
 #import "SkilleeRequest.h"
+#import "FamilyMemberModel.h"
 
 @interface NetworkManager : NSObject
 
@@ -29,5 +30,7 @@
 -(void) postRemoveFromFavorites:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
 -(void) postMarkAsTatle:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
 -(void) postApproveOrDenySkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
+
+-(void) getFriendsAnsFamily: (NSString*) userId success: (void (^)(NSArray *friends))success failure:(void (^)(NSError *error))failure;
 
 @end
