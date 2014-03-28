@@ -8,8 +8,19 @@
 
 #import "CreateChildViewController.h"
 #import "AppDelegate.h"
+#import "NetworkManager.h"
+#import "UIFont+DefaultFont.h"
+
+#define kOFFSET_FOR_KEYBOARD 200.0
 
 @interface CreateChildViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *tfAccountId;
+@property (weak, nonatomic) IBOutlet UITextField *tfAccoundPass;
+@property (weak, nonatomic) IBOutlet UIButton *btnCreateUser;
+@property (weak, nonatomic) IBOutlet UILabel *lblAccountDetails;
+
+-(IBAction)createUserPressed:(id)sender;
 
 @end
 
@@ -29,7 +40,32 @@
     [super viewDidLoad];
     
     [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"New Child" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
-	// Do any additional setup after loading the view.
+    
+    [self customizeElements];
+}
+
+-(void) customizeElements
+{
+    [_tfAccountId.layer setCornerRadius:5.0f];
+    //_tfAccountId.layer set
+    [_tfAccoundPass.layer setCornerRadius:5.0f];
+    [_btnCreateUser.layer setCornerRadius:5.0f];
+    
+    [_tfAccountId setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_tfAccoundPass setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_btnCreateUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_lblAccountDetails setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    
+    [self setLeftMargin:10 forTextField:self.tfAccountId];
+    [self setLeftMargin:10 forTextField:self.tfAccoundPass];
+}
+
+-(void) setLeftMargin: (int) leftMargin forTextField: (UITextField*) textField
+{
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, leftMargin, textField.frame.size.height)];
+    leftView.backgroundColor = textField.backgroundColor;
+    textField.leftView = leftView;
+    textField.leftViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,6 +78,77 @@
 {
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(IBAction)createUserPressed:(id)sender
+{
+    NSString* childName = _tfAccountId.text;
+    NSString* childPass = _tfAccoundPass.text;
+    
+    [[NetworkManager sharedInstance] postAddChildToFamily:childName withPass:childPass success:^{
+        NSString* message = [NSString stringWithFormat:@"Child username: %@ and password: %@", childName, childPass];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    } failure:^(NSError *error) {
+        NSString* message = [NSString stringWithFormat:@"Error: %@", error.description];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }];
+}
+
+#pragma mark Keyboard show/hide
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+
+-(void)keyboardWillShow
+{
+    if (self.view.frame.origin.y >= 0) {
+        [self setViewMovedUp:YES];
+    } else if (self.view.frame.origin.y < 0) {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)keyboardWillHide
+{
+    if (self.view.frame.origin.y >= 0) {
+        [self setViewMovedUp:YES];
+    } else if (self.view.frame.origin.y < 0) {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    
+    CGRect rect = self.view.frame;
+    if (movedUp) {
+        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
+        rect.size.height += kOFFSET_FOR_KEYBOARD;
+    } else {
+        rect.origin.y += kOFFSET_FOR_KEYBOARD;
+        rect.size.height -= kOFFSET_FOR_KEYBOARD;
+    }
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
 }
 
 @end

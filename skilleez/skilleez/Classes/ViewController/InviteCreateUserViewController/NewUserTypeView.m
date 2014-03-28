@@ -8,10 +8,15 @@
 
 #import "NewUserTypeView.h"
 #import "AppDelegate.h"
+#import "UIFont+DefaultFont.h"
 #import "CreateAdultViewController.h"
 #import "CreateChildViewController.h"
 
 @interface NewUserTypeView ()
+
+@property (weak, nonatomic) IBOutlet UIButton *btnCreateChild;
+@property (weak, nonatomic) IBOutlet UIButton *btnCreateAdult;
+@property (weak, nonatomic) IBOutlet UILabel *lblTypeAsk;
 
 -(IBAction) createChildUser:(id)sender;
 -(IBAction) createAdultUser:(id)sender;
@@ -34,7 +39,18 @@
     [super viewDidLoad];
     
     [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"New User" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
-	// Do any additional setup after loading the view.
+	
+    [self customizeElements];
+}
+
+-(void) customizeElements
+{
+    [_btnCreateChild.layer setCornerRadius:5.0f];
+    [_btnCreateAdult.layer setCornerRadius:5.0f];
+    
+    [_btnCreateChild.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_btnCreateAdult.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_lblTypeAsk setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
 }
 
 - (void)didReceiveMemoryWarning

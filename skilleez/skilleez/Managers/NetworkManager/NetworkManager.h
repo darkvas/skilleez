@@ -32,5 +32,7 @@
 -(void) postApproveOrDenySkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
 
 -(void) getFriendsAnsFamily: (NSString*) userId success: (void (^)(NSArray *friends))success failure:(void (^)(NSError *error))failure;
+-(void) postAddChildToFamily:(NSString*) childId withPass:(NSString*) childPassword success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
+-(void) postInviteAdultToFamily:(NSString*) email success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
 
 @end

@@ -6,8 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FriendsFamilyViewController">
             <connections>
-                <outlet property="createUserButton" destination="bEP-Iv-10R" id="Qcf-fV-fXf"/>
-                <outlet property="inviteToLoopButton" destination="je8-zp-oHN" id="LhC-WT-kBa"/>
+                <outlet property="btnCreateUser" destination="bEP-Iv-10R" id="OMk-iW-hXy"/>
+                <outlet property="btnInviteToLoop" destination="je8-zp-oHN" id="WXc-b7-heb"/>
+                <outlet property="btnPendingInvites" destination="AWh-fu-Uud" id="wdS-1O-0yd"/>
                 <outlet property="tableView" destination="Afg-Js-CBf" id="2Cf-pU-Qkl"/>
                 <outlet property="view" destination="1" id="JBK-Ju-pzd"/>
             </connections>
@@ -18,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" rowHeight="60" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Afg-Js-CBf">
-                    <rect key="frame" x="0.0" y="240" width="320" height="328"/>
+                    <rect key="frame" x="0.0" y="290" width="320" height="278"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="separatorColor" red="0.38431372549999998" green="0.38431372549999998" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -28,48 +29,50 @@
                         <outlet property="delegate" destination="-1" id="vKa-d9-UHA"/>
                     </connections>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEP-Iv-10R">
-                    <rect key="frame" x="20" y="125" width="130" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEP-Iv-10R">
+                    <rect key="frame" x="10" y="80" width="145" height="145"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="130" id="0QV-lk-WUF"/>
-                        <constraint firstAttribute="height" constant="30" id="z6f-gL-XW8"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                    <state key="normal" title="New User">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="21"/>
+                    <inset key="titleEdgeInsets" minX="-86" minY="100" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="16" minY="-16" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="New User" image="create_user_BTN.png">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="createNewUser:" destination="-1" eventType="touchUpInside" id="Rpu-fh-Op5"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="je8-zp-oHN">
-                    <rect key="frame" x="170" y="125" width="130" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="je8-zp-oHN">
+                    <rect key="frame" x="165" y="80" width="145" height="145"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="F06-Hp-rpc"/>
-                        <constraint firstAttribute="width" constant="130" id="aKW-kM-KTm"/>
-                    </constraints>
+                    <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                    <state key="normal" title="Invite to Loop">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="titleEdgeInsets" minX="-86" minY="100" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="16" minY="-16" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Invite to Loop" image="invite_BTN.png">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="inviteToLoop:" destination="-1" eventType="touchUpInside" id="zJ3-jw-fLp"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWh-fu-Uud">
+                    <rect key="frame" x="50" y="252" width="220" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="View pending invitations">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
-            <constraints>
-                <constraint firstItem="bEP-Iv-10R" firstAttribute="top" secondItem="1" secondAttribute="top" constant="125" id="156-Jh-Nxm"/>
-                <constraint firstAttribute="trailing" secondItem="je8-zp-oHN" secondAttribute="trailing" constant="20" id="1kK-vQ-zle"/>
-                <constraint firstItem="je8-zp-oHN" firstAttribute="top" secondItem="1" secondAttribute="top" constant="125" id="aGb-0f-f6u"/>
-                <constraint firstItem="bEP-Iv-10R" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="l0l-5K-hUi"/>
-            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
+    <resources>
+        <image name="create_user_BTN.png" width="88" height="88"/>
+        <image name="invite_BTN.png" width="88" height="88"/>
+    </resources>
 </document>
