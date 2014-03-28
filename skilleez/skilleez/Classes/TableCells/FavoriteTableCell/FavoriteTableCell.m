@@ -46,7 +46,11 @@
     cell.avatarImg.layer.masksToBounds = YES;
     cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
     cell.avatarImg.layer.borderWidth = 3.0;
-    [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaUrl]];
+    if ([element.MediaThumbnailUrl isEqualToString:@""]) {
+        [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaUrl]];
+    } else {
+        [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaThumbnailUrl]];
+    }
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;
     cell.contentView.backgroundColor = element.Color;
