@@ -21,8 +21,9 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIButton *inviteToLoopButton;
-@property (weak, nonatomic) IBOutlet UIButton *createUserButton;
+@property (weak, nonatomic) IBOutlet UIButton *btnInviteToLoop;
+@property (weak, nonatomic) IBOutlet UIButton *btnCreateUser;
+@property (weak, nonatomic) IBOutlet UIButton *btnPendingInvites;
 
 -(IBAction) createNewUser:(id)sender;
 -(IBAction) inviteToLoop:(id)sender;
@@ -47,7 +48,19 @@
     [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Friends & Family" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self loadFamilyData];
     
-	// Do any additional setup after loading the view.
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self customizeElements];
+}
+
+-(void) customizeElements
+{
+    [_btnCreateUser.layer setCornerRadius:5.0f];
+    [_btnInviteToLoop.layer setCornerRadius:5.0f];
+    
+    [_btnCreateUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_btnInviteToLoop.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_btnPendingInvites.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,7 +79,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return  60.0f;
+    return  55.0f;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -102,7 +115,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UILabel *lblSectionHeader = [[UILabel alloc] init];
-    lblSectionHeader.frame = CGRectMake(20, 26, 320, 20);
+    lblSectionHeader.frame = CGRectMake(20, 22, 320, 20);
     lblSectionHeader.font = [UIFont getDKCrayonFontWithSize:21];
     lblSectionHeader.text = [self tableView:tableView titleForHeaderInSection:section];
     lblSectionHeader.textColor = [UIColor whiteColor];
