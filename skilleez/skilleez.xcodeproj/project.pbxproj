@@ -12,6 +12,8 @@
 		1465110218E31F83002C2B2A /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1465110118E31F83002C2B2A /* ProfileViewController.xib */; };
 		1465110518E31F98002C2B2A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1465110418E31F98002C2B2A /* ProfileViewController.m */; };
 		1465110818E42C47002C2B2A /* TableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1465110718E42C47002C2B2A /* TableItem.m */; };
+		1465110C18E54F5A002C2B2A /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1465110A18E54F5A002C2B2A /* ColorViewController.m */; };
+		1465110D18E54F5A002C2B2A /* ColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1465110B18E54F5A002C2B2A /* ColorViewController.xib */; };
 		148104DB18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 148104DA18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m */; };
 		1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 1492329D18D6DD90001BAE8C /* UIFont+DefaultFont.m */; };
 		149232B518D73A40001BAE8C /* AdultApprovalTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 149232AB18D73A40001BAE8C /* AdultApprovalTableCell.m */; };
@@ -175,6 +177,9 @@
 		1465110418E31F98002C2B2A /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1465110618E42C47002C2B2A /* TableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableItem.h; sourceTree = "<group>"; };
 		1465110718E42C47002C2B2A /* TableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableItem.m; sourceTree = "<group>"; };
+		1465110918E54F5A002C2B2A /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
+		1465110A18E54F5A002C2B2A /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
+		1465110B18E54F5A002C2B2A /* ColorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorViewController.xib; sourceTree = "<group>"; };
 		148104D918D82F1600B54790 /* UITableViewCell+SkilleeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+SkilleeTableCell.h"; sourceTree = "<group>"; };
 		148104DA18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+SkilleeTableCell.m"; sourceTree = "<group>"; };
 		1492329C18D6DD90001BAE8C /* UIFont+DefaultFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+DefaultFont.h"; sourceTree = "<group>"; };
@@ -386,6 +391,9 @@
 				146510FB18E31F5F002C2B2A /* EditProfileViewController.h */,
 				146510FC18E31F5F002C2B2A /* EditProfileViewController.m */,
 				146510FD18E31F5F002C2B2A /* EditProfileViewController.xib */,
+				1465110918E54F5A002C2B2A /* ColorViewController.h */,
+				1465110A18E54F5A002C2B2A /* ColorViewController.m */,
+				1465110B18E54F5A002C2B2A /* ColorViewController.xib */,
 			);
 			path = EditProfileViewController;
 			sourceTree = "<group>";
@@ -964,6 +972,7 @@
 				14BCE67C18D9B8E90047F490 /* Camera_icon@2x.png in Resources */,
 				14C8F37018DC3F6E0052E915 /* circle_delete.png in Resources */,
 				1465110018E31F60002C2B2A /* EditProfileViewController.xib in Resources */,
+				1465110D18E54F5A002C2B2A /* ColorViewController.xib in Resources */,
 				14AC9E2918D836C500C3E228 /* thumb_down_@2x.png in Resources */,
 				84CEC78A18E2DF0900DD55B5 /* NewUserTypeView.xib in Resources */,
 				1494F26F18DAE31D00728C1B /* thumb_up_BTN@2x-1.png in Resources */,
@@ -1077,6 +1086,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				849D2DBE18E1CB8000828ED4 /* FamilyMemberCell.m in Sources */,
+				1465110C18E54F5A002C2B2A /* ColorViewController.m in Sources */,
 				14F090AF18E1C96B000DAF80 /* ProfileTableCell.m in Sources */,
 				149232C318D740CE001BAE8C /* FavoriteTableCell.m in Sources */,
 				1465110818E42C47002C2B2A /* TableItem.m in Sources */,

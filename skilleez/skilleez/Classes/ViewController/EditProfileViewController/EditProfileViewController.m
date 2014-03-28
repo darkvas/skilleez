@@ -11,6 +11,7 @@
 #import "UIFont+DefaultFont.h"
 #import "ProfileViewController.h"
 #import "TableItem.h"
+#import "ColorViewController.h"
 
 @interface EditProfileViewController () {
     NSArray *questions;
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *loginTxt;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxt;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
+@property (weak, nonatomic) IBOutlet UILabel *myProfileLbl;
 
 @end
 
@@ -47,9 +49,11 @@
     [super viewDidLoad];
     [self cutomize];
     questions = [NSArray arrayWithObjects:[[TableItem alloc] initWithName:@"Who am I" image:@"pandimg_BTN.png" method:@"showProfile"],
-                                          [[TableItem alloc] initWithName:@"What's your favorite sport?" image:@"pandimg_BTN.png" method:@"showProfile"],
-                                          [[TableItem alloc] initWithName:@"What's your favorite color" image:@"pandimg_BTN.png" method:@"showProfile"],
+                                          [[TableItem alloc] initWithName:@"What's your favorite color?" image:@"pandimg_BTN.png" method:@"chooseColor"],
+                                          [[TableItem alloc] initWithName:@"What's your favorite sport" image:@"pandimg_BTN.png" method:@"showProfile"],
                                           [[TableItem alloc] initWithName:@"What's your favorite school subject?" image:@"" method:@"showProfile"],
+                                          [[TableItem alloc] initWithName:@"What's your favorite type of music?" image:@"" method:@"showProfile"],
+                                          [[TableItem alloc] initWithName:@"What's your favorite food?" image:@"" method:@"showProfile"],
                                           [[TableItem alloc] initWithName:@"My skilleez" image:@"pandimg_BTN.png" method:@"showProfile"],
                                           nil];
     self.scrollView.contentSize = CGSizeMake(320, 530 + ([questions count] * 98));
@@ -139,18 +143,20 @@
     [self.navigationController pushViewController:profile animated:YES];
 }
 
-- (void)show
+- (void)chooseColor
 {
-    [self.scrollView setContentOffset:CGPointMake(0, 100) animated:YES];
+    ColorViewController *color = [[ColorViewController alloc] init];
+    [self.navigationController pushViewController:color animated:YES];
 }
 
 - (void)cutomize
 {
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderWidth = 5.f;
-    self.userAvatarImg.layer.cornerRadius = 98.f;
+    self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.editAvatarBtn.layer.cornerRadius = 7.f;
+    self.myProfileLbl.font = [UIFont getDKCrayonFontWithSize:31.f];
     self.editAvatarBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:24.f];
     self.saveBtn.layer.cornerRadius = 7.f;
     self.saveBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:24.f];
