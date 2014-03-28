@@ -51,6 +51,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void) done
+{
+}
+
 - (void)customize
 {
     self.userDescLbl.font = [UIFont getDKCrayonFontWithSize:21.f];
@@ -78,10 +82,6 @@
     self.userFoodImg.layer.masksToBounds = YES;
     self.userFoodImg.layer.borderWidth = 2.f;
     self.userFoodImg.layer.cornerRadius = 5.f;
-}
-
--(void) done
-{
 }
 
 @end
