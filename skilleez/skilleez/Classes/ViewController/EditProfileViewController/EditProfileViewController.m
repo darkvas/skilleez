@@ -168,4 +168,10 @@
     self.navigationController.navigationBarHidden = YES;
 }
 
+-(void) done
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    self.navigationController.navigationBarHidden = YES;
+}
+
 @end

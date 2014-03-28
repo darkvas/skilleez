@@ -6,7 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateChildSkilleeViewController">
             <connections>
-                <outlet property="addMediaLbl" destination="DXS-OC-xtO" id="Z5R-mb-eKx"/>
+                <outlet property="btnAddPhoto" destination="PKo-Vs-Yq6" id="uk8-nM-xEG"/>
+                <outlet property="btnAddVideo" destination="rdg-Oi-oTN" id="qsy-kL-29Z"/>
+                <outlet property="btnSelectedMedia" destination="eZf-3H-q6j" id="v1B-sK-TCl"/>
                 <outlet property="childView" destination="cEI-6L-tJd" id="qdo-xr-Zto"/>
                 <outlet property="commentTxt" destination="jOo-nY-Jkx" id="zxb-Uc-M9u"/>
                 <outlet property="createSkilleeLbl" destination="j9G-RV-Ri2" id="krJ-7P-fDN"/>
@@ -153,23 +155,41 @@
                                 <action selector="pickVideo:" destination="-1" eventType="touchUpInside" id="9QN-DM-yLq"/>
                             </connections>
                         </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add photo / video" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXS-OC-xtO">
-                            <rect key="frame" x="139" y="204" width="141" height="21"/>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKo-Vs-Yq6">
+                            <rect key="frame" x="140" y="202" width="85" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="LIA-0S-FyC"/>
-                                <constraint firstAttribute="width" constant="141" id="iiq-Ll-Uhr"/>
-                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.96470588239999999" green="0.81176470590000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <state key="normal" title="Add photo">
+                                <color key="titleColor" red="0.96470588239999999" green="0.81176470590000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="pickImage:" destination="-1" eventType="touchUpInside" id="pQa-VH-jwP"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rdg-Oi-oTN">
+                            <rect key="frame" x="224" y="202" width="60" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="/ video">
+                                <color key="titleColor" red="0.96470588239999999" green="0.81176470590000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="pickVideo:" destination="-1" eventType="touchUpInside" id="3wJ-75-EHy"/>
+                            </connections>
+                        </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZf-3H-q6j">
+                            <rect key="frame" x="43" y="204" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="yes(check)_white.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="DXS-OC-xtO" firstAttribute="leading" secondItem="3JL-0p-DBQ" secondAttribute="trailing" constant="8" id="31q-gC-g69"/>
                         <constraint firstAttribute="bottom" secondItem="7IX-oR-bHi" secondAttribute="bottom" constant="67" id="4NA-7Q-bPJ"/>
-                        <constraint firstItem="DXS-OC-xtO" firstAttribute="top" secondItem="jOo-nY-Jkx" secondAttribute="bottom" constant="24" id="9sY-Uq-IBB"/>
                         <constraint firstItem="KZt-8c-NgR" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="75" id="ABi-GH-dBR"/>
                         <constraint firstItem="tpS-Kg-9ga" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="75" id="B9h-t1-XA3"/>
                         <constraint firstItem="gZv-O7-7Za" firstAttribute="top" secondItem="cEI-6L-tJd" secondAttribute="top" constant="1" id="Bsd-7K-APc"/>
@@ -179,7 +199,6 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="453" id="VaL-VX-6rD"/>
                         <constraint firstItem="7IX-oR-bHi" firstAttribute="top" secondItem="tpS-Kg-9ga" secondAttribute="bottom" constant="1" id="WBh-Fj-h0M"/>
                         <constraint firstItem="3JL-0p-DBQ" firstAttribute="top" secondItem="jOo-nY-Jkx" secondAttribute="bottom" constant="24" id="hBt-eO-6zH"/>
-                        <constraint firstItem="tpS-Kg-9ga" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DXS-OC-xtO" secondAttribute="bottom" constant="63" id="kOK-aW-juX"/>
                         <constraint firstItem="KZt-8c-NgR" firstAttribute="top" secondItem="jOo-nY-Jkx" secondAttribute="bottom" constant="24" id="kmf-XF-dQ9"/>
                         <constraint firstItem="3JL-0p-DBQ" firstAttribute="leading" secondItem="KZt-8c-NgR" secondAttribute="trailing" constant="8" id="pNK-wH-Yrq"/>
                         <constraint firstItem="jOo-nY-Jkx" firstAttribute="top" secondItem="gZv-O7-7Za" secondAttribute="bottom" constant="15" id="qs5-dM-fDh"/>
@@ -207,5 +226,6 @@
         <image name="go_btn.png" width="12" height="21"/>
         <image name="rocket_BTN.png" width="52" height="52"/>
         <image name="small_text_view_BG.png" width="295" height="36"/>
+        <image name="yes(check)_white.png" width="44" height="44"/>
     </resources>
 </document>

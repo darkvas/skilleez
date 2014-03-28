@@ -16,9 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *memberName;
 @property (weak, nonatomic) IBOutlet UIImageView *memberAvatar;
-@property (weak, nonatomic) IBOutlet UIButton *detailButton;
-
-- (IBAction)showMember:(id)sender;
 
 @end
 
@@ -55,11 +52,6 @@
     
     [_memberName setFont:[UIFont getDKCrayonFontWithSize:21]];
     _memberName.text = _familyMember.FullName;
-}
-
-- (IBAction)showMember:(id)sender
-{
-    
 }
 
 @end

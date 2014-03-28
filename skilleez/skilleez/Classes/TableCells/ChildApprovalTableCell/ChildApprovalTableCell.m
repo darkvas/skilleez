@@ -8,8 +8,12 @@
 
 #import "ChildApprovalTableCell.h"
 #import "UIFont+DefaultFont.h"
+#import "NetworkManager.h"
 
 @interface ChildApprovalTableCell()
+{
+    SkilleeModel * skilleeModel;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImg;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLbl;
@@ -18,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *skilleezCommentLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentImg;
 @property (weak, nonatomic) IBOutlet UILabel *waitingForApprovalLbl;
+
+-(IBAction) deleteSkillee:(id)sender;
 
 @end
 
@@ -42,6 +48,7 @@
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;
     cell.contentView.backgroundColor = element.Color;
+    skilleeModel = element;
 }
 
 - (void)setCellFonts
@@ -51,6 +58,15 @@
     [self.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
     [self.waitingForApprovalLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
+}
+
+-(IBAction) deleteSkillee:(id)sender
+{
+    [[NetworkManager sharedInstance] postRemoveSkillee:skilleeModel.Id success:^{
+        [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 @end

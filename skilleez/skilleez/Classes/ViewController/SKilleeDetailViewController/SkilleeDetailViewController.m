@@ -83,6 +83,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)done
+{
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)setCellFonts
 {
     [self.userNameLbl setFont:[UIFont getDKCrayonFontWithSize:25]];
