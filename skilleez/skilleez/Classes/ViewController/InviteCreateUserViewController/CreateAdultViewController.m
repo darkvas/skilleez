@@ -9,6 +9,7 @@
 #import "CreateAdultViewController.h"
 #import "AppDelegate.h"
 #import "UIFont+DefaultFont.h"
+#import "NetworkManager.h"
 
 #define kOFFSET_FOR_KEYBOARD 200.0
 
@@ -74,9 +75,38 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) done
+{
+}
+
 -(IBAction)inviteUserPressed:(id)sender
 {
+    NSString* email = self.tfUserEmail.text;
     
+    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[NetworkManager sharedInstance] postInviteAdultToFamily: email success:^{
+        [activityIndicator stopAnimating];
+        NSString* message = [NSString stringWithFormat:@"Send invite to email: %@", email];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    } failure:^(NSError *error) {
+        [activityIndicator stopAnimating];
+        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }];
+}
+
+- (UIActivityIndicatorView *)getLoaderIndicator
+{
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [activityIndicator setBackgroundColor:[UIColor whiteColor]];
+    [activityIndicator setAlpha:0.7];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+    [self.view addSubview: activityIndicator];
+    [activityIndicator startAnimating];
+    return activityIndicator;
 }
 
 #pragma mark Keyboard show/hide

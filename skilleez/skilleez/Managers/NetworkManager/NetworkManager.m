@@ -208,10 +208,10 @@
     
     RKObjectRequestOperation *operation = [manager objectRequestOperationWithRequest:request
                                                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                                                 NSLog(@"Success");
+                                                                                 dispatch_async(dispatch_get_main_queue(), ^{success();});
                                                                              }
                                                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                                                                 NSLog(@"Failed");
+                                                                                 dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
                                                                              }];
     [manager enqueueObjectRequestOperation:operation];
 }
@@ -480,7 +480,13 @@ POST api/User/SetAdultPermissions*/
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success(mappingResult.array);});
+         NSMutableArray* familyMembers = [NSMutableArray new];
+         for (NSObject* obj in mappingResult.array) {
+             if([obj isKindOfClass:[FamilyMemberModel class]])
+                 [familyMembers addObject:obj];
+         }
+         
+         dispatch_async(dispatch_get_main_queue(), ^{success(familyMembers);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {

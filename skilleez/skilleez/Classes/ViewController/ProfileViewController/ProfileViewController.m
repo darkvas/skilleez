@@ -51,6 +51,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void) done
+{
+}
+
 - (void)customize
 {
     self.userDescLbl.font = [UIFont getDKCrayonFontWithSize:21.f];

@@ -13,6 +13,7 @@
 #import "FamilyMemberCell.h"
 #import "UIFont+DefaultFont.h"
 #import "NewUserTypeView.h"
+#import "UserSettingsManager.h"
 
 @interface FriendsFamilyViewController ()
 {
@@ -61,6 +62,12 @@
     [_btnCreateUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
     [_btnInviteToLoop.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
     [_btnPendingInvites.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    
+    if(![UserSettingsManager sharedInstance].IsAdult)
+    {
+        _btnCreateUser.hidden = YES;
+        _btnInviteToLoop.center = CGPointMake(self.view.center.x, _btnInviteToLoop.center.y);
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -133,6 +140,12 @@
 }
 
 - (void) cancel
+{
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void) done
 {
     self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];

@@ -107,6 +107,8 @@
     } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag] andApproveOpportunity:YES];
         [self.navigationController pushViewController:detail animated:YES];
+    } else if ([className isEqualToString:@"ChildApprovalTableCell"]) {
+        [self loadWaitingForApprovalList];
     }
 }
 

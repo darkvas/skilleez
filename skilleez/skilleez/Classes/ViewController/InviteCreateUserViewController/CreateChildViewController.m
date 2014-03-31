@@ -80,20 +80,39 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) done
+{
+}
+
 -(IBAction)createUserPressed:(id)sender
 {
     NSString* childName = _tfAccountId.text;
     NSString* childPass = _tfAccoundPass.text;
     
+    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
     [[NetworkManager sharedInstance] postAddChildToFamily:childName withPass:childPass success:^{
+        [activityIndicator stopAnimating];
         NSString* message = [NSString stringWithFormat:@"Child username: %@ and password: %@", childName, childPass];
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     } failure:^(NSError *error) {
-        NSString* message = [NSString stringWithFormat:@"Error: %@", error.description];
+        [activityIndicator stopAnimating];
+        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }];
+}
+
+- (UIActivityIndicatorView *)getLoaderIndicator
+{
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [activityIndicator setBackgroundColor:[UIColor whiteColor]];
+    [activityIndicator setAlpha:0.7];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+    [self.view addSubview: activityIndicator];
+    [activityIndicator startAnimating];
+    return activityIndicator;
 }
 
 #pragma mark Keyboard show/hide

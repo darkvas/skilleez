@@ -86,6 +86,7 @@
     [doneBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:21]];
     [doneBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
     [doneBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    [doneBtn addTarget:this action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
     return doneBtn;
 }
 

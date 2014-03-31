@@ -56,6 +56,9 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted" image="circle_delete_press.png"/>
+                                <connections>
+                                    <action selector="deleteSkillee:" destination="dVC-Cj-gsv" eventType="touchUpInside" id="arX-aQ-rcg"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>

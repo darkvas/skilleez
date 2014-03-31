@@ -65,6 +65,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) done
+{
+}
+
 -(IBAction) createChildUser:(id)sender
 {
     CreateChildViewController *createChildView = [[CreateChildViewController alloc] initWithNibName:@"CreateChildViewController" bundle:nil];

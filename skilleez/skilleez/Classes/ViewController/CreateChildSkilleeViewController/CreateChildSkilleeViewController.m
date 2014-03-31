@@ -20,7 +20,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *createSkilleeLbl;
 @property (weak, nonatomic) IBOutlet UITextField *titleTxt;
 @property (weak, nonatomic) IBOutlet UITextView *commentTxt;
-@property (weak, nonatomic) IBOutlet UILabel *addMediaLbl;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddPhoto;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddVideo;
+@property (weak, nonatomic) IBOutlet UIButton *btnSelectedMedia;
 @property (weak, nonatomic) IBOutlet UIButton *launchBtn;
 @property (weak, nonatomic) IBOutlet UIButton *termsBtn;
 @property (weak, nonatomic) IBOutlet UITextField *postOnTxt;
@@ -100,6 +102,8 @@
         chosenData = [[NSData alloc] initWithContentsOfFile:filePath];
         dataMediaType = mediaTypeVideo;
     }
+    if(chosenData)
+        self.btnSelectedMedia.hidden = NO;
     [self checkLaunchAbility];
 }
 
@@ -162,9 +166,10 @@
     [self.titleTxt setFont:[UIFont getDKCrayonFontWithSize:22]];
     [self.commentTxt setFont:[UIFont getDKCrayonFontWithSize:22]];
     [self.postOnTxt setFont:[UIFont getDKCrayonFontWithSize:22]];
-    [self.addMediaLbl setFont:[UIFont getDKCrayonFontWithSize:18]];
-    [self.launchBtn setFont:[UIFont getDKCrayonFontWithSize:31]];
-    [self.termsBtn setFont:[UIFont getDKCrayonFontWithSize:16]];
+    [self.btnAddPhoto.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
+    [self.btnAddVideo.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
+    [self.launchBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:31]];
+    [self.termsBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:16]];
     [self.titleTxt setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.postOnTxt setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
@@ -177,12 +182,37 @@
     skilleeRequest.Media = chosenData;
     skilleeRequest.MediaType = dataMediaType;
     
+    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    
     [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest success:^{
-        NSLog(@"Done");
+        [activityIndicator stopAnimating];
+        [self clearFields];
     } failure:^(NSError *error) {
+        [activityIndicator stopAnimating];
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Launch failed" message:@"Launch skillee failed" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }];
+}
+
+- (UIActivityIndicatorView *)getLoaderIndicator
+{
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [activityIndicator setBackgroundColor:[UIColor whiteColor]];
+    [activityIndicator setAlpha:0.7];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+    [self.view addSubview: activityIndicator];
+    [activityIndicator startAnimating];
+    return activityIndicator;
+}
+
+-(void) clearFields
+{
+    self.titleTxt.text = @"";
+    self.commentTxt.text = @"";
+    self.postOnTxt.text = @"";
+    chosenData = nil;
+    self.btnSelectedMedia.hidden = YES;
 }
 
 - (IBAction)pickImage:(id)sender {
