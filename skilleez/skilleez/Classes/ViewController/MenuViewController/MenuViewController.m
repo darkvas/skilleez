@@ -117,7 +117,6 @@
 {
     EditProfileViewController *profile = [[EditProfileViewController alloc] initWithNibName:@"EditProfileViewController" bundle:nil];
     [self.loopCtrl.navigationController pushViewController:profile animated:YES];
-    //[self.loopCtrl loadTop:sender];
     [self.loopCtrl hideMenu];
 }
 

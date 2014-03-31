@@ -31,11 +31,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *denyDisabledBtn;
 @property (weak, nonatomic) IBOutlet UIButton *approveDisabledBtn;
 @property (strong, nonatomic) MPMoviePlayerViewController *player;
+@property (strong, nonatomic) UIViewController *fullScreenImage;
 
 - (IBAction)deny:(id)sender;
 - (IBAction)approve:(id)sender;
 - (IBAction)favorite:(id)sender;
 - (IBAction)tattle:(id)sender;
+- (IBAction)showImage:(id)sender;
 
 @end
 
@@ -65,10 +67,13 @@
     [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"detail" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self setCellFonts];
     [self setSkillee];
+    [[NSNotificationCenter defaultCenter] addObserver:self // put here the view controller which has to be notified
+                                             selector:@selector(orientationChanged:)
+                                                 name:@"UIDeviceOrientationDidChangeNotification"
+                                               object:nil];
     if (!enabledApprove) {
         [self showDisabledButtons];   
     }
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -137,6 +142,7 @@
         _player.moviePlayer.shouldAutoplay = NO;
         [self.view addSubview:_player.view];
         [_player.moviePlayer prepareToPlay];
+        _player.moviePlayer.fullscreen = YES;
     } else {
         [self.skilleeMediaImg setImageWithURL:[NSURL URLWithString:skillee.MediaUrl]];
     }
@@ -187,4 +193,79 @@
         NSLog(@"Failed mark as Tatle: %@, error: %@", skillee.Id, error);
     }];
 }
+
+- (IBAction)showImage:(id)sender
+{
+    self.fullScreenImage = [[UIViewController alloc] init];
+    self.fullScreenImage.view.backgroundColor=[UIColor lightGrayColor];
+    self.fullScreenImage.view.userInteractionEnabled=YES;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 548)];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.image = self.skilleeMediaImg.image;
+    imageView.tag = 1;
+    [self.fullScreenImage.view addSubview:imageView];
+    float scale = self.skilleeMediaImg.image.size.height / 160;
+    UIImage *image = [[UIImage alloc] initWithCGImage: self.skilleeMediaImg.image.CGImage scale: scale orientation: UIImageOrientationRight];
+    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 548)];
+    img.contentMode = UIViewContentModeCenter;
+    img.image = image;
+    img.tag = 2;
+    img.hidden = YES;
+    [self.fullScreenImage.view addSubview:img];
+    UITapGestureRecognizer *modalTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissModalView)];
+    [self.fullScreenImage.view addGestureRecognizer:modalTap];
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController pushViewController:self.fullScreenImage animated:YES];
+}
+
+- (void)dismissModalView
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    self.navigationController.navigationBarHidden = NO;
+}
+/*
+- (void)pinch:(UIPinchGestureRecognizer *)gesture {
+    
+    if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateChanged) {
+        UIImageView *image;
+        for (UIView *view in self.fullScreenImage.view.subviews) {
+            if (view.tag == 1) {
+                image = (UIImageView *)view;
+            }
+        }
+        CGFloat currentScale = image.frame.size.width / image.bounds.size.width;
+        CGFloat newScale = currentScale * gesture.scale;
+        if (newScale < 1.0) {
+            newScale = 1.0;
+        } else if (newScale > 4.0) {
+            newScale = 4.0;
+        }
+        CGAffineTransform transform = CGAffineTransformMakeScale(newScale, newScale);
+        image.transform = transform;
+        gesture.scale = 1;
+    }
+}
+*/
+- (void)orientationChanged:(NSNotification *)notification
+{
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    if (orientation == UIDeviceOrientationLandscapeLeft) {
+        for (UIView *view in self.fullScreenImage.view.subviews) {
+            if (view.tag == 1) {
+                view.hidden = YES;
+            } else if (view.tag == 2) {
+                view.hidden = NO;
+            }
+        }
+    } else {
+        for (UIView *view in self.fullScreenImage.view.subviews) {
+            if (view.tag == 2) {
+                view.hidden = YES;
+            } else if (view.tag == 1) {
+                view.hidden = NO;
+            }
+        }
+    }
+}
+
 @end

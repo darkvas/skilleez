@@ -22,7 +22,6 @@
     self.window.rootViewController = self.navigationCtrl;
     SplashViewController *login = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     [self.navigationCtrl pushViewController:login animated:NO];
-    
     UIColor* navBarColor = [UIColor colorWithRed:242.0/255.0 green:185.0/255.0 blue:32.0/255.0 alpha:1.f];
     UINavigationBar *navigationBar = self.navigationCtrl.navigationBar;
     
@@ -89,6 +88,16 @@
     [doneBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     [doneBtn addTarget:this action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
     return doneBtn;
+}
+
+- (NSUInteger) application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if ([[self.window.subviews.lastObject class].description isEqualToString:@"MPSwipableView"] && self.counter != 3) {
+        self.counter++;
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+    } else {
+        self.counter = 0;
+        return UIInterfaceOrientationMaskPortrait;
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
