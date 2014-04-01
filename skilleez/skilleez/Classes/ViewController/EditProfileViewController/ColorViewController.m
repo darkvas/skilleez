@@ -87,11 +87,17 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     self.colorImg.backgroundColor = [colors objectAtIndex:indexPath.row];
+    self.selectedColor = self.colorImg.backgroundColor;
 }
 
 #pragma mark - Class methods
 
 - (void)cancel
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)done
 {
     [self.navigationController popViewControllerAnimated:YES];
 }

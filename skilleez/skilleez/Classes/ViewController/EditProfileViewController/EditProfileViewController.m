@@ -12,10 +12,15 @@
 #import "ProfileViewController.h"
 #import "TableItem.h"
 #import "ColorViewController.h"
+#import "UserSettingsManager.h"
+#import "NetworkManager.h"
+#import "ProfileInfo.h"
 
 @interface EditProfileViewController () {
     NSArray *questions;
     float    offset;
+    ProfileInfo* profile;
+    UIImagePickerController *imagePicker;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -30,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxt;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UILabel *myProfileLbl;
+
+-(IBAction)editImagePressed:(id)sender;
+-(IBAction)saveProfilePressed:(id)sender;
 
 @end
 
@@ -64,6 +72,29 @@
     self.scrollView.frame = self.view.frame;
     [self.view addSubview:self.scrollView];
     [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Profile editor" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    
+    imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.delegate = self;
+    
+    [self loadProfileInfo];
+}
+
+- (void) loadProfileInfo
+{
+    [[NetworkManager sharedInstance] getProfileInfo:[UserSettingsManager sharedInstance].userInfo.UserID success:^(ProfileInfo *profileInfo) {
+        profile = profileInfo;
+        [self updateProfileView];
+    } failure:^(NSError *error) {
+        NSLog(@"Get Profile Info error: %@", error);
+    }];
+}
+
+- (void) updateProfileView
+{
+    [self.userAvatarImg setImageWithURL: [NSURL URLWithString:profile.AvatarUrl]];
+    self.nameTxt.text = profile.ScreenName;
+    self.loginTxt.text = profile.Login;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -147,6 +178,7 @@
 {
     ColorViewController *color = [[ColorViewController alloc] init];
     [self.navigationController pushViewController:color animated:YES];
+    NSLog(@"Selected Color: %@", color.selectedColor);
 }
 
 - (void)cutomize
@@ -178,6 +210,36 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
     self.navigationController.navigationBarHidden = YES;
+}
+
+#pragma mark Private methods
+
+-(IBAction)editImagePressed:(id)sender
+{
+    imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString*) kUTTypeImage];
+    [self presentModalViewController:imagePicker animated:YES];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    NSString* contentType = info[UIImagePickerControllerMediaType];
+    if([contentType isEqualToString:@"public.image"]) {
+        UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
+        [self.userAvatarImg setImage:chosenImage];
+    }
+}
+
+-(IBAction)saveProfilePressed:(id)sender
+{
+    NSData* imageData = UIImageJPEGRepresentation(self.userAvatarImg.image, 1.0f);
+    [[NetworkManager sharedInstance] postProfileImage:imageData success:^{
+        [self done];
+    } failure:^(NSError *error) {
+        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }];
 }
 
 @end

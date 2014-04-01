@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *tfUserName;
 @property (weak, nonatomic) IBOutlet UIButton *btnFindUser;
 @property (weak, nonatomic) IBOutlet UILabel *lblInfo;
+@property (weak, nonatomic) IBOutlet UILabel *lblTip;
 
 -(IBAction)findUserPressed:(id)sender;
 
@@ -49,8 +50,9 @@
     [_btnFindUser.layer setCornerRadius:5.0f];
     
     [self.tfUserName setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [self.btnFindUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [self.btnFindUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:30.0f]];
     [self.lblInfo setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [self.lblTip setFont:[UIFont getDKCrayonFontWithSize:18.0f]];
     
     [self setLeftMargin:10 forTextField:self.tfUserName];
 }
@@ -76,7 +78,8 @@
 }
 
 - (void) done
-{self.navigationController.navigationBarHidden = NO;
+{
+    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

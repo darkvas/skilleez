@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="btnFindUser" destination="94J-lz-xpO" id="2WO-2x-2qd"/>
                 <outlet property="lblInfo" destination="79Z-cD-xsd" id="6g2-hR-5rd"/>
+                <outlet property="lblTip" destination="8qJ-aq-jLT" id="y6v-MP-S3H"/>
                 <outlet property="tfUserName" destination="rW9-4i-XtE" id="1lz-kB-sL5"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -18,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94J-lz-xpO">
-                    <rect key="frame" x="18" y="493" width="285" height="58"/>
+                    <rect key="frame" x="18" y="461" width="285" height="92"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.96470588239999999" green="0.76862745099999996" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -32,22 +33,29 @@
                         <action selector="findUserPressed:" destination="-1" eventType="touchUpInside" id="FOV-tg-t6z"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter the exact account ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rW9-4i-XtE">
-                    <rect key="frame" x="18" y="424" width="285" height="45"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Account ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rW9-4i-XtE">
+                    <rect key="frame" x="18" y="390" width="285" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="search_img.png" translatesAutoresizingMaskIntoConstraints="NO" id="MgU-6r-qNy">
-                    <rect key="frame" x="58" y="89" width="205" height="205"/>
+                    <rect key="frame" x="77" y="89" width="166" height="166"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Search for users on the Skilleez network" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="79Z-cD-xsd">
-                    <rect key="frame" x="20" y="300" width="280" height="100"/>
+                    <rect key="frame" x="20" y="280" width="280" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please enter the exact account ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qJ-aq-jLT">
+                    <rect key="frame" x="20" y="360" width="280" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>

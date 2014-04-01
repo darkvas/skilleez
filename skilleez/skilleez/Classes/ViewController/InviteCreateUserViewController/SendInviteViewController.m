@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *tfUserEmail;
 @property (weak, nonatomic) IBOutlet UIButton *btnInviteUser;
 @property (weak, nonatomic) IBOutlet UILabel *lblInviteDetails;
+@property (weak, nonatomic) IBOutlet UILabel *lblTip;
 
 -(IBAction)inviteUserPressed:(id)sender;
 
@@ -45,12 +46,13 @@
 
 -(void) customizeElements
 {
-    [_tfUserEmail.layer setCornerRadius:5.0f];
-    [_btnInviteUser.layer setCornerRadius:5.0f];
+    [self.tfUserEmail.layer setCornerRadius:5.0f];
+    [self.btnInviteUser.layer setCornerRadius:5.0f];
     
-    [_tfUserEmail setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_btnInviteUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_lblInviteDetails setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [self.tfUserEmail setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [self.btnInviteUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:30.0f]];
+    [self.lblInviteDetails setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [self.lblTip setFont:[UIFont getDKCrayonFontWithSize:18.0f]];
     
     [self setLeftMargin:10 forTextField:self.tfUserEmail];
 }

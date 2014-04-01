@@ -12,6 +12,7 @@
 #import "SkilleeModel.h"
 #import "SkilleeRequest.h"
 #import "FamilyMemberModel.h"
+#import "ProfileInfo.h"
 
 @interface NetworkManager : NSObject
 
@@ -34,5 +35,8 @@
 -(void) getFriendsAnsFamily: (NSString*) userId success: (void (^)(NSArray *friends))success failure:(void (^)(NSError *error))failure;
 -(void) postAddChildToFamily:(NSString*) childId withPass:(NSString*) childPassword success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
 -(void) postInviteAdultToFamily:(NSString*) email success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
+
+-(void) getProfileInfo:(NSString*) userId success: (void (^)(ProfileInfo *profileInfo))success failure:(void (^)(NSError *error))failure;
+-(void) postProfileImage: (NSData*) imageData success: (void (^) (void))success failure:(void (^)(NSError *error))failure;
 
 @end

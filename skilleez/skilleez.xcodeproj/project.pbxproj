@@ -127,6 +127,7 @@
 		84D73B8418E96F03007DDBDB /* SearchUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D73B8218E96F03007DDBDB /* SearchUserViewController.xib */; };
 		84D73B8818E9884C007DDBDB /* FindUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D73B8618E9884C007DDBDB /* FindUserViewController.m */; };
 		84D73B8918E9884C007DDBDB /* FindUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D73B8718E9884C007DDBDB /* FindUserViewController.xib */; };
+		84D73B8C18E99E65007DDBDB /* ProfileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D73B8B18E99E65007DDBDB /* ProfileInfo.m */; };
 		84D9E04F18C9C3D400516E2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D9E04E18C9C3D400516E2D /* Foundation.framework */; };
 		84D9E05118C9C3D500516E2D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D9E05018C9C3D500516E2D /* CoreGraphics.framework */; };
 		84D9E05318C9C3D500516E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D9E05218C9C3D500516E2D /* UIKit.framework */; };
@@ -366,6 +367,8 @@
 		84D73B8518E9884C007DDBDB /* FindUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindUserViewController.h; sourceTree = "<group>"; };
 		84D73B8618E9884C007DDBDB /* FindUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindUserViewController.m; sourceTree = "<group>"; };
 		84D73B8718E9884C007DDBDB /* FindUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindUserViewController.xib; sourceTree = "<group>"; };
+		84D73B8A18E99E65007DDBDB /* ProfileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileInfo.h; sourceTree = "<group>"; };
+		84D73B8B18E99E65007DDBDB /* ProfileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileInfo.m; sourceTree = "<group>"; };
 		84D9E04B18C9C3D400516E2D /* Skilleez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skilleez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D9E04E18C9C3D400516E2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84D9E05018C9C3D500516E2D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1039,6 +1042,8 @@
 				849D2DBA18E1C4CB00828ED4 /* FamilyMemberModel.m */,
 				1465110618E42C47002C2B2A /* TableItem.h */,
 				1465110718E42C47002C2B2A /* TableItem.m */,
+				84D73B8A18E99E65007DDBDB /* ProfileInfo.h */,
+				84D73B8B18E99E65007DDBDB /* ProfileInfo.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1338,6 +1343,7 @@
 				849D2DBB18E1C4CB00828ED4 /* FamilyMemberModel.m in Sources */,
 				1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */,
 				84CEC78D18E2DF3D00DD55B5 /* NewUserTypeView.m in Sources */,
+				84D73B8C18E99E65007DDBDB /* ProfileInfo.m in Sources */,
 				84CEC79718E2FD5E00DD55B5 /* CreateAdultViewController.m in Sources */,
 				148104DB18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m in Sources */,
 				1465110518E31F98002C2B2A /* ProfileViewController.m in Sources */,
