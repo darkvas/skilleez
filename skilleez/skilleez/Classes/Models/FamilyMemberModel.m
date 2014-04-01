@@ -21,4 +21,15 @@
     return mapping;
 }
 
+- (id)initWithId:(NSString *)Id isAdult:(BOOL)isAdult fullName:(NSString *)fullName avatarUrl:(NSString *)avatarUrl
+{
+    if (self = [super init]) {
+        self.FullName = fullName;
+        self.Id = Id;
+        self.AvatarUrl = avatarUrl;
+        self.IsAdult = isAdult;
+    }
+    return self;
+}
+
 @end

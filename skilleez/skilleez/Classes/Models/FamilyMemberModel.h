@@ -16,5 +16,5 @@
 @property (nonatomic, strong) NSString* AvatarUrl;
 
 +(RKObjectMapping*) defineObjectMapping;
-
+- (id)initWithId:(NSString *)Id isAdult:(BOOL)isAdult fullName:(NSString *)fullName avatarUrl:(NSString *)avatarUrl;
 @end

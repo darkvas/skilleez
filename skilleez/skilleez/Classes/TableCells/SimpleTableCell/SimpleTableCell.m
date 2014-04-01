@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *detailBtn;
 
 - (IBAction)showSkille:(id)sender;
+- (void)selectProfile:(UIGestureRecognizer*)recognizer;
 
 @end
 
@@ -50,6 +51,9 @@
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;
     cell.detailBtn.tag = tag;
+    cell.avatarImg.tag = tag;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectProfile:)];
+    [cell.avatarImg addGestureRecognizer:tap];
     cell.contentView.backgroundColor = element.Color;
 }
 
@@ -61,10 +65,16 @@
     [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
 }
 
+#pragma mark - SimpleCellDelegate
+
 - (IBAction)showSkille:(id)sender
 {
     [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
+}
+
+- (void)selectProfile:(UIGestureRecognizer*)recognizer {
     NSLog(@"here");
+    [self.delegate didProfileSelect:((UIImageView *)recognizer.view).tag];
 }
 
 @end

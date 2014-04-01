@@ -14,6 +14,7 @@
 #import "UIFont+DefaultFont.h"
 #import "NewUserTypeView.h"
 #import "UserSettingsManager.h"
+#import "ProfilePermissionViewController.h"
 
 @interface FriendsFamilyViewController ()
 {
@@ -109,6 +110,9 @@
     else
         [cell setMemberData:[_childrenMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
     
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    [cell setSelectedBackgroundView:bgColorView];
     return cell;
 }
 
@@ -132,6 +136,15 @@
     [headerView addSubview:lblSectionHeader];
     
     return headerView;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        ProfilePermissionViewController *profile = [[ProfilePermissionViewController alloc] init];
+        [self.navigationController pushViewController:profile animated:YES];
+    }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

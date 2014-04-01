@@ -11,7 +11,8 @@
 
 @protocol SimpleCellDelegate <NSObject>
 @required
-- (void)didSkiilleSelect:(NSInteger) tag;
+- (void)didSkiilleSelect:(NSInteger)tag;
+- (void)didProfileSelect:(NSInteger)tag;
 @end
 
 

@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		140CDE7118E9588C001E97A7 /* ProfilePermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CDE6F18E9588C001E97A7 /* ProfilePermissionViewController.m */; };
+		140CDE7218E9588C001E97A7 /* ProfilePermissionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE7018E9588C001E97A7 /* ProfilePermissionViewController.xib */; };
+		140CDE7618E9589D001E97A7 /* EditPermissionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CDE7418E9589D001E97A7 /* EditPermissionViewController.m */; };
+		140CDE7718E9589D001E97A7 /* EditPermissionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE7518E9589D001E97A7 /* EditPermissionViewController.xib */; };
+		140CDE7B18E958D0001E97A7 /* PermissionManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CDE7918E958D0001E97A7 /* PermissionManagementViewController.m */; };
+		140CDE7C18E958D0001E97A7 /* PermissionManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE7A18E958D0001E97A7 /* PermissionManagementViewController.xib */; };
+		140CDE8018E97E37001E97A7 /* EditPermissionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CDE7F18E97E37001E97A7 /* EditPermissionTableCell.m */; };
+		140CDE8218E97E4D001E97A7 /* EditPermissionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8118E97E4D001E97A7 /* EditPermissionTableCell.xib */; };
+		140CDE9018EA930C001E97A7 /* delete_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8418EA930C001E97A7 /* delete_icon.png */; };
+		140CDE9118EA930C001E97A7 /* delete_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8518EA930C001E97A7 /* delete_icon@2x.png */; };
+		140CDE9218EA930C001E97A7 /* email_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8618EA930C001E97A7 /* email_icon.png */; };
+		140CDE9318EA930C001E97A7 /* email_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8718EA930C001E97A7 /* email_icon@2x.png */; };
+		140CDE9418EA930C001E97A7 /* permit_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8818EA930C001E97A7 /* permit_icon.png */; };
+		140CDE9518EA930C001E97A7 /* permit_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8918EA930C001E97A7 /* permit_icon@2x.png */; };
+		140CDE9618EA930C001E97A7 /* profile_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8A18EA930C001E97A7 /* profile_icon.png */; };
+		140CDE9718EA930C001E97A7 /* profile_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8B18EA930C001E97A7 /* profile_icon@2x.png */; };
+		140CDE9818EA930C001E97A7 /* settings_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8C18EA930C001E97A7 /* settings_icon.png */; };
+		140CDE9918EA930C001E97A7 /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8D18EA930C001E97A7 /* settings_icon@2x.png */; };
+		140CDE9A18EA930C001E97A7 /* skilleez_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8E18EA930C001E97A7 /* skilleez_icon.png */; };
+		140CDE9B18EA930C001E97A7 /* skilleez_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8F18EA930C001E97A7 /* skilleez_icon@2x.png */; };
 		146510FF18E31F60002C2B2A /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146510FC18E31F5F002C2B2A /* EditProfileViewController.m */; };
 		1465110018E31F60002C2B2A /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 146510FD18E31F5F002C2B2A /* EditProfileViewController.xib */; };
 		1465110218E31F83002C2B2A /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1465110118E31F83002C2B2A /* ProfileViewController.xib */; };
@@ -207,6 +227,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		140CDE6E18E9588C001E97A7 /* ProfilePermissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfilePermissionViewController.h; sourceTree = "<group>"; };
+		140CDE6F18E9588C001E97A7 /* ProfilePermissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfilePermissionViewController.m; sourceTree = "<group>"; };
+		140CDE7018E9588C001E97A7 /* ProfilePermissionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfilePermissionViewController.xib; sourceTree = "<group>"; };
+		140CDE7318E9589D001E97A7 /* EditPermissionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPermissionViewController.h; sourceTree = "<group>"; };
+		140CDE7418E9589D001E97A7 /* EditPermissionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPermissionViewController.m; sourceTree = "<group>"; };
+		140CDE7518E9589D001E97A7 /* EditPermissionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditPermissionViewController.xib; sourceTree = "<group>"; };
+		140CDE7818E958D0001E97A7 /* PermissionManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionManagementViewController.h; sourceTree = "<group>"; };
+		140CDE7918E958D0001E97A7 /* PermissionManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionManagementViewController.m; sourceTree = "<group>"; };
+		140CDE7A18E958D0001E97A7 /* PermissionManagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PermissionManagementViewController.xib; sourceTree = "<group>"; };
+		140CDE7E18E97E37001E97A7 /* EditPermissionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPermissionTableCell.h; sourceTree = "<group>"; };
+		140CDE7F18E97E37001E97A7 /* EditPermissionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPermissionTableCell.m; sourceTree = "<group>"; };
+		140CDE8118E97E4D001E97A7 /* EditPermissionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditPermissionTableCell.xib; sourceTree = "<group>"; };
+		140CDE8418EA930C001E97A7 /* delete_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete_icon.png; sourceTree = "<group>"; };
+		140CDE8518EA930C001E97A7 /* delete_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_icon@2x.png"; sourceTree = "<group>"; };
+		140CDE8618EA930C001E97A7 /* email_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email_icon.png; sourceTree = "<group>"; };
+		140CDE8718EA930C001E97A7 /* email_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "email_icon@2x.png"; sourceTree = "<group>"; };
+		140CDE8818EA930C001E97A7 /* permit_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = permit_icon.png; sourceTree = "<group>"; };
+		140CDE8918EA930C001E97A7 /* permit_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "permit_icon@2x.png"; sourceTree = "<group>"; };
+		140CDE8A18EA930C001E97A7 /* profile_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_icon.png; sourceTree = "<group>"; };
+		140CDE8B18EA930C001E97A7 /* profile_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_icon@2x.png"; sourceTree = "<group>"; };
+		140CDE8C18EA930C001E97A7 /* settings_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_icon.png; sourceTree = "<group>"; };
+		140CDE8D18EA930C001E97A7 /* settings_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@2x.png"; sourceTree = "<group>"; };
+		140CDE8E18EA930C001E97A7 /* skilleez_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skilleez_icon.png; sourceTree = "<group>"; };
+		140CDE8F18EA930C001E97A7 /* skilleez_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skilleez_icon@2x.png"; sourceTree = "<group>"; };
 		146510FB18E31F5F002C2B2A /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		146510FC18E31F5F002C2B2A /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		146510FD18E31F5F002C2B2A /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
@@ -461,6 +505,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		140CDE6D18E95851001E97A7 /* PermissionsViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				140CDE6E18E9588C001E97A7 /* ProfilePermissionViewController.h */,
+				140CDE6F18E9588C001E97A7 /* ProfilePermissionViewController.m */,
+				140CDE7018E9588C001E97A7 /* ProfilePermissionViewController.xib */,
+				140CDE7318E9589D001E97A7 /* EditPermissionViewController.h */,
+				140CDE7418E9589D001E97A7 /* EditPermissionViewController.m */,
+				140CDE7518E9589D001E97A7 /* EditPermissionViewController.xib */,
+				140CDE7818E958D0001E97A7 /* PermissionManagementViewController.h */,
+				140CDE7918E958D0001E97A7 /* PermissionManagementViewController.m */,
+				140CDE7A18E958D0001E97A7 /* PermissionManagementViewController.xib */,
+			);
+			path = PermissionsViewControllers;
+			sourceTree = "<group>";
+		};
+		140CDE7D18E965CC001E97A7 /* EditPermissionTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				140CDE7E18E97E37001E97A7 /* EditPermissionTableCell.h */,
+				140CDE7F18E97E37001E97A7 /* EditPermissionTableCell.m */,
+				140CDE8118E97E4D001E97A7 /* EditPermissionTableCell.xib */,
+			);
+			path = EditPermissionTableCell;
+			sourceTree = "<group>";
+		};
+		140CDE8318EA930C001E97A7 /* EditPermission Icon Pack */ = {
+			isa = PBXGroup;
+			children = (
+				140CDE8418EA930C001E97A7 /* delete_icon.png */,
+				140CDE8518EA930C001E97A7 /* delete_icon@2x.png */,
+				140CDE8618EA930C001E97A7 /* email_icon.png */,
+				140CDE8718EA930C001E97A7 /* email_icon@2x.png */,
+				140CDE8818EA930C001E97A7 /* permit_icon.png */,
+				140CDE8918EA930C001E97A7 /* permit_icon@2x.png */,
+				140CDE8A18EA930C001E97A7 /* profile_icon.png */,
+				140CDE8B18EA930C001E97A7 /* profile_icon@2x.png */,
+				140CDE8C18EA930C001E97A7 /* settings_icon.png */,
+				140CDE8D18EA930C001E97A7 /* settings_icon@2x.png */,
+				140CDE8E18EA930C001E97A7 /* skilleez_icon.png */,
+				140CDE8F18EA930C001E97A7 /* skilleez_icon@2x.png */,
+			);
+			name = "EditPermission Icon Pack";
+			path = "skilleez/Resources/EditPermission Icon Pack";
+			sourceTree = SOURCE_ROOT;
+		};
 		146510FA18E31F5F002C2B2A /* EditProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -498,6 +588,7 @@
 		149232A818D73A40001BAE8C /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
+				140CDE7D18E965CC001E97A7 /* EditPermissionTableCell */,
 				14F090AC18E1C951000DAF80 /* ProfileTableCell */,
 				149232BF18D740CE001BAE8C /* FavoriteTableCell */,
 				149232A918D73A40001BAE8C /* AdultApprovalTableCell */,
@@ -716,6 +807,7 @@
 		84D6CE1A18D1BF1F008ABB5E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				140CDE6D18E95851001E97A7 /* PermissionsViewControllers */,
 				146510FA18E31F5F002C2B2A /* EditProfileViewController */,
 				146510FE18E31F60002C2B2A /* ProfileViewController */,
 				14A2CAEA18E05DBD00A87F86 /* MenuViewController */,
@@ -833,6 +925,7 @@
 		84D9E08718C9D2ED00516E2D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				140CDE8318EA930C001E97A7 /* EditPermission Icon Pack */,
 				84E3E10418E45640000D8D0D /* Create Invite Icon Pack */,
 				14BCE6DD18D9EEA40047F490 /* Navigation Icon Pack */,
 				14BCE66618D9B8E90047F490 /* Action Icon Pack */,
@@ -1068,8 +1161,10 @@
 				14BCE6F518D9EEA40047F490 /* create_BTN_press@2x.png in Resources */,
 				84D9E10218C9FD4900516E2D /* skilleez_app_icon_512.png in Resources */,
 				84E3E14C18E45640000D8D0D /* user_unselected@2x.png in Resources */,
+				140CDE9418EA930C001E97A7 /* permit_icon.png in Resources */,
 				1494F27718DAF0AB00728C1B /* back_BTN_press@2x.png in Resources */,
 				84E3E15018E45640000D8D0D /* yes(check)_white@2x.png in Resources */,
+				140CDE9218EA930C001E97A7 /* email_icon.png in Resources */,
 				14BCE6F718D9EEA40047F490 /* extra_BTN@2x.png in Resources */,
 				84D9E05918C9C3D500516E2D /* InfoPlist.strings in Resources */,
 				14BCE67D18D9B8E90047F490 /* film_strip_icon.png in Resources */,
@@ -1077,10 +1172,14 @@
 				84E3E13218E45640000D8D0D /* arrow_white@2x.png in Resources */,
 				14BCE6FE18D9EEA40047F490 /* loop_BTN.png in Resources */,
 				84E3E13F18E45640000D8D0D /* fing_user_icon_BTN.png in Resources */,
+				140CDE9B18EA930C001E97A7 /* skilleez_icon@2x.png in Resources */,
 				1494F26818DAE31D00728C1B /* thumb_down_BTN_press.png in Resources */,
+				140CDE9A18EA930C001E97A7 /* skilleez_icon.png in Resources */,
 				84D9E0A618C9F32F00516E2D /* Loading_img.png in Resources */,
+				140CDE9618EA930C001E97A7 /* profile_icon.png in Resources */,
 				84D9E10E18CA01D800516E2D /* BG_loading_img@2x.png in Resources */,
 				84E3E13918E45640000D8D0D /* closing_white.png in Resources */,
+				140CDE9518EA930C001E97A7 /* permit_icon@2x.png in Resources */,
 				14BCE70018D9EEA40047F490 /* loop_BTN_press.png in Resources */,
 				84D9E10518C9FD4900516E2D /* skilleez_settings.png in Resources */,
 				14BCE70118D9EEA40047F490 /* loop_BTN_press@2x.png in Resources */,
@@ -1101,6 +1200,7 @@
 				84D9E0AA18C9F32F00516E2D /* plane_img.png in Resources */,
 				84D9E10118C9FD4900516E2D /* skilleez_app_icon_1024.png in Resources */,
 				84E3E14D18E45640000D8D0D /* yes(check)_black.png in Resources */,
+				140CDE9318EA930C001E97A7 /* email_icon@2x.png in Resources */,
 				1494F26618DAE31D00728C1B /* star_opaque_BTN.png in Resources */,
 				84D9E0A218C9F32F00516E2D /* BG@2x.png in Resources */,
 				14C8F36E18DC3F6E0052E915 /* circle_delete_press.png in Resources */,
@@ -1113,12 +1213,14 @@
 				1465110D18E54F5A002C2B2A /* ColorViewController.xib in Resources */,
 				14AC9E2918D836C500C3E228 /* thumb_down_@2x.png in Resources */,
 				84CEC78A18E2DF0900DD55B5 /* NewUserTypeView.xib in Resources */,
+				140CDE9918EA930C001E97A7 /* settings_icon@2x.png in Resources */,
 				1494F26F18DAE31D00728C1B /* thumb_up_BTN@2x-1.png in Resources */,
 				84D9E0A818C9F32F00516E2D /* logo_img.png in Resources */,
 				84D9E0A918C9F32F00516E2D /* logo_img@2x.png in Resources */,
 				84E3E14818E45640000D8D0D /* search_img@2x.png in Resources */,
 				84E7F69618E07752003662CA /* FriendsFamilyViewController.xib in Resources */,
 				84E3E13118E45640000D8D0D /* arrow_white.png in Resources */,
+				140CDE8218E97E4D001E97A7 /* EditPermissionTableCell.xib in Resources */,
 				14BCE70518D9EEA40047F490 /* pandimg_BTN_press@2x.png in Resources */,
 				14C8F36918DC1EDC0052E915 /* back_BTN.png in Resources */,
 				84D9E08B18C9D2ED00516E2D /* Eraser.ttf in Resources */,
@@ -1129,11 +1231,13 @@
 				84D6CE2318D1BF1F008ABB5E /* LoginViewController.xib in Resources */,
 				14AC9E2818D836C500C3E228 /* thumb_down_.png in Resources */,
 				14BCE70218D9EEA40047F490 /* pandimg_BTN.png in Resources */,
+				140CDE7C18E958D0001E97A7 /* PermissionManagementViewController.xib in Resources */,
 				14BCE67918D9B8E90047F490 /* big_text_view_BG.png in Resources */,
 				14BCE67B18D9B8E90047F490 /* Camera_icon.png in Resources */,
 				14BCE6F318D9EEA40047F490 /* create_BTN@2x.png in Resources */,
 				1494F27618DAF0AB00728C1B /* back_BTN_press.png in Resources */,
 				14C8F36718DC1DEA0052E915 /* go_btn@2x.png in Resources */,
+				140CDE9018EA930C001E97A7 /* delete_icon.png in Resources */,
 				84E3E12B18E45640000D8D0D /* adul_user_BTN.png in Resources */,
 				84E3E13A18E45640000D8D0D /* closing_white@2x.png in Resources */,
 				14AC9E2B18D836C500C3E228 /* thumb_up_@2x.png in Resources */,
@@ -1141,17 +1245,22 @@
 				14BCE6F418D9EEA40047F490 /* create_BTN_press.png in Resources */,
 				84D9E10318C9FD4900516E2D /* skilleez_home_screen.png in Resources */,
 				84E3E14018E45640000D8D0D /* fing_user_icon_BTN@2x.png in Resources */,
+				140CDE7718E9589D001E97A7 /* EditPermissionViewController.xib in Resources */,
 				1494F26D18DAE31D00728C1B /* thumb_up_BTN_press@2x.png in Resources */,
 				14BCE70318D9EEA40047F490 /* pandimg_BTN@2x.png in Resources */,
 				14A2CAEF18E05DF000A87F86 /* MenuViewController.xib in Resources */,
 				14BCE6FA18D9EEA40047F490 /* favorites_BTN.png in Resources */,
 				14BCE67E18D9B8E90047F490 /* film_strip_icon@2x.png in Resources */,
+				140CDE7218E9588C001E97A7 /* ProfilePermissionViewController.xib in Resources */,
 				84E3E12D18E45640000D8D0D /* adult_icon.png in Resources */,
 				84E3E13818E45640000D8D0D /* closing_bleck@2x.png in Resources */,
+				140CDE9118EA930C001E97A7 /* delete_icon@2x.png in Resources */,
 				14DB8B4C18E0232700DEEC4C /* SplashViewController.xib in Resources */,
 				84E3E13618E45640000D8D0D /* child_user_BTN@2x.png in Resources */,
 				84E3E13718E45640000D8D0D /* closing_bleck.png in Resources */,
+				140CDE9818EA930C001E97A7 /* settings_icon.png in Resources */,
 				84D9E10A18CA01CC00516E2D /* skilleez_spotlight@2x.png in Resources */,
+				140CDE9718EA930C001E97A7 /* profile_icon@2x.png in Resources */,
 				84D9E0AB18C9F32F00516E2D /* plane_img@2x.png in Resources */,
 				84E3E12C18E45640000D8D0D /* adul_user_BTN@2x.png in Resources */,
 				14BCE68118D9B8E90047F490 /* small_text_view_BG.png in Resources */,
@@ -1265,17 +1374,21 @@
 				84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */,
 				149232B518D73A40001BAE8C /* AdultApprovalTableCell.m in Sources */,
 				84CEC79218E2FD1400DD55B5 /* CreateChildViewController.m in Sources */,
+				140CDE7B18E958D0001E97A7 /* PermissionManagementViewController.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
 				84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */,
+				140CDE7618E9589D001E97A7 /* EditPermissionViewController.m in Sources */,
 				84EA05CB18D6F5FF008D940D /* UserInfo.m in Sources */,
 				14DB8B4F18E0233B00DEEC4C /* SplashViewController.m in Sources */,
 				84EA05D818D8A266008D940D /* PostResponse.m in Sources */,
 				84E7F69918E077A4003662CA /* FriendsFamilyViewController.m in Sources */,
 				84EA05D518D881A1008D940D /* SkilleeRequest.m in Sources */,
 				146510FF18E31F60002C2B2A /* EditProfileViewController.m in Sources */,
+				140CDE8018E97E37001E97A7 /* EditPermissionTableCell.m in Sources */,
 				149232B918D73A40001BAE8C /* SimpleTableCell.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,
 				14A2CAED18E05DCE00A87F86 /* MenuViewController.m in Sources */,
+				140CDE7118E9588C001E97A7 /* ProfilePermissionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

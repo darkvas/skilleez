@@ -16,6 +16,7 @@
 #import "UserSettingsManager.h"
 #import "MenuViewController.h"
 #import "AppDelegate.h"
+#import "ProfilePermissionViewController.h"
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -71,10 +72,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [data count];
-}
+#pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -84,6 +82,23 @@
         return 417;
     }
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([className isEqualToString:@"SimpleTableCell"]) {
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:[UserSettingsManager sharedInstance].IsAdult];
+        [self.navigationController pushViewController:detail animated:YES];
+    } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:YES];
+        [self.navigationController pushViewController:detail animated:YES];
+    } else if([className isEqualToString:@"ChildApprovalTableCell"]) {
+        
+    } else {
+        
+    }
+}
+
+#pragma mark - UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -96,6 +111,13 @@
     [cell setSkilleezCell:cell andSkilleez:[data objectAtIndex:indexPath.row] andTag:indexPath.row];
     return cell;
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [data count];
+}
+
+#pragma mark - SimpleCellDelegate
 
 - (void)didSkiilleSelect:(NSInteger)tag
 {
@@ -112,20 +134,15 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)didProfileSelect:(NSInteger)tag
 {
-    if ([className isEqualToString:@"SimpleTableCell"]) {
-        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:[UserSettingsManager sharedInstance].IsAdult];
-        [self.navigationController pushViewController:detail animated:YES];
-    } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
-        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:YES];
-        [self.navigationController pushViewController:detail animated:YES];
-    } else if([className isEqualToString:@"ChildApprovalTableCell"]) {
-       
-    } else {
-       
+    if ([UserSettingsManager sharedInstance].IsAdmin) {
+        ProfilePermissionViewController *profile = [ProfilePermissionViewController new];
+        [self.navigationController pushViewController:profile animated:YES];
     }
 }
+
+#pragma marl - Class methods
 
 - (UIActivityIndicatorView *)getLoaderIndicator
 {
