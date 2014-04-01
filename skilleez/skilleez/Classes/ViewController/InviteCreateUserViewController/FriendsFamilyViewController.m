@@ -12,7 +12,6 @@
 #import "UserSettingsManager.h"
 #import "FamilyMemberCell.h"
 #import "UIFont+DefaultFont.h"
-#import "NewUserTypeView.h"
 #import "UserSettingsManager.h"
 #import "ProfilePermissionViewController.h"
 
@@ -29,6 +28,7 @@
 
 -(IBAction) createNewUser:(id)sender;
 -(IBAction) inviteToLoop:(id)sender;
+-(IBAction) showPendingInvitations:(id)sender;
 
 @end
 
@@ -192,7 +192,14 @@
 
 -(IBAction) inviteToLoop:(id)sender
 {
-    
+    InviteToLoopViewController *inviteToLoopView = [[InviteToLoopViewController alloc] initWithNibName:@"InviteToLoopViewController" bundle:nil];
+    [self.navigationController pushViewController:inviteToLoopView animated:YES];
+}
+
+-(IBAction) showPendingInvitations:(id)sender
+{
+    PendingInvitationsViewController *pendingInvitesView = [[PendingInvitationsViewController alloc] initWithNibName:@"PendingInvitationsViewController" bundle:nil];
+    [self.navigationController pushViewController:pendingInvitesView animated:YES];
 }
 
 @end

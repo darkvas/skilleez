@@ -10,4 +10,6 @@
 
 @interface ColorViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate>
 
+@property (weak, nonatomic) UIColor* selectedColor;
+
 @end

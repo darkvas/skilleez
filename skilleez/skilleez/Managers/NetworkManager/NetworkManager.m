@@ -494,4 +494,83 @@ POST api/User/SetAdultPermissions*/
      }];
 }
 
+#pragma mark Profile - need to test
+
+#define GET_PROFILEINFO_URI @"api/Profile/GetProfileInfo"
+#define POST_PROFILEIMAGE_URI @"api/Profile/EditProfileImage"
+
+/*
+ GET api/Profile/GetProfileInfo/{Id}
+ POST api/Profile/EditProfileInfo
+ POST api/Profile/EditProfileImage
+ */
+
+-(void) getProfileInfo:(NSString*) userId success: (void (^)(ProfileInfo *profileInfo))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKObjectMapping *profileInfoMapping = [ProfileInfo defineObjectMapping];
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:profileInfoMapping
+                                                                                             method:RKRequestMethodGET
+                                                                                        pathPattern:GET_PROFILEINFO_URI
+                                                                                            keyPath:@"ReturnValue"
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Id=%@", SKILLEEZ_URL, GET_PROFILEINFO_URI, userId]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success(mappingResult.firstObject);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) postProfileImage: (NSData*) imageData success: (void (^) (void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:POST_PROFILEIMAGE_URI
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSMutableURLRequest *request = [manager multipartFormRequestWithObject:imageData
+                                                                    method:RKRequestMethodPOST
+                                                                      path:[SKILLEEZ_URL stringByAppendingString:POST_PROFILEIMAGE_URI]
+                                                                parameters:nil
+                                                 constructingBodyWithBlock:^(id<AFMultipartFormData> formData) { }];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *boundary = @"----WebKitFormBoundarycC4YiaUFwM44F6rT";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    NSMutableData *body = [NSMutableData data];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[@"Content-Disposition: form-data; name=\"Image\";filename=\"picture.jpeg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+
+    [body appendData:imageData];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	
+    [request setHTTPBody:body];
+    
+    RKObjectRequestOperation *operation = [manager objectRequestOperationWithRequest:request
+                                                                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                                                 dispatch_async(dispatch_get_main_queue(), ^{success();});
+                                                                             }
+                                                                             failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                                                 dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+                                                                             }];
+    [manager enqueueObjectRequestOperation:operation];
+}
+
 @end
