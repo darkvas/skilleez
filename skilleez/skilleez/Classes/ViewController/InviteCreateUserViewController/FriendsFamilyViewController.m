@@ -14,6 +14,9 @@
 #import "UIFont+DefaultFont.h"
 #import "UserSettingsManager.h"
 #import "ProfilePermissionViewController.h"
+#import "NewUserTypeView.h"
+#import "InviteToLoopViewController.h"
+#import "PendingInvitationsViewController.h"
 
 @interface FriendsFamilyViewController ()
 {
