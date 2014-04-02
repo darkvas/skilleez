@@ -11,7 +11,6 @@
 #import "UIFont+DefaultFont.h"
 #import "ProfileViewController.h"
 #import "TableItem.h"
-#import "ColorViewController.h"
 #import "UserSettingsManager.h"
 #import "NetworkManager.h"
 #import "ProfileInfo.h"
@@ -20,7 +19,9 @@
     NSArray *questions;
     float    offset;
     ProfileInfo* profile;
+    BOOL imageChanged;
     UIImagePickerController *imagePicker;
+    UIColor* favoriteColor;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -55,15 +56,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self cutomize];
-    questions = [NSArray arrayWithObjects:[[TableItem alloc] initWithName:@"Who am I" image:@"pandimg_BTN.png" method:@"showProfile"],
-                                          [[TableItem alloc] initWithName:@"What's your favorite color?" image:@"pandimg_BTN.png" method:@"chooseColor"],
-                                          [[TableItem alloc] initWithName:@"What's your favorite sport" image:@"pandimg_BTN.png" method:@"showProfile"],
-                                          [[TableItem alloc] initWithName:@"What's your favorite school subject?" image:@"" method:@"showProfile"],
-                                          [[TableItem alloc] initWithName:@"What's your favorite type of music?" image:@"" method:@"showProfile"],
-                                          [[TableItem alloc] initWithName:@"What's your favorite food?" image:@"" method:@"showProfile"],
-                                          [[TableItem alloc] initWithName:@"My skilleez" image:@"pandimg_BTN.png" method:@"showProfile"],
-                                          nil];
+    [self prepareDefaultData];
+    
     self.scrollView.contentSize = CGSizeMake(320, 530 + ([questions count] * 98));
     self.tableView.frame = CGRectMake(0, 505, 320, ([questions count] * 98) - 60);
     CGRect save = self.saveBtn.frame;
@@ -71,13 +67,43 @@
     self.saveBtn.frame = save;
     self.scrollView.frame = self.view.frame;
     [self.view addSubview:self.scrollView];
+    
     [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Profile editor" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.delegate = self;
+    imageChanged = NO;
     
     [self loadProfileInfo];
+}
+
+-(void) prepareDefaultData
+{
+    questions = [NSArray arrayWithObjects:
+                 [[TableItem alloc] initWithName:@"Who am I?"
+                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                          method:@"showProfile"],
+                 [[TableItem alloc] initWithName:@"What's your favorite color?"
+                                           image:[self getBlankImage:[UIColor blackColor]]
+                                          method:@"chooseColor"],
+                 [[TableItem alloc] initWithName:@"What's your favorite sport"
+                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                          method:@"showProfile"],
+                 [[TableItem alloc] initWithName:@"What's your favorite school subject?"
+                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                          method:@"showProfile"],
+                 [[TableItem alloc] initWithName:@"What's your favorite type of music?"
+                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                          method:@"showProfile"],
+                 [[TableItem alloc] initWithName:@"What's your favorite food?"
+                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                          method:@"showProfile"],
+                 [[TableItem alloc] initWithName:@"My skilleez"
+                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                          method:@"showProfile"],
+                 nil];
+    favoriteColor = [UIColor blueColor];
 }
 
 - (void) loadProfileInfo
@@ -95,6 +121,9 @@
     [self.userAvatarImg setImageWithURL: [NSURL URLWithString:profile.AvatarUrl]];
     self.nameTxt.text = profile.ScreenName;
     self.loginTxt.text = profile.Login;
+    favoriteColor = profile.Color;
+    ((TableItem*)questions[1]).image = [self getBlankImage:favoriteColor];
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -139,9 +168,22 @@
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"ProfileTableCell" owner:self options:nil];
             cell = [nib objectAtIndex:0];
         }
-        [cell fillCell:cell question:((TableItem *)[questions objectAtIndex:indexPath.row]).name image:[UIImage imageNamed:((TableItem *)[questions objectAtIndex:indexPath.row]).image]];
+        TableItem* item = (TableItem *)[questions objectAtIndex:indexPath.row];
+        [cell fillCell:cell question:item.name image:item.image];
         return cell;
     }
+}
+
+-(UIImage*) getBlankImage: (UIColor*) color
+{
+    const int defaultSize = 100;
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(defaultSize,defaultSize), NO, 0);
+    UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(0,0,defaultSize,defaultSize)];
+    [color setFill];
+    [bezierPath fill];
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -170,15 +212,16 @@
 
 - (void)showProfile
 {
-    ProfileViewController *profile = [[ProfileViewController alloc] init];
-    [self.navigationController pushViewController:profile animated:YES];
+    ProfileViewController *profileView = [[ProfileViewController alloc] init];
+    [self.navigationController pushViewController:profileView animated:YES];
 }
 
 - (void)chooseColor
 {
     ColorViewController *color = [[ColorViewController alloc] init];
+    color.delegate = self;
+    color.selectedColor = favoriteColor;
     [self.navigationController pushViewController:color animated:YES];
-    NSLog(@"Selected Color: %@", color.selectedColor);
 }
 
 - (void)cutomize
@@ -217,7 +260,7 @@
 -(IBAction)editImagePressed:(id)sender
 {
     imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString*) kUTTypeImage];
-    [self presentModalViewController:imagePicker animated:YES];
+    [self presentViewController:imagePicker animated:YES  completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -227,19 +270,58 @@
     if([contentType isEqualToString:@"public.image"]) {
         UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
         [self.userAvatarImg setImage:chosenImage];
+        imageChanged = YES;
     }
 }
 
 -(IBAction)saveProfilePressed:(id)sender
 {
-    NSData* imageData = UIImageJPEGRepresentation(self.userAvatarImg.image, 1.0f);
-    [[NetworkManager sharedInstance] postProfileImage:imageData success:^{
+    if(imageChanged)
+        [self uploadImage];
+    
+    profile.ScreenName = self.nameTxt.text;
+    profile.Login = self.loginTxt.text;
+    profile.Password = self.passwordTxt.text;
+    profile.FavoriteColor = [self getStringFromColor:favoriteColor];
+    
+    [[NetworkManager sharedInstance] postProfileInfo:profile success:^{
         [self done];
     } failure:^(NSError *error) {
         NSString* message = error.userInfo[NSLocalizedDescriptionKey];
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }];
+}
+
+-(void)uploadImage
+{
+    NSData* imageData = UIImageJPEGRepresentation(self.userAvatarImg.image, 1.0f);
+    [[NetworkManager sharedInstance] postProfileImage:imageData success:^{
+        
+    } failure:^(NSError *error) {
+        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }];
+}
+
+-(NSString*) getStringFromColor: (UIColor*) color
+{
+    const CGFloat *components = CGColorGetComponents(color.CGColor);
+    CGFloat r = components[0];
+    CGFloat g = components[1];
+    CGFloat b = components[2];
+    NSString *hexString=[NSString stringWithFormat:@"%02X%02X%02X", (int)(r * 255), (int)(g * 255), (int)(b * 255)];
+    return hexString;
+}
+
+-(void) colorSelected:(UIColor *) color
+{
+    favoriteColor = color;
+    NSLog(@" - - - Profile color: %i", rgbValue);
+    
+    ((TableItem*)questions[1]).image = [self getBlankImage:favoriteColor];
+    [self.tableView reloadData];
 }
 
 @end

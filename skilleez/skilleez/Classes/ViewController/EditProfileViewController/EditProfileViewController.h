@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfileTableCell.h"
-@interface EditProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate>
+#import "ColorViewController.h"
+
+@interface EditProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, ColorViewControllerObserver>
 
 @end

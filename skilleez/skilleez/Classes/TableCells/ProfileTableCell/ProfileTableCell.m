@@ -36,7 +36,7 @@
 
 - (void)fillCell:(ProfileTableCell *)cell question:(NSString *)question image:(UIImage *)image
 {
-    //cell.questionImage.image = image;
+    cell.questionImage.image = image;
     cell.questionText.font = [UIFont getDKCrayonFontWithSize:22.f];
     cell.questionText.text = question;
     cell.questionImage.layer.masksToBounds = YES;

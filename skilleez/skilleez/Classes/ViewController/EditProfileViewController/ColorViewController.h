@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ColorViewControllerObserver <NSObject>
+
+-(void)colorSelected:(UIColor*) color;
+
+@end
+
 @interface ColorViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (weak, nonatomic) UIColor* selectedColor;
+@property (strong, nonatomic) UIColor* selectedColor;
+@property (weak, nonatomic) id<ColorViewControllerObserver> delegate;
 
 @end
