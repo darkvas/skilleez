@@ -45,8 +45,10 @@
 {
     [super viewDidLoad];
     [self customize];
-    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"User" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:self.familyMember.FullName leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
+    [self.userAvatarImg setImageWithURL: [NSURL URLWithString:self.familyMember.AvatarUrl]];
     // Do any additional setup after loading the view from its nib.
 }
 

@@ -372,6 +372,7 @@
 #define POST_INVITE_ADULT_TO_FAMILY @"api/User/InviteAdultToTheFamily"
 #define POST_REMOVE_MEMBER_FROM_FAMILY @"api/User/DeleteMemberFromTheFamily"
 #define GET_FRIENDS_AND_FAMILY @"api/User/GetFriendsAndFamily"
+#define GET_ADULTPERMISSIONS @"api/User/GetAdultPermissions"
 
 /*
 GET api/User/GetMyInfo
@@ -487,6 +488,36 @@ POST api/User/SetAdultPermissions*/
          }
          
          dispatch_async(dispatch_get_main_queue(), ^{success(familyMembers);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) getAdultPermissions: (NSString*) userId forAdultId: (NSString*) adultId success: (void (^)(NSArray *permissions))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKObjectMapping *adultPermissionMapping = [AdultPermission defineObjectMapping];
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:adultPermissionMapping
+                                                                                             method:RKRequestMethodGET
+                                                                                        pathPattern:GET_ADULTPERMISSIONS
+                                                                                            keyPath:@"ReturnValue"
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?MainFamilyUserId=%@&AdultId=%@", SKILLEEZ_URL, GET_ADULTPERMISSIONS, userId, adultId]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         NSMutableArray* permissions = [NSMutableArray new];
+         for (NSObject* obj in mappingResult.array) {
+             if([obj isKindOfClass:[AdultPermission class]])
+                 [permissions addObject:obj];
+         }
+         
+         dispatch_async(dispatch_get_main_queue(), ^{success(permissions);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {

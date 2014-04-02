@@ -16,7 +16,7 @@
 #import "PermissionManagementViewController.h"
 
 @interface EditPermissionViewController () {
-    NSMutableArray *childs;
+    NSMutableArray *adultPermissions;
 }
 @property (weak, nonatomic) IBOutlet UILabel *permitUsernameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *accountLbl;
@@ -39,10 +39,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadFamilyData];
+    
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Edit permissions" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     [self customize];
+    
+    [self loadPermisionData];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -61,14 +63,14 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"EditPermissionTableCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    [cell fillCell:cell withChild:[childs objectAtIndex:indexPath.row] andTag:indexPath.row];
+    [cell fillCell:cell withPermission:[adultPermissions objectAtIndex:indexPath.row] andTag:indexPath.row];
     cell.delegate = self;
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [childs count];
+    return [adultPermissions count];
 }
 
 #pragma mark UITableViewDelegate
@@ -106,18 +108,18 @@
     self.permitUsernameLbl.font = [UIFont getDKCrayonFontWithSize:21];
 }
               
-- (void)loadFamilyData
+- (void)loadPermisionData
 {
-        [[NetworkManager sharedInstance] getFriendsAnsFamily:[UserSettingsManager sharedInstance].userInfo.UserID success:^(NSArray *friends) {
-            for (FamilyMemberModel* member in friends) {
-                childs = [NSMutableArray new];
-                if(!member.IsAdult)
-                    [childs addObject:member];
-            }
-            [self.tableView reloadData];
-        } failure:^(NSError *error) {
-            NSLog(@"Get Friends and family error: %@", error);
-        }];
-    }
+    [[NetworkManager sharedInstance] getAdultPermissions:[UserSettingsManager sharedInstance].userInfo.UserID
+                                              forAdultId:@"3"
+                                                 success:^(NSArray *permissions) {
+                                                     [adultPermissions addObjectsFromArray: permissions];
+                                                     [self.tableView reloadData];
+                                                 }
+                                                 failure:^(NSError *error) {
+                                                     NSLog(@"Get Adult Permission error: %@", error);
+                                                 }];
+    
+}
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FamilyMemberModel.h"
+#import "AdultPermission.h"
 
 @protocol EditPermissionDelegate <NSObject>
 @required
@@ -18,6 +18,6 @@
 
 @property (nonatomic,strong) id delegate;
 
-- (void)fillCell:(EditPermissionTableCell *)cell withChild:(FamilyMemberModel *)child andTag:(NSInteger)tag;
+- (void)fillCell:(EditPermissionTableCell *)cell withPermission:(AdultPermission *)permission andTag:(NSInteger)tag;
 
 @end

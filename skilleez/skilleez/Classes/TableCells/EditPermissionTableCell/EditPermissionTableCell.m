@@ -39,12 +39,12 @@
     // Configure the view for the selected state
 }
 
-- (void)fillCell:(EditPermissionTableCell *)cell withChild:(FamilyMemberModel *)child andTag:(NSInteger)tag
+- (void)fillCell:(EditPermissionTableCell *)cell withPermission:(AdultPermission *)permission andTag:(NSInteger)tag
 {
-    [cell.userAvatarImg setImageWithURL:[NSURL URLWithString:child.AvatarUrl]];
+    [cell.userAvatarImg setImageWithURL:[NSURL URLWithString:permission.ChildAvatarUrl]];
     cell.userAvatarImg.layer.masksToBounds = YES;
     cell.userAvatarImg.layer.cornerRadius = 30.f;
-    cell.usernameLbl.text = child.FullName;
+    cell.usernameLbl.text = permission.ChildName;
     cell.usernameLbl.font = [UIFont getDKCrayonFontWithSize:20];
     cell.editPermissionsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:18];
     cell.permissionView.layer.cornerRadius = 4.f;

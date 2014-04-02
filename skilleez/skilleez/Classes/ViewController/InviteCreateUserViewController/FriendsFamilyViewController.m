@@ -145,8 +145,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        ProfilePermissionViewController *profile = [[ProfilePermissionViewController alloc] init];
-        [self.navigationController pushViewController:profile animated:YES];
+        ProfilePermissionViewController *profilePermissionView = [[ProfilePermissionViewController alloc] init];
+        profilePermissionView.familyMember = _adultMembers[indexPath.row];
+        [self.navigationController pushViewController:profilePermissionView animated:YES];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
