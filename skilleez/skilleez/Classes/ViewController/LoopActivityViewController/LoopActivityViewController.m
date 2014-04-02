@@ -18,6 +18,7 @@
 #import "AppDelegate.h"
 #import "ProfilePermissionViewController.h"
 #import "UINavigationController+Push.h"
+#import "ChildProfileViewController.h"
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -153,10 +154,13 @@
     if ([UserSettingsManager sharedInstance].IsAdmin) {
         ProfilePermissionViewController *profile = [ProfilePermissionViewController new];
         [self.navigationController pushViewController:profile animated:YES];
+    } else {
+        ChildProfileViewController *childProfile = [ChildProfileViewController new];
+        [self.navigationController pushViewController:childProfile animated:YES];
     }
 }
 
-#pragma marl - Class methods
+#pragma mark - Class methods
 
 - (UIActivityIndicatorView *)getLoaderIndicator
 {

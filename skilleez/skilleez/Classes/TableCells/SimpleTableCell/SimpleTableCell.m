@@ -73,7 +73,6 @@
 }
 
 - (void)selectProfile:(UIGestureRecognizer*)recognizer {
-    NSLog(@"here");
     [self.delegate didProfileSelect:((UIImageView *)recognizer.view).tag];
 }
 

@@ -206,7 +206,7 @@
     return activityIndicator;
 }
 
--(void) clearFields
+- (void)clearFields
 {
     self.titleTxt.text = @"";
     self.commentTxt.text = @"";

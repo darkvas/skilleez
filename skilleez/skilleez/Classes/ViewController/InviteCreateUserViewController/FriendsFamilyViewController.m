@@ -22,6 +22,7 @@
 {
     NSArray* _adultMembers;
     NSArray* _childrenMembers;
+    BOOL forChild;
 } 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -46,6 +47,14 @@
     return self;
 }
 
+- (id)initForChild
+{
+    if (self = [super init]) {
+        forChild = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -57,6 +66,15 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self customizeElements];
+    if (forChild) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 568)];
+        view.backgroundColor = [UIColor colorWithRed:0.19 green:0.19 blue:0.19 alpha:1.0];
+        CGRect frame = self.tableView.frame;
+        frame.origin.y = 0;
+        self.tableView.frame = frame;
+        [view addSubview:self.tableView];
+        [self.view addSubview:view];
+    }
 }
 
 -(void) customizeElements

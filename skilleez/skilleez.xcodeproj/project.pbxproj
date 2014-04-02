@@ -113,6 +113,8 @@
 		14C8F37018DC3F6E0052E915 /* circle_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C8F36C18DC3F6E0052E915 /* circle_delete.png */; };
 		14C8F37118DC3F6E0052E915 /* circle_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14C8F36D18DC3F6E0052E915 /* circle_delete@2x.png */; };
 		14C8F37318DC427D0052E915 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14C8F37218DC427D0052E915 /* MediaPlayer.framework */; };
+		14D5736D18EBFAF600E0137C /* ChildProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14D5736B18EBFAF600E0137C /* ChildProfileViewController.m */; };
+		14D5736E18EBFAF700E0137C /* ChildProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14D5736C18EBFAF600E0137C /* ChildProfileViewController.xib */; };
 		14DB8B4C18E0232700DEEC4C /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14DB8B4B18E0232700DEEC4C /* SplashViewController.xib */; };
 		14DB8B4F18E0233B00DEEC4C /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DB8B4E18E0233B00DEEC4C /* SplashViewController.m */; };
 		14F090AF18E1C96B000DAF80 /* ProfileTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F090AE18E1C96B000DAF80 /* ProfileTableCell.m */; };
@@ -367,6 +369,9 @@
 		14C8F36C18DC3F6E0052E915 /* circle_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_delete.png; sourceTree = "<group>"; };
 		14C8F36D18DC3F6E0052E915 /* circle_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_delete@2x.png"; sourceTree = "<group>"; };
 		14C8F37218DC427D0052E915 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		14D5736A18EBFAF600E0137C /* ChildProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildProfileViewController.h; sourceTree = "<group>"; };
+		14D5736B18EBFAF600E0137C /* ChildProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildProfileViewController.m; sourceTree = "<group>"; };
+		14D5736C18EBFAF600E0137C /* ChildProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildProfileViewController.xib; sourceTree = "<group>"; };
 		14DB8B4B18E0232700DEEC4C /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 		14DB8B4D18E0233B00DEEC4C /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		14DB8B4E18E0233B00DEEC4C /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
@@ -617,6 +622,9 @@
 				1465110318E31F98002C2B2A /* ProfileViewController.h */,
 				1465110418E31F98002C2B2A /* ProfileViewController.m */,
 				1465110118E31F83002C2B2A /* ProfileViewController.xib */,
+				14D5736A18EBFAF600E0137C /* ChildProfileViewController.h */,
+				14D5736B18EBFAF600E0137C /* ChildProfileViewController.m */,
+				14D5736C18EBFAF600E0137C /* ChildProfileViewController.xib */,
 			);
 			path = ProfileViewController;
 			sourceTree = "<group>";
@@ -1316,6 +1324,7 @@
 				84D9E0A818C9F32F00516E2D /* logo_img.png in Resources */,
 				84D9E0A918C9F32F00516E2D /* logo_img@2x.png in Resources */,
 				84E3E14818E45640000D8D0D /* search_img@2x.png in Resources */,
+				14D5736E18EBFAF700E0137C /* ChildProfileViewController.xib in Resources */,
 				84E7F69618E07752003662CA /* FriendsFamilyViewController.xib in Resources */,
 				84E3E13118E45640000D8D0D /* arrow_white.png in Resources */,
 				140CDE8218E97E4D001E97A7 /* EditPermissionTableCell.xib in Resources */,
@@ -1481,6 +1490,7 @@
 				140CDE7B18E958D0001E97A7 /* PermissionManagementViewController.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
 				84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */,
+				14D5736D18EBFAF600E0137C /* ChildProfileViewController.m in Sources */,
 				140CDE7618E9589D001E97A7 /* EditPermissionViewController.m in Sources */,
 				84EA05CB18D6F5FF008D940D /* UserInfo.m in Sources */,
 				14DB8B4F18E0233B00DEEC4C /* SplashViewController.m in Sources */,

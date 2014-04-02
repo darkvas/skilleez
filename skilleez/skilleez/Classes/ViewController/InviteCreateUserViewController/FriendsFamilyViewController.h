@@ -10,4 +10,6 @@
 
 @interface FriendsFamilyViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
+- (id)initForChild;
+
 @end
