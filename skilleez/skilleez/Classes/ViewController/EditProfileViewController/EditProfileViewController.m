@@ -318,7 +318,8 @@
 -(void) colorSelected:(UIColor *) color
 {
     favoriteColor = color;
-    NSLog(@" - - - Profile color: %i", rgbValue);
+    //int rgbValue = [color intValue];
+    //NSLog(@" - - - Profile color: %i", rgbValue);
     
     ((TableItem*)questions[1]).image = [self getBlankImage:favoriteColor];
     [self.tableView reloadData];
