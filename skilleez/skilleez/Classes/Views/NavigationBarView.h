@@ -11,5 +11,6 @@
 @interface NavigationBarView : UIControl
 
 - (id)initWithViewController:(UIViewController *)viewCtrl withTitle:(NSString *)title leftTitle:(NSString *)leftTitle rightButton:(BOOL)rightButton rightTitle:(NSString *)rightTitle;
+- (id)initWithViewController:(UIViewController *)viewCtrl withTitle:(NSString *)title leftImage:(NSString *)leftTitle rightButton:(BOOL)rightButton rightTitle:(NSString *)rightTitle;
 
 @end

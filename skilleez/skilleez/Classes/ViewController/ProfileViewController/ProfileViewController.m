@@ -10,6 +10,9 @@
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 
+#define CORNER_RADIUS 5.f
+#define BORDER_WIDTH 2.f
+
 @interface ProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UIImageView *userColorImg;
@@ -65,24 +68,24 @@
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userColorImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userColorImg.layer.masksToBounds = YES;
-    self.userColorImg.layer.borderWidth = 2.f;
-    self.userColorImg.layer.cornerRadius = 5.f;
+    self.userColorImg.layer.borderWidth = BORDER_WIDTH;
+    self.userColorImg.layer.cornerRadius = CORNER_RADIUS;
     self.userSportImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userSportImg.layer.masksToBounds = YES;
-    self.userSportImg.layer.borderWidth = 2.f;
-    self.userSportImg.layer.cornerRadius = 5.f;
+    self.userSportImg.layer.borderWidth = BORDER_WIDTH;
+    self.userSportImg.layer.cornerRadius = CORNER_RADIUS;
     self.userMusicImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userMusicImg.layer.masksToBounds = YES;
-    self.userMusicImg.layer.borderWidth = 2.f;
-    self.userMusicImg.layer.cornerRadius = 5.f;
+    self.userMusicImg.layer.borderWidth = BORDER_WIDTH;
+    self.userMusicImg.layer.cornerRadius = CORNER_RADIUS;
     self.userSubjectImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userSubjectImg.layer.masksToBounds = YES;
-    self.userSubjectImg.layer.borderWidth = 2.f;
-    self.userSubjectImg.layer.cornerRadius = 5.f;
+    self.userSubjectImg.layer.borderWidth = BORDER_WIDTH;
+    self.userSubjectImg.layer.cornerRadius = CORNER_RADIUS;
     self.userFoodImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userFoodImg.layer.masksToBounds = YES;
-    self.userFoodImg.layer.borderWidth = 2.f;
-    self.userFoodImg.layer.cornerRadius = 5.f;
+    self.userFoodImg.layer.borderWidth = BORDER_WIDTH;
+    self.userFoodImg.layer.cornerRadius = CORNER_RADIUS;
 }
 
 @end

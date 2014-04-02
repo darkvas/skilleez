@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChildProfileViewController">
+            <connections>
+                <outlet property="profileBtn" destination="2xh-zS-CBL" id="ueF-xL-FVf"/>
+                <outlet property="settingsBtn" destination="VLA-Gj-xFY" id="gJs-qC-KEM"/>
+                <outlet property="skilleezBtn" destination="gk7-Mx-DsW" id="56G-MW-IZx"/>
+                <outlet property="userAvatarImg" destination="ltk-o4-enb" id="KKr-mE-MaW"/>
+                <outlet property="view" destination="1" id="3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="skilleez_app_icon_1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="ltk-o4-enb">
+                    <rect key="frame" x="78" y="78" width="164" height="164"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gk7-Mx-DsW">
+                    <rect key="frame" x="10" y="260" width="300" height="94"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.18823529410000001" green="0.73725490199999999" blue="0.62745098040000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <inset key="titleEdgeInsets" minX="-43" minY="62" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="60" minY="0.0" maxX="0.0" maxY="25"/>
+                    <state key="normal" title="Skilleez" image="skilleez_icon.png">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="showSkilleez:" destination="-1" eventType="touchUpInside" id="K3B-Jx-rda"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xh-zS-CBL">
+                    <rect key="frame" x="10" y="362" width="300" height="94"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.87843137250000003" green="0.35686274509999999" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="-43" minY="62" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="48" minY="0.0" maxX="0.0" maxY="25"/>
+                    <state key="normal" title="Profile" image="profile_icon.png">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="showProfile:" destination="-1" eventType="touchUpInside" id="jJS-9F-YAD"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VLA-Gj-xFY">
+                    <rect key="frame" x="10" y="464" width="300" height="94"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.95686274510000002" green="0.76862745099999996" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <inset key="titleEdgeInsets" minX="-43" minY="62" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="62" minY="0.0" maxX="0.0" maxY="25"/>
+                    <state key="normal" title="Settings" image="settings_icon.png">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="showSettings:" destination="-1" eventType="touchUpInside" id="VEC-zA-3Q7"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="profile_icon.png" width="44" height="44"/>
+        <image name="settings_icon.png" width="44" height="44"/>
+        <image name="skilleez_app_icon_1024.png" width="1024" height="1024"/>
+        <image name="skilleez_icon.png" width="44" height="44"/>
+    </resources>
+</document>
