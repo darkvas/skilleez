@@ -7,7 +7,7 @@
 //
 
 #import "SendInviteViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 
@@ -39,12 +39,13 @@
 {
     [super viewDidLoad];
     
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Send invitation" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Send invitation" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    [self.view addSubview: navBar];
     
     [self customizeElements];
 }
 
--(void) customizeElements
+- (void)customizeElements
 {
     [self.tfUserEmail.layer setCornerRadius:5.0f];
     [self.btnInviteUser.layer setCornerRadius:5.0f];
@@ -73,7 +74,6 @@
 
 - (void) cancel
 {
-    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

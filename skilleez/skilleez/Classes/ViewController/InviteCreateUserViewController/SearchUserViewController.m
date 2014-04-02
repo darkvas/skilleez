@@ -7,7 +7,7 @@
 //
 
 #import "SearchUserViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 
@@ -39,7 +39,8 @@
 {
     [super viewDidLoad];
     
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Search" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Search" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
     
     [self customizeElements];
 }
@@ -73,13 +74,11 @@
 
 - (void) cancel
 {
-    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) done
 {
-    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

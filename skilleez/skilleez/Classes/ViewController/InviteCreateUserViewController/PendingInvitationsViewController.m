@@ -7,7 +7,7 @@
 //
 
 #import "PendingInvitationsViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 
 @interface PendingInvitationsViewController ()
 {
@@ -31,7 +31,8 @@
 {
     [super viewDidLoad];
     
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Pending Invitations" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Pending Invitations" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
@@ -43,13 +44,11 @@
 
 - (void) cancel
 {
-    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) done
 {
-    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

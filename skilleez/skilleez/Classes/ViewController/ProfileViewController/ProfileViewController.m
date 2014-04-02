@@ -7,7 +7,7 @@
 //
 
 #import "ProfileViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 
 @interface ProfileViewController ()
@@ -35,7 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"My profile" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"My profile" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
     [self customize];
 	// Do any additional setup after loading the view.
 }
@@ -51,7 +52,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void) done
+- (void)done
 {
 }
 

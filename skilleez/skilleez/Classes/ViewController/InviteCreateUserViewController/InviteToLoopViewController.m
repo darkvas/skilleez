@@ -7,7 +7,7 @@
 //
 
 #import "InviteToLoopViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "SendInviteViewController.h"
 #import "SearchUserViewController.h"
@@ -38,7 +38,8 @@
 {
     [super viewDidLoad];
     
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Invite to loop" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Invite to loop" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    [self.view addSubview: navBar];
     
     [self customizeElements];
 }
@@ -50,7 +51,7 @@
     
     [self.btnSearchUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
     [self.btnInviteUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    self.btnInviteUser.titleLabel.textAlignment = UITextAlignmentCenter;
+    self.btnInviteUser.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.lblInfo setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
 }
 
@@ -62,7 +63,6 @@
 
 - (void) cancel
 {
-    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

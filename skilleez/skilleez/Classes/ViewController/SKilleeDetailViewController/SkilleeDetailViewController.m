@@ -13,6 +13,8 @@
 #import "NetworkManager.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "AppDelegate.h"
+#import "NavigationBarView.h"
+#import "UINavigationController+Push.h"
 
 @interface SkilleeDetailViewController () {
     SkilleeModel *skillee;
@@ -64,10 +66,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"detail" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
     [self setCellFonts];
     [self setSkillee];
-    [[NSNotificationCenter defaultCenter] addObserver:self // put here the view controller which has to be notified
+    [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(orientationChanged:)
                                                  name:@"UIDeviceOrientationDidChangeNotification"
                                                object:nil];
@@ -84,13 +87,11 @@
 
 - (void)cancel
 {
-    self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)done
 {
-    self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -214,14 +215,12 @@
     [self.fullScreenImage.view addSubview:img];
     UITapGestureRecognizer *modalTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissModalView)];
     [self.fullScreenImage.view addGestureRecognizer:modalTap];
-    self.navigationController.navigationBarHidden = YES;
     [self.navigationController pushViewController:self.fullScreenImage animated:YES];
 }
 
 - (void)dismissModalView
 {
     [self.navigationController popViewControllerAnimated:YES];
-    self.navigationController.navigationBarHidden = NO;
 }
 /*
 - (void)pinch:(UIPinchGestureRecognizer *)gesture {

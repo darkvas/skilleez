@@ -7,7 +7,7 @@
 //
 
 #import "FriendsFamilyViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
 #import "FamilyMemberCell.h"
@@ -22,7 +22,7 @@
 {
     NSArray* _adultMembers;
     NSArray* _childrenMembers;
-}
+} 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *btnInviteToLoop;
@@ -50,7 +50,8 @@
 {
     [super viewDidLoad];
     
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Friends & Family" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Friends & Family" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
     [self loadFamilyData];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -157,13 +158,11 @@
 
 - (void) cancel
 {
-    self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) done
 {
-    self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

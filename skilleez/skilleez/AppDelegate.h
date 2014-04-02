@@ -14,5 +14,4 @@
 @property (strong, nonatomic) UINavigationController *navigationCtrl;
 @property (nonatomic) int counter;
 
-- (void)cutomizeNavigationBar:(UIViewController *)this withTitle:(NSString *)title leftTitle:(NSString *)leftTitle rightButton:(BOOL)rightButton rightTitle:(NSString *)rightTitle;
 @end

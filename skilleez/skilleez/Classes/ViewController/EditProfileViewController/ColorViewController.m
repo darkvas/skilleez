@@ -7,7 +7,7 @@
 //
 
 #import "ColorViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 
 @interface ColorViewController () {

@@ -7,7 +7,7 @@
 //
 
 #import "CreateChildViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "NetworkManager.h"
 #import "UIFont+DefaultFont.h"
 
@@ -39,7 +39,8 @@
 {
     [super viewDidLoad];
     
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"New Child" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"New Child" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    [self.view addSubview: navBar];
     
     [self customizeElements];
 }
@@ -76,7 +77,6 @@
 
 - (void) cancel
 {
-    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

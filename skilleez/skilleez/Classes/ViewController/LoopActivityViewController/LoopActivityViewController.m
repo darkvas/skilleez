@@ -17,6 +17,7 @@
 #import "MenuViewController.h"
 #import "AppDelegate.h"
 #import "ProfilePermissionViewController.h"
+#import "UINavigationController+Push.h"
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *menuBtn;
 @property (strong, nonatomic) CreateChildSkilleeViewController *createViewCtrl;
 @property (strong, nonatomic) MenuViewController *menuCtrl;
+@property (strong, nonatomic) UIButton *transparentBtn;
 
 - (IBAction)loadApproves:(id)sender;
 - (IBAction)loadFavorites:(id)sender;
@@ -58,6 +60,10 @@
     self.menuCtrl = [[MenuViewController alloc] initWithLoopController:self];
     self.menuCtrl.view.hidden = YES;
     self.menuCtrl.view.frame = CGRectMake(-320, 0, 320, 568);
+    self.transparentBtn = [[UIButton alloc] initWithFrame:CGRectMake(256, 20, 64, 548)];
+    [self.transparentBtn addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+    self.transparentBtn.hidden = YES;
+    [self.view addSubview:self.transparentBtn];
     [self.view addSubview:self.menuCtrl.view];
     isChildApproval = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -87,7 +93,8 @@
 {
     if ([className isEqualToString:@"SimpleTableCell"]) {
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:[UserSettingsManager sharedInstance].IsAdult];
-        [self.navigationController pushViewController:detail animated:YES];
+        [self.navigationController pushViewControllerFromLeft:detail];
+        //[self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:YES];
         [self.navigationController pushViewController:detail animated:YES];
@@ -123,7 +130,14 @@
 {
     if ([className isEqualToString:@"SimpleTableCell"]) {
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag] andApproveOpportunity:[UserSettingsManager sharedInstance].IsAdult];
-        [self.navigationController pushViewController:detail animated:YES];
+        detail.view.frame = CGRectMake(-320, 0, 320, 568);
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [self.navigationController pushViewController:detail animated:NO];
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+        //[self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"FavoriteTableCell"]) {
         [self loadFavoriteList];
     } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
@@ -248,13 +262,24 @@
 
 - (IBAction)showMenu:(id)sender
 {
+    [self showMenu];
+}
+
+- (void)hideMenu
+{
+    self.menuCtrl.view.frame = CGRectMake(-320, 0, 320, 568);
+}
+
+- (void)showMenu
+{
     [self.createViewCtrl resignAll];
     UIView* view = self.menuCtrl.view;
     if (view.frame.origin.x == -64) {
-        [UIView animateWithDuration:0.7
+        [UIView animateWithDuration:0.4
                               delay:0.0
-                            options: UIViewAnimationOptionCurveEaseOut
+                            options: UIViewAnimationOptionCurveEaseInOut
                          animations:^{
+                             self.transparentBtn.hidden = YES;
                              CGRect frame = view.frame;
                              frame.origin.y = 0;
                              frame.origin.x = -320;
@@ -266,25 +291,21 @@
          }];
     } else {
         view.hidden = NO;
-        [UIView animateWithDuration:0.7
+        [UIView animateWithDuration:0.4
                               delay:0.0
-                            options: UIViewAnimationOptionCurveEaseOut
+                            options: UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-             CGRect frame = view.frame;
-             frame.origin.y = 0;
-             frame.origin.x = (-64);
-             view.frame = frame;
-         }
+                             self.transparentBtn.hidden = NO;
+                             CGRect frame = view.frame;
+                             frame.origin.y = 0;
+                             frame.origin.x = -64;
+                             view.frame = frame;
+                         }
                          completion:^(BOOL finished)
          {
              
          }];
     }
-}
-
-- (void)hideMenu
-{
-    self.menuCtrl.view.frame = CGRectMake(-320, 0, 320, 568);
 }
 
 @end

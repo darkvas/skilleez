@@ -7,7 +7,7 @@
 //
 
 #import "EditProfileViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "ProfileViewController.h"
 #import "TableItem.h"
@@ -131,8 +131,8 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     offset = self.scrollView.contentOffset.y;
-    if (offset < 152) {
-        [self.scrollView setContentOffset:CGPointMake(0, 152) animated:YES];
+    if (offset < 196) {
+        [self.scrollView setContentOffset:CGPointMake(0, 196) animated:YES];
     }
 }
 
@@ -246,13 +246,11 @@
 - (void)cancel
 {
     [self.navigationController popViewControllerAnimated:YES];
-    self.navigationController.navigationBarHidden = YES;
 }
 
--(void) done
+- (void)done
 {
     [self.navigationController popViewControllerAnimated:YES];
-    self.navigationController.navigationBarHidden = YES;
 }
 
 #pragma mark Private methods
