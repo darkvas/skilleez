@@ -60,15 +60,15 @@
     [self cutomize];
     [self prepareDefaultData];
     
-    self.scrollView.contentSize = CGSizeMake(320, 530 + ([questions count] * 98));
-    self.tableView.frame = CGRectMake(0, 505, 320, ([questions count] * 98) - 60);
+    self.scrollView.contentSize = CGSizeMake(320, 574 + ([questions count] * 98));
+    self.tableView.frame = CGRectMake(0, 549, 320, ([questions count] * 98) - 60);
     CGRect save = self.saveBtn.frame;
     save.origin.y = self.tableView.frame.origin.y + self.tableView.frame.size.height + 18;
     self.saveBtn.frame = save;
     self.scrollView.frame = self.view.frame;
     [self.view addSubview:self.scrollView];
-    
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Profile editor" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Profile editor" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
     
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;

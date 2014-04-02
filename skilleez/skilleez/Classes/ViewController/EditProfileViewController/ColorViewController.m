@@ -52,7 +52,9 @@
                                           nil];
     [self customize];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
+    // Do any additional setup after loading the view from its nib.
     
     if(self.selectedColor)
         self.colorImg.backgroundColor = self.selectedColor;
