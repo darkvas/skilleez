@@ -27,6 +27,8 @@
 		140CDE9918EA930C001E97A7 /* settings_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8D18EA930C001E97A7 /* settings_icon@2x.png */; };
 		140CDE9A18EA930C001E97A7 /* skilleez_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8E18EA930C001E97A7 /* skilleez_icon.png */; };
 		140CDE9B18EA930C001E97A7 /* skilleez_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8F18EA930C001E97A7 /* skilleez_icon@2x.png */; };
+		140CDEA818EAEAF2001E97A7 /* NavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CDEA718EAEAF2001E97A7 /* NavigationBarView.m */; };
+		140CDEAB18EB042A001E97A7 /* UINavigationController+Push.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CDEAA18EB042A001E97A7 /* UINavigationController+Push.m */; };
 		146510FF18E31F60002C2B2A /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146510FC18E31F5F002C2B2A /* EditProfileViewController.m */; };
 		1465110018E31F60002C2B2A /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 146510FD18E31F5F002C2B2A /* EditProfileViewController.xib */; };
 		1465110218E31F83002C2B2A /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1465110118E31F83002C2B2A /* ProfileViewController.xib */; };
@@ -264,6 +266,10 @@
 		140CDE8D18EA930C001E97A7 /* settings_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_icon@2x.png"; sourceTree = "<group>"; };
 		140CDE8E18EA930C001E97A7 /* skilleez_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skilleez_icon.png; sourceTree = "<group>"; };
 		140CDE8F18EA930C001E97A7 /* skilleez_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skilleez_icon@2x.png"; sourceTree = "<group>"; };
+		140CDEA618EAEAF2001E97A7 /* NavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarView.h; sourceTree = "<group>"; };
+		140CDEA718EAEAF2001E97A7 /* NavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarView.m; sourceTree = "<group>"; };
+		140CDEA918EB042A001E97A7 /* UINavigationController+Push.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Push.h"; sourceTree = "<group>"; };
+		140CDEAA18EB042A001E97A7 /* UINavigationController+Push.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Push.m"; sourceTree = "<group>"; };
 		146510FB18E31F5F002C2B2A /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		146510FC18E31F5F002C2B2A /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		146510FD18E31F5F002C2B2A /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
@@ -583,6 +589,15 @@
 			path = "skilleez/Resources/EditPermission Icon Pack";
 			sourceTree = SOURCE_ROOT;
 		};
+		140CDEA518EAEAF2001E97A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				140CDEA618EAEAF2001E97A7 /* NavigationBarView.h */,
+				140CDEA718EAEAF2001E97A7 /* NavigationBarView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		146510FA18E31F5F002C2B2A /* EditProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -613,6 +628,8 @@
 				1492329D18D6DD90001BAE8C /* UIFont+DefaultFont.m */,
 				148104D918D82F1600B54790 /* UITableViewCell+SkilleeTableCell.h */,
 				148104DA18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m */,
+				140CDEA918EB042A001E97A7 /* UINavigationController+Push.h */,
+				140CDEAA18EB042A001E97A7 /* UINavigationController+Push.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -827,6 +844,7 @@
 		84D6CE1918D1BF1F008ABB5E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				140CDEA518EAEAF2001E97A7 /* Views */,
 				149232A818D73A40001BAE8C /* TableCells */,
 				84EA05C518D6F5FF008D940D /* Models */,
 				1492329B18D6DD61001BAE8C /* Categories */,
@@ -1470,7 +1488,9 @@
 				84E7F69918E077A4003662CA /* FriendsFamilyViewController.m in Sources */,
 				84EA05D518D881A1008D940D /* SkilleeRequest.m in Sources */,
 				146510FF18E31F60002C2B2A /* EditProfileViewController.m in Sources */,
+				140CDEA818EAEAF2001E97A7 /* NavigationBarView.m in Sources */,
 				140CDE8018E97E37001E97A7 /* EditPermissionTableCell.m in Sources */,
+				140CDEAB18EB042A001E97A7 /* UINavigationController+Push.m in Sources */,
 				149232B918D73A40001BAE8C /* SimpleTableCell.m in Sources */,
 				84D73B6D18E94AD2007DDBDB /* PendingInvitationsViewController.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,

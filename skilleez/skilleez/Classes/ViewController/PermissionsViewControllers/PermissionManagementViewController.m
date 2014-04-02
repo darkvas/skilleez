@@ -7,7 +7,7 @@
 //
 
 #import "PermissionManagementViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 
 @interface PermissionManagementViewController () {
@@ -47,8 +47,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Child name" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
-    [self customize]; 
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Child name" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
+    [self customize];
 }
 
 - (void)didReceiveMemoryWarning

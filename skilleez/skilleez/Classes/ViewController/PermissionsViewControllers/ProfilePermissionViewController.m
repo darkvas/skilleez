@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "UIFont+DefaultFont.h"
 #import "EditPermissionViewController.h"
+#import "NavigationBarView.h"
 
 @interface ProfilePermissionViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
@@ -44,7 +45,8 @@
 {
     [super viewDidLoad];
     [self customize];
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"User" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"User" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -59,9 +61,6 @@
 - (void)cancel
 {
     [self.navigationController popViewControllerAnimated:YES];
-    if ([NSStringFromClass([[self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2] class]) isEqualToString:@"SplashViewController"]) {
-        self.navigationController.navigationBarHidden = YES;
-    }
 }
 
 - (void)customize

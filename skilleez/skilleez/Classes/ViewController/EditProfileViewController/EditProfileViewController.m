@@ -7,7 +7,7 @@
 //
 
 #import "EditProfileViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "ProfileViewController.h"
 #import "TableItem.h"
@@ -64,14 +64,15 @@
                                           [[TableItem alloc] initWithName:@"What's your favorite food?" image:@"" method:@"showProfile"],
                                           [[TableItem alloc] initWithName:@"My skilleez" image:@"pandimg_BTN.png" method:@"showProfile"],
                                           nil];
-    self.scrollView.contentSize = CGSizeMake(320, 530 + ([questions count] * 98));
-    self.tableView.frame = CGRectMake(0, 505, 320, ([questions count] * 98) - 60);
+    self.scrollView.contentSize = CGSizeMake(320, 574 + ([questions count] * 98));
+    self.tableView.frame = CGRectMake(0, 549, 320, ([questions count] * 98) - 60);
     CGRect save = self.saveBtn.frame;
     save.origin.y = self.tableView.frame.origin.y + self.tableView.frame.size.height + 18;
     self.saveBtn.frame = save;
     self.scrollView.frame = self.view.frame;
     [self.view addSubview:self.scrollView];
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Profile editor" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Profile editor" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
     
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -102,8 +103,8 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     offset = self.scrollView.contentOffset.y;
-    if (offset < 152) {
-        [self.scrollView setContentOffset:CGPointMake(0, 152) animated:YES];
+    if (offset < 196) {
+        [self.scrollView setContentOffset:CGPointMake(0, 196) animated:YES];
     }
 }
 
@@ -170,8 +171,8 @@
 
 - (void)showProfile
 {
-    ProfileViewController *profile = [[ProfileViewController alloc] init];
-    [self.navigationController pushViewController:profile animated:YES];
+    ProfileViewController *profileView = [[ProfileViewController alloc] init];
+    [self.navigationController pushViewController:profileView animated:YES];
 }
 
 - (void)chooseColor
@@ -203,13 +204,11 @@
 - (void)cancel
 {
     [self.navigationController popViewControllerAnimated:YES];
-    self.navigationController.navigationBarHidden = YES;
 }
 
--(void) done
+- (void)done
 {
     [self.navigationController popViewControllerAnimated:YES];
-    self.navigationController.navigationBarHidden = YES;
 }
 
 #pragma mark Private methods

@@ -7,7 +7,7 @@
 //
 
 #import "CreateAdultViewController.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 
@@ -38,7 +38,8 @@
 {
     [super viewDidLoad];
     
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"New Adult" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"New Adult" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    [self.view addSubview: navBar];
     
     [self customizeElements];
 }
@@ -71,7 +72,6 @@
 
 - (void) cancel
 {
-    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

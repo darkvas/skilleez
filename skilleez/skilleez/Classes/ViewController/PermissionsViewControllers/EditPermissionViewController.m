@@ -8,7 +8,7 @@
 
 #import "EditPermissionViewController.h"
 #import "UIFont+DefaultFont.h"
-#import "AppDelegate.h"
+#import "NavigationBarView.h"
 #import "EditPermissionTableCell.h"
 #import "FamilyMemberCell.h"
 #import "NetworkManager.h"
@@ -40,7 +40,8 @@
 {
     [super viewDidLoad];
     [self loadFamilyData];
-    [[AppDelegate alloc] cutomizeNavigationBar:self withTitle:@"Edit permissions" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Edit permissions" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
     [self customize];
     // Do any additional setup after loading the view from its nib.
 }
