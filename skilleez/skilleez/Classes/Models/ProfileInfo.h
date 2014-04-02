@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSString* UserId;
 @property (nonatomic, strong) NSString* Login;
+@property (nonatomic, strong) NSString* Password;
 @property (nonatomic, strong) NSString* ScreenName;
 @property (nonatomic, strong) NSString* FavoriteColor;
 @property (nonatomic, strong) NSString* FavoriteSport;

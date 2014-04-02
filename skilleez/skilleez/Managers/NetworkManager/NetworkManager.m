@@ -498,12 +498,7 @@ POST api/User/SetAdultPermissions*/
 
 #define GET_PROFILEINFO_URI @"api/Profile/GetProfileInfo"
 #define POST_PROFILEIMAGE_URI @"api/Profile/EditProfileImage"
-
-/*
- GET api/Profile/GetProfileInfo/{Id}
- POST api/Profile/EditProfileInfo
- POST api/Profile/EditProfileImage
- */
+#define POST_PROFILEINFO_URI @"api/Profile/EditProfileInfo"
 
 -(void) getProfileInfo:(NSString*) userId success: (void (^)(ProfileInfo *profileInfo))success failure:(void (^)(NSError *error))failure
 {
@@ -571,6 +566,40 @@ POST api/User/SetAdultPermissions*/
                                                                                  dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
                                                                              }];
     [manager enqueueObjectRequestOperation:operation];
+}
+
+-(void) postProfileInfo: (ProfileInfo*) profileInfo success: (void (^) (void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodAny
+                                                                                        pathPattern:POST_PROFILEINFO_URI
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    NSDictionary *jsonData = @{
+                               @"Login": profileInfo.Login ? profileInfo.Login : @"",
+                               @"Password": profileInfo.Password ? profileInfo.Password : @"",
+                               @"ScreenName": profileInfo.ScreenName ? profileInfo.ScreenName : @"",
+                               @"FavoriteColor": profileInfo.FavoriteColor ? profileInfo.FavoriteColor : @"",
+                               @"FavoriteSport": profileInfo.FavoriteSport ? profileInfo.FavoriteSport : @"",
+                               @"FavoriteSchoolSubject": profileInfo.FavoriteSchoolSubject ? profileInfo.FavoriteSchoolSubject : @"",
+                               @"FavoriteTypeOfMusic": profileInfo.FavoriteTypeOfMusic ? profileInfo.FavoriteTypeOfMusic : @"",
+                               @"FavoriteFood": profileInfo.FavoriteFood ? profileInfo.FavoriteFood : @"",
+                               @"AboutMe": profileInfo.AboutMe ? profileInfo.AboutMe : @""
+                               };
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_PROFILEINFO_URI] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
 }
 
 @end

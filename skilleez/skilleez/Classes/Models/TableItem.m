@@ -10,7 +10,7 @@
 
 @implementation TableItem
 
-- (id)initWithName:(NSString *)name image:(NSString *)image method:(NSString *)method
+- (id)initWithName:(NSString *)name image:(UIImage *)image method:(NSString *)method
 {
     if (self = [super init]) {
         self.name = name;

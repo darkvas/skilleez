@@ -55,6 +55,9 @@
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     // Do any additional setup after loading the view from its nib.
+    
+    if(self.selectedColor)
+        self.colorImg.backgroundColor = self.selectedColor;
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,6 +92,7 @@
 {
     self.colorImg.backgroundColor = [colors objectAtIndex:indexPath.row];
     self.selectedColor = self.colorImg.backgroundColor;
+     NSLog(@"selected color: %@", self.selectedColor);
 }
 
 #pragma mark - Class methods
@@ -100,6 +104,8 @@
 
 - (void)done
 {
+    NSLog(@"selected color: %@", self.selectedColor);
+    [self.delegate colorSelected:self.selectedColor];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

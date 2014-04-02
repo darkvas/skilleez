@@ -38,5 +38,6 @@
 
 -(void) getProfileInfo:(NSString*) userId success: (void (^)(ProfileInfo *profileInfo))success failure:(void (^)(NSError *error))failure;
 -(void) postProfileImage: (NSData*) imageData success: (void (^) (void))success failure:(void (^)(NSError *error))failure;
+-(void) postProfileInfo: (ProfileInfo*) profileInfo success: (void (^) (void))success failure:(void (^)(NSError *error))failure;
 
 @end
