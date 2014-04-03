@@ -125,8 +125,18 @@
         [UserSettingsManager sharedInstance].IsAdult = userInfo.IsAdult;
         [UserSettingsManager sharedInstance].IsVerified = userInfo.IsVerified;
         [UserSettingsManager sharedInstance].userInfo = userInfo;
+        [self getAccountFriendList:userInfo.UserID];
     } failure:^(NSError *error) {
         NSLog(@"Error on GetUserInfo: %@", error);
+    }];
+}
+
+- (void) getAccountFriendList: (NSString*) userId
+{
+    [[NetworkManager sharedInstance] getFriendsAnsFamily:userId success:^(NSArray *friends) {
+        [UserSettingsManager sharedInstance].friendsAndFamily = friends;
+    } failure:^(NSError *error) {
+        NSLog(@"Error on GetFriendsAnsFamily: %@", error);
     }];
 }
 

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FamilyMemberModel.h"
 
 @interface ChildProfileViewController : UIViewController
+
+@property (strong, nonatomic) FamilyMemberModel* familyMember;
+@property (nonatomic) BOOL showFriendsFamily;
 
 @end

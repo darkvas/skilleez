@@ -68,6 +68,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)done
+{
+    
+}
+
 - (void)customize
 {
     self.skilleezBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];

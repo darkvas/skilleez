@@ -22,6 +22,7 @@
 @property (nonatomic) BOOL IsAdult;
 
 @property (nonatomic, strong) UserInfo* userInfo;
+@property (nonatomic, strong) NSArray* friendsAndFamily;
 
 -(void) loadSettings;
 -(void) saveSettings;

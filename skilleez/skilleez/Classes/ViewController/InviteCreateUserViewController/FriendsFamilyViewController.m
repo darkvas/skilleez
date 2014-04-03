@@ -17,12 +17,14 @@
 #import "NewUserTypeView.h"
 #import "InviteToLoopViewController.h"
 #import "PendingInvitationsViewController.h"
+#import "ChildProfileViewController.h"
 
 @interface FriendsFamilyViewController ()
 {
     NSArray* _adultMembers;
     NSArray* _childrenMembers;
-    BOOL forChild;
+    BOOL _forChild;
+    NSString* _childId;
 } 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -47,10 +49,11 @@
     return self;
 }
 
-- (id)initForChild
+- (id)initForChild: (NSString*) childId
 {
     if (self = [super init]) {
-        forChild = YES;
+        _forChild = YES;
+        _childId = childId;
     }
     return self;
 }
@@ -61,20 +64,17 @@
     
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Friends & Family" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
-    [self loadFamilyData];
-    
+    [self customizeElements];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    [self customizeElements];
-    if (forChild) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 568)];
-        view.backgroundColor = [UIColor colorWithRed:0.19 green:0.19 blue:0.19 alpha:1.0];
-        CGRect frame = self.tableView.frame;
-        frame.origin.y = 0;
-        self.tableView.frame = frame;
-        [view addSubview:self.tableView];
-        [self.view addSubview:view];
+    if (_forChild) {
+        self.btnCreateUser.hidden = YES;
+        self.btnInviteToLoop.hidden = YES;
+        self.btnPendingInvites.hidden = YES;
+        self.tableView.frame = CGRectMake(0, 64, 320, 568);
     }
+    
+    [self loadFamilyData: /*_forChild ? _childId :*/ [UserSettingsManager sharedInstance].userInfo.UserID];
 }
 
 -(void) customizeElements
@@ -163,9 +163,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        ProfilePermissionViewController *profilePermissionView = [[ProfilePermissionViewController alloc] init];
+        ProfilePermissionViewController *profilePermissionView = [ProfilePermissionViewController new];
         profilePermissionView.familyMember = _adultMembers[indexPath.row];
         [self.navigationController pushViewController:profilePermissionView animated:YES];
+    } else {
+        ChildProfileViewController *childProfileView = [ChildProfileViewController new];
+        childProfileView.familyMember = _childrenMembers[indexPath.row];
+        childProfileView.showFriendsFamily = NO;
+        [self.navigationController pushViewController:childProfileView animated:YES];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -185,9 +190,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)loadFamilyData
+- (void)loadFamilyData: (NSString*) userId
 {
-    [[NetworkManager sharedInstance] getFriendsAnsFamily:[UserSettingsManager sharedInstance].userInfo.UserID success:^(NSArray *friends) {
+    [[NetworkManager sharedInstance] getFriendsAnsFamily:userId success:^(NSArray *friends) {
         NSMutableArray* adultArray = [NSMutableArray new];
         NSMutableArray* childrenArray = [NSMutableArray new];
         for (FamilyMemberModel* member in friends) {

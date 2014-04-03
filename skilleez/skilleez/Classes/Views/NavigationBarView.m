@@ -50,13 +50,13 @@
     return self;
 }
 
-- (id)initWithViewController:(UIViewController *)viewCtrl withTitle:(NSString *)title leftImage:(NSString *)leftTitle rightButton:(BOOL)rightButton rightTitle:(NSString *)rightTitle
+- (id)initWithViewController:(UIViewController *)viewCtrl withTitle:(NSString *)title leftImage:(NSString *)leftImage rightButton:(BOOL)rightButton rightTitle:(NSString *)rightTitle
 {
     if (self = [super init]) {
         [self setDefault:viewCtrl titile:title];
         //TODO: change image
         UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 20, 60, 44)];
-        [cancelBtn setImage:[UIImage imageNamed:@"loop_BTN.png"] forState:UIControlStateNormal];
+        [cancelBtn setImage:[UIImage imageNamed:leftImage] forState:UIControlStateNormal];
         //[cancelBtn setImage:[UIImage imageNamed:@"back_BTN_press.png"] forState:UIControlStateHighlighted];
         [cancelBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [cancelBtn addTarget:viewCtrl action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
