@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FamilyMemberModel.h"
 
 @interface ProfilePermissionViewController : UIViewController
+
+@property (strong, nonatomic) FamilyMemberModel* familyMember;
 
 @end

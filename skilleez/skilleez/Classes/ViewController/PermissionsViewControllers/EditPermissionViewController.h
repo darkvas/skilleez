@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "EditPermissionTableCell.h"
+#import "FamilyMemberModel.h"
 
 @interface EditPermissionViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, EditPermissionDelegate>
+
+@property (strong, nonatomic) FamilyMemberModel* adultFamilyMember;
 
 @end
