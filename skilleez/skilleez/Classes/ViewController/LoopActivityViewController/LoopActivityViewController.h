@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SimpleTableCell.h"
 
-@interface LoopActivityViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SimpleCellDelegate>
+@interface LoopActivityViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, SimpleCellDelegate>
 
 - (void)hideMenu;
 - (void)showMenu;
-- (IBAction)loadTop:(id)sender;
 
 @end

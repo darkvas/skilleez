@@ -13,7 +13,10 @@
 #define CORNER_RADIUS 5.f
 #define BORDER_WIDTH 2.f
 
-@interface ProfileViewController ()
+@interface ProfileViewController () {
+    ProfileInfo *profile;
+}
+
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UIImageView *userColorImg;
 @property (weak, nonatomic) IBOutlet UIImageView *userSportImg;
@@ -35,11 +38,21 @@
     return self;
 }
 
+-(id)initWithProfile:(ProfileInfo *)profileInfo
+{
+    if (self = [super init]) {
+        profile = profileInfo;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"My profile" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
+    [self.userAvatarImg setImageWithURL:[NSURL URLWithString:profile.AvatarUrl]];
+    [self.userColorImg setImage:[self getBlankImage:profile.Color]];
     [self customize];
 	// Do any additional setup after loading the view.
 }
@@ -86,6 +99,18 @@
     self.userFoodImg.layer.masksToBounds = YES;
     self.userFoodImg.layer.borderWidth = BORDER_WIDTH;
     self.userFoodImg.layer.cornerRadius = CORNER_RADIUS;
+}
+
+- (UIImage *)getBlankImage:(UIColor *)color
+{
+    const int defaultSize = 100;
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(defaultSize,defaultSize), NO, 0);
+    UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(0,0,defaultSize,defaultSize)];
+    [color setFill];
+    [bezierPath fill];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 @end

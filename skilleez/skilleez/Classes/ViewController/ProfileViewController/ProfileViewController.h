@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProfileInfo.h"
 
 @interface ProfileViewController : UIViewController
+
+-(id)initWithProfile:(ProfileInfo *)profileInfo;
 
 @end

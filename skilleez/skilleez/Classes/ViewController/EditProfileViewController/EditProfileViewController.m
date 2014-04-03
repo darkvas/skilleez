@@ -212,7 +212,7 @@
 
 - (void)showProfile
 {
-    ProfileViewController *profileView = [[ProfileViewController alloc] init];
+    ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profile];
     [self.navigationController pushViewController:profileView animated:YES];
 }
 
