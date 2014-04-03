@@ -90,7 +90,9 @@
 
 - (void)cancel
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerCustom];
+    //[self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)done
