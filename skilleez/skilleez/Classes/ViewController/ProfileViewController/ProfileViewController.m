@@ -53,6 +53,7 @@
     [self.view addSubview: navBar];
     [self.userAvatarImg setImageWithURL:[NSURL URLWithString:profile.AvatarUrl]];
     [self.userColorImg setImage:[self getBlankImage:profile.Color]];
+    self.userDescLbl.text = profile.AboutMe == nil ? self.userDescLbl.text : profile.AboutMe;
     [self customize];
 	// Do any additional setup after loading the view.
 }

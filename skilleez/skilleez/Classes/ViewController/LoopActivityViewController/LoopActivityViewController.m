@@ -18,6 +18,7 @@
 #import "AppDelegate.h"
 #import "ProfilePermissionViewController.h"
 #import "UINavigationController+Push.h"
+#import "EditProfileViewController.h"
 #import "ChildProfileViewController.h"
 
 #define LOOP 0
