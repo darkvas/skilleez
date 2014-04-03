@@ -95,8 +95,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([className isEqualToString:@"SimpleTableCell"]) {
-        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:[UserSettingsManager sharedInstance].IsAdult];
-        [self.navigationController pushViewControllerFromLeft:detail];
+        BOOL canApprove = ![[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:((SkilleeModel *)[data objectAtIndex:indexPath.row]).UserId] && [UserSettingsManager sharedInstance].IsAdult;
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:canApprove];
+        [self.navigationController pushViewControllerCustom:detail];
         //[self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:indexPath.row] andApproveOpportunity:YES];
@@ -132,14 +133,9 @@
 - (void)didSkiilleSelect:(NSInteger)tag
 {
     if ([className isEqualToString:@"SimpleTableCell"]) {
-        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag] andApproveOpportunity:[UserSettingsManager sharedInstance].IsAdult];
-        detail.view.frame = CGRectMake(-320, 0, 320, 568);
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [self.navigationController pushViewController:detail animated:NO];
-            
-        } completion:^(BOOL finished) {
-            
-        }];
+        BOOL canApprove = ![[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:((SkilleeModel *)[data objectAtIndex:tag]).UserId] && [UserSettingsManager sharedInstance].IsAdult;
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[data objectAtIndex:tag] andApproveOpportunity:canApprove];
+        [self.navigationController pushViewControllerCustom:detail];
         //[self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"FavoriteTableCell"]) {
         [self loadFavoriteList];
