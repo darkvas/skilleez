@@ -39,10 +39,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NavigationBarView *nav = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Child name" leftImage:@"Family" rightButton:YES rightTitle:@"Done"];
+    
+    NavigationBarView *nav = [[NavigationBarView alloc] initWithViewController:self
+                                                                     withTitle:self.familyMember.FullName
+                                                                     leftImage:@"user_unselected"
+                                                                   rightButton:YES
+                                                                    rightTitle:@"Done"];
     [self.view addSubview:nav];
     [self customize];
-    // Do any additional setup after loading the view from its nib.
+    
+    [self.userAvatarImg setImageWithURL: [NSURL URLWithString:self.familyMember.AvatarUrl]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,8 +80,12 @@
 
 - (void)cancel
 {
-    FriendsFamilyViewController *family = [[FriendsFamilyViewController alloc] initForChild];
-    [self.navigationController pushViewController:family animated:YES];
+    if (self.showFriendsFamily) {
+        FriendsFamilyViewController *family = [[FriendsFamilyViewController alloc] initForChild: self.familyMember.Id];
+        [self.navigationController pushViewController:family animated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (IBAction)showSkilleez:(id)sender {

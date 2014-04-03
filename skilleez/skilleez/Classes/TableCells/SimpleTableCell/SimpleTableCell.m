@@ -12,6 +12,9 @@
 #import "LoopActivityViewController.h"
 
 @interface SimpleTableCell()
+{
+    SkilleeModel* _skilleeModel;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImg;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLbl;
@@ -55,6 +58,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectProfile:)];
     [cell.avatarImg addGestureRecognizer:tap];
     cell.contentView.backgroundColor = element.Color;
+    _skilleeModel = element;
 }
 
 - (void)setCellFonts
@@ -73,7 +77,7 @@
 }
 
 - (void)selectProfile:(UIGestureRecognizer*)recognizer {
-    [self.delegate didProfileSelect:((UIImageView *)recognizer.view).tag];
+    [self.delegate didProfileSelect: _skilleeModel.UserId];
 }
 
 @end

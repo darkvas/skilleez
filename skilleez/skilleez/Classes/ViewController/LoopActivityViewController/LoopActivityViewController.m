@@ -19,6 +19,8 @@
 #import "ProfilePermissionViewController.h"
 #import "UINavigationController+Push.h"
 #import "ChildProfileViewController.h"
+#import "EditProfileViewController.h"
+
 @interface LoopActivityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -149,14 +151,47 @@
     }
 }
 
-- (void)didProfileSelect:(NSInteger)tag
+- (void)didProfileSelect:(NSString*) profileId
 {
-    if ([UserSettingsManager sharedInstance].IsAdmin) {
-        ProfilePermissionViewController *profile = [ProfilePermissionViewController new];
-        [self.navigationController pushViewController:profile animated:YES];
+    FamilyMemberModel *familyMember = [self findInFriends:profileId];
+    if (familyMember)
+        [self showProfileFamilyMember:familyMember];
+    else
+        [self showProfileNotFamilyMember:profileId];
+}
+
+-(FamilyMemberModel*) findInFriends: (NSString*) profileId
+{
+    for (FamilyMemberModel *member in [UserSettingsManager sharedInstance].friendsAndFamily) {
+        if([member.Id isEqualToString:profileId])
+            return member;
+    }
+    return nil;
+}
+
+- (void) showProfileFamilyMember: (FamilyMemberModel*) familyMember
+{
+    if (familyMember.IsAdult) {
+        ProfilePermissionViewController *profilePermissionView = [ProfilePermissionViewController new];
+        profilePermissionView.familyMember = familyMember;
+        [self.navigationController pushViewController:profilePermissionView animated:YES];
     } else {
-        ChildProfileViewController *childProfile = [ChildProfileViewController new];
-        [self.navigationController pushViewController:childProfile animated:YES];
+        ChildProfileViewController *childProfileView = [ChildProfileViewController new];
+        childProfileView.showFriendsFamily = YES;
+        childProfileView.familyMember = familyMember;
+        [self.navigationController pushViewController:childProfileView animated:YES];
+    }
+}
+
+- (void) showProfileNotFamilyMember: (NSString*) profileId
+{
+    if ([profileId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID]) {
+        EditProfileViewController *editProfileView = [EditProfileViewController new];
+        [self.navigationController pushViewController:editProfileView animated:YES];
+    } else {
+        ChildProfileViewController *defaultChildProfileView = [ChildProfileViewController new];
+        defaultChildProfileView.showFriendsFamily = YES;
+        [self.navigationController pushViewController:defaultChildProfileView animated:YES];
     }
 }
 
