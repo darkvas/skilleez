@@ -65,6 +65,7 @@
     ui.view.layer.shadowOffset = CGSizeMake(15.f,0.0f);
     ui.view.layer.shadowOpacity = 0.7f;
     ui.view.layer.shadowRadius = 15.0f;
+    ui.view.userInteractionEnabled = YES;
     [self addChildViewController:ui];
     [self.view addSubview:ui.view];
     [ui viewWillAppear:YES];
