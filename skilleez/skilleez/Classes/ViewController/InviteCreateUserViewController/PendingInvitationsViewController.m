@@ -63,7 +63,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString* className = @"FamilyMemberCell";
+    //NSString* className = @"FamilyMemberCell";
     
     /*FamilyMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:className];
     if (cell == nil) {
