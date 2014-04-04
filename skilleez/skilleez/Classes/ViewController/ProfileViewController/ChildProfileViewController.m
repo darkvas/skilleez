@@ -10,6 +10,9 @@
 #import "UIFont+DefaultFont.h"
 #import "NavigationBarView.h"
 #import "FriendsFamilyViewController.h"
+#import "NetworkManager.h"
+#import "ProfileInfo.h"
+#import "ProfileViewController.h"
 
 #define CORNER_RADIUS 5.f
 #define FONT_SIZE 22
@@ -92,6 +95,13 @@
 }
 
 - (IBAction)showProfile:(id)sender {
+    [[NetworkManager sharedInstance] getProfileInfo:self.familyMember.Id success:^(ProfileInfo *profileInfo) {
+        ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo];
+        [self.navigationController pushViewController:profileView animated:YES];
+    } failure:^(NSError *error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:@"Problem with loading user data. Try again!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+    }];
 }
 
 - (IBAction)showSettings:(id)sender {
