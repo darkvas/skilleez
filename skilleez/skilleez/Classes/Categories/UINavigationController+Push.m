@@ -50,9 +50,9 @@
          frame.origin.x = 0;
          viewController.view.frame = frame;
     } completion:^(BOOL finished) {
-        for (UIViewController *ctr in self.viewControllers) {
+        /*for (UIViewController *ctr in self.viewControllers) {
             NSLog(@"%@", ctr);
-        }
+        }*/
     }];
 }
 
@@ -78,14 +78,18 @@
             if (finished) {
                 [cur removeFromParentViewController];
                 [cur.view removeFromSuperview];
+                ui.view.layer.shadowOffset = CGSizeMake(0, 0);
+                ui.view.layer.shadowColor = [[UIColor clearColor] CGColor];
+                ui.view.layer.shadowRadius = 0.0f;
+                ui.view.layer.shadowOpacity = 0.00f;
                 /*NSArray *ar = self.viewControllers;
                 NSMutableArray *mut = [NSMutableArray arrayWithArray:ar];
                 [mut removeObject:cur];
                 self.viewControllers = [NSArray arrayWithArray:mut];*/
             }
-            for (UIViewController *ctr in self.viewControllers) {
+            /*for (UIViewController *ctr in self.viewControllers) {
                 NSLog(@"%@", ctr);
-            }
+            }*/
     }];
 
 }

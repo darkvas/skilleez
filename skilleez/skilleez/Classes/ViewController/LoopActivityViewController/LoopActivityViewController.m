@@ -18,8 +18,13 @@
 #import "AppDelegate.h"
 #import "ProfilePermissionViewController.h"
 #import "UINavigationController+Push.h"
-#import "ChildProfileViewController.h"
 #import "EditProfileViewController.h"
+#import "ChildProfileViewController.h"
+
+#define LOOP 0
+#define APPROVES 1
+#define FAVORITES 2
+#define NUMBER_OF_ITEMS 2
 
 @interface LoopActivityViewController ()
 
@@ -34,17 +39,16 @@
 @property (strong, nonatomic) MenuViewController *menuCtrl;
 @property (strong, nonatomic) UIButton *transparentBtn;
 
-- (IBAction)loadApproves:(id)sender;
-- (IBAction)loadFavorites:(id)sender;
 - (IBAction)showMenu:(id)sender;
 
 @end
 
 @implementation LoopActivityViewController
 {
-    NSArray *data;
-    BOOL isChildApproval;
+    NSMutableArray *data;
+    BOOL isChildApproval, canLoadOnScroll;
     NSMutableString *className;
+    int count, offset, skillleType;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,6 +63,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    data = [NSMutableArray new];
     self.createViewCtrl = [[CreateChildSkilleeViewController alloc] initWithNibName:@"CreateChildSkilleeViewController" bundle:nil];
     self.menuCtrl = [[MenuViewController alloc] initWithLoopController:self];
     self.menuCtrl.view.hidden = YES;
@@ -68,9 +73,13 @@
     self.transparentBtn.hidden = YES;
     [self.view addSubview:self.transparentBtn];
     [self.view addSubview:self.menuCtrl.view];
-    isChildApproval = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     className = [NSMutableString stringWithString:@"SimpleTableCell"];
+    isChildApproval = NO;
+    canLoadOnScroll = YES;
+    skillleType = LOOP;
+    offset = 0;
+    count = NUMBER_OF_ITEMS;
     [self loadSkilleeList];
     // Do any additional setup after loading the view from its nib.
 }
@@ -126,6 +135,34 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [data count];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.tableView.contentSize.height - self.tableView.contentOffset.y == 504 && canLoadOnScroll) {
+        NSLog(@"%f %f", self.tableView.contentOffset.y, self.tableView.contentSize.height);
+        offset = [data count];
+        count = NUMBER_OF_ITEMS;
+        switch (skillleType) {
+            case APPROVES:
+                isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
+                className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
+                [self loadWaitingForApprovalList];
+                break;
+            case FAVORITES:
+                isChildApproval = NO;
+                className = [NSMutableString stringWithString:@"FavoriteTableCell"];
+                [self loadFavoriteList];
+                break;
+            default:
+                isChildApproval = NO;
+                className = [NSMutableString stringWithString:@"SimpleTableCell"];
+                [self loadSkilleeList];
+                break;
+        }
+    }
 }
 
 #pragma mark - SimpleCellDelegate
@@ -205,13 +242,57 @@
     return activityIndicator;
 }
 
+- (IBAction)loadItems:(id)sender {
+    [self.createViewCtrl resignAll];
+    [self hideCreateView:YES];
+    if (offset > 0) {
+        count += offset;
+        offset = 0;
+    }
+    canLoadOnScroll = NO;
+    [data removeAllObjects];
+    switch (((UIButton *)sender).tag) {
+        case 11:
+            isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
+            className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
+            if (skillleType != APPROVES) {
+                offset = 0;
+                count = NUMBER_OF_ITEMS;
+            }
+            skillleType = APPROVES;
+            [self loadWaitingForApprovalList];
+            break;
+        case 12:
+            isChildApproval = NO;
+            className = [NSMutableString stringWithString:@"FavoriteTableCell"];
+            if (skillleType != FAVORITES) {
+                offset = 0;
+                count = NUMBER_OF_ITEMS;
+            }
+            skillleType = FAVORITES;
+            [self loadFavoriteList];
+            break;
+        default:
+            isChildApproval = NO;
+            className = [NSMutableString stringWithString:@"SimpleTableCell"];
+            if (skillleType != LOOP) {
+                offset = 0;
+                count = NUMBER_OF_ITEMS;
+            }
+            skillleType = LOOP;
+            [self loadSkilleeList];
+            break;
+    }
+}
+
 - (void)loadSkilleeList
 {
     UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
-    [[NetworkManager sharedInstance] getSkilleeList:10 offset:0 success:^(NSArray *skilleeList) {
-        data = [[NSArray alloc] initWithArray: skilleeList];
+    [[NetworkManager sharedInstance] getSkilleeList:count offset:offset success:^(NSArray *skilleeList) {
+        [data addObjectsFromArray:skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
+        [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
         NSLog(@"loadSkilleeList error: %@", error);
     }];
@@ -220,10 +301,12 @@
 - (void)loadFavoriteList
 {
     UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
-    [[NetworkManager sharedInstance] getFavoriteList:10 offset:0 success:^(NSArray *skilleeList) {
-        data = [[NSArray alloc] initWithArray: skilleeList];
+    [[NetworkManager sharedInstance] getFavoriteList:count offset:offset success:^(NSArray *skilleeList) {
+        [data addObjectsFromArray:skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
+        canLoadOnScroll = YES;
+        [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
         NSLog(@"loadFavoriteList error: %@", error);
     }];
@@ -232,13 +315,19 @@
 - (void)loadWaitingForApprovalList
 {
     UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
-    [[NetworkManager sharedInstance] getWaitingForApproval:10 offset:0 success:^(NSArray *skilleeList) {
-        data = [[NSArray alloc] initWithArray: skilleeList];
+    [[NetworkManager sharedInstance] getWaitingForApproval:count offset:offset success:^(NSArray *skilleeList) {
+        [data addObjectsFromArray:skilleeList];
         [self.tableView reloadData];
         [activityIndicator stopAnimating];
+        [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
         NSLog(@"loadWaitingForApprovalList error: %@", error);
     }];
+}
+
+- (void)allowLoadOnScroll
+{
+    canLoadOnScroll = YES;
 }
 
 - (void)hideCreateView:(BOOL)hide
@@ -262,30 +351,6 @@
     return NO;
 }
 
-- (IBAction)loadTop:(id)sender {
-    [self.createViewCtrl resignAll];
-    [self hideCreateView:YES];
-    isChildApproval = NO;
-    className = [NSMutableString stringWithString:@"SimpleTableCell"];
-    [self loadSkilleeList];
-}
-
-- (IBAction)loadApproves:(id)sender {
-    [self.createViewCtrl resignAll];
-    [self hideCreateView:YES];
-    isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
-    className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
-    [self loadWaitingForApprovalList];
-}
-
-- (IBAction)loadFavorites:(id)sender {
-    [self.createViewCtrl resignAll];
-    [self hideCreateView:YES];
-    isChildApproval = NO;
-    className = [NSMutableString stringWithString:@"FavoriteTableCell"];
-    [self loadFavoriteList];
-}
-
 - (IBAction)createSkillee:(id)sender {
     if (![self isCreateViewExists]) {
         [self.contentView addSubview:self.createViewCtrl.view];
@@ -303,6 +368,7 @@
 - (void)hideMenu
 {
     self.menuCtrl.view.frame = CGRectMake(-320, 0, 320, 568);
+    self.transparentBtn.hidden = YES;
 }
 
 - (void)showMenu
@@ -320,8 +386,7 @@
                              frame.origin.x = -320;
                              view.frame = frame;
                          }
-                         completion:^(BOOL finished)
-         {
+                         completion:^(BOOL finished) {
              
          }];
     } else {
@@ -336,8 +401,7 @@
                              frame.origin.x = -64;
                              view.frame = frame;
                          }
-                         completion:^(BOOL finished)
-         {
+                         completion:^(BOOL finished) {
              
          }];
     }
