@@ -65,6 +65,9 @@
     [self.commentTxt addSubview:placeholder];
     [self.commentTxt sendSubviewToBack: imgView];
     [self.commentTxt sendSubviewToBack:placeholder];
+    UIEdgeInsets insets = self.commentTxt.textContainerInset;
+    insets.left = 6;
+    self.commentTxt.textContainerInset = insets;
     [self setLeftMargin:10 forTextField:self.titleTxt];
     [self setLeftMargin:10 forTextField:self.postOnTxt];
     imagePicker = [[UIImagePickerController alloc] init];
