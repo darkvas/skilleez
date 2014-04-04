@@ -57,7 +57,7 @@
     UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"big_text_view_BG.png"]];
     imgView.frame = CGRectMake(0, 0, 295, 128);
     [self.commentTxt addSubview: imgView];
-    UILabel *placeholder = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 195, 36)];
+    UILabel *placeholder = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 195, 36)];
     //placeholder.textColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.12 alpha:1.0];
     placeholder.textColor = [UIColor whiteColor];
     [placeholder setFont:[UIFont getDKCrayonFontWithSize:22]];
@@ -65,6 +65,8 @@
     [self.commentTxt addSubview:placeholder];
     [self.commentTxt sendSubviewToBack: imgView];
     [self.commentTxt sendSubviewToBack:placeholder];
+    [self setLeftMargin:10 forTextField:self.titleTxt];
+    [self setLeftMargin:10 forTextField:self.postOnTxt];
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.delegate = self;
@@ -158,6 +160,14 @@
             }
         } ;
     }
+}
+
+- (void)setLeftMargin:(int)leftMargin forTextField:(UITextField *)textField
+{
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, leftMargin, textField.frame.size.height)];
+    leftView.backgroundColor = textField.backgroundColor;
+    textField.leftView = leftView;
+    textField.leftViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)setDefaultFonts

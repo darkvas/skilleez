@@ -241,6 +241,9 @@
     self.nameTxt.delegate = self;
     self.loginTxt.delegate = self;
     self.passwordTxt.delegate = self;
+    self.nameTxt.font = [UIFont getDKCrayonFontWithSize:18];
+    self.loginTxt.font = [UIFont getDKCrayonFontWithSize:18];
+    self.passwordTxt.font = [UIFont getDKCrayonFontWithSize:18];
 }
 
 - (void)cancel
