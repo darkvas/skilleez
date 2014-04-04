@@ -55,7 +55,13 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        data = [NSMutableArray new];
+        className = [NSMutableString stringWithString:@"SimpleTableCell"];
+        isChildApproval = NO;
+        canLoadOnScroll = YES;
+        skillleType = LOOP;
+        offset = 0;
+        count = NUMBER_OF_ITEMS;
     }
     return self;
 }
@@ -63,7 +69,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    data = [NSMutableArray new];
     self.createViewCtrl = [[CreateChildSkilleeViewController alloc] initWithNibName:@"CreateChildSkilleeViewController" bundle:nil];
     self.menuCtrl = [[MenuViewController alloc] initWithLoopController:self];
     self.menuCtrl.view.hidden = YES;
@@ -74,12 +79,7 @@
     [self.view addSubview:self.transparentBtn];
     [self.view addSubview:self.menuCtrl.view];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    className = [NSMutableString stringWithString:@"SimpleTableCell"];
-    isChildApproval = NO;
-    canLoadOnScroll = YES;
-    skillleType = LOOP;
-    offset = 0;
-    count = NUMBER_OF_ITEMS;
+
     [self loadSkilleeList];
     // Do any additional setup after loading the view from its nib.
 }
@@ -317,8 +317,16 @@
         [activityIndicator stopAnimating];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        NSLog(@"loadSkilleeList error: %@", error);
+        [self showFailureAlert:error withCaption:@"Load Skilleez failed" withIndicator:activityIndicator];
     }];
+}
+
+-(void) showFailureAlert: (NSError*) error withCaption: (NSString*) caption withIndicator: (UIActivityIndicatorView*) activityIndicator
+{
+    [activityIndicator stopAnimating];
+    NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:caption message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 
 - (void)loadFavoriteList
@@ -335,7 +343,7 @@
         canLoadOnScroll = YES;
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        NSLog(@"loadFavoriteList error: %@", error);
+        [self showFailureAlert:error withCaption:@"Load Favorites failed" withIndicator:activityIndicator];
     }];
 }
 
@@ -352,7 +360,7 @@
         [activityIndicator stopAnimating];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        NSLog(@"loadWaitingForApprovalList error: %@", error);
+        [self showFailureAlert:error withCaption:@"Load Approvals failed" withIndicator:activityIndicator];
     }];
 }
 
