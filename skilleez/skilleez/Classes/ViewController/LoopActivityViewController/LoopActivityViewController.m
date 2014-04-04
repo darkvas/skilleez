@@ -24,7 +24,7 @@
 #define LOOP 0
 #define APPROVES 1
 #define FAVORITES 2
-#define NUMBER_OF_ITEMS 2
+#define NUMBER_OF_ITEMS 5
 
 @interface LoopActivityViewController ()
 
