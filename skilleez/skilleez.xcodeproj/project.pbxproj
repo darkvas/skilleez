@@ -187,6 +187,8 @@
 		84D9E10A18CA01CC00516E2D /* skilleez_spotlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10818CA01CC00516E2D /* skilleez_spotlight@2x.png */; };
 		84D9E10D18CA01D800516E2D /* BG_loading_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10B18CA01D800516E2D /* BG_loading_img.png */; };
 		84D9E10E18CA01D800516E2D /* BG_loading_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10C18CA01D800516E2D /* BG_loading_img@2x.png */; };
+		84DA71AB18EED0CB0013AECD /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DA71AA18EED0CB0013AECD /* KeyboardViewController.m */; };
+		84DA71AE18EED8750013AECD /* ActivityIndicatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DA71AD18EED8750013AECD /* ActivityIndicatorController.m */; };
 		84E3E12B18E45640000D8D0D /* adul_user_BTN.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E10518E45640000D8D0D /* adul_user_BTN.png */; };
 		84E3E12C18E45640000D8D0D /* adul_user_BTN@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E10618E45640000D8D0D /* adul_user_BTN@2x.png */; };
 		84E3E12D18E45640000D8D0D /* adult_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E10718E45640000D8D0D /* adult_icon.png */; };
@@ -465,6 +467,10 @@
 		84D9E10818CA01CC00516E2D /* skilleez_spotlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skilleez_spotlight@2x.png"; sourceTree = "<group>"; };
 		84D9E10B18CA01D800516E2D /* BG_loading_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG_loading_img.png; sourceTree = "<group>"; };
 		84D9E10C18CA01D800516E2D /* BG_loading_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BG_loading_img@2x.png"; sourceTree = "<group>"; };
+		84DA71A918EED0CB0013AECD /* KeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
+		84DA71AA18EED0CB0013AECD /* KeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+		84DA71AC18EED8750013AECD /* ActivityIndicatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorController.h; sourceTree = "<group>"; };
+		84DA71AD18EED8750013AECD /* ActivityIndicatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorController.m; sourceTree = "<group>"; };
 		84E3E10518E45640000D8D0D /* adul_user_BTN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adul_user_BTN.png; sourceTree = "<group>"; };
 		84E3E10618E45640000D8D0D /* adul_user_BTN@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adul_user_BTN@2x.png"; sourceTree = "<group>"; };
 		84E3E10718E45640000D8D0D /* adult_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adult_icon.png; sourceTree = "<group>"; };
@@ -868,6 +874,7 @@
 		84D6CE1A18D1BF1F008ABB5E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				84DA71A818EED0890013AECD /* HelpersViewControllers */,
 				140CDE6D18E95851001E97A7 /* PermissionsViewControllers */,
 				146510FA18E31F5F002C2B2A /* EditProfileViewController */,
 				146510FE18E31F60002C2B2A /* ProfileViewController */,
@@ -1084,6 +1091,17 @@
 				84D9E08918C9D2ED00516E2D /* Eraser.ttf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		84DA71A818EED0890013AECD /* HelpersViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				84DA71A918EED0CB0013AECD /* KeyboardViewController.h */,
+				84DA71AA18EED0CB0013AECD /* KeyboardViewController.m */,
+				84DA71AC18EED8750013AECD /* ActivityIndicatorController.h */,
+				84DA71AD18EED8750013AECD /* ActivityIndicatorController.m */,
+			);
+			path = HelpersViewControllers;
 			sourceTree = "<group>";
 		};
 		84E3E10418E45640000D8D0D /* Create Invite Icon Pack */ = {
@@ -1477,6 +1495,7 @@
 				14BCE63C18D89AFE0047F490 /* CreateChildSkilleeViewController.m in Sources */,
 				84D73B8818E9884C007DDBDB /* FindUserViewController.m in Sources */,
 				84D6CE2518D1BF1F008ABB5E /* LoopActivityViewController.m in Sources */,
+				84DA71AE18EED8750013AECD /* ActivityIndicatorController.m in Sources */,
 				84D6CE2418D1BF1F008ABB5E /* LoginViewController.m in Sources */,
 				14BCE63818D84F7F0047F490 /* SkilleeDetailViewController.m in Sources */,
 				84D73B8318E96F03007DDBDB /* SearchUserViewController.m in Sources */,
@@ -1509,6 +1528,7 @@
 				140CDEAB18EB042A001E97A7 /* UINavigationController+Push.m in Sources */,
 				149232B918D73A40001BAE8C /* SimpleTableCell.m in Sources */,
 				84D73B6D18E94AD2007DDBDB /* PendingInvitationsViewController.m in Sources */,
+				84DA71AB18EED0CB0013AECD /* KeyboardViewController.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,
 				84D73B7518E95879007DDBDB /* InviteToLoopViewController.m in Sources */,
 				14A2CAED18E05DCE00A87F86 /* MenuViewController.m in Sources */,

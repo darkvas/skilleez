@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardViewController.h"
 
-@interface SendInviteViewController : UIViewController
+@interface SendInviteViewController : KeyboardViewController
 
 @end

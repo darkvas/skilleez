@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardViewController.h"
 
-@interface CreateChildViewController : UIViewController
+@interface CreateChildViewController : KeyboardViewController
 
 @end

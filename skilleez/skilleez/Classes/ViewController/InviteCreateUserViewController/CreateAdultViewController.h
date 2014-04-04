@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardViewController.h"
 
-@interface CreateAdultViewController : UIViewController
+@interface CreateAdultViewController : KeyboardViewController
 
 @end

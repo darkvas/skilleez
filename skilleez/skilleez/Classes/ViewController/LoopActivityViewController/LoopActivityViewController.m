@@ -20,6 +20,7 @@
 #import "UINavigationController+Push.h"
 #import "EditProfileViewController.h"
 #import "ChildProfileViewController.h"
+#import "ActivityIndicatorController.h"
 
 #define LOOP 0
 #define APPROVES 1
@@ -306,7 +307,7 @@
 
 - (void)loadSkilleeList
 {
-    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getSkilleeList:count offset:offset success:^(NSArray *skilleeList) {
         [data addObjectsFromArray:skilleeList];
         [self.tableView reloadData];
@@ -314,16 +315,18 @@
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
         }
-        [activityIndicator stopAnimating];
+        
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        [self showFailureAlert:error withCaption:@"Load Skilleez failed" withIndicator:activityIndicator];
+        
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        [self showFailureAlert:error withCaption:@"Load Skilleez failed"];
     }];
 }
 
--(void) showFailureAlert: (NSError*) error withCaption: (NSString*) caption withIndicator: (UIActivityIndicatorView*) activityIndicator
+-(void) showFailureAlert: (NSError*) error withCaption: (NSString*) caption
 {
-    [activityIndicator stopAnimating];
     NSString* message = error.userInfo[NSLocalizedDescriptionKey];
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:caption message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [alert show];
@@ -331,7 +334,7 @@
 
 - (void)loadFavoriteList
 {
-    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getFavoriteList:count offset:offset success:^(NSArray *skilleeList) {
         [data addObjectsFromArray:skilleeList];
         [self.tableView reloadData];
@@ -339,17 +342,18 @@
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
         }
-        [activityIndicator stopAnimating];
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         canLoadOnScroll = YES;
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        [self showFailureAlert:error withCaption:@"Load Favorites failed" withIndicator:activityIndicator];
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        [self showFailureAlert:error withCaption:@"Load Favorites failed"];
     }];
 }
 
 - (void)loadWaitingForApprovalList
 {
-    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getWaitingForApproval:count offset:offset success:^(NSArray *skilleeList) {
         [data addObjectsFromArray:skilleeList];
         [self.tableView reloadData];
@@ -357,10 +361,10 @@
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
         }
-        [activityIndicator stopAnimating];
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        [self showFailureAlert:error withCaption:@"Load Approvals failed" withIndicator:activityIndicator];
+        [self showFailureAlert:error withCaption:@"Load Approvals failed"];
     }];
 }
 
@@ -409,18 +413,6 @@
 }
 
 #pragma mark - Class UI methods
-
-- (UIActivityIndicatorView *)getLoaderIndicator
-{
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    [activityIndicator setBackgroundColor:[UIColor whiteColor]];
-    [activityIndicator setAlpha:0.7];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
-    [self.view addSubview: activityIndicator];
-    [activityIndicator startAnimating];
-    return activityIndicator;
-}
 
 - (void)allowLoadOnScroll
 {

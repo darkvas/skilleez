@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardViewController.h"
 
-@interface SearchUserViewController : UIViewController
+@interface SearchUserViewController : KeyboardViewController
 
 @end

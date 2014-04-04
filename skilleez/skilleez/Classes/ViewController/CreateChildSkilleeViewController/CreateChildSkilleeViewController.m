@@ -10,6 +10,7 @@
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
+#import "ActivityIndicatorController.h"
 
 @interface CreateChildSkilleeViewController (){
     UIImagePickerController *imagePicker;
@@ -192,28 +193,16 @@
     skilleeRequest.Media = chosenData;
     skilleeRequest.MediaType = dataMediaType;
     
-    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     
     [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest success:^{
-        [activityIndicator stopAnimating];
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self clearFields];
     } failure:^(NSError *error) {
-        [activityIndicator stopAnimating];
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Launch failed" message:@"Launch skillee failed" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }];
-}
-
-- (UIActivityIndicatorView *)getLoaderIndicator
-{
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    [activityIndicator setBackgroundColor:[UIColor whiteColor]];
-    [activityIndicator setAlpha:0.7];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
-    [self.view addSubview: activityIndicator];
-    [activityIndicator startAnimating];
-    return activityIndicator;
 }
 
 - (void)clearFields
