@@ -14,6 +14,7 @@
 #import "UserSettingsManager.h"
 #import "NetworkManager.h"
 #import "ProfileInfo.h"
+#import "ActivityIndicatorController.h"
 
 @interface EditProfileViewController () {
     NSArray *questions;
@@ -285,9 +286,12 @@
     profile.Password = self.passwordTxt.text;
     profile.FavoriteColor = [self getStringFromColor:favoriteColor];
     
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postProfileInfo:profile success:^{
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self done];
     } failure:^(NSError *error) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         NSString* message = error.userInfo[NSLocalizedDescriptionKey];
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];

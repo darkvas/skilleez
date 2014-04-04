@@ -11,6 +11,7 @@
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
+#import "ActivityIndicatorController.h"
 
 #define REGISTER_URL @"http://skilleezv3.elasticbeanstalk.com/Account/Register"
 #define FORGOT_RASSWORD_URL @"http://skilleezv3.elasticbeanstalk.com/Account/ForgotPassword"
@@ -103,7 +104,9 @@
 
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password
 {
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL isLogined, NSError* error) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         if (isLogined) {
             [self getAccountInformation];
             LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
