@@ -76,11 +76,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    /*if (textField == self.txtFieldUserName) {
+    if (textField == self.txtFieldUserName) {
         [self.txtFieldUserPassword becomeFirstResponder];
     } else if (textField == self.txtFieldUserPassword) {
         [self loginWithUsername:self.txtFieldUserName.text andPassword:self.txtFieldUserPassword.text];
-    }*/
+    }
     return YES;
 }
 
