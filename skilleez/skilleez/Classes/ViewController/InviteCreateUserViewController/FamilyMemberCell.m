@@ -48,7 +48,7 @@
     _memberAvatar.layer.masksToBounds = YES;
     _memberAvatar.layer.borderColor = [UIColor whiteColor].CGColor;
     _memberAvatar.layer.borderWidth = 3.0;
-    [_memberAvatar setImageWithURL: [NSURL URLWithString:_familyMember.AvatarUrl]];
+    [_memberAvatar setImageWithURL: _familyMember.AvatarUrl];
     
     [_memberName setFont:[UIFont getDKCrayonFontWithSize:21]];
     _memberName.text = _familyMember.FullName;

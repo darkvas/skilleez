@@ -10,6 +10,6 @@
 #import "ProfileTableCell.h"
 #import "ColorViewController.h"
 
-@interface EditProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, ColorViewControllerObserver>
+@interface EditProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ColorViewControllerObserver>
 
 @end

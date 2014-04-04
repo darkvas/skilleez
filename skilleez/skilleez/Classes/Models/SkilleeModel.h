@@ -13,11 +13,11 @@
 @property (nonatomic, strong) NSString* Id;
 @property (nonatomic, strong) NSString* UserId;
 @property (nonatomic, strong) NSString* UserName;
-@property (nonatomic, strong) NSString* UserAvatarUrl;
+@property (nonatomic, strong) NSURL* UserAvatarUrl;
 @property (nonatomic, strong) NSString* UserColor;
 @property (nonatomic, strong) NSDate* PostedDate;
-@property (nonatomic, strong) NSString* MediaUrl;
-@property (nonatomic, strong) NSString* MediaThumbnailUrl;
+@property (nonatomic, strong) NSURL* MediaUrl;
+@property (nonatomic, strong) NSURL* MediaThumbnailUrl;
 @property (nonatomic, strong) NSString* Title;
 @property (nonatomic, strong) NSString* Comment;
 @property (nonatomic, strong, getter = getColor) UIColor* Color;

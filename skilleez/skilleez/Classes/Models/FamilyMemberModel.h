@@ -13,7 +13,7 @@
 @property (nonatomic, strong) NSString* Id;
 @property (nonatomic) BOOL IsAdult;
 @property (nonatomic, strong) NSString* FullName;
-@property (nonatomic, strong) NSString* AvatarUrl;
+@property (nonatomic, strong) NSURL* AvatarUrl;
 
 +(RKObjectMapping*) defineObjectMapping;
 

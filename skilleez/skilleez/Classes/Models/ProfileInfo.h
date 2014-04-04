@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSString* FavoriteTypeOfMusic;
 @property (nonatomic, strong) NSString* FavoriteFood;
 @property (nonatomic, strong) NSString* AboutMe;
-@property (nonatomic, strong) NSString* AvatarUrl;
+@property (nonatomic, strong) NSURL* AvatarUrl;
 @property (nonatomic, strong, getter = getColor) UIColor* Color;
 
 +(RKObjectMapping*) defineObjectMapping;

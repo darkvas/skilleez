@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SkilleeModel.h"
+
 @interface UITableViewCell (SkilleeTableCell)
+
 - (void)setSkilleezCell:(UITableViewCell *)cell andSkilleez:(SkilleeModel *)element;
+
 @end

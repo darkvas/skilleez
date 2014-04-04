@@ -21,7 +21,7 @@
     return mapping;
 }
 
-- (id)initWithId:(NSString *)Id isAdult:(BOOL)isAdult fullName:(NSString *)fullName avatarUrl:(NSString *)avatarUrl
+- (id)initWithId:(NSString *)Id isAdult:(BOOL)isAdult fullName:(NSString *)fullName avatarUrl:(NSURL *)avatarUrl
 {
     if (self = [super init]) {
         self.FullName = fullName;
