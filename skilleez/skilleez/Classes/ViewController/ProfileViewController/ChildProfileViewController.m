@@ -48,7 +48,7 @@
     [self.view addSubview:nav];
     [self customize];
     
-    [self.userAvatarImg setImageWithURL: [NSURL URLWithString:self.familyMember.AvatarUrl]];
+    [self.userAvatarImg setImageWithURL: self.familyMember.AvatarUrl];
 }
 
 - (void)didReceiveMemoryWarning

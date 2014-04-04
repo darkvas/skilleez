@@ -41,15 +41,15 @@
     NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [format setLocale:usLocale];
     cell.dateLbl.text =[format stringFromDate:element.PostedDate];
-    [cell.avatarImg setImageWithURL:[NSURL URLWithString:element.UserAvatarUrl]];
+    [cell.avatarImg setImageWithURL:element.UserAvatarUrl];
     cell.avatarImg.layer.cornerRadius = 23.0;
     cell.avatarImg.layer.masksToBounds = YES;
     cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
     cell.avatarImg.layer.borderWidth = 3.0;
-    if ([element.MediaThumbnailUrl isEqualToString:@""]) {
-        [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaUrl]];
+    if ([[element.MediaThumbnailUrl absoluteString] isEqualToString:@""]) {
+        [cell.attachmentImg setImageWithURL:element.MediaUrl];
     } else {
-        [cell.attachmentImg setImageWithURL:[NSURL URLWithString:element.MediaThumbnailUrl]];
+        [cell.attachmentImg setImageWithURL:element.MediaThumbnailUrl];
     }
     cell.skilleezTitleLbl.text = element.Title;
     cell.skilleezCommentLbl.text = element.Comment;

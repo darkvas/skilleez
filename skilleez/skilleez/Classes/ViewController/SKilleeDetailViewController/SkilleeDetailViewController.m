@@ -139,9 +139,9 @@
     NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [format setLocale:usLocale];
     self.skilleeDateLbl.text =[format stringFromDate:skillee.PostedDate];
-    [self.userAvatarImg setImageWithURL:[NSURL URLWithString:skillee.UserAvatarUrl]];
-    if ([self isVideo:skillee.MediaUrl]) {
-        _player = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:skillee.MediaUrl]];
+    [self.userAvatarImg setImageWithURL:skillee.UserAvatarUrl];
+    if ([self isVideo:[skillee.MediaUrl absoluteString]]) {
+        _player = [[MPMoviePlayerViewController alloc] initWithContentURL:skillee.MediaUrl];
         _player.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
         [_player.view setFrame:self.skilleeMediaImg.frame];
         [_player.moviePlayer setControlStyle:MPMovieControlStyleDefault];
@@ -150,7 +150,7 @@
         [_player.moviePlayer prepareToPlay];
         _player.moviePlayer.fullscreen = YES;
     } else {
-        [self.skilleeMediaImg setImageWithURL:[NSURL URLWithString:skillee.MediaUrl]];
+        [self.skilleeMediaImg setImageWithURL:skillee.MediaUrl];
     }
     self.skilleeTitleLbl.text = skillee.Title;
     self.skilleeCommentLbl.text = skillee.Comment;

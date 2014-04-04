@@ -118,7 +118,7 @@
 
 - (void) updateProfileView
 {
-    [self.userAvatarImg setImageWithURL: [NSURL URLWithString:profile.AvatarUrl]];
+    [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
     self.nameTxt.text = profile.ScreenName;
     self.loginTxt.text = profile.Login;
     favoriteColor = profile.Color;

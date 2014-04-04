@@ -84,10 +84,8 @@
 
 -(IBAction)findUserPressed:(id)sender
 {
-    NSString* userId = self.tfUserName.text;
-    
+    //NSString* userId = self.tfUserName.text;
     //UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
-    
 }
 
 - (UIActivityIndicatorView *)getLoaderIndicator

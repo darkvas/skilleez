@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreateChildSkilleeViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate>
+@interface CreateChildSkilleeViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 - (void)resignAll;
 
