@@ -46,7 +46,7 @@
 @implementation LoopActivityViewController
 {
     NSMutableArray *data;
-    BOOL isChildApproval, canLoadOnScroll;
+    BOOL isChildApproval, canLoadOnScroll, toTop;
     NSMutableString *className;
     int count, offset, skillleType;
 }
@@ -82,6 +82,34 @@
     count = NUMBER_OF_ITEMS;
     [self loadSkilleeList];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if ([data count] > 0) {
+        switch (skillleType) {
+            case APPROVES:
+                isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
+                className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
+                [self loadWaitingForApprovalInBackground:(count + offset) offset:0];
+                break;
+            case FAVORITES:
+                isChildApproval = NO;
+                className = [NSMutableString stringWithString:@"FavoriteTableCell"];
+                [self loadFavoriteInBackground:(count + offset) offset:0];
+                break;
+            default:
+                isChildApproval = NO;
+                className = [NSMutableString stringWithString:@"SimpleTableCell"];
+                [self loadSkilleeInBackground:(count + offset) offset:0];
+                break;
+        }
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"DIDDDDDDDD");
 }
 
 - (void)didReceiveMemoryWarning
@@ -228,19 +256,7 @@
     }
 }
 
-#pragma mark - Class methods
-
-- (UIActivityIndicatorView *)getLoaderIndicator
-{
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    [activityIndicator setBackgroundColor:[UIColor whiteColor]];
-    [activityIndicator setAlpha:0.7];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
-    [self.view addSubview: activityIndicator];
-    [activityIndicator startAnimating];
-    return activityIndicator;
-}
+#pragma mark - Data loading methods
 
 - (IBAction)loadItems:(id)sender {
     [self.createViewCtrl resignAll];
@@ -256,6 +272,7 @@
             isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
             className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
             if (skillleType != APPROVES) {
+                toTop = YES;
                 offset = 0;
                 count = NUMBER_OF_ITEMS;
             }
@@ -266,6 +283,7 @@
             isChildApproval = NO;
             className = [NSMutableString stringWithString:@"FavoriteTableCell"];
             if (skillleType != FAVORITES) {
+                toTop = YES;
                 offset = 0;
                 count = NUMBER_OF_ITEMS;
             }
@@ -276,6 +294,7 @@
             isChildApproval = NO;
             className = [NSMutableString stringWithString:@"SimpleTableCell"];
             if (skillleType != LOOP) {
+                toTop = YES;
                 offset = 0;
                 count = NUMBER_OF_ITEMS;
             }
@@ -291,6 +310,10 @@
     [[NetworkManager sharedInstance] getSkilleeList:count offset:offset success:^(NSArray *skilleeList) {
         [data addObjectsFromArray:skilleeList];
         [self.tableView reloadData];
+        if (toTop) {
+            self.tableView.contentOffset = CGPointMake(0, 0);
+            toTop = NO;
+        }
         [activityIndicator stopAnimating];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
@@ -304,6 +327,10 @@
     [[NetworkManager sharedInstance] getFavoriteList:count offset:offset success:^(NSArray *skilleeList) {
         [data addObjectsFromArray:skilleeList];
         [self.tableView reloadData];
+        if (toTop) {
+            self.tableView.contentOffset = CGPointMake(0, 0);
+            toTop = NO;
+        }
         [activityIndicator stopAnimating];
         canLoadOnScroll = YES;
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
@@ -318,11 +345,73 @@
     [[NetworkManager sharedInstance] getWaitingForApproval:count offset:offset success:^(NSArray *skilleeList) {
         [data addObjectsFromArray:skilleeList];
         [self.tableView reloadData];
+        if (toTop) {
+            self.tableView.contentOffset = CGPointMake(0, 0);
+            toTop = NO;
+        }
         [activityIndicator stopAnimating];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
         NSLog(@"loadWaitingForApprovalList error: %@", error);
     }];
+}
+
+#pragma mark - Loading in background
+
+- (void)loadSkilleeInBackground:(int)counts offset:(int)offsets
+{
+    [[NetworkManager sharedInstance] getSkilleeList:counts offset:offsets success:^(NSArray *skilleeList) {
+        if (![self compareArrayIgnoreIndexes:skilleeList toArray:data]) {
+            data = [NSMutableArray arrayWithArray:skilleeList];
+            [self.tableView reloadData];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"loadSkilleeInBackground error: %@", error);
+    }];
+}
+
+- (void)loadFavoriteInBackground:(int)counts offset:(int)offsets
+{
+    [[NetworkManager sharedInstance] getFavoriteList:counts offset:offsets success:^(NSArray *skilleeList) {
+        if (![self compareArrayIgnoreIndexes:skilleeList toArray:data]) {
+            data = [NSMutableArray arrayWithArray:skilleeList];
+            [self.tableView reloadData];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"loadSkilleeInBackground error: %@", error);
+    }];
+}
+
+- (void)loadWaitingForApprovalInBackground:(int)counts offset:(int)offsets
+{
+    [[NetworkManager sharedInstance] getWaitingForApproval:counts offset:offsets success:^(NSArray *skilleeList) {
+        if (![self compareArrayIgnoreIndexes:skilleeList toArray:data]) {
+            data = [NSMutableArray arrayWithArray:skilleeList];
+            [self.tableView reloadData];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"loadSkilleeInBackground error: %@", error);
+    }];
+}
+
+-(BOOL)compareArrayIgnoreIndexes:(NSArray*)arrayOne toArray:(NSArray*)arrayTwo{
+    NSSet *setOne=[[NSSet alloc]initWithArray:arrayOne];
+    NSSet *setTwo=[[NSSet alloc]initWithArray:arrayTwo];
+    return [setOne isEqualToSet:setTwo];
+}
+
+#pragma mark - Class UI methods
+
+- (UIActivityIndicatorView *)getLoaderIndicator
+{
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [activityIndicator setBackgroundColor:[UIColor whiteColor]];
+    [activityIndicator setAlpha:0.7];
+    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+    [self.view addSubview: activityIndicator];
+    [activityIndicator startAnimating];
+    return activityIndicator;
 }
 
 - (void)allowLoadOnScroll

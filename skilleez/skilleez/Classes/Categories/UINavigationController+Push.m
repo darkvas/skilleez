@@ -67,6 +67,7 @@
     ui.view.layer.shadowRadius = 15.0f;
     [self addChildViewController:ui];
     [self.view addSubview:ui.view];
+    [ui viewWillAppear:YES];
     /*for (UIViewController *ctr in self.viewControllers) {
         NSLog(@"%@", ctr);
     }*/
@@ -82,6 +83,7 @@
                 ui.view.layer.shadowColor = [[UIColor clearColor] CGColor];
                 ui.view.layer.shadowRadius = 0.0f;
                 ui.view.layer.shadowOpacity = 0.00f;
+                [ui viewDidAppear:YES];
                 /*NSArray *ar = self.viewControllers;
                 NSMutableArray *mut = [NSMutableArray arrayWithArray:ar];
                 [mut removeObject:cur];
