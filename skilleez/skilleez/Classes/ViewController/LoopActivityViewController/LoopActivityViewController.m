@@ -310,13 +310,21 @@
             toTop = NO;
         }
         skilleeList = nil;
-        [activityIndicator stopAnimating];
+        
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
         
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self showFailureAlert:error withCaption:@"Load Skilleez failed"];
     }];
+}
+
+-(void) showFailureAlert: (NSError*) error withCaption: (NSString*) caption
+{
+    NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:caption message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 
 - (void)loadFavoriteList
