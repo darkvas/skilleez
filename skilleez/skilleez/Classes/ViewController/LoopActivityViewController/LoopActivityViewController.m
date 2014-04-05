@@ -112,7 +112,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    NSLog(@"DIDDDDDDDD");
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -135,9 +135,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SkilleeModel *skillee = [self getElementAt:indexPath.row];
-    self.view.userInteractionEnabled = NO;
     if ([className isEqualToString:@"SimpleTableCell"]) {
         BOOL canApprove = ![[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:skillee.UserId] && [UserSettingsManager sharedInstance].IsAdult;
+        self.view.userInteractionEnabled = NO;
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:canApprove];
         [self.navigationController pushViewControllerCustom:detail];
         //[self.navigationController pushViewController:detail animated:YES];
@@ -276,19 +276,16 @@
         case 11:
             isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
             className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
-            skillleType = APPROVES;
             [self loadWaitingForApprovalList];
             break;
         case 12:
             isChildApproval = NO;
             className = [NSMutableString stringWithString:@"FavoriteTableCell"];
-            skillleType = FAVORITES;
             [self loadFavoriteList];
             break;
         default:
             isChildApproval = NO;
             className = [NSMutableString stringWithString:@"SimpleTableCell"];
-            skillleType = LOOP;
             [self loadSkilleeList];
             break;
     }
@@ -301,7 +298,7 @@
         if (offset > 0) {
             [loopData addObjectsFromArray:skilleeList];
             [self.tableView reloadData];
-        } else if (![self isArrayEquals:loopData toOther:skilleeList]) {
+        } else if (![self isArrayEquals:loopData toOther:skilleeList] && [skilleeList count] > 0) {
             loopData = [NSMutableArray arrayWithArray:skilleeList];
             [self.tableView reloadData];
         }
@@ -309,22 +306,17 @@
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
         }
+        if (skillleType != LOOP) {
+            skillleType = LOOP;
+            [self.tableView reloadData];
+        }
         skilleeList = nil;
-        
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self showFailureAlert:error withCaption:@"Load Skilleez failed"];
     }];
-}
-
--(void) showFailureAlert: (NSError*) error withCaption: (NSString*) caption
-{
-    NSString* message = error.userInfo[NSLocalizedDescriptionKey];
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:caption message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    [alert show];
 }
 
 - (void)loadFavoriteList
@@ -334,8 +326,12 @@
         if (offset > 0) {
             [favoritesData addObjectsFromArray:skilleeList];
             [self.tableView reloadData];
-        } else if (![self isArrayEquals:favoritesData toOther:skilleeList]) {
+        } else if (![self isArrayEquals:favoritesData toOther:skilleeList] && [skilleeList count] > 0) {
             favoritesData = [NSMutableArray arrayWithArray:skilleeList];
+            [self.tableView reloadData];
+        }
+        if (skillleType != FAVORITES) {
+            skillleType = FAVORITES;
             [self.tableView reloadData];
         }
         if (toTop) {
@@ -358,8 +354,12 @@
         if (offset > 0) {
             [approvalData addObjectsFromArray:skilleeList];
             [self.tableView reloadData];
-        } else if (![self isArrayEquals:loopData toOther:skilleeList]) {
+        } else if (![self isArrayEquals:approvalData toOther:skilleeList] && [skilleeList count] > 0) {
             approvalData = [NSMutableArray arrayWithArray:skilleeList];
+            [self.tableView reloadData];
+        }
+        if (skillleType != APPROVES) {
+            skillleType = APPROVES;
             [self.tableView reloadData];
         }
         if (toTop) {
@@ -369,9 +369,12 @@
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self showFailureAlert:error withCaption:@"Load Approvals failed"];
     }];
 }
+
+#pragma mark - Arrays methods
 
 - (BOOL)isArrayEquals:(NSArray *)ar1 toOther:(NSArray *)ar2 {
     if ([ar1 count] != [ar2 count]) return NO;
@@ -446,6 +449,13 @@
 }
 
 #pragma mark - Class UI methods
+
+- (void)showFailureAlert:(NSError *)error withCaption:(NSString *)caption
+{
+    NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:caption message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
+}
 
 - (UIActivityIndicatorView *)getLoaderIndicator
 {

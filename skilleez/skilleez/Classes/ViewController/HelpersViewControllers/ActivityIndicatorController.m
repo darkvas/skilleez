@@ -37,8 +37,10 @@
 
 - (void)stopActivityIndicator
 {
-    if (activityIndicator)
+    if (activityIndicator) {
         [activityIndicator stopAnimating];
+        [activityIndicator removeFromSuperview];
+    }
 }
 
 @end
