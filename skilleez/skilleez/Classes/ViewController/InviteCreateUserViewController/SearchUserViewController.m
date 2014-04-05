@@ -11,8 +11,6 @@
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 
-#define kOFFSET_FOR_KEYBOARD 200.0
-
 @interface SearchUserViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *tfUserName;
@@ -85,74 +83,6 @@
 -(IBAction)findUserPressed:(id)sender
 {
     //NSString* userId = self.tfUserName.text;
-    //UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
-}
-
-- (UIActivityIndicatorView *)getLoaderIndicator
-{
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    [activityIndicator setBackgroundColor:[UIColor whiteColor]];
-    [activityIndicator setAlpha:0.7];
-    activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
-    [self.view addSubview: activityIndicator];
-    [activityIndicator startAnimating];
-    return activityIndicator;
-}
-
-#pragma mark Keyboard show/hide
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self.view endEditing:YES];
-}
-
--(void)keyboardWillShow
-{
-    if (self.view.frame.origin.y >= 0) {
-        [self setViewMovedUp:YES];
-    } else if (self.view.frame.origin.y < 0) {
-        [self setViewMovedUp:NO];
-    }
-}
-
--(void)keyboardWillHide
-{
-    if (self.view.frame.origin.y >= 0) {
-        [self setViewMovedUp:YES];
-    } else if (self.view.frame.origin.y < 0) {
-        [self setViewMovedUp:NO];
-    }
-}
-
--(void)setViewMovedUp:(BOOL)movedUp
-{
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3];
-    
-    CGRect rect = self.view.frame;
-    if (movedUp) {
-        rect.origin.y -= kOFFSET_FOR_KEYBOARD;
-        rect.size.height += kOFFSET_FOR_KEYBOARD;
-    } else {
-        rect.origin.y += kOFFSET_FOR_KEYBOARD;
-        rect.size.height -= kOFFSET_FOR_KEYBOARD;
-    }
-    self.view.frame = rect;
-    
-    [UIView commitAnimations];
 }
 
 @end

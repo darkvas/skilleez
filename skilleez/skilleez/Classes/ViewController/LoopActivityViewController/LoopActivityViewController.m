@@ -20,6 +20,7 @@
 #import "UINavigationController+Push.h"
 #import "EditProfileViewController.h"
 #import "ChildProfileViewController.h"
+#import "ActivityIndicatorController.h"
 
 #define LOOP 0
 #define APPROVES 1
@@ -295,7 +296,7 @@
 
 - (void)loadSkilleeList
 {
-    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getSkilleeList:count offset:offset success:^(NSArray *skilleeList) {
         if (offset > 0) {
             [loopData addObjectsFromArray:skilleeList];
@@ -312,13 +313,15 @@
         [activityIndicator stopAnimating];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        [self showFailureAlert:error withCaption:@"Load Skilleez failed" withIndicator:activityIndicator];
+        
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        [self showFailureAlert:error withCaption:@"Load Skilleez failed"];
     }];
 }
 
 - (void)loadFavoriteList
 {
-    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getFavoriteList:count offset:offset success:^(NSArray *skilleeList) {
         if (offset > 0) {
             [favoritesData addObjectsFromArray:skilleeList];
@@ -331,17 +334,18 @@
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
         }
-        [activityIndicator stopAnimating];
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         canLoadOnScroll = YES;
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        [self showFailureAlert:error withCaption:@"Load Favorites failed" withIndicator:activityIndicator];
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        [self showFailureAlert:error withCaption:@"Load Favorites failed"];
     }];
 }
 
 - (void)loadWaitingForApprovalList
 {
-    UIActivityIndicatorView *activityIndicator = [self getLoaderIndicator];
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getWaitingForApproval:count offset:offset success:^(NSArray *skilleeList) {
         if (offset > 0) {
             [approvalData addObjectsFromArray:skilleeList];
@@ -354,10 +358,10 @@
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
         }
-        [activityIndicator stopAnimating];
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
-        [self showFailureAlert:error withCaption:@"Load Approvals failed" withIndicator:activityIndicator];
+        [self showFailureAlert:error withCaption:@"Load Approvals failed"];
     }];
 }
 
