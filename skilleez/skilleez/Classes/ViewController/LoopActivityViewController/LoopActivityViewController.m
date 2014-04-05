@@ -55,7 +55,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        data = [NSMutableArray new];
+        loopData = [NSMutableArray new];
+        approvalData = [NSMutableArray new];
+        favoritesData = [NSMutableArray new];
         className = [NSMutableString stringWithString:@"SimpleTableCell"];
         isChildApproval = NO;
         canLoadOnScroll = YES;
@@ -69,9 +71,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    loopData = [NSMutableArray new];
-    approvalData = [NSMutableArray new];
-    favoritesData = [NSMutableArray new];
     self.createViewCtrl = [[CreateChildSkilleeViewController alloc] initWithNibName:@"CreateChildSkilleeViewController" bundle:nil];
     self.menuCtrl = [[MenuViewController alloc] initWithLoopController:self];
     self.menuCtrl.view.hidden = YES;
@@ -300,27 +299,21 @@
     [[NetworkManager sharedInstance] getSkilleeList:count offset:offset success:^(NSArray *skilleeList) {
         if (offset > 0) {
             [loopData addObjectsFromArray:skilleeList];
-        } else if (![self compareArrayIgnoreIndexes:loopData toArray:skilleeList]) {
+            [self.tableView reloadData];
+        } else if (![self isArrayEquals:loopData toOther:skilleeList]) {
             loopData = [NSMutableArray arrayWithArray:skilleeList];
+            [self.tableView reloadData];
         }
-        [self.tableView reloadData];
         if (toTop) {
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
         }
+        skilleeList = nil;
         [activityIndicator stopAnimating];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
         [self showFailureAlert:error withCaption:@"Load Skilleez failed" withIndicator:activityIndicator];
     }];
-}
-
--(void) showFailureAlert: (NSError*) error withCaption: (NSString*) caption withIndicator: (UIActivityIndicatorView*) activityIndicator
-{
-    [activityIndicator stopAnimating];
-    NSString* message = error.userInfo[NSLocalizedDescriptionKey];
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:caption message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    [alert show];
 }
 
 - (void)loadFavoriteList
@@ -329,10 +322,11 @@
     [[NetworkManager sharedInstance] getFavoriteList:count offset:offset success:^(NSArray *skilleeList) {
         if (offset > 0) {
             [favoritesData addObjectsFromArray:skilleeList];
-        } else if (![self compareArrayIgnoreIndexes:favoritesData toArray:skilleeList]) {
+            [self.tableView reloadData];
+        } else if (![self isArrayEquals:favoritesData toOther:skilleeList]) {
             favoritesData = [NSMutableArray arrayWithArray:skilleeList];
+            [self.tableView reloadData];
         }
-        [self.tableView reloadData];
         if (toTop) {
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
@@ -351,10 +345,11 @@
     [[NetworkManager sharedInstance] getWaitingForApproval:count offset:offset success:^(NSArray *skilleeList) {
         if (offset > 0) {
             [approvalData addObjectsFromArray:skilleeList];
-        } else if (![self compareArrayIgnoreIndexes:approvalData toArray:skilleeList]) {
+            [self.tableView reloadData];
+        } else if (![self isArrayEquals:loopData toOther:skilleeList]) {
             approvalData = [NSMutableArray arrayWithArray:skilleeList];
+            [self.tableView reloadData];
         }
-        [self.tableView reloadData];
         if (toTop) {
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
@@ -364,6 +359,16 @@
     } failure:^(NSError *error) {
         [self showFailureAlert:error withCaption:@"Load Approvals failed" withIndicator:activityIndicator];
     }];
+}
+
+- (BOOL)isArrayEquals:(NSArray *)ar1 toOther:(NSArray *)ar2 {
+    if ([ar1 count] != [ar2 count]) return NO;
+    for (int i = 0; i < [ar1 count]; i++) {
+        if (![[ar1 objectAtIndex:i] isEqual:[ar2 objectAtIndex:i]]) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 - (SkilleeModel *)getElementAt:(int)position
@@ -395,7 +400,7 @@
 - (void)loadSkilleeInBackground:(int)counts offset:(int)offsets
 {
     [[NetworkManager sharedInstance] getSkilleeList:counts offset:offsets success:^(NSArray *skilleeList) {
-        if (![self compareArrayIgnoreIndexes:skilleeList toArray:loopData]) {
+        if (![self isArrayEquals:loopData toOther:skilleeList]) {
             loopData = [NSMutableArray arrayWithArray:skilleeList];
             [self.tableView reloadData];
         }
@@ -407,7 +412,7 @@
 - (void)loadFavoriteInBackground:(int)counts offset:(int)offsets
 {
     [[NetworkManager sharedInstance] getFavoriteList:counts offset:offsets success:^(NSArray *skilleeList) {
-        if (![self compareArrayIgnoreIndexes:skilleeList toArray:favoritesData]) {
+        if (![self isArrayEquals:favoritesData toOther:skilleeList]) {
             favoritesData = [NSMutableArray arrayWithArray:skilleeList];
             [self.tableView reloadData];
         }
@@ -419,19 +424,13 @@
 - (void)loadWaitingForApprovalInBackground:(int)counts offset:(int)offsets
 {
     [[NetworkManager sharedInstance] getWaitingForApproval:counts offset:offsets success:^(NSArray *skilleeList) {
-        if (![self compareArrayIgnoreIndexes:skilleeList toArray:approvalData]) {
+        if (![self isArrayEquals:approvalData toOther:skilleeList]) {
             approvalData = [NSMutableArray arrayWithArray:skilleeList];
             [self.tableView reloadData];
         }
     } failure:^(NSError *error) {
         NSLog(@"loadSkilleeInBackground error: %@", error);
     }];
-}
-
-- (BOOL)compareArrayIgnoreIndexes:(NSArray *)arrayOne toArray:(NSArray *)arrayTwo{
-    NSSet *setOne = [[NSSet alloc]initWithArray:arrayOne];
-    NSSet *setTwo = [[NSSet alloc]initWithArray:arrayTwo];
-    return [setOne isEqualToSet:setTwo];
 }
 
 #pragma mark - Class UI methods
@@ -446,6 +445,14 @@
     [self.view addSubview: activityIndicator];
     [activityIndicator startAnimating];
     return activityIndicator;
+}
+
+- (void)showFailureAlert: (NSError*) error withCaption: (NSString*) caption withIndicator: (UIActivityIndicatorView *) activityIndicator
+{
+    [activityIndicator stopAnimating];
+    NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:caption message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 
 - (void)allowLoadOnScroll
