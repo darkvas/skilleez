@@ -7,7 +7,7 @@
 //
 
 #import "AdultApprovalTableCell.h"
-#import "UIFont+DefaultFont.h"
+#import "CellFiller.h"
 
 @interface AdultApprovalTableCell()
 
@@ -27,39 +27,12 @@
 
 - (void)setSkilleezCell:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
-    [cell setCellFonts];
-    cell.usernameLbl.text = element.UserName;
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setTimeStyle:NSDateFormatterNoStyle];
-    [format setDateStyle:NSDateFormatterMediumStyle];
-    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    [format setLocale:usLocale];
-    cell.dateLbl.text =[format stringFromDate:element.PostedDate];
-    [cell.avatarImg setImageWithURL:element.UserAvatarUrl];
-    cell.avatarImg.layer.cornerRadius = 23.0;
-    cell.avatarImg.layer.masksToBounds = YES;
-    cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    cell.avatarImg.layer.borderWidth = 3.0;
-    if ([[element.MediaThumbnailUrl absoluteString] isEqualToString:@""]) {
-        [cell.attachmentImg setImageWithURL:element.MediaUrl];
-    } else {
-        [cell.attachmentImg setImageWithURL:element.MediaThumbnailUrl];
-    }
-    cell.skilleezTitleLbl.text = element.Title;
-    cell.skilleezCommentLbl.text = element.Comment;
-    cell.detailBtn.tag = tag;
-    cell.contentView.backgroundColor = element.Color;
+    [[CellFiller sharedInstance] setSkilleezCell:cell andSkilleez:element andTag:tag];
 }
 
-- (void)setCellFonts
+- (IBAction)showSkillee:(id)sender
 {
-    [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
-    [self.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
-    [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-}
-
-- (IBAction)showSkillee:(id)sender {
     [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
 }
+
 @end

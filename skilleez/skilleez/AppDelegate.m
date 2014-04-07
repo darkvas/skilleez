@@ -23,22 +23,6 @@
     self.window.rootViewController = self.navigationCtrl;
     SplashViewController *login = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     [self.navigationCtrl pushViewController:login animated:NO];
-    /*UIColor* navBarColor = [UIColor colorWithRed:242.0/255.0 green:185.0/255.0 blue:32.0/255.0 alpha:1.f];
-    UINavigationBar *navigationBar = self.navigationCtrl.navigationBar;
-    
-    navigationBar.barTintColor = navBarColor;
-    navigationBar.translucent = YES;
-    navigationBar.opaque = YES;
-    navigationBar.barStyle = UIBarStyleBlack;
-    
-    /*CALayer *navBackLayer =  [CALayer layer];
-    navBackLayer.backgroundColor = [navBarColor CGColor];
-    navBackLayer.frame = CGRectMake(0.0, -20.0, self.navigationCtrl.navigationBar.frame.size.width, self.navigationCtrl.navigationBar.frame.size.height + 20);
-    navBackLayer.zPosition = -1;
-    [navigationBar.layer addSublayer:navBackLayer];
-    [navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [navigationBar setBackgroundColor:navBarColor];*/
-    
     [self.navigationCtrl setNavigationBarHidden:YES animated:NO];
     
     [self.window makeKeyAndVisible];
@@ -74,6 +58,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [self.navigationCtrl.visibleViewController viewWillAppear:YES];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
