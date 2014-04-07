@@ -39,6 +39,7 @@
 @property (strong, nonatomic) CreateChildSkilleeViewController *createViewCtrl;
 @property (strong, nonatomic) MenuViewController *menuCtrl;
 @property (strong, nonatomic) UIButton *transparentBtn;
+@property (strong, nonatomic) UILabel *badge;
 
 - (IBAction)showMenu:(id)sender;
 
@@ -82,7 +83,8 @@
     [self.view addSubview:self.transparentBtn];
     [self.view addSubview:self.menuCtrl.view];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
+    [self createBadge];
+    [self setBadgeValue:0];
     [self loadSkilleeList];
     [self loadApprovalCount];
     // Do any additional setup after loading the view from its nib.
@@ -381,6 +383,7 @@
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
         }
+        [self setBadgeValue:[approvalData count]];
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {
@@ -457,6 +460,7 @@
         if (![self isArrayEquals:approvalData toOther:skilleeList]) {
             approvalData = [NSMutableArray arrayWithArray:skilleeList];
             [self.tableView reloadData];
+            [self setBadgeValue:[approvalData count]];
         }
     } failure:^(NSError *error) {
         NSLog(@"loadSkilleeInBackground error: %@", error);
@@ -530,6 +534,30 @@
 - (IBAction)showMenu:(id)sender
 {
     [self showMenu];
+}
+
+- (void)setBadgeValue:(int)value
+{
+    if (value == 0) {
+        self.badge.hidden = YES;
+    } else {
+        self.badge.hidden = NO;
+        self.badge.text = [NSString stringWithFormat:@"%i", value];
+    }
+}
+
+- (void)createBadge
+{
+    self.badge = [[UILabel alloc] initWithFrame:CGRectMake(32, 24, 18, 18)];
+    self.badge.layer.masksToBounds = YES;
+    self.badge.layer.cornerRadius = 9;
+    self.badge.textAlignment = NSTextAlignmentCenter;
+    self.badge.adjustsFontSizeToFitWidth = YES;
+    self.badge.font = [UIFont systemFontOfSize:12];
+    self.badge.minimumScaleFactor = 7 / 12;
+    self.badge.textColor = [UIColor whiteColor];
+    self.badge.backgroundColor = [UIColor colorWithRed:0.96 green:0.47 blue:0.49 alpha:1.0];
+    [self.approvalSkilleeBtn addSubview:self.badge];
 }
 
 - (void)hideMenu
