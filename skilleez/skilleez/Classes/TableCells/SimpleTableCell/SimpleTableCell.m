@@ -7,25 +7,15 @@
 //
 
 #import "SimpleTableCell.h"
-#import "UIFont+DefaultFont.h"
-#import "SkilleeDetailViewController.h"
-#import "LoopActivityViewController.h"
+#import "CellFiller.h"
 
 @interface SimpleTableCell()
 {
-    SkilleeModel* _skilleeModel;
+    SkilleeModel *skilleeModel;
 }
 
-@property (weak, nonatomic) IBOutlet UIImageView *avatarImg;
-@property (weak, nonatomic) IBOutlet UILabel *usernameLbl;
-@property (weak, nonatomic) IBOutlet UILabel *dateLbl;
-@property (weak, nonatomic) IBOutlet UILabel *skilleezTitleLbl;
-@property (weak, nonatomic) IBOutlet UILabel *skilleezCommentLbl;
-@property (weak, nonatomic) IBOutlet UIImageView *attachmentImg;
-@property (weak, nonatomic) IBOutlet UIButton *detailBtn;
-
 - (IBAction)showSkille:(id)sender;
-- (void)selectProfile:(UIGestureRecognizer*)recognizer;
+- (void)selectProfile:(UIGestureRecognizer *)recognizer;
 
 @end
 
@@ -33,40 +23,9 @@
 
 - (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
-    [cell setCellFonts];
-    cell.usernameLbl.text = element.UserName;
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setTimeStyle:NSDateFormatterNoStyle];
-    [format setDateStyle:NSDateFormatterMediumStyle];
-    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    [format setLocale:usLocale];
-    cell.dateLbl.text =[format stringFromDate:element.PostedDate];
-    [cell.avatarImg setImageWithURL:element.UserAvatarUrl];
-    cell.avatarImg.layer.cornerRadius = 23.0;
-    cell.avatarImg.layer.masksToBounds = YES;
-    cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    cell.avatarImg.layer.borderWidth = 3.0;
-    if ([[element.MediaThumbnailUrl absoluteString] isEqualToString:@""]) {
-        [cell.attachmentImg setImageWithURL:element.MediaUrl];
-    } else {
-        [cell.attachmentImg setImageWithURL:element.MediaThumbnailUrl];
-    }
-    cell.skilleezTitleLbl.text = element.Title;
-    cell.skilleezCommentLbl.text = element.Comment;
+    skilleeModel = element;
+    [[CellFiller sharedInstance] setSkilleezCell:cell andSkilleez:element andTag:tag];
     cell.detailBtn.tag = tag;
-    cell.avatarImg.tag = tag;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectProfile:)];
-    [cell.avatarImg addGestureRecognizer:tap];
-    cell.contentView.backgroundColor = element.Color;
-    _skilleeModel = element;
-}
-
-- (void)setCellFonts
-{
-    [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
-    [self.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
-    [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
 }
 
 #pragma mark - SimpleCellDelegate
@@ -76,8 +35,9 @@
     [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
 }
 
-- (void)selectProfile:(UIGestureRecognizer*)recognizer {
-    [self.delegate didProfileSelect: _skilleeModel.UserId];
+- (void)selectProfile:(UIGestureRecognizer *)recognizer
+{
+    [self.delegate didProfileSelect: skilleeModel.UserId];
 }
 
 @end

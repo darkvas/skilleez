@@ -9,10 +9,11 @@
 #import "ChildApprovalTableCell.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
+#import "CellFiller.h"
 
 @interface ChildApprovalTableCell()
 {
-    SkilleeModel * skilleeModel;
+    SkilleeModel *skilleeModel;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImg;
@@ -23,7 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentImg;
 @property (weak, nonatomic) IBOutlet UILabel *waitingForApprovalLbl;
 
--(IBAction) deleteSkillee:(id)sender;
+- (IBAction)deleteSkillee:(id)sender;
+- (void)selectProfile:(UIGestureRecognizer *)recognizer;
 
 @end
 
@@ -31,46 +33,23 @@
 
 - (void)setSkilleezCell:(ChildApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
-    [cell setCellFonts];
-    cell.usernameLbl.text = element.UserName;
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setTimeStyle:NSDateFormatterNoStyle];
-    [format setDateStyle:NSDateFormatterMediumStyle];
-    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    [format setLocale:usLocale];
-    cell.dateLbl.text =[format stringFromDate:element.PostedDate];
-    [cell.avatarImg setImageWithURL:element.UserAvatarUrl];
-    cell.avatarImg.layer.cornerRadius = 23.0;
-    cell.avatarImg.layer.masksToBounds = YES;
-    cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    cell.avatarImg.layer.borderWidth = 3.0;
-    if ([[element.MediaThumbnailUrl absoluteString] isEqualToString:@""]) {
-        [cell.attachmentImg setImageWithURL:element.MediaUrl];
-    } else {
-        [cell.attachmentImg setImageWithURL:element.MediaThumbnailUrl];
-    }
-    cell.skilleezTitleLbl.text = element.Title;
-    cell.skilleezCommentLbl.text = element.Comment;
-    cell.contentView.backgroundColor = element.Color;
     skilleeModel = element;
+    [[CellFiller sharedInstance] setSkilleezCell:cell andSkilleez:element andTag:tag];
+    [cell.waitingForApprovalLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
 }
 
-- (void)setCellFonts
-{
-    [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
-    [self.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
-    [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.waitingForApprovalLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-}
-
--(IBAction) deleteSkillee:(id)sender
+- (IBAction)deleteSkillee:(id)sender
 {
     [[NetworkManager sharedInstance] postRemoveSkillee:skilleeModel.Id success:^{
         [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
     } failure:^(NSError *error) {
         
     }];
+}
+
+- (void)selectProfile:(UIGestureRecognizer*)recognizer
+{
+    [self.delegate didProfileSelect:skilleeModel.UserId];
 }
 
 @end

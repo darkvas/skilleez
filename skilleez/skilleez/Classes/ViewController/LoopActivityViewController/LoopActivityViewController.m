@@ -160,6 +160,8 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
         cell = [nib objectAtIndex:0];
         cell.delegate = self;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(selectProfile:)];
+        [cell.avatarImg addGestureRecognizer:tap];
     }
     [cell setSkilleezCell:cell andSkilleez:[self getElementAt:indexPath.row] andTag:indexPath.row];
     return cell;

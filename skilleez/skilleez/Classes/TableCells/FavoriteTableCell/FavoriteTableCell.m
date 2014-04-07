@@ -7,13 +7,12 @@
 //
 
 #import "FavoriteTableCell.h"
-#import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
-#import "LoopActivityViewController.h"
+#import "CellFiller.h"
 
 @interface FavoriteTableCell()
 {
-    SkilleeModel* skillee;
+    SkilleeModel *skilleeModel;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImg;
@@ -32,45 +31,22 @@
 
 - (void)setSkilleezCell:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
-    skillee = element;
-    [cell setCellFonts];
-    cell.usernameLbl.text = element.UserName;
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setTimeStyle:NSDateFormatterNoStyle];
-    [format setDateStyle:NSDateFormatterMediumStyle];
-    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    [format setLocale:usLocale];
-    cell.dateLbl.text =[format stringFromDate:element.PostedDate];
-    [cell.avatarImg setImageWithURL:element.UserAvatarUrl];
-    cell.avatarImg.layer.cornerRadius = 23.0;
-    cell.avatarImg.layer.masksToBounds = YES;
-    cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    cell.avatarImg.layer.borderWidth = 3.0;
-    if ([[element.MediaThumbnailUrl absoluteString] isEqualToString:@""]) {
-        [cell.attachmentImg setImageWithURL:element.MediaUrl];
-    } else {
-        [cell.attachmentImg setImageWithURL:element.MediaThumbnailUrl];
-    }
-    cell.skilleezTitleLbl.text = element.Title;
-    cell.skilleezCommentLbl.text = element.Comment;
-    cell.contentView.backgroundColor = element.Color;
+    skilleeModel = element;
+    [[CellFiller sharedInstance] setSkilleezCell:cell andSkilleez:element andTag:tag];
 }
 
-- (void)setCellFonts
+- (IBAction)removeFromFavorites:(id)sender
 {
-    [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.dateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
-    [self.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
-    [self.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-}
-
-- (IBAction) removeFromFavorites:(id)sender
-{
-    [[NetworkManager sharedInstance] postRemoveFromFavorites:skillee.Id success:^{
+    [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeModel.Id success:^{
          [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
     } failure:^(NSError *error) {
-        NSLog(@"Failed remove from Favorites: %@, error: %@", skillee.Id, error);
+        NSLog(@"Failed remove from Favorites: %@, error: %@", skilleeModel.Id, error);
     }];
+}
+
+- (void)selectProfile:(UIGestureRecognizer*)recognizer
+{
+    [self.delegate didProfileSelect:skilleeModel.UserId];
 }
 
 @end
