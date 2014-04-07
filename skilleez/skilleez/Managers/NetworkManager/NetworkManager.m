@@ -15,6 +15,7 @@
 #define GET_SKILLEE_LIST_URI @"api/Skillee/GetList"
 #define GET_USER_SKILLEE_LIST_URI @"api/Skillee/GetUserSkilleezList"
 #define GET_WAITING_FOR_APPROVAL_URI @"api/Skillee/GetWaitingForApprovalList"
+#define GET_WAITING_FOR_APPROVAL_COUNT @"api/Skillee/GetWaitingForApprovalCount"
 #define GET_FAVORITE_LIST @"api/Skillee/GetFavoriteList"
 #define GET_CAN_APPROVE @"api/Skillee/CanApprove"
 
@@ -155,6 +156,30 @@
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_FAVORITE_LIST, count, offset];
     [self prepareSkilleeRequest:GET_FAVORITE_LIST];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
+}
+
+-(void) getWaitingForApprovalCountSuccess: (void (^)(int approvalCount))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                             method:RKRequestMethodGET
+                                                                                        pathPattern:GET_WAITING_FOR_APPROVAL_COUNT
+                                                                                            keyPath:nil
+                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    [manager addResponseDescriptor:responseDescriptor];
+    
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_WAITING_FOR_APPROVAL_COUNT, 1, 0]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         int resultCount = [((PostResponse*)mappingResult.firstObject).ReturnValue integerValue];
+         dispatch_async(dispatch_get_main_queue(), ^{success(resultCount);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
 }
 
 -(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest success: (void (^)(void))success failure:(void (^)(NSError *error))failure

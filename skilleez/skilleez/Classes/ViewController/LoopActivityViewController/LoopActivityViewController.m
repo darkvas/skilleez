@@ -84,7 +84,17 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self loadSkilleeList];
+    [self loadApprovalCount];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void) loadApprovalCount
+{
+    [[NetworkManager sharedInstance] getWaitingForApprovalCountSuccess:^(int approvalCount) {
+        NSLog(@"Waiting from approval count %i", approvalCount);
+    } failure:^(NSError *error) {
+        NSLog(@"Waiting from approval error: %@", error);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
