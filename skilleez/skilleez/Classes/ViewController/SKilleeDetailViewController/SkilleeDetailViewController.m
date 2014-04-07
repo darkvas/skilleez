@@ -82,6 +82,11 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [_player.moviePlayer prepareToPlay];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -53,6 +53,7 @@
     [super viewDidLoad];
     self.titleTxt.delegate = self;
     self.commentTxt.delegate = self;
+    self.postOnTxt.delegate = self;
     self.heightCon.constant = [UserSettingsManager sharedInstance].IsAdult ? 453 : 506;
     [self setDefaultFonts];
     UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"big_text_view_BG.png"]];
@@ -66,6 +67,9 @@
     [self.commentTxt addSubview:placeholder];
     [self.commentTxt sendSubviewToBack: imgView];
     [self.commentTxt sendSubviewToBack:placeholder];
+    UIEdgeInsets insets = self.commentTxt.textContainerInset;
+    insets.left = 6;
+    self.commentTxt.textContainerInset = insets;
     [self setLeftMargin:10 forTextField:self.titleTxt];
     [self setLeftMargin:10 forTextField:self.postOnTxt];
     imagePicker = [[UIImagePickerController alloc] init];
@@ -85,43 +89,24 @@
     [self.view endEditing:YES];
 }
 
-- (void)resignAll
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self.titleTxt resignFirstResponder];
-    [self.commentTxt resignFirstResponder];
-    [self.postOnTxt resignFirstResponder];
+    [textField resignFirstResponder];
+    return YES;
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-    NSString* contentType = info[UIImagePickerControllerMediaType];
-    if([contentType isEqualToString:@"public.image"]) {
-        UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
-        chosenData = UIImageJPEGRepresentation(chosenImage, 1.0f);
-        dataMediaType = mediaTypeImage;
-    } else if([contentType isEqualToString:@"public.movie"]){
-        NSString* filePath = info[@"UIImagePickerControllerMediaURL"];
-        chosenData = [[NSData alloc] initWithContentsOfFile:filePath];
-        dataMediaType = mediaTypeVideo;
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
     }
-    if(chosenData)
-        self.btnSelectedMedia.hidden = NO;
-    [self checkLaunchAbility];
-}
-
-- (void)checkLaunchAbility
-{
-    if (chosenData && self.titleTxt.text.length > 0) {
-        self.launchBtn.enabled = YES;
-    } else {
-        self.launchBtn.enabled = NO;
-    }
-}
-
-- (IBAction)titleTextViewDidChange:(id)sender
-{
-    [self checkLaunchAbility];
+    
+    return YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -161,6 +146,47 @@
             }
         } ;
     }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    NSString* contentType = info[UIImagePickerControllerMediaType];
+    if([contentType isEqualToString:@"public.image"]) {
+        UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
+        chosenData = UIImageJPEGRepresentation(chosenImage, 1.0f);
+        dataMediaType = mediaTypeImage;
+    } else if([contentType isEqualToString:@"public.movie"]){
+        NSString* filePath = info[@"UIImagePickerControllerMediaURL"];
+        chosenData = [[NSData alloc] initWithContentsOfFile:filePath];
+        dataMediaType = mediaTypeVideo;
+    }
+    if(chosenData)
+        self.btnSelectedMedia.hidden = NO;
+    [self checkLaunchAbility];
+}
+
+- (void)resignAll
+{
+    [self.titleTxt resignFirstResponder];
+    [self.commentTxt resignFirstResponder];
+    [self.postOnTxt resignFirstResponder];
+}
+
+- (void)checkLaunchAbility
+{
+    if (chosenData && self.titleTxt.text.length > 0) {
+        self.launchBtn.enabled = YES;
+    } else {
+        self.launchBtn.enabled = NO;
+    }
+}
+
+- (IBAction)titleTextViewDidChange:(id)sender
+{
+    [self checkLaunchAbility];
 }
 
 - (void)setLeftMargin:(int)leftMargin forTextField:(UITextField *)textField
