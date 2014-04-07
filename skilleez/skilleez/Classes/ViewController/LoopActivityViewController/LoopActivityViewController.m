@@ -86,14 +86,15 @@
     [self createBadge];
     [self setBadgeValue:0];
     [self loadSkilleeList];
-    [self loadApprovalCount];
+    [self loadWaitingForApprovalCount];
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void) loadApprovalCount
+- (void) loadWaitingForApprovalCount
 {
     [[NetworkManager sharedInstance] getWaitingForApprovalCountSuccess:^(int approvalCount) {
         NSLog(@"Waiting from approval count %i", approvalCount);
+        [self setBadgeValue:approvalCount];
     } failure:^(NSError *error) {
         NSLog(@"Waiting from approval error: %@", error);
     }];
@@ -215,9 +216,8 @@
 
 #pragma mark - SimpleCellDelegate
 
-- (void)didSkiilleSelect:(NSInteger)tag
+- (void)didSkiilleSelect:(SkilleeModel*) skillee
 {
-    SkilleeModel *skillee = [self getElementAt:tag];
     if ([className isEqualToString:@"SimpleTableCell"]) {
         BOOL canApprove = ![[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:skillee.UserId] && [UserSettingsManager sharedInstance].IsAdult;
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:canApprove];
@@ -383,7 +383,8 @@
             self.tableView.contentOffset = CGPointMake(0, 0);
             toTop = NO;
         }
-        [self setBadgeValue:[approvalData count]];
+        //[self setBadgeValue:[approvalData count]];
+        [self loadWaitingForApprovalCount];
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
     } failure:^(NSError *error) {

@@ -38,7 +38,7 @@
 - (IBAction)removeFromFavorites:(id)sender
 {
     [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeModel.Id success:^{
-         [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
+         [self.delegate didSkiilleSelect:skilleeModel];
     } failure:^(NSError *error) {
         NSLog(@"Failed remove from Favorites: %@, error: %@", skilleeModel.Id, error);
     }];

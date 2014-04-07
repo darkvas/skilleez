@@ -41,7 +41,7 @@
 - (IBAction)deleteSkillee:(id)sender
 {
     [[NetworkManager sharedInstance] postRemoveSkillee:skilleeModel.Id success:^{
-        [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
+        [self.delegate didSkiilleSelect:skilleeModel];
     } failure:^(NSError *error) {
         
     }];

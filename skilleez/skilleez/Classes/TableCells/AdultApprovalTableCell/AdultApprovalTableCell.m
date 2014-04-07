@@ -10,6 +10,9 @@
 #import "CellFiller.h"
 
 @interface AdultApprovalTableCell()
+{
+    SkilleeModel *skillee;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImg;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLbl;
@@ -27,12 +30,13 @@
 
 - (void)setSkilleezCell:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
+    skillee = element;
     [[CellFiller sharedInstance] setSkilleezCell:cell andSkilleez:element andTag:tag];
 }
 
 - (IBAction)showSkillee:(id)sender
 {
-    [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
+    [self.delegate didSkiilleSelect: skillee];
 }
 
 @end

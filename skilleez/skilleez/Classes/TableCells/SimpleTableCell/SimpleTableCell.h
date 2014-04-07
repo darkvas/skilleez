@@ -12,7 +12,7 @@
 @protocol SimpleCellDelegate <NSObject>
 @required
 
-- (void)didSkiilleSelect:(NSInteger)tag;
+- (void)didSkiilleSelect: (SkilleeModel*) skillee;
 - (void)didProfileSelect:(NSString*)profileId;
 
 @end

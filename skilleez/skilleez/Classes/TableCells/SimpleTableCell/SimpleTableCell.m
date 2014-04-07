@@ -32,7 +32,7 @@
 
 - (IBAction)showSkille:(id)sender
 {
-    [self.delegate didSkiilleSelect:((UIButton *)sender).tag];
+    [self.delegate didSkiilleSelect:skilleeModel];
 }
 
 - (void)selectProfile:(UIGestureRecognizer *)recognizer
