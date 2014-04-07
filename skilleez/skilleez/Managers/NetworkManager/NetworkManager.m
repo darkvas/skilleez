@@ -573,7 +573,15 @@ POST api/User/SetAdultPermissions*/
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success(mappingResult.firstObject);});
+         ProfileInfo* profile;
+         for (NSObject* obj in mappingResult.array) {
+             if([obj isKindOfClass:[ProfileInfo class]]) {
+                 profile = (ProfileInfo*)obj;
+                 break;
+             }
+         }
+
+         dispatch_async(dispatch_get_main_queue(), ^{success(profile);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {

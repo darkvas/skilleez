@@ -86,7 +86,7 @@
     [_btnInviteToLoop.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
     [_btnPendingInvites.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
     
-    if(![UserSettingsManager sharedInstance].IsAdult)
+    if (![UserSettingsManager sharedInstance].IsAdult)
     {
         _btnCreateUser.hidden = YES;
         _btnInviteToLoop.center = CGPointMake(self.view.center.x, _btnInviteToLoop.center.y);

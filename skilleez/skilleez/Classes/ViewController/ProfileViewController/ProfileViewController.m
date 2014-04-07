@@ -49,7 +49,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"My profile" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:profile.Login leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
     [self.userColorImg setImage:[self getBlankImage:profile.Color]];
