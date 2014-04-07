@@ -222,7 +222,7 @@
     
     RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
                                                                                              method:RKRequestMethodAny
-                                                                                        pathPattern:nil
+                                                                                        pathPattern:POST_REMOVE
                                                                                             keyPath:nil
                                                                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [manager addResponseDescriptor:responseDescriptor];
@@ -341,7 +341,7 @@
 }
 
 //TODO: service always return error - check it later
--(void) getCanApprove:(void (^)(bool *canApprove))successResult failure:(void (^)(NSError *error))failure
+-(void) getCanApprove: (NSString*) skilleeId success: (void (^)(bool canApprove))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -352,12 +352,13 @@
                                                                                         statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     [manager addResponseDescriptor:responseDescriptor];
     
-    [manager getObjectsAtPath:[SKILLEEZ_URL stringByAppendingString:GET_CAN_APPROVE]
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Id=%@", SKILLEEZ_URL, GET_CAN_APPROVE, skilleeId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          NSLog(@"success: mappings: %@", mappingResult.firstObject);
-         dispatch_async(dispatch_get_main_queue(), ^{successResult(YES);});
+         BOOL result = (BOOL)mappingResult.firstObject;
+         dispatch_async(dispatch_get_main_queue(), ^{success(result);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {

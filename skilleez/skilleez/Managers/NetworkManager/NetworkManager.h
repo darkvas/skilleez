@@ -32,6 +32,7 @@
 -(void) postRemoveFromFavorites:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
 -(void) postMarkAsTatle:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
 -(void) postApproveOrDenySkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(void (^)(NSError *error))failure;
+-(void) getCanApprove: (NSString*) skilleeId success: (void (^)(bool canApprove))success failure:(void (^)(NSError *error))failure;
 
 -(void) getFriendsAnsFamily: (NSString*) userId success: (void (^)(NSArray *friends))success failure:(void (^)(NSError *error))failure;
 -(void) postAddChildToFamily:(NSString*) childId withPass:(NSString*) childPassword success: (void (^)(void))success failure:(void (^)(NSError *error))failure;

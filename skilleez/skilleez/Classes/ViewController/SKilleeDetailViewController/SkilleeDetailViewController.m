@@ -15,14 +15,23 @@
 #import "AppDelegate.h"
 #import "NavigationBarView.h"
 #import "UINavigationController+Push.h"
+#import "ActivityIndicatorController.h"
 
 #define BUTTON_FONT_SIZE 19
 #define BUTTON_BORDER_WIDTH 1.0
 
+typedef enum {
+    SkilleeActionNone,
+    SkilleeActionDeny,
+    SkilleeActionApprove
+} SkilleeAction;
+
 @interface SkilleeDetailViewController () {
     SkilleeModel *skillee;
     BOOL enabledApprove;
+    SkilleeAction skilleeAction;
 }
+
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *skilleeDateLbl;
@@ -62,6 +71,7 @@
     if (self = [super init]) {
         skillee = skilleeEl;
         enabledApprove = enabled;
+        skilleeAction = SkilleeActionNone;
     }
     return self;
 }
@@ -80,6 +90,18 @@
     if (!enabledApprove) {
         [self showDisabledButtons];   
     }
+}
+
+-(void) canApproveByAPI
+{
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    [[NetworkManager sharedInstance] getCanApprove:skillee.Id success: ^(bool canApprove) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        NSLog(@"Can approve: %@", canApprove ? @"YES" : @"FALSE");
+    } failure:^(NSError *error) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        NSLog(@"Failed get can approve: %@, error: %@", skillee.Id, error);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -102,7 +124,32 @@
 
 - (void)done
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    switch (skilleeAction) {
+        case SkilleeActionApprove:
+            [self approveSkilleeAndExit:YES];
+            break;
+        case SkilleeActionDeny:
+            [self approveSkilleeAndExit:NO];
+        default:
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
+    }
+}
+
+- (void) approveSkilleeAndExit: (BOOL) approve
+{
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:approve success:^{
+        NSLog(@"Success %@: %@", approve ? @"approved" : @"denied", skillee.Id);
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSError *error) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        NSString* title = [NSString stringWithFormat:@"%@ failed", approve ? @"Approve" : @"Deny"];
+        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+    }];
 }
 
 - (void)setCellFonts
@@ -173,35 +220,36 @@
     self.approveBtn.hidden = YES;
     self.denyBtn.hidden = YES;
 }
+
 - (IBAction)deny:(id)sender {
-    [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:NO success:^{
-        NSLog(@"Success denied: %@", skillee.Id);
-    } failure:^(NSError *error) {
-        NSLog(@"Failed to deny: %@, error: %@", skillee.Id, error);
-    }];
+    skilleeAction = SkilleeActionDeny;
 }
 
 - (IBAction)approve:(id)sender {
-    [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:YES success:^{
-        NSLog(@"Success approved: %@", skillee.Id);
-    } failure:^(NSError *error) {
-        NSLog(@"Failed to approve: %@, error: %@", skillee.Id, error);
-    }];
+    skilleeAction = SkilleeActionApprove;
 }
 
-- (IBAction)favorite:(id)sender {
+- (IBAction)favorite:(id)sender
+{
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postAddToFavorites:skillee.Id success:^{
         NSLog(@"Success add to Favorites: %@", skillee.Id);
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
     } failure:^(NSError *error) {
         NSLog(@"Failed add to Favorites: %@, error: %@", skillee.Id, error);
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
     }];
 }
 
-- (IBAction)tattle:(id)sender {
+- (IBAction)tattle:(id)sender
+{
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postMarkAsTatle:skillee.Id success:^{
         NSLog(@"Success mark as Tatle: %@", skillee.Id);
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
     } failure:^(NSError *error) {
         NSLog(@"Failed mark as Tatle: %@, error: %@", skillee.Id, error);
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
     }];
 }
 
