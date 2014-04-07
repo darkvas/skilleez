@@ -137,7 +137,7 @@
     SkilleeModel *skillee = [self getElementAt:indexPath.row];
     if ([className isEqualToString:@"SimpleTableCell"]) {
         BOOL canApprove = ![[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:skillee.UserId] && [UserSettingsManager sharedInstance].IsAdult;
-        self.view.userInteractionEnabled = NO;
+        //self.view.userInteractionEnabled = NO;
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:canApprove];
         [self.navigationController pushViewControllerCustom:detail];
         //[self.navigationController pushViewController:detail animated:YES];
@@ -212,6 +212,9 @@
         [self.navigationController pushViewControllerCustom:detail];
         //[self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"FavoriteTableCell"]) {
+        offset = 0;
+        count = NUMBER_OF_ITEMS;
+        canLoadOnScroll = NO;
         [self loadFavoriteList];
     } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:YES];
