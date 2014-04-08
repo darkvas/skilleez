@@ -23,8 +23,6 @@
 {
     NSArray* _adultMembers;
     NSArray* _childrenMembers;
-    BOOL _forChild;
-    NSString* _childId;
 } 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -49,15 +47,6 @@
     return self;
 }
 
-- (id)initForChild: (NSString*) childId
-{
-    if (self = [super init]) {
-        _forChild = YES;
-        _childId = childId;
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -67,14 +56,7 @@
     [self customizeElements];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    if (_forChild) {
-        self.btnCreateUser.hidden = YES;
-        self.btnInviteToLoop.hidden = YES;
-        self.btnPendingInvites.hidden = YES;
-        self.tableView.frame = CGRectMake(0, 64, 320, 568);
-    }
-    
-    [self loadFamilyData: /*_forChild ? _childId :*/ [UserSettingsManager sharedInstance].userInfo.UserID];
+    [self loadFamilyData:[UserSettingsManager sharedInstance].userInfo.UserID];
 }
 
 -(void) customizeElements

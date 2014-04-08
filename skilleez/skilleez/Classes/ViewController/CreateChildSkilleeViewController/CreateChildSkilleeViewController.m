@@ -235,6 +235,14 @@
 {
     self.titleTxt.text = @"";
     self.commentTxt.text = @"";
+    for (UIView *lbl in self.commentTxt.subviews)
+    {
+        if ([lbl isKindOfClass:[UILabel class]])
+        {
+            UILabel *label = (UILabel *)lbl;
+            label.text = @"Enter Comments here";
+        }
+    }
     self.postOnTxt.text = @"";
     chosenData = nil;
     self.btnSelectedMedia.hidden = YES;

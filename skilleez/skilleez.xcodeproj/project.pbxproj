@@ -72,6 +72,8 @@
 		14AC9E2918D836C500C3E228 /* thumb_down_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14AC9E1D18D836C500C3E228 /* thumb_down_@2x.png */; };
 		14AC9E2A18D836C500C3E228 /* thumb_up_.png in Resources */ = {isa = PBXBuildFile; fileRef = 14AC9E1E18D836C500C3E228 /* thumb_up_.png */; };
 		14AC9E2B18D836C500C3E228 /* thumb_up_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14AC9E1F18D836C500C3E228 /* thumb_up_@2x.png */; };
+		14B1182E18F3BF5F002C022C /* ChildFamilyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1182C18F3BF5F002C022C /* ChildFamilyViewController.m */; };
+		14B1182F18F3BF5F002C022C /* ChildFamilyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B1182D18F3BF5F002C022C /* ChildFamilyViewController.xib */; };
 		14BCE63518D84F630047F490 /* SkilleeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14BCE63418D84F630047F490 /* SkilleeDetailViewController.xib */; };
 		14BCE63818D84F7F0047F490 /* SkilleeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BCE63718D84F7F0047F490 /* SkilleeDetailViewController.m */; };
 		14BCE63C18D89AFE0047F490 /* CreateChildSkilleeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14BCE63B18D89AFE0047F490 /* CreateChildSkilleeViewController.m */; };
@@ -331,6 +333,9 @@
 		14AC9E1D18D836C500C3E228 /* thumb_down_@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb_down_@2x.png"; sourceTree = "<group>"; };
 		14AC9E1E18D836C500C3E228 /* thumb_up_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumb_up_.png; sourceTree = "<group>"; };
 		14AC9E1F18D836C500C3E228 /* thumb_up_@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumb_up_@2x.png"; sourceTree = "<group>"; };
+		14B1182B18F3BF5F002C022C /* ChildFamilyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildFamilyViewController.h; sourceTree = "<group>"; };
+		14B1182C18F3BF5F002C022C /* ChildFamilyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildFamilyViewController.m; sourceTree = "<group>"; };
+		14B1182D18F3BF5F002C022C /* ChildFamilyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildFamilyViewController.xib; sourceTree = "<group>"; };
 		14BCE63418D84F630047F490 /* SkilleeDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SkilleeDetailViewController.xib; sourceTree = "<group>"; };
 		14BCE63618D84F7F0047F490 /* SkilleeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkilleeDetailViewController.h; sourceTree = "<group>"; };
 		14BCE63718D84F7F0047F490 /* SkilleeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkilleeDetailViewController.m; sourceTree = "<group>"; };
@@ -1168,6 +1173,9 @@
 				84D73B6A18E94AD2007DDBDB /* PendingInvitationsViewController.h */,
 				84D73B6B18E94AD2007DDBDB /* PendingInvitationsViewController.m */,
 				84D73B6C18E94AD2007DDBDB /* PendingInvitationsViewController.xib */,
+				14B1182B18F3BF5F002C022C /* ChildFamilyViewController.h */,
+				14B1182C18F3BF5F002C022C /* ChildFamilyViewController.m */,
+				14B1182D18F3BF5F002C022C /* ChildFamilyViewController.xib */,
 			);
 			path = InviteCreateUserViewController;
 			sourceTree = "<group>";
@@ -1278,6 +1286,7 @@
 				14BCE67A18D9B8E90047F490 /* big_text_view_BG@2x.png in Resources */,
 				1494F27918DAF0AB00728C1B /* back_BTN@2x.png in Resources */,
 				84E3E14E18E45640000D8D0D /* yes(check)_black@2x.png in Resources */,
+				14B1182F18F3BF5F002C022C /* ChildFamilyViewController.xib in Resources */,
 				84E3E14A18E45640000D8D0D /* user_selected@2x.png in Resources */,
 				14BCE68018D9B8E90047F490 /* rocket_BTN@2x.png in Resources */,
 				14BCE6F918D9EEA40047F490 /* extra_BTN_press@2x.png in Resources */,
@@ -1494,6 +1503,7 @@
 				849D2DBE18E1CB8000828ED4 /* FamilyMemberCell.m in Sources */,
 				1465110C18E54F5A002C2B2A /* ColorViewController.m in Sources */,
 				14F090AF18E1C96B000DAF80 /* ProfileTableCell.m in Sources */,
+				14B1182E18F3BF5F002C022C /* ChildFamilyViewController.m in Sources */,
 				84D73B9118EC2865007DDBDB /* AdultPermission.m in Sources */,
 				149232C318D740CE001BAE8C /* FavoriteTableCell.m in Sources */,
 				14A0851A18F284D50056B6F3 /* CellFiller.m in Sources */,

@@ -130,8 +130,9 @@ typedef enum {
             break;
         case SkilleeActionDeny:
             [self approveSkilleeAndExit:NO];
+            break;
         default:
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerCustom];
             break;
     }
 }
@@ -142,7 +143,7 @@ typedef enum {
     [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:approve success:^{
         NSLog(@"Success %@: %@", approve ? @"approved" : @"denied", skillee.Id);
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerCustom];
     } failure:^(NSError *error) {
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         NSString* title = [NSString stringWithFormat:@"%@ failed", approve ? @"Approve" : @"Deny"];

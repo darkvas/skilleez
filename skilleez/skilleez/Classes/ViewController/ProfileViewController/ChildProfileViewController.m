@@ -13,6 +13,7 @@
 #import "NetworkManager.h"
 #import "ProfileInfo.h"
 #import "ProfileViewController.h"
+#import "ChildFamilyViewController.h"
 
 #define CORNER_RADIUS 5.f
 #define FONT_SIZE 22
@@ -83,12 +84,8 @@
 
 - (void)cancel
 {
-    if (self.showFriendsFamily) {
-        FriendsFamilyViewController *family = [[FriendsFamilyViewController alloc] initForChild: self.familyMember.Id];
-        [self.navigationController pushViewController:family animated:YES];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    ChildFamilyViewController *childFamily = [[ChildFamilyViewController alloc] initWithChildID:self.familyMember.Id];
+    [self.navigationController pushViewController:childFamily animated:YES];
 }
 
 - (IBAction)showSkilleez:(id)sender {
