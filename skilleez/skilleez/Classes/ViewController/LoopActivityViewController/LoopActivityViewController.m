@@ -232,6 +232,9 @@
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:YES];
         [self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"ChildApprovalTableCell"]) {
+        offset = 0;
+        count = NUMBER_OF_ITEMS;
+        canLoadOnScroll = NO;
         [self loadWaitingForApprovalList];
     }
 }
