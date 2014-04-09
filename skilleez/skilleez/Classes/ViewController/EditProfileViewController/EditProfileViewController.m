@@ -15,6 +15,7 @@
 #import "NetworkManager.h"
 #import "ProfileInfo.h"
 #import "ActivityIndicatorController.h"
+#import "SkilleezListViewController.h"
 
 @interface EditProfileViewController () {
     NSArray *questions;
@@ -102,7 +103,7 @@
                                           method:@"showProfile"],
                  [[TableItem alloc] initWithName:@"My skilleez"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
-                                          method:@"showProfile"],
+                                          method:@"showMySkilleez"],
                  nil];
     favoriteColor = [UIColor blueColor];
 }
@@ -223,6 +224,12 @@
     color.delegate = self;
     color.selectedColor = favoriteColor;
     [self.navigationController pushViewController:color animated:YES];
+}
+
+- (void)showMySkilleez
+{
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:[UserSettingsManager sharedInstance].userInfo.UserID];
+    [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
 - (void)cutomize

@@ -192,6 +192,8 @@
 		84D9E10E18CA01D800516E2D /* BG_loading_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10C18CA01D800516E2D /* BG_loading_img@2x.png */; };
 		84DA71AB18EED0CB0013AECD /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DA71AA18EED0CB0013AECD /* KeyboardViewController.m */; };
 		84DA71AE18EED8750013AECD /* ActivityIndicatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DA71AD18EED8750013AECD /* ActivityIndicatorController.m */; };
+		84E14ED718F5295A002E6D7F /* SkilleezListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E14ED518F5295A002E6D7F /* SkilleezListViewController.m */; };
+		84E14ED818F5295A002E6D7F /* SkilleezListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E14ED618F5295A002E6D7F /* SkilleezListViewController.xib */; };
 		84E3E12B18E45640000D8D0D /* adul_user_BTN.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E10518E45640000D8D0D /* adul_user_BTN.png */; };
 		84E3E12C18E45640000D8D0D /* adul_user_BTN@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E10618E45640000D8D0D /* adul_user_BTN@2x.png */; };
 		84E3E12D18E45640000D8D0D /* adult_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E10718E45640000D8D0D /* adult_icon.png */; };
@@ -479,6 +481,9 @@
 		84DA71AA18EED0CB0013AECD /* KeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
 		84DA71AC18EED8750013AECD /* ActivityIndicatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorController.h; sourceTree = "<group>"; };
 		84DA71AD18EED8750013AECD /* ActivityIndicatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorController.m; sourceTree = "<group>"; };
+		84E14ED418F5295A002E6D7F /* SkilleezListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkilleezListViewController.h; sourceTree = "<group>"; };
+		84E14ED518F5295A002E6D7F /* SkilleezListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkilleezListViewController.m; sourceTree = "<group>"; };
+		84E14ED618F5295A002E6D7F /* SkilleezListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SkilleezListViewController.xib; sourceTree = "<group>"; };
 		84E3E10518E45640000D8D0D /* adul_user_BTN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adul_user_BTN.png; sourceTree = "<group>"; };
 		84E3E10618E45640000D8D0D /* adul_user_BTN@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adul_user_BTN@2x.png"; sourceTree = "<group>"; };
 		84E3E10718E45640000D8D0D /* adult_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adult_icon.png; sourceTree = "<group>"; };
@@ -884,6 +889,7 @@
 		84D6CE1A18D1BF1F008ABB5E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				84E14ED318F5292C002E6D7F /* SkilleezListViewController */,
 				84DA71A818EED0890013AECD /* HelpersViewControllers */,
 				140CDE6D18E95851001E97A7 /* PermissionsViewControllers */,
 				146510FA18E31F5F002C2B2A /* EditProfileViewController */,
@@ -1112,6 +1118,16 @@
 				84DA71AD18EED8750013AECD /* ActivityIndicatorController.m */,
 			);
 			path = HelpersViewControllers;
+			sourceTree = "<group>";
+		};
+		84E14ED318F5292C002E6D7F /* SkilleezListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84E14ED418F5295A002E6D7F /* SkilleezListViewController.h */,
+				84E14ED518F5295A002E6D7F /* SkilleezListViewController.m */,
+				84E14ED618F5295A002E6D7F /* SkilleezListViewController.xib */,
+			);
+			path = SkilleezListViewController;
 			sourceTree = "<group>";
 		};
 		84E3E10418E45640000D8D0D /* Create Invite Icon Pack */ = {
@@ -1363,6 +1379,7 @@
 				84E3E14818E45640000D8D0D /* search_img@2x.png in Resources */,
 				14D5736E18EBFAF700E0137C /* ChildProfileViewController.xib in Resources */,
 				84E7F69618E07752003662CA /* FriendsFamilyViewController.xib in Resources */,
+				84E14ED818F5295A002E6D7F /* SkilleezListViewController.xib in Resources */,
 				84E3E13118E45640000D8D0D /* arrow_white.png in Resources */,
 				140CDE8218E97E4D001E97A7 /* EditPermissionTableCell.xib in Resources */,
 				14BCE70518D9EEA40047F490 /* pandimg_BTN_press@2x.png in Resources */,
@@ -1523,6 +1540,7 @@
 				84D73B8C18E99E65007DDBDB /* ProfileInfo.m in Sources */,
 				84CEC79718E2FD5E00DD55B5 /* CreateAdultViewController.m in Sources */,
 				148104DB18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m in Sources */,
+				84E14ED718F5295A002E6D7F /* SkilleezListViewController.m in Sources */,
 				1465110518E31F98002C2B2A /* ProfileViewController.m in Sources */,
 				84D73B7A18E968B9007DDBDB /* SendInviteViewController.m in Sources */,
 				84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */,
