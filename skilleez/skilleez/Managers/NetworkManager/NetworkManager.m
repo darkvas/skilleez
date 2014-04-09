@@ -26,6 +26,16 @@
 #define POST_MARK_AS_TATTLE @"api/Skillee/MarkAsTattle"
 #define POST_APPROVE_OR_DENY @"api/Skillee/ApproveOrDeny"
 
+#define POST_ADD_CHILD_TO_FAMILY @"api/User/AddChildToTheFamily"
+#define POST_INVITE_ADULT_TO_FAMILY @"api/User/InviteAdultToTheFamily"
+#define POST_REMOVE_MEMBER_FROM_FAMILY @"api/User/DeleteMemberFromTheFamily"
+#define GET_FRIENDS_AND_FAMILY @"api/User/GetFriendsAndFamily"
+#define GET_ADULTPERMISSIONS @"api/User/GetAdultPermissions"
+
+#define GET_PROFILEINFO_URI @"api/Profile/GetProfileInfo"
+#define POST_PROFILEIMAGE_URI @"api/Profile/EditProfileImage"
+#define POST_PROFILEINFO_URI @"api/Profile/EditProfileInfo"
+
 @implementation NetworkManager
 {
     RKObjectManager* manager;
@@ -57,10 +67,137 @@
     return self;
 }
 
-- (void)setupRestKit{
-    
+- (void)setupRestKit
+{
     manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:SKILLEEZ_URL]];
     [manager.HTTPClient setDefaultHeader: @"Accept" value:RKMIMETypeJSON];
+    
+    [self initResponseDescriptors];
+}
+
+-(void) initResponseDescriptors
+{
+    RKObjectMapping *userInfoMapping = [UserInfo defineObjectMapping];
+    [manager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:userInfoMapping
+                                                                                method:RKRequestMethodGET
+                                                                           pathPattern:GET_USERINFO_URI
+                                                                               keyPath:@"ReturnValue"
+                                                                           statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    RKObjectMapping *skilleeMapping = [SkilleeModel defineObjectMapping];
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_SKILLEE_LIST_URI
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_USER_SKILLEE_LIST_URI
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_WAITING_FOR_APPROVAL_URI
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_FAVORITE_LIST
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                method:RKRequestMethodGET
+                                                                           pathPattern:GET_WAITING_FOR_APPROVAL_COUNT
+                                                                               keyPath:nil
+                                                                           statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_CREATE_SKILLEE
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_REMOVE
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_ADD_TO_FAVORITES
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_REMOVE_FROM_FAVORITES
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_MARK_AS_TATTLE
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_APPROVE_OR_DENY
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_CAN_APPROVE
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_ADD_CHILD_TO_FAMILY
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_INVITE_ADULT_TO_FAMILY
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[FamilyMemberModel defineObjectMapping]
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_FRIENDS_AND_FAMILY
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[AdultPermission defineObjectMapping]
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_ADULTPERMISSIONS
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[ProfileInfo defineObjectMapping]
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_PROFILEINFO_URI
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_PROFILEIMAGE_URI
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_PROFILEINFO_URI
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
 }
 
 -(void) tryLogin:(NSString *)username password:(NSString*)password withLoginCallBeck: (void(^)(BOOL loginResult, NSError* error)) loginCallBack
@@ -78,14 +215,6 @@
 -(void) getUserInfo:(void (^)(UserInfo *userInfo))successUserInfo failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKObjectMapping *userInfoMapping = [UserInfo defineObjectMapping];
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:userInfoMapping
-                                                                                             method:RKRequestMethodGET
-                                                                                        pathPattern:GET_USERINFO_URI
-                                                                                            keyPath:@"ReturnValue"
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
 
     [manager getObjectsAtPath:[SKILLEEZ_URL stringByAppendingString:GET_USERINFO_URI]
                          parameters:nil
@@ -102,20 +231,13 @@
 -(void) getSkilleeList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_SKILLEE_LIST_URI, count, offset];
-    [self prepareSkilleeRequest: GET_SKILLEE_LIST_URI];
+    [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
--(void) prepareSkilleeRequest:(NSString*) urlPattern
+-(void) prepareSkilleeRequest
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    RKObjectMapping *skilleeMapping = [SkilleeModel defineObjectMapping];
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
-                                                                                             method:RKRequestMethodGET
-                                                                                        pathPattern:urlPattern
-                                                                                            keyPath:@"ReturnValue"
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
 }
 
 -(void) getSkilleeResultForUrl: (NSString*) requestUrl withSuccess: (void (^)(NSArray *skilleeList))successSkillee failure:(void (^)(NSError *error))failure
@@ -137,37 +259,30 @@
      }];
 }
 
--(void) getSkilleeListForUser:(int) userId count: (int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
+-(void) getSkilleeListForUser:(NSString*) userId count: (int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
-    NSString* requestUrl = [NSString stringWithFormat:@"%@%@?UserId=%iCount=%i&Offset=%i", SKILLEEZ_URL, GET_USER_SKILLEE_LIST_URI, userId, count, offset];
-    [self prepareSkilleeRequest:GET_USER_SKILLEE_LIST_URI];
+    NSString* requestUrl = [NSString stringWithFormat:@"%@%@?UserId=%@&Count=%i&Offset=%i", SKILLEEZ_URL, GET_USER_SKILLEE_LIST_URI, userId, count, offset];
+    [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
 -(void) getWaitingForApproval:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_WAITING_FOR_APPROVAL_URI, count, offset];
-    [self prepareSkilleeRequest:GET_WAITING_FOR_APPROVAL_URI];
+    [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
 -(void) getFavoriteList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_FAVORITE_LIST, count, offset];
-    [self prepareSkilleeRequest:GET_FAVORITE_LIST];
+    [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
 -(void) getWaitingForApprovalCountSuccess: (void (^)(int approvalCount))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodGET
-                                                                                        pathPattern:GET_WAITING_FOR_APPROVAL_COUNT
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
     
     [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_WAITING_FOR_APPROVAL_COUNT, 1, 0]
                    parameters:nil
@@ -185,14 +300,6 @@
 -(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:nil
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    
-    [manager addResponseDescriptor:responseDescriptor];
     
     NSMutableURLRequest *request = [manager multipartFormRequestWithObject:skilleeRequest
                                                                     method:RKRequestMethodPOST
@@ -245,13 +352,6 @@
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:POST_REMOVE
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
-    
     NSDictionary *jsonData = @{@"Id": skilleeId};
     
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE] parameters:jsonData
@@ -268,13 +368,6 @@
 -(void) postAddToFavorites:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:nil
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
     
     NSDictionary *jsonData = @{@"Id": skilleeId};
     
@@ -293,13 +386,6 @@
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:nil
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
-    
     NSDictionary *jsonData = @{@"Id": skilleeId};
     
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE_FROM_FAVORITES] parameters:jsonData
@@ -317,13 +403,6 @@
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:nil
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
-    
     NSDictionary *jsonData = @{@"Id": skilleeId};
     
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_MARK_AS_TATTLE] parameters:jsonData
@@ -337,17 +416,9 @@
      }];
 }
 
-//need check and test
 -(void) postApproveOrDenySkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:nil
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
     
     NSDictionary *jsonData = @{
         @"SkilleeID": skilleeId,
@@ -370,13 +441,6 @@
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodGET
-                                                                                        pathPattern:GET_CAN_APPROVE
-                                                                                            keyPath:@"ReturnValue"
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
-    
     [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Id=%@", SKILLEEZ_URL, GET_CAN_APPROVE, skilleeId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
@@ -394,33 +458,9 @@
 
 #pragma mark User - need to test
 
-#define POST_ADD_CHILD_TO_FAMILY @"api/User/AddChildToTheFamily"
-#define POST_INVITE_ADULT_TO_FAMILY @"api/User/InviteAdultToTheFamily"
-#define POST_REMOVE_MEMBER_FROM_FAMILY @"api/User/DeleteMemberFromTheFamily"
-#define GET_FRIENDS_AND_FAMILY @"api/User/GetFriendsAndFamily"
-#define GET_ADULTPERMISSIONS @"api/User/GetAdultPermissions"
-
-/*
-GET api/User/GetMyInfo
-POST api/User/AddChildToTheFamily
-POST api/User/InviteAdultToTheFamily
-POST api/User/DeleteMemberFromTheFamily
-POST api/User/ResendAdultFamilyInvitation
-GET api/User/GetInvitedEmails
-GET api/User/GetFriendsAndFamily/{Id}
-GET api/User/GetAdultPermissions?MainFamilyUserId={MainFamilyUserId}&AdultId={AdultId}
-POST api/User/SetAdultPermissions*/
-
 -(void) postAddChildToFamily:(NSString*) childId withPass:(NSString*) childPassword success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:nil
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
     
     NSDictionary *jsonData = @{
                                    @"ChildID": childId,
@@ -441,13 +481,6 @@ POST api/User/SetAdultPermissions*/
 -(void) postInviteAdultToFamily:(NSString*) email success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:nil
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
     
     NSDictionary *jsonData = @{
                                @"Email": email
@@ -495,14 +528,6 @@ POST api/User/SetAdultPermissions*/
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    RKObjectMapping *familyMemberMapping = [FamilyMemberModel defineObjectMapping];
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:familyMemberMapping
-                                                                                             method:RKRequestMethodGET
-                                                                                        pathPattern:GET_FRIENDS_AND_FAMILY
-                                                                                            keyPath:@"ReturnValue"
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
-    
     [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Id=%@", SKILLEEZ_URL, GET_FRIENDS_AND_FAMILY, userId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
@@ -525,14 +550,6 @@ POST api/User/SetAdultPermissions*/
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    RKObjectMapping *adultPermissionMapping = [AdultPermission defineObjectMapping];
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:adultPermissionMapping
-                                                                                             method:RKRequestMethodGET
-                                                                                        pathPattern:GET_ADULTPERMISSIONS
-                                                                                            keyPath:@"ReturnValue"
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
-    
     [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?MainFamilyUserId=%@&AdultId=%@", SKILLEEZ_URL, GET_ADULTPERMISSIONS, userId, adultId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
@@ -553,21 +570,9 @@ POST api/User/SetAdultPermissions*/
 
 #pragma mark Profile - need to test
 
-#define GET_PROFILEINFO_URI @"api/Profile/GetProfileInfo"
-#define POST_PROFILEIMAGE_URI @"api/Profile/EditProfileImage"
-#define POST_PROFILEINFO_URI @"api/Profile/EditProfileInfo"
-
 -(void) getProfileInfo:(NSString*) userId success: (void (^)(ProfileInfo *profileInfo))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKObjectMapping *profileInfoMapping = [ProfileInfo defineObjectMapping];
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:profileInfoMapping
-                                                                                             method:RKRequestMethodGET
-                                                                                        pathPattern:GET_PROFILEINFO_URI
-                                                                                            keyPath:@"ReturnValue"
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
     
     [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Id=%@", SKILLEEZ_URL, GET_PROFILEINFO_URI, userId]
                    parameters:nil
@@ -592,14 +597,6 @@ POST api/User/SetAdultPermissions*/
 -(void) postProfileImage: (NSData*) imageData success: (void (^) (void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:POST_PROFILEIMAGE_URI
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    
-    [manager addResponseDescriptor:responseDescriptor];
     
     NSMutableURLRequest *request = [manager multipartFormRequestWithObject:imageData
                                                                     method:RKRequestMethodPOST
@@ -636,13 +633,6 @@ POST api/User/SetAdultPermissions*/
 -(void) postProfileInfo: (ProfileInfo*) profileInfo success: (void (^) (void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-    
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:POST_PROFILEINFO_URI
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
     
     NSDictionary *jsonData = @{
                                @"Login": profileInfo.Login ? profileInfo.Login : @"",

@@ -15,6 +15,7 @@
 #import "NetworkManager.h"
 #import "ProfileInfo.h"
 #import "ActivityIndicatorController.h"
+#import "SkilleezListViewController.h"
 
 @interface EditProfileViewController () {
     NSArray *questions;
@@ -106,7 +107,7 @@
                                           method:@"chooseFood"],
                  [[TableItem alloc] initWithName:@"My skilleez"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
-                                          method:@"showProfile"],
+                                          method:@"showMySkilleez"],
                  nil];
     favoriteColor = [UIColor blueColor];
 }
