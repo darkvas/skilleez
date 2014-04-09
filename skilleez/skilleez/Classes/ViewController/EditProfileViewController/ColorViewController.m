@@ -9,9 +9,11 @@
 #import "ColorViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
+#import "UserSettingsManager.h"
 
 @interface ColorViewController () {
-    NSArray *colors;
+    NSArray *items;
+    ProfileInfo *profileInfo;
 }
 @property (weak, nonatomic) IBOutlet UILabel *whatColorLbl;
 @property (weak, nonatomic) IBOutlet UIView *colorImg;
@@ -31,10 +33,19 @@
     return self;
 }
 
+
+- (id)initWithProfile:(ProfileInfo *)profile
+{
+    if (self = [super init]) {
+        profileInfo = profile;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    colors = [NSArray arrayWithObjects:   [UIColor colorWithRed:0.99 green:0.43 blue:0.55 alpha:1.0],
+    items = [NSArray arrayWithObjects:    [UIColor colorWithRed:0.99 green:0.43 blue:0.55 alpha:1.0],
                                           [UIColor colorWithRed:0.99 green:0.66 blue:0.18 alpha:1.0],
                                           [UIColor colorWithRed:0.99 green:0.77 blue:0.45 alpha:1.0],
                                           [UIColor colorWithRed:1.0 green:0.92 blue:0.69 alpha:1.0],
@@ -55,7 +66,7 @@
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     // Do any additional setup after loading the view from its nib.
-    
+    self.colorImg.backgroundColor = profileInfo.Color;
     if(self.selectedColor)
         self.colorImg.backgroundColor = self.selectedColor;
 }
@@ -77,22 +88,22 @@
     }
     cell.layer.borderWidth = 1.f;
     cell.layer.borderColor = [[UIColor grayColor] CGColor];
-    [cell setBackgroundColor:[colors objectAtIndex:indexPath.row]];
+    [cell setBackgroundColor:[items objectAtIndex:indexPath.row]];
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [colors count];
+    return [items count];
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.colorImg.backgroundColor = [colors objectAtIndex:indexPath.row];
+    self.colorImg.backgroundColor = [items objectAtIndex:indexPath.row];
     self.selectedColor = self.colorImg.backgroundColor;
-     NSLog(@"selected color: %@", self.selectedColor);
+    NSLog(@"selected color: %@", self.selectedColor);
 }
 
 #pragma mark - Class methods

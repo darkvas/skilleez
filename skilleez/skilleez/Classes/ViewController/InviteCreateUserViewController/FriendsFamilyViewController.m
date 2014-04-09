@@ -56,6 +56,11 @@
     [self customizeElements];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
+    //[self loadFamilyData:[UserSettingsManager sharedInstance].userInfo.UserID];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [self loadFamilyData:[UserSettingsManager sharedInstance].userInfo.UserID];
 }
 

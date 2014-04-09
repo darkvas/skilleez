@@ -53,6 +53,11 @@
     [self.view addSubview: navBar];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
+    //[self loadFamilyData:childId];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [self loadFamilyData:childId];
 }
 

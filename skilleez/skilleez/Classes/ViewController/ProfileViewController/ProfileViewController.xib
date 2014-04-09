@@ -1,71 +1,116 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController">
             <connections>
-                <outlet property="userAvatarImg" destination="ytK-af-6Jt" id="Ujb-bG-wPb"/>
-                <outlet property="userColorImg" destination="ofB-D6-b8l" id="TTg-nu-2r1"/>
-                <outlet property="userDescLbl" destination="hhL-DU-hiD" id="Cjr-ca-pac"/>
-                <outlet property="userFoodImg" destination="6Es-tR-ee7" id="9Ck-Kv-HkU"/>
-                <outlet property="userMusicImg" destination="vS2-wg-eOy" id="4MU-Zh-lae"/>
-                <outlet property="userSportImg" destination="Fi3-p3-Ku6" id="xSu-E1-htO"/>
-                <outlet property="userSubjectImg" destination="omF-pT-PEW" id="OqU-rN-G4n"/>
-                <outlet property="view" destination="1" id="Tqr-4A-0PD"/>
+                <outlet property="scrollView" destination="cCV-4f-O7I" id="tS4-Xu-McQ"/>
+                <outlet property="userAvatarImg" destination="tj1-TT-JM1" id="eAQ-c1-GYw"/>
+                <outlet property="userColorButton" destination="lGW-Wv-xDe" id="gOa-tS-9Rg"/>
+                <outlet property="userDescTextView" destination="Alo-OG-Mhs" id="kRc-VR-9V0"/>
+                <outlet property="userFoodButton" destination="Pi6-bX-DDJ" id="BNF-9N-Wd5"/>
+                <outlet property="userMusicButton" destination="n4i-QZ-ncd" id="ViX-NN-oAP"/>
+                <outlet property="userSportButton" destination="AfW-lT-eZU" id="ojl-D7-NXt"/>
+                <outlet property="userSubjectButton" destination="a97-V8-IAf" id="cBx-ga-ARb"/>
+                <outlet property="view" destination="1" id="P55-gc-t8t"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" id="cCV-4f-O7I">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="675"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skilleez_app_icon_1024.png" id="tj1-TT-JM1">
+                    <rect key="frame" x="78" y="42" width="164" height="164"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                </imageView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" id="Alo-OG-Mhs">
+                    <rect key="frame" x="10" y="304" width="300" height="110"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.  </string>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lGW-Wv-xDe">
+                    <rect key="frame" x="32" y="233" width="45" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="selectColor:" destination="-1" eventType="touchUpInside" id="0zN-BT-JM1"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AfW-lT-eZU">
+                    <rect key="frame" x="85" y="233" width="45" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.95686274510000002" green="0.76862745099999996" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="selectFavorite:" destination="-1" eventType="touchUpInside" id="oSY-vF-bAr"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JBc-yD-30d">
+                    <rect key="frame" x="138" y="233" width="45" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="a97-V8-IAf">
+                    <rect key="frame" x="138" y="233" width="45" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.87843137250000003" green="0.35686274509999999" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="selectFavorite:" destination="-1" eventType="touchUpInside" id="hEG-oa-Nw3"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="n4i-QZ-ncd">
+                    <rect key="frame" x="191" y="233" width="45" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.27843138579999999" green="0.74509805439999999" blue="0.082352943720000002" alpha="1" colorSpace="deviceRGB"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="selectFavorite:" destination="-1" eventType="touchUpInside" id="2gY-Aj-u2J"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Pi6-bX-DDJ">
+                    <rect key="frame" x="244" y="233" width="45" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.33725490200000002" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="selectFavorite:" destination="-1" eventType="touchUpInside" id="gGl-Yf-f0n"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="delegate" destination="-1" id="EGE-4C-TcA"/>
+            </connections>
+        </scrollView>
         <view contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="skilleez_app_icon_1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="ytK-af-6Jt">
-                    <rect key="frame" x="78" y="106" width="164" height="164"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="hhL-DU-hiD">
-                    <rect key="frame" x="10" y="364" width="300" height="204"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <string key="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rocket_BTN.png" translatesAutoresizingMaskIntoConstraints="NO" id="ofB-D6-b8l">
-                    <rect key="frame" x="32" y="297" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.27843138579999999" green="0.74509805439999999" blue="0.082352943720000002" alpha="1" colorSpace="deviceRGB"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rocket_BTN.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fi3-p3-Ku6">
-                    <rect key="frame" x="85" y="297" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rocket_BTN.png" translatesAutoresizingMaskIntoConstraints="NO" id="omF-pT-PEW">
-                    <rect key="frame" x="138" y="297" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.94901960780000005" green="0.37254901959999998" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rocket_BTN.png" translatesAutoresizingMaskIntoConstraints="NO" id="vS2-wg-eOy">
-                    <rect key="frame" x="191" y="297" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.46814282550000003" green="0.96243223850000004" blue="0.77303278809999998" alpha="1" colorSpace="calibratedRGB"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rocket_BTN.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Es-tR-ee7">
-                    <rect key="frame" x="244" y="297" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.96470588239999999" green="0.76862745099999996" blue="0.16078431369999999" alpha="1" colorSpace="deviceRGB"/>
-                </imageView>
-            </subviews>
             <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
     <resources>
-        <image name="rocket_BTN.png" width="52" height="52"/>
         <image name="skilleez_app_icon_1024.png" width="1024" height="1024"/>
     </resources>
 </document>

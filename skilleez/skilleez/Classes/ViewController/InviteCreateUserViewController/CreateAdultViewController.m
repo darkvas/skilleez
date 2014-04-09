@@ -96,4 +96,12 @@
     }];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        self.tfUserEmail.text = @"";
+        [self.tfUserEmail resignFirstResponder];
+    }
+}
+
 @end

@@ -29,13 +29,15 @@
 		140CDE9B18EA930C001E97A7 /* skilleez_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 140CDE8F18EA930C001E97A7 /* skilleez_icon@2x.png */; };
 		140CDEA818EAEAF2001E97A7 /* NavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CDEA718EAEAF2001E97A7 /* NavigationBarView.m */; };
 		140CDEAB18EB042A001E97A7 /* UINavigationController+Push.m in Sources */ = {isa = PBXBuildFile; fileRef = 140CDEAA18EB042A001E97A7 /* UINavigationController+Push.m */; };
+		14554B3918F543A6007D92F4 /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14554B3718F543A6007D92F4 /* ColorViewController.m */; };
+		14554B3A18F543A7007D92F4 /* ColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14554B3818F543A6007D92F4 /* ColorViewController.xib */; };
 		146510FF18E31F60002C2B2A /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146510FC18E31F5F002C2B2A /* EditProfileViewController.m */; };
 		1465110018E31F60002C2B2A /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 146510FD18E31F5F002C2B2A /* EditProfileViewController.xib */; };
 		1465110218E31F83002C2B2A /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1465110118E31F83002C2B2A /* ProfileViewController.xib */; };
 		1465110518E31F98002C2B2A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1465110418E31F98002C2B2A /* ProfileViewController.m */; };
 		1465110818E42C47002C2B2A /* TableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1465110718E42C47002C2B2A /* TableItem.m */; };
-		1465110C18E54F5A002C2B2A /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1465110A18E54F5A002C2B2A /* ColorViewController.m */; };
-		1465110D18E54F5A002C2B2A /* ColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1465110B18E54F5A002C2B2A /* ColorViewController.xib */; };
+		1465110C18E54F5A002C2B2A /* SelectFavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1465110A18E54F5A002C2B2A /* SelectFavoriteViewController.m */; };
+		1465110D18E54F5A002C2B2A /* SelectFavoriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1465110B18E54F5A002C2B2A /* SelectFavoriteViewController.xib */; };
 		148104DB18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 148104DA18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m */; };
 		1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 1492329D18D6DD90001BAE8C /* UIFont+DefaultFont.m */; };
 		149232B518D73A40001BAE8C /* AdultApprovalTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 149232AB18D73A40001BAE8C /* AdultApprovalTableCell.m */; };
@@ -278,6 +280,9 @@
 		140CDEA718EAEAF2001E97A7 /* NavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarView.m; sourceTree = "<group>"; };
 		140CDEA918EB042A001E97A7 /* UINavigationController+Push.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Push.h"; sourceTree = "<group>"; };
 		140CDEAA18EB042A001E97A7 /* UINavigationController+Push.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Push.m"; sourceTree = "<group>"; };
+		14554B3618F543A6007D92F4 /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
+		14554B3718F543A6007D92F4 /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
+		14554B3818F543A6007D92F4 /* ColorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorViewController.xib; sourceTree = "<group>"; };
 		146510FB18E31F5F002C2B2A /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		146510FC18E31F5F002C2B2A /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		146510FD18E31F5F002C2B2A /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
@@ -286,9 +291,9 @@
 		1465110418E31F98002C2B2A /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		1465110618E42C47002C2B2A /* TableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableItem.h; sourceTree = "<group>"; };
 		1465110718E42C47002C2B2A /* TableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableItem.m; sourceTree = "<group>"; };
-		1465110918E54F5A002C2B2A /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
-		1465110A18E54F5A002C2B2A /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
-		1465110B18E54F5A002C2B2A /* ColorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorViewController.xib; sourceTree = "<group>"; };
+		1465110918E54F5A002C2B2A /* SelectFavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectFavoriteViewController.h; sourceTree = "<group>"; };
+		1465110A18E54F5A002C2B2A /* SelectFavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFavoriteViewController.m; sourceTree = "<group>"; };
+		1465110B18E54F5A002C2B2A /* SelectFavoriteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectFavoriteViewController.xib; sourceTree = "<group>"; };
 		148104D918D82F1600B54790 /* UITableViewCell+SkilleeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+SkilleeTableCell.h"; sourceTree = "<group>"; };
 		148104DA18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+SkilleeTableCell.m"; sourceTree = "<group>"; };
 		1492329C18D6DD90001BAE8C /* UIFont+DefaultFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+DefaultFont.h"; sourceTree = "<group>"; };
@@ -626,9 +631,12 @@
 				146510FB18E31F5F002C2B2A /* EditProfileViewController.h */,
 				146510FC18E31F5F002C2B2A /* EditProfileViewController.m */,
 				146510FD18E31F5F002C2B2A /* EditProfileViewController.xib */,
-				1465110918E54F5A002C2B2A /* ColorViewController.h */,
-				1465110A18E54F5A002C2B2A /* ColorViewController.m */,
-				1465110B18E54F5A002C2B2A /* ColorViewController.xib */,
+				1465110918E54F5A002C2B2A /* SelectFavoriteViewController.h */,
+				1465110A18E54F5A002C2B2A /* SelectFavoriteViewController.m */,
+				1465110B18E54F5A002C2B2A /* SelectFavoriteViewController.xib */,
+				14554B3618F543A6007D92F4 /* ColorViewController.h */,
+				14554B3718F543A6007D92F4 /* ColorViewController.m */,
+				14554B3818F543A6007D92F4 /* ColorViewController.xib */,
 			);
 			path = EditProfileViewController;
 			sourceTree = "<group>";
@@ -925,12 +933,12 @@
 				84CEC78918E2DF0900DD55B5 /* NewUserTypeView.xib */,
 				84CEC78B18E2DF3D00DD55B5 /* NewUserTypeView.h */,
 				84CEC78C18E2DF3D00DD55B5 /* NewUserTypeView.m */,
-				84CEC78E18E2FCF300DD55B5 /* CreateChildViewController.xib */,
 				84CEC79018E2FD1400DD55B5 /* CreateChildViewController.h */,
 				84CEC79118E2FD1400DD55B5 /* CreateChildViewController.m */,
-				84CEC79318E2FD4400DD55B5 /* CreateAdultViewController.xib */,
+				84CEC78E18E2FCF300DD55B5 /* CreateChildViewController.xib */,
 				84CEC79518E2FD5E00DD55B5 /* CreateAdultViewController.h */,
 				84CEC79618E2FD5E00DD55B5 /* CreateAdultViewController.m */,
+				84CEC79318E2FD4400DD55B5 /* CreateAdultViewController.xib */,
 			);
 			name = CreateUsers;
 			sourceTree = "<group>";
@@ -1353,7 +1361,7 @@
 				14BCE67C18D9B8E90047F490 /* Camera_icon@2x.png in Resources */,
 				14C8F37018DC3F6E0052E915 /* circle_delete.png in Resources */,
 				1465110018E31F60002C2B2A /* EditProfileViewController.xib in Resources */,
-				1465110D18E54F5A002C2B2A /* ColorViewController.xib in Resources */,
+				1465110D18E54F5A002C2B2A /* SelectFavoriteViewController.xib in Resources */,
 				14AC9E2918D836C500C3E228 /* thumb_down_@2x.png in Resources */,
 				84CEC78A18E2DF0900DD55B5 /* NewUserTypeView.xib in Resources */,
 				140CDE9918EA930C001E97A7 /* settings_icon@2x.png in Resources */,
@@ -1380,6 +1388,7 @@
 				14BCE67918D9B8E90047F490 /* big_text_view_BG.png in Resources */,
 				14BCE67B18D9B8E90047F490 /* Camera_icon.png in Resources */,
 				14BCE6F318D9EEA40047F490 /* create_BTN@2x.png in Resources */,
+				14554B3A18F543A7007D92F4 /* ColorViewController.xib in Resources */,
 				1494F27618DAF0AB00728C1B /* back_BTN_press.png in Resources */,
 				14C8F36718DC1DEA0052E915 /* go_btn@2x.png in Resources */,
 				140CDE9018EA930C001E97A7 /* delete_icon.png in Resources */,
@@ -1501,7 +1510,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				849D2DBE18E1CB8000828ED4 /* FamilyMemberCell.m in Sources */,
-				1465110C18E54F5A002C2B2A /* ColorViewController.m in Sources */,
+				1465110C18E54F5A002C2B2A /* SelectFavoriteViewController.m in Sources */,
 				14F090AF18E1C96B000DAF80 /* ProfileTableCell.m in Sources */,
 				14B1182E18F3BF5F002C022C /* ChildFamilyViewController.m in Sources */,
 				84D73B9118EC2865007DDBDB /* AdultPermission.m in Sources */,
@@ -1546,6 +1555,7 @@
 				84D73B6D18E94AD2007DDBDB /* PendingInvitationsViewController.m in Sources */,
 				84DA71AB18EED0CB0013AECD /* KeyboardViewController.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,
+				14554B3918F543A6007D92F4 /* ColorViewController.m in Sources */,
 				84D73B7518E95879007DDBDB /* InviteToLoopViewController.m in Sources */,
 				14A2CAED18E05DCE00A87F86 /* MenuViewController.m in Sources */,
 				140CDE7118E9588C001E97A7 /* ProfilePermissionViewController.m in Sources */,
