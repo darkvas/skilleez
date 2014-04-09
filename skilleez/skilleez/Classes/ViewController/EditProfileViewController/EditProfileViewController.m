@@ -255,6 +255,12 @@
     [self.navigationController pushViewController:color animated:YES];
 }
 
+- (void)showMySkilleez
+{
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:[UserSettingsManager sharedInstance].userInfo.UserID];
+    [self.navigationController pushViewController:skilleezView animated:YES];
+}
+
 - (void)chooseSport
 {
     SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType:SPORT];
