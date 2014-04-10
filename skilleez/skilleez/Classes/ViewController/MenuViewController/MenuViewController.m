@@ -13,6 +13,7 @@
 #import "UserSettingsManager.h"
 #import "EditProfileViewController.h"
 #import "TableItem.h"
+#import "MessageListViewController.h"
 
 @interface MenuViewController () {
     NSArray *items;
@@ -51,10 +52,11 @@
     items = [NSArray arrayWithObjects:[[TableItem alloc] initWithName:@"My profile" image:nil method:@"showMyProfile"],
                                       [[TableItem alloc] initWithName:@"Events" image:nil method:@"showMyProfile"],
                                       [[TableItem alloc] initWithName:@"Find friends" image:nil method:@"showMyProfile"],
+                                      [[TableItem alloc] initWithName:@"My Messages" image:nil method:@"showMessages"],
                                       [[TableItem alloc] initWithName:@"Friends & Family" image:nil method:@"showFamily"], nil];
     [self.userAvatarImg setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
     self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.FullName;
-    self.tableView.frame = CGRectMake(0, 82, 256, [items count] * 48);
+    self.tableView.frame = CGRectMake(0, 82, 256, [items count] * 50);
     [self customize];
 	// Do any additional setup after loading the view.
 }
@@ -93,7 +95,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 49;
+    return 50;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -132,7 +134,14 @@
 - (void)showFamily
 {
     FriendsFamilyViewController *familyCtrl = [[FriendsFamilyViewController alloc] initWithNibName:@"FriendsFamilyViewController" bundle:nil];
-    [((UIViewController*)self.view.superview.nextResponder).navigationController pushViewController:familyCtrl animated:YES];
+    [self.loopCtrl.navigationController pushViewController:familyCtrl animated:YES];
+    [self.loopCtrl hideMenu];
+}
+
+- (void)showMessages
+{
+    MessageListViewController *messageListView = [MessageListViewController new];
+    [self.loopCtrl.navigationController pushViewController:messageListView animated:YES];
     [self.loopCtrl hideMenu];
 }
 

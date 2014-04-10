@@ -16,6 +16,7 @@
 #import "ProfileInfo.h"
 #import "SendMessageViewController.h"
 #import "SkilleezListViewController.h"
+#import "SettingsViewController.h"
 
 #define CORNER_RADIUS 5.f
 #define FONT_SIZE 22
@@ -132,6 +133,8 @@
 
 - (IBAction)showSettings:(id)sender
 {
+    SettingsViewController *settingsView = [SettingsViewController new];
+    [self.navigationController pushViewController:settingsView animated:YES];
 }
 
 - (IBAction)sendEmail:(id)sender

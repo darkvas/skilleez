@@ -196,8 +196,6 @@
 		84E14ED818F5295A002E6D7F /* SkilleezListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E14ED618F5295A002E6D7F /* SkilleezListViewController.xib */; };
 		84E14EDC18F5668F002E6D7F /* AdultProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E14EDA18F5668F002E6D7F /* AdultProfileViewController.m */; };
 		84E14EDD18F5668F002E6D7F /* AdultProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E14EDB18F5668F002E6D7F /* AdultProfileViewController.xib */; };
-		84E14EE218F5688E002E6D7F /* SendMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E14EE018F5688E002E6D7F /* SendMessageViewController.m */; };
-		84E14EE318F5688E002E6D7F /* SendMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E14EE118F5688E002E6D7F /* SendMessageViewController.xib */; };
 		84E3E12B18E45640000D8D0D /* adul_user_BTN.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E10518E45640000D8D0D /* adul_user_BTN.png */; };
 		84E3E12C18E45640000D8D0D /* adul_user_BTN@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E10618E45640000D8D0D /* adul_user_BTN@2x.png */; };
 		84E3E12D18E45640000D8D0D /* adult_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E10718E45640000D8D0D /* adult_icon.png */; };
@@ -236,6 +234,16 @@
 		84E3E14E18E45640000D8D0D /* yes(check)_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E12818E45640000D8D0D /* yes(check)_black@2x.png */; };
 		84E3E14F18E45640000D8D0D /* yes(check)_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E12918E45640000D8D0D /* yes(check)_white.png */; };
 		84E3E15018E45640000D8D0D /* yes(check)_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3E12A18E45640000D8D0D /* yes(check)_white@2x.png */; };
+		84E4D0C118F681B2002D264F /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E4D0BF18F681B2002D264F /* SettingsViewController.m */; };
+		84E4D0C218F681B2002D264F /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E4D0C018F681B2002D264F /* SettingsViewController.xib */; };
+		84E4D0C818F6949C002D264F /* SendMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E4D0C618F6949C002D264F /* SendMessageViewController.m */; };
+		84E4D0C918F6949C002D264F /* SendMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E4D0C718F6949C002D264F /* SendMessageViewController.xib */; };
+		84E4D0CD18F694C3002D264F /* MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E4D0CB18F694C3002D264F /* MessageListViewController.m */; };
+		84E4D0CE18F694C3002D264F /* MessageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E4D0CC18F694C3002D264F /* MessageListViewController.xib */; };
+		84E4D0D218F694DA002D264F /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E4D0D018F694DA002D264F /* MessageViewController.m */; };
+		84E4D0D318F694DA002D264F /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E4D0D118F694DA002D264F /* MessageViewController.xib */; };
+		84E4D0D718F695D4002D264F /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E4D0D618F695D4002D264F /* MessageCell.m */; };
+		84E4D0D918F6961A002D264F /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E4D0D818F6961A002D264F /* MessageCell.xib */; };
 		84E7F69618E07752003662CA /* FriendsFamilyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E7F69518E07752003662CA /* FriendsFamilyViewController.xib */; };
 		84E7F69918E077A4003662CA /* FriendsFamilyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E7F69818E077A4003662CA /* FriendsFamilyViewController.m */; };
 		84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA05C718D6F5FF008D940D /* SkilleeModel.m */; };
@@ -491,9 +499,6 @@
 		84E14ED918F5668F002E6D7F /* AdultProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdultProfileViewController.h; sourceTree = "<group>"; };
 		84E14EDA18F5668F002E6D7F /* AdultProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdultProfileViewController.m; sourceTree = "<group>"; };
 		84E14EDB18F5668F002E6D7F /* AdultProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdultProfileViewController.xib; sourceTree = "<group>"; };
-		84E14EDF18F5688E002E6D7F /* SendMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMessageViewController.h; sourceTree = "<group>"; };
-		84E14EE018F5688E002E6D7F /* SendMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMessageViewController.m; sourceTree = "<group>"; };
-		84E14EE118F5688E002E6D7F /* SendMessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendMessageViewController.xib; sourceTree = "<group>"; };
 		84E3E10518E45640000D8D0D /* adul_user_BTN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adul_user_BTN.png; sourceTree = "<group>"; };
 		84E3E10618E45640000D8D0D /* adul_user_BTN@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adul_user_BTN@2x.png"; sourceTree = "<group>"; };
 		84E3E10718E45640000D8D0D /* adult_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adult_icon.png; sourceTree = "<group>"; };
@@ -532,6 +537,21 @@
 		84E3E12818E45640000D8D0D /* yes(check)_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yes(check)_black@2x.png"; sourceTree = "<group>"; };
 		84E3E12918E45640000D8D0D /* yes(check)_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yes(check)_white.png"; sourceTree = "<group>"; };
 		84E3E12A18E45640000D8D0D /* yes(check)_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yes(check)_white@2x.png"; sourceTree = "<group>"; };
+		84E4D0BE18F681B2002D264F /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		84E4D0BF18F681B2002D264F /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		84E4D0C018F681B2002D264F /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		84E4D0C518F6949C002D264F /* SendMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMessageViewController.h; sourceTree = "<group>"; };
+		84E4D0C618F6949C002D264F /* SendMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMessageViewController.m; sourceTree = "<group>"; };
+		84E4D0C718F6949C002D264F /* SendMessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendMessageViewController.xib; sourceTree = "<group>"; };
+		84E4D0CA18F694C3002D264F /* MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListViewController.h; sourceTree = "<group>"; };
+		84E4D0CB18F694C3002D264F /* MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListViewController.m; sourceTree = "<group>"; };
+		84E4D0CC18F694C3002D264F /* MessageListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageListViewController.xib; sourceTree = "<group>"; };
+		84E4D0CF18F694DA002D264F /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		84E4D0D018F694DA002D264F /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		84E4D0D118F694DA002D264F /* MessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
+		84E4D0D518F695D4002D264F /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
+		84E4D0D618F695D4002D264F /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
+		84E4D0D818F6961A002D264F /* MessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		84E7F69518E07752003662CA /* FriendsFamilyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsFamilyViewController.xib; sourceTree = "<group>"; };
 		84E7F69718E077A4003662CA /* FriendsFamilyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsFamilyViewController.h; sourceTree = "<group>"; };
 		84E7F69818E077A4003662CA /* FriendsFamilyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsFamilyViewController.m; sourceTree = "<group>"; };
@@ -902,7 +922,8 @@
 		84D6CE1A18D1BF1F008ABB5E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				84E14EDE18F5686D002E6D7F /* SendMessageViewController */,
+				84E4D0C318F69476002D264F /* MessageViewControllers */,
+				84E4D0BD18F681A1002D264F /* SettingsViewController */,
 				84E14ED318F5292C002E6D7F /* SkilleezListViewController */,
 				84DA71A818EED0890013AECD /* HelpersViewControllers */,
 				140CDE6D18E95851001E97A7 /* PermissionsViewControllers */,
@@ -1144,16 +1165,6 @@
 			path = SkilleezListViewController;
 			sourceTree = "<group>";
 		};
-		84E14EDE18F5686D002E6D7F /* SendMessageViewController */ = {
-			isa = PBXGroup;
-			children = (
-				84E14EDF18F5688E002E6D7F /* SendMessageViewController.h */,
-				84E14EE018F5688E002E6D7F /* SendMessageViewController.m */,
-				84E14EE118F5688E002E6D7F /* SendMessageViewController.xib */,
-			);
-			path = SendMessageViewController;
-			sourceTree = "<group>";
-		};
 		84E3E10418E45640000D8D0D /* Create Invite Icon Pack */ = {
 			isa = PBXGroup;
 			children = (
@@ -1199,6 +1210,51 @@
 				84E3E12A18E45640000D8D0D /* yes(check)_white@2x.png */,
 			);
 			path = "Create Invite Icon Pack";
+			sourceTree = "<group>";
+		};
+		84E4D0BD18F681A1002D264F /* SettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84E4D0BE18F681B2002D264F /* SettingsViewController.h */,
+				84E4D0BF18F681B2002D264F /* SettingsViewController.m */,
+				84E4D0C018F681B2002D264F /* SettingsViewController.xib */,
+			);
+			path = SettingsViewController;
+			sourceTree = "<group>";
+		};
+		84E4D0C318F69476002D264F /* MessageViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				84E4D0D418F6956F002D264F /* MessageTableCell */,
+				84E4D0C418F6949C002D264F /* SendMessageViewController */,
+				84E4D0CA18F694C3002D264F /* MessageListViewController.h */,
+				84E4D0CB18F694C3002D264F /* MessageListViewController.m */,
+				84E4D0CC18F694C3002D264F /* MessageListViewController.xib */,
+				84E4D0CF18F694DA002D264F /* MessageViewController.h */,
+				84E4D0D018F694DA002D264F /* MessageViewController.m */,
+				84E4D0D118F694DA002D264F /* MessageViewController.xib */,
+			);
+			path = MessageViewControllers;
+			sourceTree = "<group>";
+		};
+		84E4D0C418F6949C002D264F /* SendMessageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84E4D0C518F6949C002D264F /* SendMessageViewController.h */,
+				84E4D0C618F6949C002D264F /* SendMessageViewController.m */,
+				84E4D0C718F6949C002D264F /* SendMessageViewController.xib */,
+			);
+			path = SendMessageViewController;
+			sourceTree = "<group>";
+		};
+		84E4D0D418F6956F002D264F /* MessageTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				84E4D0D518F695D4002D264F /* MessageCell.h */,
+				84E4D0D618F695D4002D264F /* MessageCell.m */,
+				84E4D0D818F6961A002D264F /* MessageCell.xib */,
+			);
+			name = MessageTableCell;
 			sourceTree = "<group>";
 		};
 		84E7F69418E076F4003662CA /* InviteCreateUserViewController */ = {
@@ -1335,6 +1391,7 @@
 				14BCE6F218D9EEA40047F490 /* create_BTN.png in Resources */,
 				1494F26918DAE31D00728C1B /* thumb_down_BTN_press@2x.png in Resources */,
 				84E3E12E18E45640000D8D0D /* adult_icon@2x.png in Resources */,
+				84E4D0D918F6961A002D264F /* MessageCell.xib in Resources */,
 				84E3E13B18E45640000D8D0D /* create_user_BTN.png in Resources */,
 				14BCE6F518D9EEA40047F490 /* create_BTN_press@2x.png in Resources */,
 				84D9E10218C9FD4900516E2D /* skilleez_app_icon_512.png in Resources */,
@@ -1361,6 +1418,7 @@
 				140CDE9518EA930C001E97A7 /* permit_icon@2x.png in Resources */,
 				14BCE70018D9EEA40047F490 /* loop_BTN_press.png in Resources */,
 				84D9E10518C9FD4900516E2D /* skilleez_settings.png in Resources */,
+				84E4D0C918F6949C002D264F /* SendMessageViewController.xib in Resources */,
 				14BCE70118D9EEA40047F490 /* loop_BTN_press@2x.png in Resources */,
 				84E3E14F18E45640000D8D0D /* yes(check)_white.png in Resources */,
 				1494F27018DAE31D00728C1B /* warning_BTN.png in Resources */,
@@ -1382,6 +1440,7 @@
 				84D9E0AA18C9F32F00516E2D /* plane_img.png in Resources */,
 				84D9E10118C9FD4900516E2D /* skilleez_app_icon_1024.png in Resources */,
 				84E3E14D18E45640000D8D0D /* yes(check)_black.png in Resources */,
+				84E4D0C218F681B2002D264F /* SettingsViewController.xib in Resources */,
 				140CDE9318EA930C001E97A7 /* email_icon@2x.png in Resources */,
 				1494F26618DAE31D00728C1B /* star_opaque_BTN.png in Resources */,
 				84D9E0A218C9F32F00516E2D /* BG@2x.png in Resources */,
@@ -1403,6 +1462,7 @@
 				84E3E14818E45640000D8D0D /* search_img@2x.png in Resources */,
 				14D5736E18EBFAF700E0137C /* ChildProfileViewController.xib in Resources */,
 				84E7F69618E07752003662CA /* FriendsFamilyViewController.xib in Resources */,
+				84E4D0D318F694DA002D264F /* MessageViewController.xib in Resources */,
 				84E14ED818F5295A002E6D7F /* SkilleezListViewController.xib in Resources */,
 				84E3E13118E45640000D8D0D /* arrow_white.png in Resources */,
 				140CDE8218E97E4D001E97A7 /* EditPermissionTableCell.xib in Resources */,
@@ -1456,11 +1516,11 @@
 				14AC9E2018D836C500C3E228 /* arrow_next_.png in Resources */,
 				84D9E0D818C9FB0500516E2D /* DKCrayonCrumble2.ttf in Resources */,
 				84E3E13518E45640000D8D0D /* child_user_BTN.png in Resources */,
-				84E14EE318F5688E002E6D7F /* SendMessageViewController.xib in Resources */,
 				84D9E0A718C9F32F00516E2D /* Loading_img@2x.png in Resources */,
 				84E3E14218E45640000D8D0D /* invite_BTN@2x.png in Resources */,
 				149232C418D740CE001BAE8C /* FavoriteTableCell.xib in Resources */,
 				1494F26B18DAE31D00728C1B /* thumb_down_BTN@2x.png in Resources */,
+				84E4D0CE18F694C3002D264F /* MessageListViewController.xib in Resources */,
 				14BCE6FB18D9EEA40047F490 /* favorites_BTN@2x.png in Resources */,
 				84E3E13C18E45640000D8D0D /* create_user_BTN@2x.png in Resources */,
 				14BCE67F18D9B8E90047F490 /* rocket_BTN.png in Resources */,
@@ -1544,9 +1604,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				849D2DBE18E1CB8000828ED4 /* FamilyMemberCell.m in Sources */,
+				84E4D0D218F694DA002D264F /* MessageViewController.m in Sources */,
 				1465110C18E54F5A002C2B2A /* SelectFavoriteViewController.m in Sources */,
 				14F090AF18E1C96B000DAF80 /* ProfileTableCell.m in Sources */,
 				14B1182E18F3BF5F002C022C /* ChildFamilyViewController.m in Sources */,
+				84E4D0D718F695D4002D264F /* MessageCell.m in Sources */,
 				84D73B9118EC2865007DDBDB /* AdultPermission.m in Sources */,
 				149232C318D740CE001BAE8C /* FavoriteTableCell.m in Sources */,
 				14A0851A18F284D50056B6F3 /* CellFiller.m in Sources */,
@@ -1564,16 +1626,17 @@
 				1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */,
 				84CEC78D18E2DF3D00DD55B5 /* NewUserTypeView.m in Sources */,
 				84D73B8C18E99E65007DDBDB /* ProfileInfo.m in Sources */,
+				84E4D0C118F681B2002D264F /* SettingsViewController.m in Sources */,
 				84CEC79718E2FD5E00DD55B5 /* CreateAdultViewController.m in Sources */,
 				148104DB18D82F1600B54790 /* UITableViewCell+SkilleeTableCell.m in Sources */,
 				84E14ED718F5295A002E6D7F /* SkilleezListViewController.m in Sources */,
 				1465110518E31F98002C2B2A /* ProfileViewController.m in Sources */,
 				84E14EDC18F5668F002E6D7F /* AdultProfileViewController.m in Sources */,
 				84D73B7A18E968B9007DDBDB /* SendInviteViewController.m in Sources */,
+				84E4D0CD18F694C3002D264F /* MessageListViewController.m in Sources */,
 				84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */,
 				149232B518D73A40001BAE8C /* AdultApprovalTableCell.m in Sources */,
 				84CEC79218E2FD1400DD55B5 /* CreateChildViewController.m in Sources */,
-				84E14EE218F5688E002E6D7F /* SendMessageViewController.m in Sources */,
 				140CDE7B18E958D0001E97A7 /* PermissionManagementViewController.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
 				84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */,
@@ -1590,6 +1653,7 @@
 				140CDEAB18EB042A001E97A7 /* UINavigationController+Push.m in Sources */,
 				149232B918D73A40001BAE8C /* SimpleTableCell.m in Sources */,
 				84D73B6D18E94AD2007DDBDB /* PendingInvitationsViewController.m in Sources */,
+				84E4D0C818F6949C002D264F /* SendMessageViewController.m in Sources */,
 				84DA71AB18EED0CB0013AECD /* KeyboardViewController.m in Sources */,
 				84D9E05B18C9C3D500516E2D /* main.m in Sources */,
 				14554B3918F543A6007D92F4 /* ColorViewController.m in Sources */,
