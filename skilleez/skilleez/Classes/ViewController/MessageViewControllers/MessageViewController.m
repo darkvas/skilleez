@@ -66,6 +66,7 @@
     
     [self.textMessage setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
     self.textMessage.text = _profile.AboutMe ? _profile.AboutMe : (_profile.ScreenName ? _profile.ScreenName : _profile.Login);
+    
     self.textMessage.editable = NO;
 }
 
