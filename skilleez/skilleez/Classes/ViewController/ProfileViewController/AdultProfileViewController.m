@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 MobileSoft365. All rights reserved.
 //
 
-#import "ProfilePermissionViewController.h"
+#import "AdultProfileViewController.h"
 #import "AppDelegate.h"
 #import "UIFont+DefaultFont.h"
 #import "EditPermissionViewController.h"
@@ -14,11 +14,14 @@
 #import "ProfileViewController.h"
 #import "NetworkManager.h"
 #import "ProfileInfo.h"
+#import "SendMessageViewController.h"
+#import "SkilleezListViewController.h"
 
 #define CORNER_RADIUS 5.f
 #define FONT_SIZE 22
 
-@interface ProfilePermissionViewController ()
+@interface AdultProfileViewController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UIButton *skilleezBtn;
 @property (weak, nonatomic) IBOutlet UIButton *permitBtn;
@@ -36,7 +39,7 @@
 
 @end
 
-@implementation ProfilePermissionViewController
+@implementation AdultProfileViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -104,15 +107,20 @@
     self.deleteBtn.layer.borderWidth = 3.f;
 }
 
-- (IBAction)showSkilleez:(id)sender {
+- (IBAction)showSkilleez:(id)sender
+{
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id];
+    [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
-- (IBAction)showPermits:(id)sender {
+- (IBAction)showPermits:(id)sender
+{
     EditPermissionViewController *editPermission = [[EditPermissionViewController alloc] init];
     [self.navigationController pushViewController:editPermission animated:YES];
 }
 
-- (IBAction)showProfile:(id)sender {
+- (IBAction)showProfile:(id)sender
+{
     [[NetworkManager sharedInstance] getProfileInfo:self.familyMember.Id success:^(ProfileInfo *profileInfo) {
         ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo];
         [self.navigationController pushViewController:profileView animated:YES];
@@ -120,14 +128,30 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:@"Problem with loading user data. Try again!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
     }];
+}
+
+- (IBAction)showSettings:(id)sender
+{
+}
+
+- (IBAction)sendEmail:(id)sender
+{
+    SendMessageViewController *sendMessageView = [[SendMessageViewController alloc] init];
+    [self.navigationController pushViewController:sendMessageView animated:YES];
+}
+
+- (IBAction)delete:(id)sender
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to remove this user from your loop?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)theAlert clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString* pressedBtnTitle = [theAlert buttonTitleAtIndex:buttonIndex];
+    if ([pressedBtnTitle isEqualToString:@"Yes"]){
+        //todo remove from loop or unfollow or smth else
     }
-
-- (IBAction)showSettings:(id)sender {
 }
-
-- (IBAction)sendEmail:(id)sender {
-}
-
-- (IBAction)delete:(id)sender {
-}
+      
 @end

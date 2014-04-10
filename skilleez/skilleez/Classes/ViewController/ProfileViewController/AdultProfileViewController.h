@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FamilyMemberModel.h"
 
-@interface ProfilePermissionViewController : UIViewController
+@interface AdultProfileViewController : UIViewController <UIAlertViewDelegate>
 
 @property (strong, nonatomic) FamilyMemberModel* familyMember;
 

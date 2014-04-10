@@ -14,6 +14,7 @@
 #import "ProfileInfo.h"
 #import "ProfileViewController.h"
 #import "ChildFamilyViewController.h"
+#import "SkilleezListViewController.h"
 
 #define CORNER_RADIUS 5.f
 #define FONT_SIZE 22
@@ -89,6 +90,8 @@
 }
 
 - (IBAction)showSkilleez:(id)sender {
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id];
+    [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
 - (IBAction)showProfile:(id)sender {

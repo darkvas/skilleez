@@ -11,7 +11,7 @@
 #import "UserSettingsManager.h"
 #import "FamilyMemberCell.h"
 #import "ChildProfileViewController.h"
-#import "ProfilePermissionViewController.h"
+#import "AdultProfileViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 
@@ -92,7 +92,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        ProfilePermissionViewController *profilePermissionView = [ProfilePermissionViewController new];
+        AdultProfileViewController *profilePermissionView = [AdultProfileViewController new];
         profilePermissionView.familyMember = _adultMembers[indexPath.row];
         [self.navigationController pushViewController:profilePermissionView animated:YES];
     } else {
