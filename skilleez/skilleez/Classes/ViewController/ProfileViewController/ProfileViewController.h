@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfileInfo.h"
+#import "KeyboardViewController.h"
 
-@interface ProfileViewController : UIViewController
+@interface ProfileViewController : UIViewController <UITextViewDelegate>
 
--(id)initWithProfile:(ProfileInfo *)profileInfo;
+- (id)initWithProfile:(ProfileInfo *)profileInfo editMode:(BOOL)edit;
 
 @end

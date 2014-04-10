@@ -60,7 +60,7 @@
     [self setLeftMargin:10 forTextField:self.tfAccoundPass];
 }
 
--(void) setLeftMargin: (int) leftMargin forTextField: (UITextField*) textField
+- (void)setLeftMargin:(int)leftMargin forTextField:(UITextField *)textField
 {
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, leftMargin, textField.frame.size.height)];
     leftView.backgroundColor = textField.backgroundColor;
@@ -83,7 +83,7 @@
 {
 }
 
--(IBAction)createUserPressed:(id)sender
+- (IBAction)createUserPressed:(id)sender
 {
     NSString* childName = _tfAccountId.text;
     NSString* childPass = _tfAccoundPass.text;
@@ -100,6 +100,16 @@
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        self.tfAccoundPass.text = @"";
+        self.tfAccountId.text = @"";
+        [self.tfAccountId resignFirstResponder];
+        [self.tfAccoundPass resignFirstResponder];
+    }
 }
 
 

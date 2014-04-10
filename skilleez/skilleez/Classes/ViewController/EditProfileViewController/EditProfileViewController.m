@@ -23,7 +23,7 @@
     ProfileInfo* profile;
     BOOL imageChanged;
     UIImagePickerController *imagePicker;
-    UIColor* favoriteColor;
+    UIColor *favoriteColor;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -38,9 +38,13 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxt;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UILabel *myProfileLbl;
+@property (strong, nonatomic) UIImage *sportImage;
+@property (strong, nonatomic) UIImage *subjectImage;
+@property (strong, nonatomic) UIImage *musicImage;
+@property (strong, nonatomic) UIImage *foodImage;
 
--(IBAction)editImagePressed:(id)sender;
--(IBAction)saveProfilePressed:(id)sender;
+- (IBAction)editImagePressed:(id)sender;
+- (IBAction)saveProfilePressed:(id)sender;
 
 @end
 
@@ -91,16 +95,16 @@
                                           method:@"chooseColor"],
                  [[TableItem alloc] initWithName:@"What's your favorite sport"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
-                                          method:@"showProfile"],
+                                          method:@"chooseSport"],
                  [[TableItem alloc] initWithName:@"What's your favorite school subject?"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
-                                          method:@"showProfile"],
+                                          method:@"chooseSubject"],
                  [[TableItem alloc] initWithName:@"What's your favorite type of music?"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
-                                          method:@"showProfile"],
+                                          method:@"chooseMusic"],
                  [[TableItem alloc] initWithName:@"What's your favorite food?"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
-                                          method:@"showProfile"],
+                                          method:@"chooseFood"],
                  [[TableItem alloc] initWithName:@"My skilleez"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
                                           method:@"showMySkilleez"],
@@ -124,7 +128,7 @@
     self.nameTxt.text = profile.ScreenName;
     self.loginTxt.text = profile.Login;
     favoriteColor = profile.Color;
-    ((TableItem*)questions[1]).image = [self getBlankImage:favoriteColor];
+    ((TableItem *)questions[1]).image = [self getBlankImage:favoriteColor];
     [self.tableView reloadData];
 }
 
@@ -210,11 +214,36 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark - FavoriteViewControllerDelegate
+
+- (void)imageSelected:(UIImage *)image withType:(int)type
+{
+    switch (type) {
+        case SPORT:
+            self.sportImage = image;
+            ((TableItem *)questions[2]).image = image;
+            break;
+        case SUBJECT:
+            self.subjectImage = image;
+            ((TableItem *)questions[3]).image = image;
+            break;
+        case MUSIC:
+            self.musicImage = image;
+            ((TableItem *)questions[4]).image = image;
+            break;
+        default:
+            self.foodImage = image;
+            ((TableItem *)questions[5]).image = image;
+            break;
+    }
+    [self.tableView reloadData];
+}
+
 #pragma mark - Class methods
 
 - (void)showProfile
 {
-    ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profile];
+    ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profile editMode:YES];
     [self.navigationController pushViewController:profileView animated:YES];
 }
 
@@ -230,6 +259,38 @@
 {
     SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:[UserSettingsManager sharedInstance].userInfo.UserID];
     [self.navigationController pushViewController:skilleezView animated:YES];
+}
+
+- (void)chooseSport
+{
+    SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType:SPORT];
+    favorite.delegate = self;
+    favorite.selectedImage = self.sportImage;
+    [self.navigationController pushViewController:favorite animated:YES];
+}
+
+- (void)chooseSubject
+{
+    SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType:SUBJECT];
+    favorite.delegate = self;
+    favorite.selectedImage = self.subjectImage;
+    [self.navigationController pushViewController:favorite animated:YES];
+}
+
+- (void)chooseMusic
+{
+    SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType:MUSIC];
+    favorite.delegate = self;
+    favorite.selectedImage = self.musicImage;
+    [self.navigationController pushViewController:favorite animated:YES];
+}
+
+- (void)chooseFood
+{
+    SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType:FOOD];
+    favorite.delegate = self;
+    favorite.selectedImage = self.foodImage;
+    [self.navigationController pushViewController:favorite animated:YES];
 }
 
 - (void)cutomize
@@ -266,7 +327,7 @@
 
 #pragma mark Private methods
 
--(IBAction)editImagePressed:(id)sender
+- (IBAction)editImagePressed:(id)sender
 {
     imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString*) kUTTypeImage];
     [self presentViewController:imagePicker animated:YES  completion:nil];
@@ -327,13 +388,13 @@
     return hexString;
 }
 
--(void) colorSelected:(UIColor *) color
+- (void)colorSelected:(UIColor *)color
 {
     favoriteColor = color;
     //int rgbValue = [color intValue];
     //NSLog(@" - - - Profile color: %i", rgbValue);
     
-    ((TableItem*)questions[1]).image = [self getBlankImage:favoriteColor];
+    ((TableItem *)questions[1]).image = [self getBlankImage:favoriteColor];
     [self.tableView reloadData];
 }
 

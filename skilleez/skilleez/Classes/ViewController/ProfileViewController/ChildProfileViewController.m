@@ -96,7 +96,7 @@
 
 - (IBAction)showProfile:(id)sender {
     [[NetworkManager sharedInstance] getProfileInfo:self.familyMember.Id success:^(ProfileInfo *profileInfo) {
-        ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo];
+        ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:NO];
         [self.navigationController pushViewController:profileView animated:YES];
     } failure:^(NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:@"Problem with loading user data. Try again!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];

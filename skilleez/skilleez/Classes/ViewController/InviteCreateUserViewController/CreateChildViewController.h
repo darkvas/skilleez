@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "KeyboardViewController.h"
 
-@interface CreateChildViewController : KeyboardViewController
+@interface CreateChildViewController : KeyboardViewController <UIAlertViewDelegate>
 
 @end
