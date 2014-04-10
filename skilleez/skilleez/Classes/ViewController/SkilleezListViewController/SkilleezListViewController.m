@@ -20,6 +20,7 @@
 {
     NSMutableArray* skilleez;
     NSString* _userId;
+    NSString* _title;
     
     BOOL canLoadOnScroll;
     BOOL toTop;
@@ -42,10 +43,11 @@
     return self;
 }
 
-- (id)initWithUserId:(NSString *)userId
+- (id)initWithUserId:(NSString *)userId andTitle: (NSString*) title
 {
     if (self = [super init]) {
         _userId = userId;
+        _title = title;
         canLoadOnScroll = YES;
         offset = 0;
         count = NUMBER_OF_ITEMS;
@@ -57,7 +59,7 @@
 {
     [super viewDidLoad];
     
-    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"My Skilleez" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:_title leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
     [self.view addSubview: navBar];
     
     self.automaticallyAdjustsScrollViewInsets = NO;

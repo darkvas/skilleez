@@ -257,7 +257,7 @@
 
 - (void)showMySkilleez
 {
-    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:[UserSettingsManager sharedInstance].userInfo.UserID];
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:[UserSettingsManager sharedInstance].userInfo.UserID andTitle:@"My Skilleez"];
     [self.navigationController pushViewController:skilleezView animated:YES];
 }
 

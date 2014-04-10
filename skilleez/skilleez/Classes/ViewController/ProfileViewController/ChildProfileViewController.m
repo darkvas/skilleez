@@ -20,10 +20,12 @@
 #define FONT_SIZE 22
 
 @interface ChildProfileViewController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UIButton *skilleezBtn;
 @property (weak, nonatomic) IBOutlet UIButton *profileBtn;
 @property (weak, nonatomic) IBOutlet UIButton *settingsBtn;
+
 - (IBAction)showSkilleez:(id)sender;
 - (IBAction)showProfile:(id)sender;
 - (IBAction)showSettings:(id)sender;
@@ -90,7 +92,7 @@
 }
 
 - (IBAction)showSkilleez:(id)sender {
-    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id];
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id andTitle:self.familyMember.FullName];
     [self.navigationController pushViewController:skilleezView animated:YES];
 }
 

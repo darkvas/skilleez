@@ -109,7 +109,7 @@
 
 - (IBAction)showSkilleez:(id)sender
 {
-    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id];
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id andTitle:self.familyMember.FullName];
     [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
