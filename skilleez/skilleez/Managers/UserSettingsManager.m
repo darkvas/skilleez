@@ -10,6 +10,13 @@
 
 #define USER_SETTINGS @"UserSettings"
 
+@interface UserSettingsManager()
+{
+    NSMutableSet *observerCollection;
+}
+
+@end
+
 @implementation UserSettingsManager
 
 + (instancetype)sharedInstance
@@ -21,6 +28,14 @@
     });
     
     return sharedInstance;
+}
+
+- (id) init
+{
+    if ([super init]) {
+        observerCollection = [NSMutableSet new];
+    }
+    return self;
 }
 
 - (void) loadSettings
@@ -36,6 +51,31 @@
     NSDictionary* dictSets = @{@"username": self.username, @"password": self.password, @"remember": @(self.remember)};
     [[NSUserDefaults standardUserDefaults] setObject:dictSets forKey:USER_SETTINGS];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void) setUserInfo:(UserInfo *)userInfo
+{
+    _userInfo = userInfo;
+    [self notifyUserInfoObservers];
+}
+
+#pragma mark - Notify Observers
+
+- (void)addDelegateObserver:(method)observerMethod
+{
+    [observerCollection addObject:observerMethod];
+}
+
+- (void)removeDelegateObserver:(method)observer
+{
+    [observerCollection removeObject:observer];
+}
+
+- (void)notifyUserInfoObservers
+{
+    for (method observer in observerCollection) {
+        dispatch_async(dispatch_get_main_queue(), observer);
+    }
 }
 
 @end
