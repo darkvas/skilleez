@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *userFoodButton;
 @property (weak, nonatomic) IBOutlet UITextView *userDescTextView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *coloredView;
 
 - (IBAction)selectColor:(id)sender;
 - (IBAction)selectFavorite:(id)sender;
@@ -65,6 +66,7 @@
     }
     [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
     self.userColorButton.backgroundColor = profile.Color;
+    self.coloredView.backgroundColor = profile.Color;
     self.userDescTextView.text = profile.AboutMe == nil ? self.userDescTextView.text : profile.AboutMe;
     CGRect rect = self.userDescTextView.frame;
     CGSize textViewSize = [self.userDescTextView sizeThatFits:CGSizeMake(self.userDescTextView.frame.size.width, FLT_MAX)];
