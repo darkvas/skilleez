@@ -27,14 +27,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *skilleezBtn;
 @property (weak, nonatomic) IBOutlet UIButton *permitBtn;
 @property (weak, nonatomic) IBOutlet UIButton *profileBtn;
-@property (weak, nonatomic) IBOutlet UIButton *settingsBtn;
 @property (weak, nonatomic) IBOutlet UIButton *emailBtn;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
 - (IBAction)showSkilleez:(id)sender;
 - (IBAction)showPermits:(id)sender;
 - (IBAction)showProfile:(id)sender;
-- (IBAction)showSettings:(id)sender;
 - (IBAction)sendEmail:(id)sender;
 - (IBAction)delete:(id)sender;
 
@@ -68,6 +66,27 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - CustomIOS7AlertViewDelegate
+
+- (void)customIOS7dialogButtonTouchUpInside:(CustomAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Delegate: Button at position %d is clicked on alertView %d.", buttonIndex, [alertView tag]);
+    [alertView close];
+}
+
+- (UIView *)createAlertView
+{
+    UIView *demoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 130)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 110)];
+    titleLabel.text = @"Are you sure you want to remove this user from your loop?";
+    titleLabel.numberOfLines = 3;
+    titleLabel.font = [UIFont getDKCrayonFontWithSize:26];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1.0];
+    [demoView addSubview:titleLabel];
+    return demoView;
+}
+
 #pragma mark - Class methods
 
 - (void)cancel
@@ -87,7 +106,6 @@
     self.permitBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
     self.emailBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
     self.deleteBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.settingsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderWidth = CORNER_RADIUS;
     self.userAvatarImg.layer.cornerRadius = 82.f;
@@ -100,8 +118,6 @@
     self.emailBtn.layer.cornerRadius = CORNER_RADIUS;
     self.skilleezBtn.layer.masksToBounds = YES;
     self.skilleezBtn.layer.cornerRadius = CORNER_RADIUS;
-    self.settingsBtn.layer.masksToBounds = YES;
-    self.settingsBtn.layer.cornerRadius = CORNER_RADIUS;
     self.deleteBtn.layer.masksToBounds = YES;
     self.deleteBtn.layer.cornerRadius = CORNER_RADIUS;
     self.deleteBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
@@ -110,8 +126,6 @@
 
 - (IBAction)showSkilleez:(id)sender
 {
-    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id andTitle:self.familyMember.FullName];
-    [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
 - (IBAction)showPermits:(id)sender
@@ -139,22 +153,16 @@
 
 - (IBAction)sendEmail:(id)sender
 {
-    SendMessageViewController *sendMessageView = [[SendMessageViewController alloc] init];
-    [self.navigationController pushViewController:sendMessageView animated:YES];
 }
 
 - (IBAction)delete:(id)sender
 {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Are you sure you want to remove this user from your loop?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"Cancel", nil];
-    [alert show];
-}
-
-- (void)alertView:(UIAlertView *)theAlert clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSString* pressedBtnTitle = [theAlert buttonTitleAtIndex:buttonIndex];
-    if ([pressedBtnTitle isEqualToString:@"Yes"]){
-        //todo remove from loop or unfollow or smth else
-    }
+    CustomAlertView *alertView = [[CustomAlertView alloc] init];
+    [alertView setContainerView:[self createAlertView]];
+    alertView.alpha = 0.95;
+    [alertView setDelegate:self];
+    [alertView setUseMotionEffects:YES];
+    [alertView show];
 }
       
 @end

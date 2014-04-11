@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AdultProfileViewController">
@@ -10,7 +10,6 @@
                 <outlet property="emailBtn" destination="edu-0Y-0IG" id="T2D-C0-3Q7"/>
                 <outlet property="permitBtn" destination="Nw0-fj-JI7" id="49Z-wp-T2T"/>
                 <outlet property="profileBtn" destination="GDP-FP-jcs" id="8le-fy-eFw"/>
-                <outlet property="settingsBtn" destination="JEw-kb-06Z" id="gUK-rm-X2V"/>
                 <outlet property="skilleezBtn" destination="fxm-eC-NXi" id="1SY-cL-IYe"/>
                 <outlet property="userAvatarImg" destination="I21-Pe-XP7" id="vyG-3h-DD5"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -69,29 +68,14 @@
                         <action selector="showPermits:" destination="-1" eventType="touchUpInside" id="gVs-nH-ede"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JEw-kb-06Z">
-                    <rect key="frame" x="20" y="468" width="80" height="80"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.95686274509803915" green="0.76862745098039209" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <inset key="titleEdgeInsets" minX="-42" minY="54" maxX="0.0" maxY="0.0"/>
-                    <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="23"/>
-                    <state key="normal" title="Settings" image="settings_icon.png">
-                        <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="showSettings:" destination="-1" eventType="touchUpInside" id="bim-zG-C1x"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edu-0Y-0IG">
-                    <rect key="frame" x="120" y="468" width="80" height="80"/>
+                    <rect key="frame" x="70" y="468" width="80" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.96862745098039216" green="0.45882352941176469" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <inset key="titleEdgeInsets" minX="-42" minY="54" maxX="0.0" maxY="0.0"/>
                     <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="23"/>
-                    <state key="normal" title="Email" image="email_icon.png">
+                    <state key="normal" title="Message" image="email_icon.png">
                         <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -100,13 +84,13 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSZ-xF-iZ8">
-                    <rect key="frame" x="220" y="468" width="80" height="80"/>
+                    <rect key="frame" x="170" y="468" width="80" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <inset key="titleEdgeInsets" minX="-42" minY="54" maxX="0.0" maxY="0.0"/>
                     <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="23"/>
-                    <state key="normal" title="Delete" image="delete_icon.png">
+                    <state key="normal" title="Remove" image="delete_icon.png">
                         <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -125,7 +109,6 @@
         <image name="email_icon.png" width="44" height="44"/>
         <image name="permit_icon.png" width="44" height="44"/>
         <image name="profile_icon.png" width="44" height="44"/>
-        <image name="settings_icon.png" width="44" height="44"/>
         <image name="skilleez_app_icon_1024.png" width="1024" height="1024"/>
         <image name="skilleez_icon.png" width="44" height="44"/>
     </resources>

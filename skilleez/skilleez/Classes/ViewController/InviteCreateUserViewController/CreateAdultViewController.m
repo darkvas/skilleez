@@ -39,9 +39,29 @@
     
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"New Adult" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
     [self.view addSubview: navBar];
-    
+    self.tfUserEmail.delegate = self;
     [self customizeElements];
 }
+
+#pragma mark - UIAlerViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        self.tfUserEmail.text = @"";
+        [self.tfUserEmail resignFirstResponder];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - Class methods
 
 -(void) customizeElements
 {
@@ -94,14 +114,6 @@
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        self.tfUserEmail.text = @"";
-        [self.tfUserEmail resignFirstResponder];
-    }
 }
 
 @end
