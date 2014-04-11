@@ -10,6 +10,7 @@
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "ProfileInfo.h"
+#import "SelectFavoriteCollectionViewCell.h"
 
 @interface SelectFavoriteViewController () {
     NSArray *items, *subjects, *sport, *food, *music;
@@ -55,9 +56,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    sport = [NSArray arrayWithObjects: @"http://www.nasa.gov/images/content/711375main_grail20121205_4x3_946-710.jpg", @"http://www.nasa.gov/images/content/711375main_grail20121205_4x3_946-710.jpg", @"http://www.nasa.gov/images/content/711375main_grail20121205_4x3_946-710.jpg", @"http://www.spacetoday.org/Occurrences//images/Moon/ASU_LRO_Moon_map_279x279.jpg", @"http://www.spacetoday.org/Occurrences//images/Moon/ASU_LRO_Moon_map_279x279.jpg", @"http://www.spacetoday.org/Occurrences//images/Moon/ASU_LRO_Moon_map_279x279.jpg", @"http://mcgovern.mit.edu/news/wp-content/uploads/2013/08/image7LR.jpg", @"http://mcgovern.mit.edu/news/wp-content/uploads/2013/08/image7LR.jpg", @"http://mcgovern.mit.edu/news/wp-content/uploads/2013/08/image7LR.jpg", @"profile_icon.png", @"plane_img.png", @"profile_icon.png", @"rocket_BTN.png", @"profile_icon.png", @"rocket_BTN.png", nil];
+    sport = [NSArray arrayWithObjects: @"sport_baseball_icon.png", @"sport_basketball_icon.png", @"sport_biking_icon.png", @"sport_football_icon.png",@"sport_hokey_icon.png",@"sport_skate_icon.png",@"sport_soccer_icon.png", @"sport_swim_icon.png", nil];
+    subjects = [NSArray arrayWithObjects: @"subject_art_icon.png", @"subject_band_icon.png", @"subject_history_icon.png", @"subject_math_icon.png",@"subject_pe_icon.png",@"subject_reading_icon.png",@"subject_science_icon.png", @"subject_tech_icon.png", nil];
+    music = [NSArray arrayWithObjects: @"music_classical_icon.png", @"music_country_icon.png", @"music_edm_icon.png", @"music_jazz_icon.png",@"music_pop_icon.png",@"music_rap_icon.png",@"music_reg_icon.png", @"music_rock_icon.png", nil];
+    food = [NSArray arrayWithObjects: @"food_blt_icon.png", @"food_burger_icon.png", @"food_icecream_icon.png", @"food_mac_icon.png",@"food_pasta_icon.png",@"food_pizza_icon.png",@"food_pop_corn_icon.png", @"food_salad_icon.png", nil];
     [self customize];
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+    [self.collectionView registerClass:[SelectFavoriteCollectionViewCell class] forCellWithReuseIdentifier:@"SelectFavoriteCollectionViewCell"];
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     // Do any additional setup after loading the view from its nib.
@@ -76,16 +80,13 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell" forIndexPath:indexPath];
-    if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"UICollectionViewCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-    }
+    SelectFavoriteCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SelectFavoriteCollectionViewCell" forIndexPath:indexPath];
+    UIImageView *imageView = [UIImageView new];
+    imageView.image = [UIImage imageNamed:[items objectAtIndex:indexPath.row]];
+    [cell setImage:[UIImage imageNamed:[items objectAtIndex:indexPath.row]]];
     cell.layer.borderWidth = 1.f;
     cell.layer.borderColor = [[UIColor grayColor] CGColor];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.frame];
-    [imageView setImageWithURL:[NSURL URLWithString:[items objectAtIndex:indexPath.row]]];
-    [cell addSubview:imageView];
+
     return cell;
 }
 
@@ -98,7 +99,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.imageView setImageWithURL:[NSURL URLWithString:[items objectAtIndex:indexPath.row]]];
+    [self.imageView setImage:[UIImage imageNamed:[items objectAtIndex:indexPath.row]]];
     self.selectedImage = self.imageView.image;
      NSLog(@"selected color: %@", self.selectedImage);
 }

@@ -94,16 +94,16 @@
                                            image:[self getBlankImage:[UIColor blackColor]]
                                           method:@"chooseColor"],
                  [[TableItem alloc] initWithName:@"What's your favorite sport"
-                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                           image:[UIImage imageNamed:@"sport_baseball_icon.png"]
                                           method:@"chooseSport"],
                  [[TableItem alloc] initWithName:@"What's your favorite school subject?"
-                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                           image:[UIImage imageNamed:@"subject_art_icon.png"]
                                           method:@"chooseSubject"],
                  [[TableItem alloc] initWithName:@"What's your favorite type of music?"
-                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                           image:[UIImage imageNamed:@"music_classical_icon.png"]
                                           method:@"chooseMusic"],
                  [[TableItem alloc] initWithName:@"What's your favorite food?"
-                                           image:[UIImage imageNamed:@"pandimg_BTN.png"]
+                                           image:[UIImage imageNamed:@"food_blt_icon.png"]
                                           method:@"chooseFood"],
                  [[TableItem alloc] initWithName:@"My skilleez"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
