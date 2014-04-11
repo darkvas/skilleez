@@ -44,7 +44,29 @@
     [self customizeElements];
 }
 
--(void) customizeElements
+#pragma mark - UIAlerViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        self.tfAccoundPass.text = @"";
+        self.tfAccountId.text = @"";
+        [self.tfAccountId resignFirstResponder];
+        [self.tfAccoundPass resignFirstResponder];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - Class methods
+
+- (void)customizeElements
 {
     [_tfAccountId.layer setCornerRadius:5.0f];
     //_tfAccountId.layer set
@@ -58,6 +80,8 @@
     
     [self setLeftMargin:10 forTextField:self.tfAccountId];
     [self setLeftMargin:10 forTextField:self.tfAccoundPass];
+    _tfAccoundPass.delegate = self;
+    _tfAccountId.delegate = self;
 }
 
 - (void)setLeftMargin:(int)leftMargin forTextField:(UITextField *)textField
@@ -101,16 +125,5 @@
         [alert show];
     }];
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        self.tfAccoundPass.text = @"";
-        self.tfAccountId.text = @"";
-        [self.tfAccountId resignFirstResponder];
-        [self.tfAccoundPass resignFirstResponder];
-    }
-}
-
 
 @end

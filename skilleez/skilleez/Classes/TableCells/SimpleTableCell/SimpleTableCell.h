@@ -12,8 +12,8 @@
 @protocol SimpleCellDelegate <NSObject>
 @required
 
-- (void)didSkiilleSelect: (SkilleeModel*) skillee;
-- (void)didProfileSelect:(NSString*)profileId;
+- (void)didSkiilleSelect:(SkilleeModel *)skillee;
+- (void)didProfileSelect:(NSString *)profileId;
 
 @end
 
