@@ -9,8 +9,14 @@
 #import "SettingsViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
+#import "ProfileInfo.h"
+#import "NetworkManager.h"
 
 @interface SettingsViewController ()
+{
+    NSString *_userId;
+    ProfileInfo *_profileInfo;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *tfUserId;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassword;
@@ -33,6 +39,14 @@
     return self;
 }
 
+- (id)initWithUserId:(NSString *)userId
+{
+    if (self = [super init]) {
+        _userId = userId;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -41,6 +55,7 @@
     [self.view addSubview: navBar];
     
     [self customizeElements];
+    [self loadProfileData];
 }
 
 - (void)customizeElements
@@ -65,6 +80,17 @@
     leftView.backgroundColor = textField.backgroundColor;
     textField.leftView = leftView;
     textField.leftViewMode = UITextFieldViewModeAlways;
+}
+
+-(void) loadProfileData
+{
+    [[NetworkManager sharedInstance] getProfileInfo:_userId success:^(ProfileInfo *profileInfo) {
+        _profileInfo = profileInfo;
+        self.tfUserId.text = profileInfo.Login;
+        self.tfPassword.text = profileInfo.Password;
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning

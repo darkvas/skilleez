@@ -211,7 +211,8 @@
     [self.postOnTxt setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
 
-- (IBAction)launchSkillee:(id)sender {
+- (IBAction)launchSkillee:(id)sender
+{
     SkilleeRequest* skilleeRequest = [SkilleeRequest new];
     skilleeRequest.Title = self.titleTxt.text;
     skilleeRequest.Comment = self.commentTxt.text;
@@ -248,12 +249,14 @@
     self.btnSelectedMedia.hidden = YES;
 }
 
-- (IBAction)pickImage:(id)sender {
+- (IBAction)pickImage:(id)sender
+{
     imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString*) kUTTypeImage];
     [self presentModalViewController:imagePicker animated:YES];
 }
 
-- (IBAction)pickVideo:(id)sender {
+- (IBAction)pickVideo:(id)sender
+{
     imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
     [self presentModalViewController:imagePicker animated:YES];
 }
