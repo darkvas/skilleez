@@ -11,4 +11,6 @@
 
 @interface SettingsViewController : KeyboardViewController
 
+- (id)initWithUserId:(NSString *)userId;
+
 @end

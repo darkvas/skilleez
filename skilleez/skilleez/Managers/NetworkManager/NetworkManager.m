@@ -36,6 +36,9 @@
 #define POST_PROFILEIMAGE_URI @"api/Profile/EditProfileImage"
 #define POST_PROFILEINFO_URI @"api/Profile/EditProfileInfo"
 
+#define POST_FOLLOW_USER @"api/Loop/FollowUser"
+#define POST_UNFOLLOW_USER @"api/Loop/UnfollowUser"
+
 @implementation NetworkManager
 {
     RKObjectManager* manager;
@@ -195,6 +198,18 @@
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
                                                                                  method:RKRequestMethodAny
                                                                             pathPattern:POST_PROFILEINFO_URI
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_FOLLOW_USER
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_UNFOLLOW_USER
                                                                                 keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
@@ -458,12 +473,12 @@
 
 #pragma mark User - need to test
 
--(void) postAddChildToFamily:(NSString*) childId withPass:(NSString*) childPassword success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postAddChildToFamily:(NSString*) childName withPass:(NSString*) childPassword success: (void (^)(void))success failure:(void (^)(NSError *error))failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
     NSDictionary *jsonData = @{
-                                   @"ChildID": childId,
+                                   @"ChildID": childName,
                                    @"ChildPassword": childPassword
                                };
     
@@ -647,6 +662,46 @@
                                };
     
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_PROFILEINFO_URI] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+#pragma mark FOLLOW/UNFOLLOW
+
+-(void) postFollowUser: (NSString*) userId success: (void (^) (void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    NSDictionary *jsonData = @{
+                               @"Id": userId
+                               };
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_FOLLOW_USER] parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{success();});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+     }];
+}
+
+-(void) postUnfollowUser: (NSString*) userId success: (void (^) (void))success failure:(void (^)(NSError *error))failure
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    NSDictionary *jsonData = @{
+                               @"Id": userId
+                               };
+    
+    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_UNFOLLOW_USER] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{success();});

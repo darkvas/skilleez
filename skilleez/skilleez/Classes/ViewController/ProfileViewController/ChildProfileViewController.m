@@ -15,6 +15,7 @@
 #import "ProfileViewController.h"
 #import "ChildFamilyViewController.h"
 #import "SkilleezListViewController.h"
+#import "SettingsViewController.h"
 
 #define CORNER_RADIUS 5.f
 #define FONT_SIZE 22
@@ -91,12 +92,14 @@
     [self.navigationController pushViewController:childFamily animated:YES];
 }
 
-- (IBAction)showSkilleez:(id)sender {
+- (IBAction)showSkilleez:(id)sender
+{
     SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id andTitle:self.familyMember.FullName];
     [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
-- (IBAction)showProfile:(id)sender {
+- (IBAction)showProfile:(id)sender
+{
     [[NetworkManager sharedInstance] getProfileInfo:self.familyMember.Id success:^(ProfileInfo *profileInfo) {
         ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:NO];
         [self.navigationController pushViewController:profileView animated:YES];
@@ -106,6 +109,10 @@
     }];
 }
 
-- (IBAction)showSettings:(id)sender {
+- (IBAction)showSettings:(id)sender
+{
+    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithUserId:self.familyMember.Id];
+    [self.navigationController pushViewController:settingsView animated:YES];
 }
+
 @end

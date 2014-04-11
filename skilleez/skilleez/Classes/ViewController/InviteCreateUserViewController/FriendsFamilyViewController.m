@@ -187,6 +187,7 @@
                 [adultArray addObject:member];
             else
                 [childrenArray addObject:member];
+
         }
         _adultMembers = [NSArray arrayWithArray:adultArray];
         _childrenMembers = [NSArray arrayWithArray:childrenArray];

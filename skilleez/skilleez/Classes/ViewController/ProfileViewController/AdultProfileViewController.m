@@ -133,7 +133,7 @@
 
 - (IBAction)showSettings:(id)sender
 {
-    SettingsViewController *settingsView = [SettingsViewController new];
+    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithUserId: self.familyMember.Id];
     [self.navigationController pushViewController:settingsView animated:YES];
 }
 
