@@ -16,7 +16,7 @@
 #import "UserSettingsManager.h"
 #import "MenuViewController.h"
 #import "AppDelegate.h"
-#import "ProfilePermissionViewController.h"
+#import "AdultProfileViewController.h"
 #import "UINavigationController+Push.h"
 #import "EditProfileViewController.h"
 #import "ChildProfileViewController.h"
@@ -260,7 +260,7 @@
 - (void) showProfileFamilyMember: (FamilyMemberModel*) familyMember
 {
     if (familyMember.IsAdult) {
-        ProfilePermissionViewController *profilePermissionView = [ProfilePermissionViewController new];
+        AdultProfileViewController *profilePermissionView = [AdultProfileViewController new];
         profilePermissionView.familyMember = familyMember;
         [self.navigationController pushViewController:profilePermissionView animated:YES];
     } else {

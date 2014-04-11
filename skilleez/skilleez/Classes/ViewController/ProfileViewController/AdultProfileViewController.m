@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 MobileSoft365. All rights reserved.
 //
 
-#import "ProfilePermissionViewController.h"
+#import "AdultProfileViewController.h"
 #import "AppDelegate.h"
 #import "UIFont+DefaultFont.h"
 #import "EditPermissionViewController.h"
@@ -14,11 +14,15 @@
 #import "ProfileViewController.h"
 #import "NetworkManager.h"
 #import "ProfileInfo.h"
+#import "SendMessageViewController.h"
+#import "SkilleezListViewController.h"
+#import "SettingsViewController.h"
 
 #define CORNER_RADIUS 5.f
 #define FONT_SIZE 22
 
-@interface ProfilePermissionViewController ()
+@interface AdultProfileViewController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UIButton *skilleezBtn;
 @property (weak, nonatomic) IBOutlet UIButton *permitBtn;
@@ -34,7 +38,7 @@
 
 @end
 
-@implementation ProfilePermissionViewController
+@implementation AdultProfileViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -154,4 +158,5 @@
     [alertView setUseMotionEffects:YES];
     [alertView show];
 }
+      
 @end

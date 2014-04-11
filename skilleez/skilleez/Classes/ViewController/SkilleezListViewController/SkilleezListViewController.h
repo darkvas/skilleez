@@ -11,6 +11,6 @@
 
 @interface SkilleezListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, SimpleCellDelegate>
 
-- (id)initWithUserId:(NSString *)userId;
+- (id)initWithUserId:(NSString *)userId andTitle: (NSString*) title;
 
 @end

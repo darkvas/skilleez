@@ -13,7 +13,7 @@
 #import "FamilyMemberCell.h"
 #import "UIFont+DefaultFont.h"
 #import "UserSettingsManager.h"
-#import "ProfilePermissionViewController.h"
+#import "AdultProfileViewController.h"
 #import "NewUserTypeView.h"
 #import "InviteToLoopViewController.h"
 #import "PendingInvitationsViewController.h"
@@ -150,7 +150,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        ProfilePermissionViewController *profilePermissionView = [ProfilePermissionViewController new];
+        AdultProfileViewController *profilePermissionView = [AdultProfileViewController new];
         profilePermissionView.familyMember = _adultMembers[indexPath.row];
         [self.navigationController pushViewController:profilePermissionView animated:YES];
     } else {
