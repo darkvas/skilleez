@@ -10,7 +10,7 @@
 #import "FamilyMemberModel.h"
 #import "CustomAlertView.h"
 
-@interface ProfilePermissionViewController : UIViewController<CustomIOS7AlertViewDelegate>
+@interface AdultProfileViewController : UIViewController<CustomIOS7AlertViewDelegate>
 
 @property (strong, nonatomic) FamilyMemberModel* familyMember;
 
