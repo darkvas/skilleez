@@ -56,7 +56,6 @@
                                       [[TableItem alloc] initWithName:@"Friends & Family" image:nil method:@"showFamily"], nil];
     [self.userAvatarImg setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
     self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.FullName;
-    self.tableView.frame = CGRectMake(0, 82, 256, [items count] * 50);
     [self customize];
 	// Do any additional setup after loading the view.
 }
@@ -108,11 +107,12 @@
 
 - (void)customize
 {
-    [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:31]];
+    [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:28]];
     self.userAvatarImg.layer.cornerRadius = 32.f;
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userAvatarImg.layer.borderWidth = 3.f;
+    self.tableView.frame = CGRectMake(0, 82, 256, [items count] * 50);
 }
 
 - (void)showMyProfile
