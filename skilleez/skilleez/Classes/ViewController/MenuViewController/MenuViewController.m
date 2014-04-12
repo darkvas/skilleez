@@ -57,7 +57,17 @@
     [self.userAvatarImg setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
     self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.FullName;
     [self customize];
-	// Do any additional setup after loading the view.
+    
+    [self subscribeUserInfo];
+    //s Do any additional setup after loading the view.
+}
+
+-(void) subscribeUserInfo
+{
+    [[UserSettingsManager sharedInstance] addDelegateObserver:^{
+        [self.userAvatarImg setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
+        self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.FullName;
+    }];
 }
 
 - (void)didReceiveMemoryWarning
