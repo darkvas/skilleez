@@ -89,10 +89,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MessageViewController *messageView = [[MessageViewController alloc] initWithMessage:messages[indexPath.row]];
-    
     [self.navigationController pushViewController:messageView animated:YES];
-    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:125.0/255.0 alpha:1.0];
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 1.0f;
 }
 
 - (void) cancel
