@@ -32,7 +32,7 @@
 
 - (id) init
 {
-    if ([super init]) {
+    if (self = [super init]) {
         observerCollection = [NSMutableSet new];
     }
     return self;

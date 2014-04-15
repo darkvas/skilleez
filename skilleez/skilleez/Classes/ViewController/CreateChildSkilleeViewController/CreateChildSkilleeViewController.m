@@ -18,7 +18,7 @@
     NSData* chosenData;
     enum mediaType dataMediaType;
     NSMutableArray *childs;
-    NSString *selectedID;
+    NSString *selectedBehalfID;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *createSkilleeLbl;
@@ -221,7 +221,7 @@
 {
     [self hideDropDown:[UIGestureRecognizer new]];
     self.postOnTxt.text = ((FamilyMemberModel *)[childs objectAtIndex:indexPath.row]).FullName;
-    selectedID = ((FamilyMemberModel *)[childs objectAtIndex:indexPath.row]).Id;
+    selectedBehalfID = ((FamilyMemberModel *)[childs objectAtIndex:indexPath.row]).Id;
     [self.dropdown deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -275,19 +275,25 @@
     SkilleeRequest* skilleeRequest = [SkilleeRequest new];
     skilleeRequest.Title = self.titleTxt.text;
     skilleeRequest.Comment = self.commentTxt.text;
-    skilleeRequest.BehalfUserId = self.postOnTxt.text;
+    skilleeRequest.BehalfUserId = selectedBehalfID;
     skilleeRequest.Media = chosenData;
     skilleeRequest.MediaType = dataMediaType;
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     
-    [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest success:^{
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self clearFields];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Launch failed" message:@"Launch skillee failed" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
+    [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess){
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            [self clearFields];
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Launch failed"
+                                                            message:@"Launch skillee failed"
+                                                           delegate:self
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
     }];
 }
 
@@ -305,6 +311,7 @@
     }
     self.postOnTxt.text = @"";
     chosenData = nil;
+    selectedBehalfID = nil;
     self.btnSelectedMedia.hidden = YES;
 }
 
@@ -368,14 +375,16 @@
 
 - (void)loadFamilyData:(NSString *)userId
 {
-    [[NetworkManager sharedInstance] getFriendsAnsFamily:userId success:^(NSArray *friends) {
-        childs = [NSMutableArray new];
-        for (FamilyMemberModel *member in friends) {
-            if(!member.IsAdult)
-                [childs addObject:member];
+    [[NetworkManager sharedInstance] getFriendsAnsFamily:userId withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            childs = [NSMutableArray new];
+            for (FamilyMemberModel *member in requestResult.returnArray) {
+                if(!member.IsAdult)
+                    [childs addObject:member];
+            }
+        } else {
+            NSLog(@"Get Friends and family error: %@", requestResult.error);
         }
-    } failure:^(NSError *error) {
-        NSLog(@"Get Friends and family error: %@", error);
     }];
 }
 

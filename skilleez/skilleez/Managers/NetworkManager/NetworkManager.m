@@ -47,6 +47,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 }
 
 #pragma mark - Public Metods
+
 + (instancetype)sharedInstance
 {
     static dispatch_once_t once;
@@ -58,7 +59,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     return sharedInstance;
 }
 
-#pragma mark - Private Metods
+#pragma mark - Initialization
 
 - (id)init
 {
@@ -215,39 +216,39 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     
 }
 
--(void) tryLogin:(NSString *)username password:(NSString*)password withLoginCallBeck: (void(^)(BOOL loginResult, NSError* error)) loginCallBack
+#pragma mark - User requests
+
+-(void) tryLogin:(NSString *)username password:(NSString*)password withLoginCallBack: (requestCallBack) loginCallBack
 {
     _username = username;
     _password = password;
     
-    [self getUserInfo:^(UserInfo *userInfo) {
-        dispatch_async(dispatch_get_main_queue(), ^{loginCallBack(YES, nil);});
-    } failure:^(NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{loginCallBack(NO, error);});
-    }];
+    [self getUserInfo:^(RequestResult * requestResult) {
+        dispatch_async(dispatch_get_main_queue(), ^{loginCallBack(requestResult);});
+    } ];
 }
 
--(void) getUserInfo:(void (^)(UserInfo *userInfo))successUserInfo failure:(errorFunc)failure
+-(void) getUserInfo:(requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
-
+    
     [manager getObjectsAtPath:[SKILLEEZ_URL stringByAppendingString:GET_USERINFO_URI]
-                         parameters:nil
-                            success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{successUserInfo(mappingResult.firstObject);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:mappingResult.firstObject]);});
      }
-                            failure:^(RKObjectRequestOperation * operaton, NSError * error)
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) getSkilleeList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(errorFunc)failure
+-(void) getSkilleeList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_SKILLEE_LIST_URI, count, offset];
     [self prepareSkilleeRequest];
-    [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
+    [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
 
 -(void) prepareSkilleeRequest
@@ -255,7 +256,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
 }
 
--(void) getSkilleeResultForUrl: (NSString*) requestUrl withSuccess: (void (^)(NSArray *skilleeList))successSkillee failure:(errorFunc)failure
+-(void) getSkilleeResultForUrl: (NSString*) requestUrl withCallBack: (requestCallBack) callBack
 {
     [manager getObjectsAtPath:requestUrl
                    parameters:nil
@@ -266,36 +267,36 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
              if([obj isKindOfClass:[SkilleeModel class]])
                  [skilleArray addObject:obj];
          }
-         dispatch_async(dispatch_get_main_queue(), ^{successSkillee(skilleArray);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:skilleArray]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) getSkilleeListForUser:(NSString*) userId count: (int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(errorFunc)failure
+-(void) getSkilleeListForUser:(NSString*) userId count: (int) count offset: (int) offset withCallBack: (requestCallBack) callBack
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?UserId=%@&Count=%i&Offset=%i", SKILLEEZ_URL, GET_USER_SKILLEE_LIST_URI, userId, count, offset];
     [self prepareSkilleeRequest];
-    [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
+    [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
 
--(void) getWaitingForApproval:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(errorFunc)failure
+-(void) getWaitingForApproval:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_WAITING_FOR_APPROVAL_URI, count, offset];
     [self prepareSkilleeRequest];
-    [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
+    [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
 
--(void) getFavoriteList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(errorFunc)failure
+-(void) getFavoriteList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_FAVORITE_LIST, count, offset];
     [self prepareSkilleeRequest];
-    [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
+    [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
 
--(void) getWaitingForApprovalCountSuccess: (void (^)(int approvalCount))success failure:(errorFunc)failure
+-(void) getWaitingForApprovalCount: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -304,15 +305,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          int resultCount = [((PostResponse*)mappingResult.firstObject).ReturnValue integerValue];
-         dispatch_async(dispatch_get_main_queue(), ^{success(resultCount);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:@(resultCount)]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest success: (voidFunc)success failure:(errorFunc)failure
+-(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -354,16 +355,19 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [request setHTTPBody:body];
     
     RKObjectRequestOperation *operation = [manager objectRequestOperationWithRequest:request
-                                                                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                                                 dispatch_async(dispatch_get_main_queue(), ^{success();});
-                                                                             }
-                                                                             failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                                                                 dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
-                                                                             }];
+                                                                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                           {
+                                               dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:@(YES)]);});
+                                           }
+                                                                             failure:^(RKObjectRequestOperation *operation, NSError *error)
+                                           {
+                                               dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+                                           }];
+    
     [manager enqueueObjectRequestOperation:operation];
 }
 
--(void) postRemoveSkillee:(NSString*) skilleeId success: (voidFunc)success failure:(errorFunc)failure
+-(void) postRemoveSkillee:(NSString*) skilleeId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -372,15 +376,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) postAddToFavorites:(NSString*) skilleeId success: (voidFunc)success failure:(errorFunc)failure
+-(void) postAddToFavorites:(NSString*) skilleeId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -389,15 +393,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_ADD_TO_FAVORITES] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) postRemoveFromFavorites:(NSString*) skilleeId success: (voidFunc)success failure:(errorFunc)failure
+-(void) postRemoveFromFavorites:(NSString*) skilleeId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -406,15 +410,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE_FROM_FAVORITES] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) postMarkAsTatle:(NSString*) skilleeId success: (voidFunc)success failure:(errorFunc)failure
+-(void) postMarkAsTatle:(NSString*) skilleeId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -423,15 +427,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_MARK_AS_TATTLE] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) postApproveOrDenySkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(errorFunc)failure
+-(void) postApproveOrDenySkillee:(NSString*) skilleeId isApproved:(BOOL)approved withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -443,16 +447,16 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_APPROVE_OR_DENY] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
 //TODO: service always return error - check it later
--(void) getCanApprove: (NSString*) skilleeId success: (void (^)(bool canApprove))success failure:(errorFunc)failure
+-(void) getCanApprove: (NSString*) skilleeId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -462,18 +466,18 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
      {
          NSLog(@"success: mappings: %@", mappingResult.firstObject);
          BOOL result = (BOOL)mappingResult.firstObject;
-         dispatch_async(dispatch_get_main_queue(), ^{success(result);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:@(result)]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
          NSLog (@"failure: operation: %@ \n\nerror: %@", operaton, error);
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
 #pragma mark User - need to test
 
--(void) postAddChildToFamily:(NSString*) childName withPass:(NSString*) childPassword success: (voidFunc)success failure:(errorFunc)failure
+-(void) postAddChildToFamily:(NSString*) childName withPass:(NSString*) childPassword withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -485,15 +489,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_ADD_CHILD_TO_FAMILY] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:childName]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) postInviteAdultToFamily:(NSString*) email success: (voidFunc)success failure:(errorFunc)failure
+-(void) postInviteAdultToFamily:(NSString*) email withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -504,15 +508,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_INVITE_ADULT_TO_FAMILY] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:email]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) postRemoveMemberFromFamily:(NSString*) mainFamilyUserId memberId: (NSString*) memberId success: (voidFunc)success failure:(errorFunc)failure
+-(void) postRemoveMemberFromFamily:(NSString*) mainFamilyUserId memberId: (NSString*) memberId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -531,15 +535,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_INVITE_ADULT_TO_FAMILY] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:memberId]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) getFriendsAnsFamily: (NSString*) userId success: (void (^)(NSArray *friends))success failure:(errorFunc)failure
+-(void) getFriendsAnsFamily: (NSString*) userId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -553,15 +557,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                  [familyMembers addObject:obj];
          }
          
-         dispatch_async(dispatch_get_main_queue(), ^{success(familyMembers);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:familyMembers]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) getAdultPermissions: (NSString*) userId forAdultId: (NSString*) adultId success: (void (^)(NSArray *permissions))success failure:(errorFunc)failure
+-(void) getAdultPermissions: (NSString*) userId forAdultId: (NSString*) adultId withCallBack:(requestCallBack)callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -575,17 +579,17 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                  [permissions addObject:obj];
          }
          
-         dispatch_async(dispatch_get_main_queue(), ^{success(permissions);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:permissions]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
 #pragma mark Profile - need to test
 
--(void) getProfileInfo:(NSString*) userId success: (void (^)(ProfileInfo *profileInfo))success failure:(errorFunc)failure
+-(void) getProfileInfo:(NSString*) userId withCallBack:(requestCallBack)callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -601,15 +605,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
              }
          }
 
-         dispatch_async(dispatch_get_main_queue(), ^{success(profile);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:profile]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) postProfileImage: (NSData*) imageData success: (voidFunc)success failure:(errorFunc)failure
+-(void) postProfileImage: (NSData*) imageData withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -636,16 +640,18 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [request setHTTPBody:body];
     
     RKObjectRequestOperation *operation = [manager objectRequestOperationWithRequest:request
-                                                                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                                                 dispatch_async(dispatch_get_main_queue(), ^{success();});
-                                                                             }
-                                                                             failure:^(RKObjectRequestOperation *operation, NSError *error) {
-                                                                                 dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
-                                                                             }];
+                                                                             success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+                                           {
+                                               dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:@(YES)]);});
+                                           }
+                                                                             failure:^(RKObjectRequestOperation *operation, NSError *error)
+                                           {
+                                               dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+                                           }];
     [manager enqueueObjectRequestOperation:operation];
 }
 
--(void) postProfileInfo: (ProfileInfo*) profileInfo success: (voidFunc)success failure:(errorFunc)failure
+-(void) postProfileInfo: (ProfileInfo*) profileInfo withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -664,17 +670,17 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_PROFILEINFO_URI] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:profileInfo]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
 #pragma mark FOLLOW/UNFOLLOW
 
--(void) postFollowUser: (NSString*) userId success: (voidFunc)success failure:(errorFunc)failure
+-(void) postFollowUser: (NSString*) userId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -685,15 +691,15 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_FOLLOW_USER] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:userId]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 
--(void) postUnfollowUser: (NSString*) userId success: (voidFunc)success failure:(errorFunc)failure
+-(void) postUnfollowUser: (NSString*) userId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -704,11 +710,11 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_UNFOLLOW_USER] parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{success();});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:userId]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
-         dispatch_async(dispatch_get_main_queue(), ^{failure(error);});
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
 

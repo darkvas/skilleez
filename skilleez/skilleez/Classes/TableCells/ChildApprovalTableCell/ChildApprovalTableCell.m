@@ -36,7 +36,7 @@
     [[CellFiller sharedInstance] setSkilleezCell:self];
 }
 
-- (void)setSkilleezCell:(ChildApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
+- (void)setSkilleezData:(ChildApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     skilleeModel = element;
     [[CellFiller sharedInstance] setSkilleezData:cell andSkilleez:element andTag:tag];
@@ -45,10 +45,12 @@
 
 - (IBAction)deleteSkillee:(id)sender
 {
-    [[NetworkManager sharedInstance] postRemoveSkillee:skilleeModel.Id success:^{
-        [self.delegate didSkiilleSelect:skilleeModel];
-    } failure:^(NSError *error) {
-        
+    [[NetworkManager sharedInstance] postRemoveSkillee:skilleeModel.Id withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            [self.delegate didSkiilleSelect:skilleeModel];
+        } else {
+            NSLog(@"Delete Skillee error: %@", requestResult.error);
+        }
     }];
 }
 

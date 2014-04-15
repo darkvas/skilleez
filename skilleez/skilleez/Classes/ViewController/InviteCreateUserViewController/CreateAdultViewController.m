@@ -103,16 +103,18 @@
     NSString* email = self.tfUserEmail.text;
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postInviteAdultToFamily: email success:^{
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        NSString* message = [NSString stringWithFormat:@"Send invite to email: %@", email];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
+    [[NetworkManager sharedInstance] postInviteAdultToFamily: email withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            NSString* message = [NSString stringWithFormat:@"Send invite to email: %@", email];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
     }];
 }
 

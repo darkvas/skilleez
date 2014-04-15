@@ -12,6 +12,6 @@
 
 @interface ChildApprovalTableCell : SimpleTableCell
 
-- (void)setSkilleezCell:(ChildApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
+- (void)setSkilleezData:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
 
 @end

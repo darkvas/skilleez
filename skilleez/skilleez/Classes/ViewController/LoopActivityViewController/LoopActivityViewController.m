@@ -93,11 +93,14 @@ const int NUMBER_OF_ITEMS = 5;
 
 - (void) loadWaitingForApprovalCount
 {
-    [[NetworkManager sharedInstance] getWaitingForApprovalCountSuccess:^(int approvalCount) {
-        NSLog(@"Waiting from approval count %i", approvalCount);
-        [self setBadgeValue:approvalCount];
-    } failure:^(NSError *error) {
-        NSLog(@"Waiting from approval error: %@", error);
+    [[NetworkManager sharedInstance] getWaitingForApprovalCount:^(RequestResult *requestReturn) {
+        if(requestReturn.isSuccess){
+            int approvalCount = [((NSNumber*)requestReturn.firstObject) intValue];
+            NSLog(@"Waiting from approval count %i", approvalCount);
+            [self setBadgeValue:approvalCount];
+        } else {
+            NSLog(@"Waiting from approval error: %@", requestReturn.error);
+        }
     }];
 }
 
@@ -315,85 +318,91 @@ const int NUMBER_OF_ITEMS = 5;
 - (void)loadSkilleeList
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getSkilleeList:count offset:offset success:^(NSArray *skilleeList) {
-        if (offset > 0) {
-            [loopData addObjectsFromArray:skilleeList];
-            [self.tableView reloadData];
-        } else if (![self isArrayEquals:loopData toOther:skilleeList] && [skilleeList count] > 0) {
-            loopData = [NSMutableArray arrayWithArray:skilleeList];
-            [self.tableView reloadData];
+    [[NetworkManager sharedInstance] getSkilleeList:count offset:offset withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess){
+            NSArray* skilleeList = requestResult.returnArray;
+            if (offset > 0) {
+                [loopData addObjectsFromArray:skilleeList];
+                [self.tableView reloadData];
+            } else if (![self isArrayEquals:loopData toOther:skilleeList] && [skilleeList count] > 0) {
+                loopData = [NSMutableArray arrayWithArray:skilleeList];
+                [self.tableView reloadData];
+            }
+            if (toTop) {
+                self.tableView.contentOffset = CGPointMake(0, 0);
+                toTop = NO;
+            }
+            if (skillleType != LOOP) {
+                skillleType = LOOP;
+                [self.tableView reloadData];
+            }
+            skilleeList = nil;
+            [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
+        } else {
+            [self showFailureAlert:requestResult.error withCaption:@"Load Skilleez failed"];
         }
-        if (toTop) {
-            self.tableView.contentOffset = CGPointMake(0, 0);
-            toTop = NO;
-        }
-        if (skillleType != LOOP) {
-            skillleType = LOOP;
-            [self.tableView reloadData];
-        }
-        skilleeList = nil;
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self showFailureAlert:error withCaption:@"Load Skilleez failed"];
     }];
 }
 
 - (void)loadFavoriteList
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getFavoriteList:count offset:offset success:^(NSArray *skilleeList) {
-        if (offset > 0) {
-            [favoritesData addObjectsFromArray:skilleeList];
-            [self.tableView reloadData];
-        } else if (![self isArrayEquals:favoritesData toOther:skilleeList] && [skilleeList count] > 0) {
-            favoritesData = [NSMutableArray arrayWithArray:skilleeList];
-            [self.tableView reloadData];
-        }
-        if (skillleType != FAVORITES) {
-            skillleType = FAVORITES;
-            [self.tableView reloadData];
-        }
-        if (toTop) {
-            self.tableView.contentOffset = CGPointMake(0, 0);
-            toTop = NO;
+    [[NetworkManager sharedInstance] getFavoriteList:count offset:offset withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            NSArray* skilleeList = requestResult.returnArray;
+            if (offset > 0) {
+                [favoritesData addObjectsFromArray:skilleeList];
+                [self.tableView reloadData];
+            } else if (![self isArrayEquals:favoritesData toOther:skilleeList] && [skilleeList count] > 0) {
+                favoritesData = [NSMutableArray arrayWithArray:skilleeList];
+                [self.tableView reloadData];
+            }
+            if (skillleType != FAVORITES) {
+                skillleType = FAVORITES;
+                [self.tableView reloadData];
+            }
+            if (toTop) {
+                self.tableView.contentOffset = CGPointMake(0, 0);
+                toTop = NO;
+            }
+            canLoadOnScroll = YES;
+            [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
+        } else {
+            [self showFailureAlert:requestResult.error withCaption:@"Load Favorites failed"];
         }
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        canLoadOnScroll = YES;
-        [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self showFailureAlert:error withCaption:@"Load Favorites failed"];
     }];
 }
 
 - (void)loadWaitingForApprovalList
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getWaitingForApproval:count offset:offset success:^(NSArray *skilleeList) {
-        if (offset > 0) {
-            [approvalData addObjectsFromArray:skilleeList];
-            [self.tableView reloadData];
-        } else if (![self isArrayEquals:approvalData toOther:skilleeList] && [skilleeList count] > 0) {
-            approvalData = [NSMutableArray arrayWithArray:skilleeList];
-            [self.tableView reloadData];
+    [[NetworkManager sharedInstance] getWaitingForApproval:count offset:offset withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            NSArray* skilleeList = requestResult.returnArray;
+            if (offset > 0) {
+                [approvalData addObjectsFromArray:skilleeList];
+                [self.tableView reloadData];
+            } else if (![self isArrayEquals:approvalData toOther:skilleeList] && [skilleeList count] > 0) {
+                approvalData = [NSMutableArray arrayWithArray:skilleeList];
+                [self.tableView reloadData];
+            }
+            if (skillleType != APPROVES) {
+                skillleType = APPROVES;
+                [self.tableView reloadData];
+            }
+            if (toTop) {
+                self.tableView.contentOffset = CGPointMake(0, 0);
+                toTop = NO;
+            }
+            //[self setBadgeValue:[approvalData count]];
+            [self loadWaitingForApprovalCount];
+            [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
+        } else {
+            [self showFailureAlert:requestResult.error withCaption:@"Load Approvals failed"];
         }
-        if (skillleType != APPROVES) {
-            skillleType = APPROVES;
-            [self.tableView reloadData];
-        }
-        if (toTop) {
-            self.tableView.contentOffset = CGPointMake(0, 0);
-            toTop = NO;
-        }
-        //[self setBadgeValue:[approvalData count]];
-        [self loadWaitingForApprovalCount];
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self showFailureAlert:error withCaption:@"Load Approvals failed"];
     }];
 }
 
@@ -437,38 +446,47 @@ const int NUMBER_OF_ITEMS = 5;
 
 - (void)loadSkilleeInBackground:(int)counts offset:(int)offsets
 {
-    [[NetworkManager sharedInstance] getSkilleeList:counts offset:offsets success:^(NSArray *skilleeList) {
-        if (![self isArrayEquals:loopData toOther:skilleeList]) {
-            loopData = [NSMutableArray arrayWithArray:skilleeList];
-            [self.tableView reloadData];
+    [[NetworkManager sharedInstance] getSkilleeList:counts offset:offsets withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            NSArray* skilleeList = requestResult.returnArray;
+            if (![self isArrayEquals:loopData toOther:skilleeList]) {
+                loopData = [NSMutableArray arrayWithArray:skilleeList];
+                [self.tableView reloadData];
+            }
+        } else {
+            NSLog(@"loadSkilleeInBackground error: %@", requestResult.error);
         }
-    } failure:^(NSError *error) {
-        NSLog(@"loadSkilleeInBackground error: %@", error);
     }];
 }
 
 - (void)loadFavoriteInBackground:(int)counts offset:(int)offsets
 {
-    [[NetworkManager sharedInstance] getFavoriteList:counts offset:offsets success:^(NSArray *skilleeList) {
-        if (![self isArrayEquals:favoritesData toOther:skilleeList]) {
-            favoritesData = [NSMutableArray arrayWithArray:skilleeList];
-            [self.tableView reloadData];
+    [[NetworkManager sharedInstance] getFavoriteList:counts offset:offsets withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            NSArray* skilleeList = requestResult.returnArray;
+            if (![self isArrayEquals:favoritesData toOther:skilleeList]) {
+                favoritesData = [NSMutableArray arrayWithArray:skilleeList];
+                [self.tableView reloadData];
+            }
+        } else {
+            NSLog(@"loadSkilleeInBackground error: %@", requestResult.error);
         }
-    } failure:^(NSError *error) {
-        NSLog(@"loadSkilleeInBackground error: %@", error);
     }];
 }
 
 - (void)loadWaitingForApprovalInBackground:(int)counts offset:(int)offsets
 {
-    [[NetworkManager sharedInstance] getWaitingForApproval:counts offset:offsets success:^(NSArray *skilleeList) {
-        if (![self isArrayEquals:approvalData toOther:skilleeList]) {
-            approvalData = [NSMutableArray arrayWithArray:skilleeList];
-            [self.tableView reloadData];
-            [self setBadgeValue:[approvalData count]];
+    [[NetworkManager sharedInstance] getWaitingForApproval:counts offset:offsets withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            NSArray* skilleeList = requestResult.returnArray;
+            if (![self isArrayEquals:approvalData toOther:skilleeList]) {
+                approvalData = [NSMutableArray arrayWithArray:skilleeList];
+                [self.tableView reloadData];
+                [self setBadgeValue:[approvalData count]];
+            }
+        } else {
+            NSLog(@"loadSkilleeInBackground error: %@", requestResult.error);
         }
-    } failure:^(NSError *error) {
-        NSLog(@"loadSkilleeInBackground error: %@", error);
     }];
 }
 

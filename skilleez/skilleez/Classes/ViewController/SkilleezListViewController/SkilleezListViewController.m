@@ -145,26 +145,29 @@ const int NUMBER_OF_ITEMS_SL = 5;
 - (void)loadSkilleeList
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getSkilleeListForUser:_userId count: count offset:offset success:^(NSArray *skilleeList) {
-        if (offset > 0) {
-            [skilleez addObjectsFromArray:skilleeList];
-            [self.tableView reloadData];
-        } else if (![self isArrayEquals:skilleez toOther:skilleeList] && [skilleeList count] > 0) {
-            skilleez = [NSMutableArray arrayWithArray:skilleeList];
-            [self.tableView reloadData];
+    [[NetworkManager sharedInstance] getSkilleeListForUser:_userId count: count offset:offset withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            NSArray* skilleeList = requestResult.returnArray;
+            if (offset > 0) {
+                [skilleez addObjectsFromArray:skilleeList];
+                [self.tableView reloadData];
+            } else if (![self isArrayEquals:skilleez toOther:skilleeList] && [skilleeList count] > 0) {
+                skilleez = [NSMutableArray arrayWithArray:skilleeList];
+                [self.tableView reloadData];
+            }
+            if (toTop) {
+                self.tableView.contentOffset = CGPointMake(0, 0);
+                toTop = NO;
+            }
+            skilleeList = nil;
+            [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load Skilleez failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
         }
-        if (toTop) {
-            self.tableView.contentOffset = CGPointMake(0, 0);
-            toTop = NO;
-        }
-        skilleeList = nil;
-        [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load Skilleez failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
     }];
 }
 

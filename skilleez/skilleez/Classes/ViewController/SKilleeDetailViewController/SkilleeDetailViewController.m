@@ -95,12 +95,15 @@ typedef enum {
 -(void) canApproveByAPI
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getCanApprove:skillee.Id success: ^(bool canApprove) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        NSLog(@"Can approve: %@", canApprove ? @"YES" : @"FALSE");
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        NSLog(@"Failed get can approve: %@, error: %@", skillee.Id, error);
+    [[NetworkManager sharedInstance] getCanApprove:skillee.Id withCallBack:^(RequestResult *requestReturn) {
+        if (requestReturn.isSuccess) {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            BOOL canApprove = [((NSNumber*)requestReturn.firstObject) boolValue];
+            NSLog(@"Can approve: %@", canApprove ? @"YES" : @"FALSE");
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            NSLog(@"Failed get can approve: %@, error: %@", skillee.Id, requestReturn.error);
+        }
     }];
 }
 
@@ -140,16 +143,18 @@ typedef enum {
 - (void) approveSkilleeAndExit: (BOOL) approve
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:approve success:^{
-        NSLog(@"Success %@: %@", approve ? @"approved" : @"denied", skillee.Id);
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self.navigationController popViewControllerCustom];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        NSString* title = [NSString stringWithFormat:@"%@ failed", approve ? @"Approve" : @"Deny"];
-        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
+    [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:approve withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            NSLog(@"Success %@: %@", approve ? @"approved" : @"denied", skillee.Id);
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            [self.navigationController popViewControllerCustom];
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            NSString* title = [NSString stringWithFormat:@"%@ failed", approve ? @"Approve" : @"Deny"];
+            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
     }];
 }
 
@@ -233,24 +238,28 @@ typedef enum {
 - (IBAction)favorite:(id)sender
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postAddToFavorites:skillee.Id success:^{
-        NSLog(@"Success add to Favorites: %@", skillee.Id);
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-    } failure:^(NSError *error) {
-        NSLog(@"Failed add to Favorites: %@, error: %@", skillee.Id, error);
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+    [[NetworkManager sharedInstance] postAddToFavorites:skillee.Id withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess){
+            NSLog(@"Success add to Favorites: %@", skillee.Id);
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        } else {
+            NSLog(@"Failed add to Favorites: %@, error: %@", skillee.Id, requestResult.error);
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        }
     }];
 }
 
 - (IBAction)tattle:(id)sender
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postMarkAsTatle:skillee.Id success:^{
-        NSLog(@"Success mark as Tatle: %@", skillee.Id);
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-    } failure:^(NSError *error) {
-        NSLog(@"Failed mark as Tatle: %@, error: %@", skillee.Id, error);
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+    [[NetworkManager sharedInstance] postMarkAsTatle:skillee.Id withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess){
+            NSLog(@"Success mark as Tatle: %@", skillee.Id);
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        } else {
+            NSLog(@"Failed mark as Tatle: %@, error: %@", skillee.Id, requestResult.error);
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        }
     }];
 }
 

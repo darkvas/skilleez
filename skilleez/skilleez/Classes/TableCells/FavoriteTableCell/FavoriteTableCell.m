@@ -34,7 +34,7 @@
     [[CellFiller sharedInstance] setSkilleezCell:self];
 }
 
-- (void)setSkilleezCell:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
+- (void)setSkilleezData:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     skilleeModel = element;
     [[CellFiller sharedInstance] setSkilleezData:cell andSkilleez:element andTag:tag];
@@ -42,10 +42,12 @@
 
 - (IBAction)removeFromFavorites:(id)sender
 {
-    [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeModel.Id success:^{
-         [self.delegate didSkiilleSelect:skilleeModel];
-    } failure:^(NSError *error) {
-        NSLog(@"Failed remove from Favorites: %@, error: %@", skilleeModel.Id, error);
+    [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeModel.Id withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            [self.delegate didSkiilleSelect:skilleeModel];
+        } else {
+            NSLog(@"Failed remove from Favorites: %@, error: %@", skilleeModel.Id, requestResult.error);
+        }
     }];
 }
 

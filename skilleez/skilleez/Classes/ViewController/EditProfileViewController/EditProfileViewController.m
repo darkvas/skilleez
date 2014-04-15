@@ -121,11 +121,13 @@ enum {
 
 - (void) loadProfileInfo
 {
-    [[NetworkManager sharedInstance] getProfileInfo:[UserSettingsManager sharedInstance].userInfo.UserID success:^(ProfileInfo *profileInfo) {
-        profile = profileInfo;
-        [self updateProfileView];
-    } failure:^(NSError *error) {
-        NSLog(@"Get Profile Info error: %@", error);
+    [[NetworkManager sharedInstance] getProfileInfo:[UserSettingsManager sharedInstance].userInfo.UserID withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess){
+            profile = (ProfileInfo *) requestResult.firstObject;
+            [self updateProfileView];
+        } else {
+            NSLog(@"Get Profile Info error: %@", requestResult.error);
+        }
     }];
 }
 
@@ -362,26 +364,28 @@ enum {
     profile.FavoriteColor = [self getStringFromColor:favoriteColor];
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postProfileInfo:profile success:^{
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self done];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
+    [[NetworkManager sharedInstance] postProfileInfo:profile withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            [self done];
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
     }];
 }
 
 -(void)uploadImage
 {
     NSData* imageData = UIImageJPEGRepresentation(self.userAvatarImg.image, 1.0f);
-    [[NetworkManager sharedInstance] postProfileImage:imageData success:^{
-        
-    } failure:^(NSError *error) {
-        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
+    [[NetworkManager sharedInstance] postProfileImage:imageData withCallBack:^(RequestResult *requestResult) {
+        if (! requestResult.isSuccess) {
+            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
     }];
 }
 
