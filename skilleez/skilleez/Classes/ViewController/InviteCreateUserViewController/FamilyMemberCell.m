@@ -33,6 +33,15 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    _memberAvatar.layer.cornerRadius = 23.0;
+    _memberAvatar.layer.masksToBounds = YES;
+    _memberAvatar.layer.borderColor = [UIColor whiteColor].CGColor;
+    _memberAvatar.layer.borderWidth = 3.0;
+    [_memberName setFont:[UIFont getDKCrayonFontWithSize:21]];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
@@ -40,17 +49,10 @@
     // Configure the view for the selected state
 }
 
--(void) setMemberData: (FamilyMemberModel*) familyMember andTag:(int) rowTag
+- (void)setMemberData:(FamilyMemberModel *)familyMember andTag:(int)rowTag
 {
     _familyMember = familyMember;
-    
-    _memberAvatar.layer.cornerRadius = 23.0;
-    _memberAvatar.layer.masksToBounds = YES;
-    _memberAvatar.layer.borderColor = [UIColor whiteColor].CGColor;
-    _memberAvatar.layer.borderWidth = 3.0;
     [_memberAvatar setImageWithURL: _familyMember.AvatarUrl];
-    
-    [_memberName setFont:[UIFont getDKCrayonFontWithSize:21]];
     _memberName.text = _familyMember.FullName;
 }
 

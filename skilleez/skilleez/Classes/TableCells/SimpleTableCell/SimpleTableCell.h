@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *detailBtn;
 @property (nonatomic,strong) id delegate;
 
-- (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
+- (void)setSkilleezData:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
+- (void)setSkilleezCell:(SimpleTableCell *)cell;
 
 @end

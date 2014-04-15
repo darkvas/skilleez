@@ -67,6 +67,11 @@
     [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
     self.userColorButton.backgroundColor = profile.Color;
     self.coloredView.backgroundColor = profile.Color;
+    //TODO:change on real data in future
+    [self.userSportButton setBackgroundImage:[UIImage imageNamed:@"sport_baseball_icon.png"] forState:UIControlStateNormal];
+    [self.userSubjectButton setBackgroundImage:[UIImage imageNamed:@"subject_art_icon.png"] forState:UIControlStateNormal];
+    [self.userMusicButton setBackgroundImage:[UIImage imageNamed:@"music_classical_icon.png"] forState:UIControlStateNormal];
+    [self.userFoodButton setBackgroundImage:[UIImage imageNamed:@"food_blt_icon.png"] forState:UIControlStateNormal];
     self.userDescTextView.text = profile.AboutMe == nil ? self.userDescTextView.text : profile.AboutMe;
     CGRect rect = self.userDescTextView.frame;
     CGSize textViewSize = [self.userDescTextView sizeThatFits:CGSizeMake(self.userDescTextView.frame.size.width, FLT_MAX)];
@@ -150,6 +155,34 @@
     [UIView commitAnimations];
 }
 
+#pragma mark - ColorViewControllerObserver
+
+- (void)colorSelected:(UIColor *)color
+{
+    self.userColorButton.backgroundColor = color;
+    self.coloredView.backgroundColor = color;
+}
+
+#pragma mark - FavoriteViewControllerDelegate
+
+- (void)imageSelected:(UIImage *)image withType:(int)type
+{
+    switch (type) {
+        case SPORT:
+            [self.userSportButton setBackgroundImage:image forState:UIControlStateNormal];
+            break;
+        case SUBJECT:
+            [self.userSubjectButton setBackgroundImage:image forState:UIControlStateNormal];
+            break;
+        case MUSIC:
+            [self.userMusicButton setBackgroundImage:image forState:UIControlStateNormal];
+            break;
+        default:
+            [self.userFoodButton setBackgroundImage:image forState:UIControlStateNormal];
+            break;
+    }
+}
+
 #pragma mark - Class methods
 
 - (void)turnEditMode
@@ -217,11 +250,13 @@
 
 - (IBAction)selectColor:(id)sender {
     ColorViewController *color = [[ColorViewController alloc] initWithProfile:profile];
+    color.delegate = self;
     [self.navigationController pushViewController:color animated:YES];
 }
 
 - (IBAction)selectFavorite:(id)sender {
     SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType: ((UIButton *)sender).tag - 1 andProfile:profile];
+    favorite.delegate = self;
     [self.navigationController pushViewController:favorite animated:YES];
 }
 

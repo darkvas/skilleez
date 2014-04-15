@@ -22,13 +22,8 @@
     return sharedInstance;
 }
 
-- (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
+- (void)setSkilleezData:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
-    [cell.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [cell.dateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
-    [cell.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
-    [cell.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    
     cell.usernameLbl.text = element.UserName;
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setTimeStyle:NSDateFormatterNoStyle];
@@ -37,10 +32,7 @@
     [format setLocale:usLocale];
     cell.dateLbl.text =[format stringFromDate:element.PostedDate];
     [cell.avatarImg setImageWithURL:element.UserAvatarUrl];
-    cell.avatarImg.layer.cornerRadius = 23.0;
-    cell.avatarImg.layer.masksToBounds = YES;
-    cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    cell.avatarImg.layer.borderWidth = 3.0;
+
     if ([[element.MediaThumbnailUrl absoluteString] isEqualToString:@""]) {
         [cell.attachmentImg setImageWithURL:element.MediaUrl];
     } else {
@@ -50,6 +42,18 @@
     cell.skilleezCommentLbl.text = element.Comment;
     cell.avatarImg.tag = tag;
     cell.contentView.backgroundColor = element.Color;
+}
+
+- (void)setSkilleezCell:(SimpleTableCell *)cell
+{
+    cell.avatarImg.layer.cornerRadius = 23.0;
+    cell.avatarImg.layer.masksToBounds = YES;
+    cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.avatarImg.layer.borderWidth = 3.0;
+    [cell.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
+    [cell.dateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
+    [cell.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
+    [cell.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
 }
 
 @end

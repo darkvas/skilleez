@@ -96,7 +96,7 @@
         cell = [nib objectAtIndex:0];
         cell.delegate = self;
     }
-    [cell setSkilleezCell:cell andSkilleez:skilleez[indexPath.row] andTag:indexPath.row];
+    [cell setSkilleezData:cell andSkilleez:skilleez[indexPath.row] andTag:indexPath.row];
     return cell;
 }
 

@@ -28,10 +28,15 @@
 
 @implementation AdultApprovalTableCell
 
+- (void)awakeFromNib
+{
+    [[CellFiller sharedInstance] setSkilleezCell:self];
+}
+
 - (void)setSkilleezCell:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     skillee = element;
-    [[CellFiller sharedInstance] setSkilleezCell:cell andSkilleez:element andTag:tag];
+    [[CellFiller sharedInstance] setSkilleezData:cell andSkilleez:element andTag:tag];
 }
 
 - (IBAction)showSkillee:(id)sender

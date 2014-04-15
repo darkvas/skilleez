@@ -27,6 +27,18 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    self.questionText.font = [UIFont getDKCrayonFontWithSize:22.f];
+    self.questionImage.layer.masksToBounds = YES;
+    self.questionImage.layer.cornerRadius = 7.f;
+    self.questionImage.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.questionImage.layer.borderWidth = 3.f;
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    [self setSelectedBackgroundView:bgColorView];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
@@ -37,15 +49,7 @@
 - (void)fillCell:(ProfileTableCell *)cell question:(NSString *)question image:(UIImage *)image
 {
     cell.questionImage.image = image;
-    cell.questionText.font = [UIFont getDKCrayonFontWithSize:22.f];
     cell.questionText.text = question;
-    cell.questionImage.layer.masksToBounds = YES;
-    cell.questionImage.layer.cornerRadius = 7.f;
-    cell.questionImage.layer.borderColor = [[UIColor whiteColor] CGColor];
-    cell.questionImage.layer.borderWidth = 3.f;
-    UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
-    [cell setSelectedBackgroundView:bgColorView];
 }
 
 @end

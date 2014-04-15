@@ -21,6 +21,7 @@
 #import "EditProfileViewController.h"
 #import "ChildProfileViewController.h"
 #import "ActivityIndicatorController.h"
+#import "InviteToLoopApprovalTableCell.h"
 
 #define LOOP 0
 #define APPROVES 1
@@ -179,7 +180,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(selectProfile:)];
         [cell.avatarImg addGestureRecognizer:tap];
     }
-    [cell setSkilleezCell:cell andSkilleez:[self getElementAt:indexPath.row] andTag:indexPath.row];
+    [cell setSkilleezData:cell andSkilleez:[self getElementAt:indexPath.row] andTag:indexPath.row];
     return cell;
 }
 
