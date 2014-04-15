@@ -13,9 +13,8 @@
 #import "UserSettingsManager.h"
 #import "ActivityIndicatorController.h"
 
-#define REGISTER_URL @"http://skilleezv3.elasticbeanstalk.com/Account/Register"
-#define FORGOT_RASSWORD_URL @"http://skilleezv3.elasticbeanstalk.com/Account/ForgotPassword"
-
+const NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Register";
+const NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/ForgotPassword";
 
 @interface LoginViewController ()
 

@@ -17,8 +17,8 @@
 #import "SkilleezListViewController.h"
 #import "SettingsViewController.h"
 
-#define CORNER_RADIUS 5.f
-#define FONT_SIZE 22
+const float CORNER_RADIUS_CP = 5.f;
+const int FONT_SIZE_CP = 22;
 
 @interface ChildProfileViewController ()
 
@@ -73,12 +73,12 @@
     self.userAvatarImg.layer.borderWidth = 5.f;
     self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.skilleezBtn.layer.cornerRadius = CORNER_RADIUS;
-    self.skilleezBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.profileBtn.layer.cornerRadius = CORNER_RADIUS;
-    self.profileBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.settingsBtn.layer.cornerRadius = CORNER_RADIUS;
-    self.settingsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
+    self.skilleezBtn.layer.cornerRadius = CORNER_RADIUS_CP;
+    self.skilleezBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_CP];
+    self.profileBtn.layer.cornerRadius = CORNER_RADIUS_CP;
+    self.profileBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_CP];
+    self.settingsBtn.layer.cornerRadius = CORNER_RADIUS_CP;
+    self.settingsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_CP];
 }
 
 - (void)done

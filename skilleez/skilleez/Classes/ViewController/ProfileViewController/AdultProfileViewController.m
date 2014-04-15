@@ -14,12 +14,13 @@
 #import "ProfileViewController.h"
 #import "NetworkManager.h"
 #import "ProfileInfo.h"
+#import "UserSettingsManager.h"
 #import "SendMessageViewController.h"
 #import "SkilleezListViewController.h"
 #import "SettingsViewController.h"
 
-#define CORNER_RADIUS 5.f
-#define FONT_SIZE 22
+const float CORNER_RADIUS_AP = 5.f;
+const int FONT_SIZE_AP = 22;
 
 @interface AdultProfileViewController ()
 
@@ -101,25 +102,25 @@
 
 - (void)customize
 {
-    self.skilleezBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.profileBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.permitBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.emailBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.deleteBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
+    self.skilleezBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
+    self.profileBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
+    self.permitBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
+    self.emailBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
+    self.deleteBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
     self.userAvatarImg.layer.masksToBounds = YES;
-    self.userAvatarImg.layer.borderWidth = CORNER_RADIUS;
+    self.userAvatarImg.layer.borderWidth = CORNER_RADIUS_AP;
     self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.profileBtn.layer.masksToBounds = YES;
-    self.profileBtn.layer.cornerRadius = CORNER_RADIUS;
+    self.profileBtn.layer.cornerRadius = CORNER_RADIUS_AP;
     self.permitBtn.layer.masksToBounds = YES;
-    self.permitBtn.layer.cornerRadius = CORNER_RADIUS;
+    self.permitBtn.layer.cornerRadius = CORNER_RADIUS_AP;
     self.emailBtn.layer.masksToBounds = YES;
-    self.emailBtn.layer.cornerRadius = CORNER_RADIUS;
+    self.emailBtn.layer.cornerRadius = CORNER_RADIUS_AP;
     self.skilleezBtn.layer.masksToBounds = YES;
-    self.skilleezBtn.layer.cornerRadius = CORNER_RADIUS;
+    self.skilleezBtn.layer.cornerRadius = CORNER_RADIUS_AP;
     self.deleteBtn.layer.masksToBounds = YES;
-    self.deleteBtn.layer.cornerRadius = CORNER_RADIUS;
+    self.deleteBtn.layer.cornerRadius = CORNER_RADIUS_AP;
     self.deleteBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.deleteBtn.layer.borderWidth = 3.f;
 }
@@ -137,7 +138,7 @@
 - (IBAction)showProfile:(id)sender
 {
     [[NetworkManager sharedInstance] getProfileInfo:self.familyMember.Id success:^(ProfileInfo *profileInfo) {
-        ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:YES];
+        ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:[profileInfo.UserId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID]];
         [self.navigationController pushViewController:profileView animated:YES];
     } failure:^(NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:@"Problem with loading user data. Try again!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];

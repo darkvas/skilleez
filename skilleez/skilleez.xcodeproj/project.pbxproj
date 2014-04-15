@@ -160,6 +160,10 @@
 		14F090AF18E1C96B000DAF80 /* ProfileTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F090AE18E1C96B000DAF80 /* ProfileTableCell.m */; };
 		14F090B318E1C9E9000DAF80 /* ProfileTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14F090B218E1C9E9000DAF80 /* ProfileTableCell.xib */; };
 		41D4F1C2FD1C46CF88200BA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3445939C78449D922E4C3C /* libPods.a */; };
+		75D6CA2118FD54FD005FD2BA /* s_thumb_down_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA1D18FD54FD005FD2BA /* s_thumb_down_img.png */; };
+		75D6CA2218FD54FD005FD2BA /* s_thumb_down_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA1E18FD54FD005FD2BA /* s_thumb_down_img@2x.png */; };
+		75D6CA2318FD54FD005FD2BA /* s_thumb_up_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA1F18FD54FD005FD2BA /* s_thumb_up_img.png */; };
+		75D6CA2418FD54FD005FD2BA /* s_thumb_up_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA2018FD54FD005FD2BA /* s_thumb_up_img@2x.png */; };
 		8417A47F18CF0BE100E6BAE4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47A18CF0BE100E6BAE4 /* CFNetwork.framework */; };
 		8417A48018CF0BE100E6BAE4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47B18CF0BE100E6BAE4 /* CoreData.framework */; };
 		8417A48118CF0BE100E6BAE4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */; };
@@ -480,6 +484,10 @@
 		14F090AD18E1C96B000DAF80 /* ProfileTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableCell.h; sourceTree = "<group>"; };
 		14F090AE18E1C96B000DAF80 /* ProfileTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableCell.m; sourceTree = "<group>"; };
 		14F090B218E1C9E9000DAF80 /* ProfileTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileTableCell.xib; sourceTree = "<group>"; };
+		75D6CA1D18FD54FD005FD2BA /* s_thumb_down_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = s_thumb_down_img.png; sourceTree = "<group>"; };
+		75D6CA1E18FD54FD005FD2BA /* s_thumb_down_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_thumb_down_img@2x.png"; sourceTree = "<group>"; };
+		75D6CA1F18FD54FD005FD2BA /* s_thumb_up_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = s_thumb_up_img.png; sourceTree = "<group>"; };
+		75D6CA2018FD54FD005FD2BA /* s_thumb_up_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_thumb_up_img@2x.png"; sourceTree = "<group>"; };
 		8417A47A18CF0BE100E6BAE4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8417A47B18CF0BE100E6BAE4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -845,6 +853,10 @@
 		14AC9E1318D836C400C3E228 /* TableCells Icon Pack */ = {
 			isa = PBXGroup;
 			children = (
+				75D6CA1D18FD54FD005FD2BA /* s_thumb_down_img.png */,
+				75D6CA1E18FD54FD005FD2BA /* s_thumb_down_img@2x.png */,
+				75D6CA1F18FD54FD005FD2BA /* s_thumb_up_img.png */,
+				75D6CA2018FD54FD005FD2BA /* s_thumb_up_img@2x.png */,
 				14AC9E1418D836C500C3E228 /* arrow_next_.png */,
 				14AC9E1518D836C500C3E228 /* arrow_next_@2x.png */,
 				14AC9E1618D836C500C3E228 /* arrow_next_press_.png */,
@@ -1547,6 +1559,7 @@
 				14BCE6F518D9EEA40047F490 /* create_BTN_press@2x.png in Resources */,
 				84D9E10218C9FD4900516E2D /* skilleez_app_icon_512.png in Resources */,
 				84E3E14C18E45640000D8D0D /* user_unselected@2x.png in Resources */,
+				75D6CA2418FD54FD005FD2BA /* s_thumb_up_img@2x.png in Resources */,
 				140CDE9418EA930C001E97A7 /* permit_icon.png in Resources */,
 				1494F27718DAF0AB00728C1B /* back_BTN_press@2x.png in Resources */,
 				84E3E15018E45640000D8D0D /* yes(check)_white@2x.png in Resources */,
@@ -1685,6 +1698,7 @@
 				84E3E12C18E45640000D8D0D /* adul_user_BTN@2x.png in Resources */,
 				14BCE68118D9B8E90047F490 /* small_text_view_BG.png in Resources */,
 				84E3E14318E45640000D8D0D /* invite_user_img.png in Resources */,
+				75D6CA2118FD54FD005FD2BA /* s_thumb_down_img.png in Resources */,
 				14B0DFE318F7CEEB00B85DFB /* sport_baseball_icon.png in Resources */,
 				84E3E13318E45640000D8D0D /* child_icon.png in Resources */,
 				14B0DFF018F7CEEB00B85DFB /* subject_reading_icon.png in Resources */,
@@ -1694,6 +1708,7 @@
 				84E3E13518E45640000D8D0D /* child_user_BTN.png in Resources */,
 				84D9E0A718C9F32F00516E2D /* Loading_img@2x.png in Resources */,
 				84E3E14218E45640000D8D0D /* invite_BTN@2x.png in Resources */,
+				75D6CA2218FD54FD005FD2BA /* s_thumb_down_img@2x.png in Resources */,
 				14B0DFD318F7CEEB00B85DFB /* food_blt_icon.png in Resources */,
 				149232C418D740CE001BAE8C /* FavoriteTableCell.xib in Resources */,
 				1494F26B18DAE31D00728C1B /* thumb_down_BTN@2x.png in Resources */,
@@ -1710,6 +1725,7 @@
 				14BCE6F818D9EEA40047F490 /* extra_BTN_press.png in Resources */,
 				149232B618D73A40001BAE8C /* AdultApprovalTableCell.xib in Resources */,
 				14C8F36F18DC3F6E0052E915 /* circle_delete_press@2x.png in Resources */,
+				75D6CA2318FD54FD005FD2BA /* s_thumb_up_img.png in Resources */,
 				84D6CE2618D1BF1F008ABB5E /* LoopActivityViewController.xib in Resources */,
 				14BCE63E18D89B2E0047F490 /* CreateChildSkilleeViewController.xib in Resources */,
 				84E3E14118E45640000D8D0D /* invite_BTN.png in Resources */,

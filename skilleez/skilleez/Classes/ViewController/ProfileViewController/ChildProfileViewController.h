@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "FamilyMemberModel.h"
 
+extern const float CORNER_RADIUS_CP;
+extern const int FONT_SIZE_CP;
+
 @interface ChildProfileViewController : UIViewController
 
 @property (strong, nonatomic) FamilyMemberModel* familyMember;

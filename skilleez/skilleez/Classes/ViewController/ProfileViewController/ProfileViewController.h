@@ -12,6 +12,9 @@
 #import "ColorViewController.h"
 #import "SelectFavoriteViewController.h"
 
+extern const float CORNER_RADIUS_PV;
+extern const float BORDER_WIDTH_PV;
+
 @interface ProfileViewController : UIViewController <UITextViewDelegate, FavoriteViewControllerDelegate, ColorViewControllerObserver>
 
 - (id)initWithProfile:(ProfileInfo *)profileInfo editMode:(BOOL)edit;

@@ -10,6 +10,9 @@
 #import "FamilyMemberModel.h"
 #import "CustomAlertView.h"
 
+extern const float CORNER_RADIUS_AP;
+extern const int FONT_SIZE_AP;
+
 @interface AdultProfileViewController : UIViewController<CustomIOS7AlertViewDelegate>
 
 @property (strong, nonatomic) FamilyMemberModel* familyMember;

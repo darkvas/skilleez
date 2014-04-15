@@ -17,6 +17,13 @@
 #import "ActivityIndicatorController.h"
 #import "SkilleezListViewController.h"
 
+enum {
+    SPORT = 0,
+    SUBJECT = 1,
+    MUSIC = 2,
+    FOOD = 3
+} Favorite;
+
 @interface EditProfileViewController () {
     NSArray *questions;
     float    offset;

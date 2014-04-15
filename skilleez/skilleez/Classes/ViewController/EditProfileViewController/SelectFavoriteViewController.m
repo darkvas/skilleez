@@ -12,6 +12,13 @@
 #import "ProfileInfo.h"
 #import "SelectFavoriteCollectionViewCell.h"
 
+enum {
+    SPORT = 0,
+    SUBJECT = 1,
+    MUSIC = 2,
+    FOOD = 3
+};
+
 @interface SelectFavoriteViewController () {
     NSArray *items, *subjects, *sport, *food, *music;
     int type;

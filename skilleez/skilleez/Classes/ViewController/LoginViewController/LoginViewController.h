@@ -10,6 +10,10 @@
 
 @interface LoginViewController : UIViewController <UITextFieldDelegate>
 
+extern const NSString *REGISTER_URL;
+extern const NSString *FORGOT_RASSWORD_URL;
+
+
 - (void) getAccountInformation;
 
 @end

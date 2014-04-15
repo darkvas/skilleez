@@ -14,7 +14,7 @@
 #import "SkilleeDetailViewController.h"
 #import "ActivityIndicatorController.h"
 
-#define NUMBER_OF_ITEMS 5
+const int NUMBER_OF_ITEMS_SL = 5;
 
 @interface SkilleezListViewController ()
 {
@@ -50,7 +50,7 @@
         _title = title;
         canLoadOnScroll = YES;
         offset = 0;
-        count = NUMBER_OF_ITEMS;
+        count = NUMBER_OF_ITEMS_SL;
     }
     return self;
 }
@@ -136,7 +136,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.tableView.contentSize.height - self.tableView.contentOffset.y == 504 && canLoadOnScroll) {
-        count = NUMBER_OF_ITEMS;
+        count = NUMBER_OF_ITEMS_SL;
         offset = [skilleez count];
         [self loadSkilleeList];        
     }

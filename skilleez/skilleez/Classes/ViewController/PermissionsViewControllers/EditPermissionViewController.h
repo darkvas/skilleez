@@ -10,6 +10,8 @@
 #import "EditPermissionTableCell.h"
 #import "FamilyMemberModel.h"
 
+extern const int FONT_SIZE_EP;
+
 @interface EditPermissionViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, EditPermissionDelegate>
 
 @property (strong, nonatomic) FamilyMemberModel* adultFamilyMember;

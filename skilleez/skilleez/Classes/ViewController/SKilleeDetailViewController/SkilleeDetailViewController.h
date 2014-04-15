@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SkilleeModel.h"
 
+extern const int BUTTON_FONT_SIZE_SD;
+extern const float BUTTON_BORDER_WIDTH_SD;
+
 @interface SkilleeDetailViewController : UIViewController
 
 @property (nonatomic) BOOL controllsHidden;

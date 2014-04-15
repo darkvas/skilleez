@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ProfileInfo.h"
 
-#define SPORT 0
-#define SUBJECT 1
-#define MUSIC 2
-#define FOOD 3
+/*extern const NSInteger SPORT;
+extern const NSInteger SUBJECT;
+extern const NSInteger MUSIC;
+extern const NSInteger FOOD;*/
 
 @protocol FavoriteViewControllerDelegate <NSObject>
 

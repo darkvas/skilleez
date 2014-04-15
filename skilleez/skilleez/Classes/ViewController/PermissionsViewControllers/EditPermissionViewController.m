@@ -15,7 +15,7 @@
 #import "UserSettingsManager.h"
 #import "PermissionManagementViewController.h"
 
-#define FONT_SIZE 21
+const int FONT_SIZE_EP = 21;
 
 @interface EditPermissionViewController () {
     NSMutableArray *adultPermissions;
@@ -105,9 +105,9 @@
 
 - (void)customize
 {
-    self.permitLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.accountLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.permitUsernameLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
+    self.permitLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_EP];
+    self.accountLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_EP];
+    self.permitUsernameLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_EP];
 }
               
 - (void)loadPermisionData

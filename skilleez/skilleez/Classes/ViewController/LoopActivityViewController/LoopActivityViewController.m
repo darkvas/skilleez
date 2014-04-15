@@ -23,10 +23,10 @@
 #import "ActivityIndicatorController.h"
 #import "InviteToLoopApprovalTableCell.h"
 
-#define LOOP 0
-#define APPROVES 1
-#define FAVORITES 2
-#define NUMBER_OF_ITEMS 5
+const int LOOP = 0;
+const int APPROVES = 1;
+const int FAVORITES = 2;
+const int NUMBER_OF_ITEMS = 5;
 
 @interface LoopActivityViewController ()
 
@@ -217,7 +217,7 @@
 
 #pragma mark - SimpleCellDelegate
 
-- (void)didSkiilleSelect:(SkilleeModel*) skillee
+- (void)didSkiilleSelect:(SkilleeModel *)skillee
 {
     if ([className isEqualToString:@"SimpleTableCell"]) {
         BOOL canApprove = ![[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:skillee.UserId] && [UserSettingsManager sharedInstance].IsAdult;

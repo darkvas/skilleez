@@ -10,10 +10,15 @@
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "ColorViewController.h"
-#import "SelectFavoriteViewController.h"
 
-#define CORNER_RADIUS 5.f
-#define BORDER_WIDTH 2.f
+const float CORNER_RADIUS_PV = 5.f;
+const float BORDER_WIDTH_PV = 2.f;
+enum {
+    SPORT = 0,
+    SUBJECT = 1,
+    MUSIC = 2,
+    FOOD = 3
+};
 
 @interface ProfileViewController () {
     ProfileInfo *profile;
@@ -211,36 +216,36 @@
     self.userDescTextView.font = [UIFont getDKCrayonFontWithSize:21.f];
     self.userDescTextView.textColor = [UIColor whiteColor];
     self.userAvatarImg.layer.masksToBounds = YES;
-    self.userAvatarImg.layer.borderWidth = 5.f;
+    self.userAvatarImg.layer.borderWidth = BORDER_WIDTH_PV;
     self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userColorButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userColorButton.layer.masksToBounds = YES;
-    self.userColorButton.layer.borderWidth = BORDER_WIDTH;
-    self.userColorButton.layer.cornerRadius = CORNER_RADIUS;
+    self.userColorButton.layer.borderWidth = BORDER_WIDTH_PV;
+    self.userColorButton.layer.cornerRadius = CORNER_RADIUS_PV;
     self.userSportButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userSportButton.layer.masksToBounds = YES;
-    self.userSportButton.layer.borderWidth = BORDER_WIDTH;
-    self.userSportButton.layer.cornerRadius = CORNER_RADIUS;
+    self.userSportButton.layer.borderWidth = BORDER_WIDTH_PV;
+    self.userSportButton.layer.cornerRadius = CORNER_RADIUS_PV;
     self.userMusicButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userMusicButton.layer.masksToBounds = YES;
-    self.userMusicButton.layer.borderWidth = BORDER_WIDTH;
-    self.userMusicButton.layer.cornerRadius = CORNER_RADIUS;
+    self.userMusicButton.layer.borderWidth = BORDER_WIDTH_PV;
+    self.userMusicButton.layer.cornerRadius = CORNER_RADIUS_PV;
     self.userSubjectButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userSubjectButton.layer.masksToBounds = YES;
-    self.userSubjectButton.layer.borderWidth = BORDER_WIDTH;
-    self.userSubjectButton.layer.cornerRadius = CORNER_RADIUS;
+    self.userSubjectButton.layer.borderWidth = BORDER_WIDTH_PV;
+    self.userSubjectButton.layer.cornerRadius = CORNER_RADIUS_PV;
     self.userFoodButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userFoodButton.layer.masksToBounds = YES;
-    self.userFoodButton.layer.borderWidth = BORDER_WIDTH;
-    self.userFoodButton.layer.cornerRadius = CORNER_RADIUS;
+    self.userFoodButton.layer.borderWidth = BORDER_WIDTH_PV;
+    self.userFoodButton.layer.cornerRadius = CORNER_RADIUS_PV;
 }
 
 - (UIImage *)getBlankImage:(UIColor *)color
 {
     const int defaultSize = 100;
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(defaultSize,defaultSize), NO, 0);
-    UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(0,0,defaultSize,defaultSize)];
+    UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, defaultSize, defaultSize)];
     [color setFill];
     [bezierPath fill];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();

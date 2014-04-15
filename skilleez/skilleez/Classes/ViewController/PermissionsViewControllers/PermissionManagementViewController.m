@@ -10,9 +10,9 @@
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 
-#define CORNER_RADIUS 3.f
-#define BOTTOM_LABEL_FONT_SIZE 24
-#define TOP_LABEL_FONT_SIZE 21
+const float CORNER_RADIUS_PM = 3.f;
+const int BOTTOM_LABEL_FONT_SIZE = 24;
+const int TOP_LABEL_FONT_SIZE = 21;
 
 @interface PermissionManagementViewController () {
     BOOL changesState, loopState, profileState;
@@ -77,9 +77,9 @@
     self.changesLbl.font = [UIFont getDKCrayonFontWithSize:BOTTOM_LABEL_FONT_SIZE];
     self.loopLbl.font = [UIFont getDKCrayonFontWithSize:BOTTOM_LABEL_FONT_SIZE];
     self.profileLbl.font = [UIFont getDKCrayonFontWithSize:BOTTOM_LABEL_FONT_SIZE];
-    self.changesBtn.layer.cornerRadius = CORNER_RADIUS;
-    self.loopBtn.layer.cornerRadius = CORNER_RADIUS;
-    self.profileBtn.layer.cornerRadius = CORNER_RADIUS;
+    self.changesBtn.layer.cornerRadius = CORNER_RADIUS_PM;
+    self.loopBtn.layer.cornerRadius = CORNER_RADIUS_PM;
+    self.profileBtn.layer.cornerRadius = CORNER_RADIUS_PM;
 }
 
 - (void)cancel

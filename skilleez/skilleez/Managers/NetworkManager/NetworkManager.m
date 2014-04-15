@@ -9,35 +9,35 @@
 #import "NetworkManager.h"
 #import "PostResponse.h"
 
-#define SKILLEEZ_URL @"http://skilleezv3.elasticbeanstalk.com/"
-#define LOGIN_URI @"Account/LogOn"
-#define GET_USERINFO_URI @"api/User/GetMyInfo"
-#define GET_SKILLEE_LIST_URI @"api/Skillee/GetList"
-#define GET_USER_SKILLEE_LIST_URI @"api/Skillee/GetUserSkilleezList"
-#define GET_WAITING_FOR_APPROVAL_URI @"api/Skillee/GetWaitingForApprovalList"
-#define GET_WAITING_FOR_APPROVAL_COUNT @"api/Skillee/GetWaitingForApprovalCount"
-#define GET_FAVORITE_LIST @"api/Skillee/GetFavoriteList"
-#define GET_CAN_APPROVE @"api/Skillee/CanApprove"
+static NSString *SKILLEEZ_URL = @"http://skilleezv3.elasticbeanstalk.com/";
+static NSString *LOGIN_URI = @"Account/LogOn";
+static NSString *GET_USERINFO_URI = @"api/User/GetMyInfo";
+static NSString *GET_SKILLEE_LIST_URI = @"api/Skillee/GetList";
+static NSString *GET_USER_SKILLEE_LIST_URI = @"api/Skillee/GetUserSkilleezList";
+static NSString *GET_WAITING_FOR_APPROVAL_URI = @"api/Skillee/GetWaitingForApprovalList";
+static NSString *GET_WAITING_FOR_APPROVAL_COUNT = @"api/Skillee/GetWaitingForApprovalCount";
+static NSString *GET_FAVORITE_LIST = @"api/Skillee/GetFavoriteList";
+static NSString *GET_CAN_APPROVE = @"api/Skillee/CanApprove";
 
-#define POST_CREATE_SKILLEE @"api/Skillee/CreateSkilleez"
-#define POST_REMOVE @"api/Skillee/Remove"
-#define POST_ADD_TO_FAVORITES @"api/Skillee/AddToFavorites"
-#define POST_REMOVE_FROM_FAVORITES @"api/Skillee/RemoveFromFavorites"
-#define POST_MARK_AS_TATTLE @"api/Skillee/MarkAsTattle"
-#define POST_APPROVE_OR_DENY @"api/Skillee/ApproveOrDeny"
+static NSString *POST_CREATE_SKILLEE = @"api/Skillee/CreateSkilleez";
+static NSString *POST_REMOVE = @"api/Skillee/Remove";
+static NSString *POST_ADD_TO_FAVORITES = @"api/Skillee/AddToFavorites";
+static NSString *POST_REMOVE_FROM_FAVORITES = @"api/Skillee/RemoveFromFavorites";
+static NSString *POST_MARK_AS_TATTLE = @"api/Skillee/MarkAsTattle";
+static NSString *POST_APPROVE_OR_DENY = @"api/Skillee/ApproveOrDeny";
 
-#define POST_ADD_CHILD_TO_FAMILY @"api/User/AddChildToTheFamily"
-#define POST_INVITE_ADULT_TO_FAMILY @"api/User/InviteAdultToTheFamily"
-#define POST_REMOVE_MEMBER_FROM_FAMILY @"api/User/DeleteMemberFromTheFamily"
-#define GET_FRIENDS_AND_FAMILY @"api/User/GetFriendsAndFamily"
-#define GET_ADULTPERMISSIONS @"api/User/GetAdultPermissions"
+static NSString *POST_ADD_CHILD_TO_FAMILY = @"api/User/AddChildToTheFamily";
+static NSString *POST_INVITE_ADULT_TO_FAMILY = @"api/User/InviteAdultToTheFamily";
+static NSString *POST_REMOVE_MEMBER_FROM_FAMILY = @"api/User/DeleteMemberFromTheFamily";
+static NSString *GET_FRIENDS_AND_FAMILY = @"api/User/GetFriendsAndFamily";
+static NSString *GET_ADULTPERMISSIONS = @"api/User/GetAdultPermissions";
 
-#define GET_PROFILEINFO_URI @"api/Profile/GetProfileInfo"
-#define POST_PROFILEIMAGE_URI @"api/Profile/EditProfileImage"
-#define POST_PROFILEINFO_URI @"api/Profile/EditProfileInfo"
+static NSString *GET_PROFILEINFO_URI = @"api/Profile/GetProfileInfo";
+static NSString *POST_PROFILEIMAGE_URI = @"api/Profile/EditProfileImage";
+static NSString *POST_PROFILEINFO_URI = @"api/Profile/EditProfileInfo";
 
-#define POST_FOLLOW_USER @"api/Loop/FollowUser"
-#define POST_UNFOLLOW_USER @"api/Loop/UnfollowUser"
+static NSString *POST_FOLLOW_USER = @"api/Loop/FollowUser";
+static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 
 @implementation NetworkManager
 {

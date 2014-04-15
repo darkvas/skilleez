@@ -17,8 +17,8 @@
 #import "UINavigationController+Push.h"
 #import "ActivityIndicatorController.h"
 
-#define BUTTON_FONT_SIZE 19
-#define BUTTON_BORDER_WIDTH 1.0
+const int BUTTON_FONT_SIZE_SD = 19;
+const float BUTTON_BORDER_WIDTH_SD = 1.0;
 
 typedef enum {
     SkilleeActionNone,
@@ -159,27 +159,27 @@ typedef enum {
     [self.skilleeDateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
     [self.skilleeTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleeCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.denyBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE]];
-    [self.approveBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE]];
-    [self.denyDisabledBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE]];
-    [self.approveDisabledBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE]];
-    [self.favoriteBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE]];
-    [self.tattleBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE]];
+    [self.denyBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE_SD]];
+    [self.approveBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE_SD]];
+    [self.denyDisabledBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE_SD]];
+    [self.approveDisabledBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE_SD]];
+    [self.favoriteBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE_SD]];
+    [self.tattleBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE_SD]];
     self.userAvatarImg.layer.cornerRadius = 28.0;
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userAvatarImg.layer.borderWidth = 3.0;
-    self.denyBtn.layer.borderWidth = BUTTON_BORDER_WIDTH;
+    self.denyBtn.layer.borderWidth = BUTTON_BORDER_WIDTH_SD;
     self.denyBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.approveBtn.layer.borderWidth = BUTTON_BORDER_WIDTH;
+    self.approveBtn.layer.borderWidth = BUTTON_BORDER_WIDTH_SD;
     self.approveBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.denyDisabledBtn.layer.borderWidth = BUTTON_BORDER_WIDTH;
+    self.denyDisabledBtn.layer.borderWidth = BUTTON_BORDER_WIDTH_SD;
     self.denyDisabledBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.approveDisabledBtn.layer.borderWidth = BUTTON_BORDER_WIDTH;
+    self.approveDisabledBtn.layer.borderWidth = BUTTON_BORDER_WIDTH_SD;
     self.approveDisabledBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.favoriteBtn.layer.borderWidth = BUTTON_BORDER_WIDTH;
+    self.favoriteBtn.layer.borderWidth = BUTTON_BORDER_WIDTH_SD;
     self.favoriteBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.tattleBtn.layer.borderWidth = BUTTON_BORDER_WIDTH;
+    self.tattleBtn.layer.borderWidth = BUTTON_BORDER_WIDTH_SD;
     self.tattleBtn.layer.borderColor = [[UIColor grayColor] CGColor];
 }
 

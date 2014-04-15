@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SimpleTableCell.h"
 
+extern const int NUMBER_OF_ITEMS_SL;
+
 @interface SkilleezListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, SimpleCellDelegate>
 
 - (id)initWithUserId:(NSString *)userId andTitle: (NSString*) title;
