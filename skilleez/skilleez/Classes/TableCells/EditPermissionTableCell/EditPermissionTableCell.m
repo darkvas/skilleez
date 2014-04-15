@@ -32,6 +32,15 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    self.userAvatarImg.layer.masksToBounds = YES;
+    self.userAvatarImg.layer.cornerRadius = 30.f;
+    self.usernameLbl.font = [UIFont getDKCrayonFontWithSize:20];
+    self.editPermissionsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:18];
+    self.permissionView.layer.cornerRadius = 4.f;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
@@ -42,12 +51,7 @@
 - (void)fillCell:(EditPermissionTableCell *)cell withPermission:(AdultPermission *)permission andTag:(NSInteger)tag
 {
     [cell.userAvatarImg setImageWithURL:[NSURL URLWithString:permission.ChildAvatarUrl]];
-    cell.userAvatarImg.layer.masksToBounds = YES;
-    cell.userAvatarImg.layer.cornerRadius = 30.f;
     cell.usernameLbl.text = permission.ChildName;
-    cell.usernameLbl.font = [UIFont getDKCrayonFontWithSize:20];
-    cell.editPermissionsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:18];
-    cell.permissionView.layer.cornerRadius = 4.f;
     cell.editPermissionsBtn.tag = tag;
 }
 

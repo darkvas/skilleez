@@ -21,10 +21,15 @@
 
 @implementation SimpleTableCell
 
-- (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
+- (void)awakeFromNib
+{
+    [[CellFiller sharedInstance] setSkilleezCell:self];
+}
+
+- (void)setSkilleezData:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     skilleeModel = element;
-    [[CellFiller sharedInstance] setSkilleezCell:cell andSkilleez:element andTag:tag];
+    [[CellFiller sharedInstance] setSkilleezData:cell andSkilleez:element andTag:tag];
     cell.detailBtn.tag = tag;
 }
 

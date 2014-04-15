@@ -32,6 +32,14 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    self.senderAvatar.layer.cornerRadius = 46.0f;
+    self.senderAvatar.layer.masksToBounds = YES;
+    self.senderAvatar.layer.borderWidth = 3.0;
+    [self.messageText setFont:[UIFont getDKCrayonFontWithSize:21]];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
@@ -40,14 +48,8 @@
 -(void) setMessageData: (ProfileInfo*) profile andTag:(int) rowTag
 {
     _profileInfo = profile;
-    
-    self.senderAvatar.layer.cornerRadius = 46.0f;
-    self.senderAvatar.layer.masksToBounds = YES;
     self.senderAvatar.layer.borderColor = profile.Color.CGColor;
-    self.senderAvatar.layer.borderWidth = 3.0;
     [self.senderAvatar setImageWithURL: profile.AvatarUrl];
-    
-    [self.messageText setFont:[UIFont getDKCrayonFontWithSize:21]];
     self.messageText.text = profile.AboutMe ? profile.AboutMe : (profile.ScreenName ? profile.ScreenName : profile.Login);
 }
 

@@ -29,10 +29,15 @@
 
 @implementation FavoriteTableCell
 
+- (void)awakeFromNib
+{
+    [[CellFiller sharedInstance] setSkilleezCell:self];
+}
+
 - (void)setSkilleezCell:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     skilleeModel = element;
-    [[CellFiller sharedInstance] setSkilleezCell:cell andSkilleez:element andTag:tag];
+    [[CellFiller sharedInstance] setSkilleezData:cell andSkilleez:element andTag:tag];
 }
 
 - (IBAction)removeFromFavorites:(id)sender

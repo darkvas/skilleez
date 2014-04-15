@@ -177,7 +177,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(selectProfile:)];
         [cell.avatarImg addGestureRecognizer:tap];
     }
-    [cell setSkilleezCell:cell andSkilleez:[self getElementAt:indexPath.row] andTag:indexPath.row];
+    [cell setSkilleezData:cell andSkilleez:[self getElementAt:indexPath.row] andTag:indexPath.row];
     return cell;
 }
 

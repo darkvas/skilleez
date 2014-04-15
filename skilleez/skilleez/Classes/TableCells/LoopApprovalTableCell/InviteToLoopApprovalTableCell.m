@@ -45,7 +45,7 @@
 
 - (void)fillCell
 {
-    [self.userAvatarImageView setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
+    //[self.userAvatarImageView setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
     NSString *first = @"Ivan",
             *second = @"Petroooo",
         *fullString = [NSString stringWithFormat: @"%@, wants to invite %@ into her loop", first, second];

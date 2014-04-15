@@ -14,6 +14,7 @@
 @interface CellFiller : NSObject
 
 + (instancetype)sharedInstance;
-- (void)setSkilleezCell:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
+- (void)setSkilleezData:(SimpleTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
+- (void)setSkilleezCell:(SimpleTableCell *)cell;
 
 @end

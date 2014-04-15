@@ -31,10 +31,15 @@
 
 @implementation ChildApprovalTableCell
 
+- (void)awakeFromNib
+{
+    [[CellFiller sharedInstance] setSkilleezCell:self];
+}
+
 - (void)setSkilleezCell:(ChildApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     skilleeModel = element;
-    [[CellFiller sharedInstance] setSkilleezCell:cell andSkilleez:element andTag:tag];
+    [[CellFiller sharedInstance] setSkilleezData:cell andSkilleez:element andTag:tag];
     [cell.waitingForApprovalLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
 }
 
