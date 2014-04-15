@@ -227,7 +227,7 @@
     }];
 }
 
--(void) getUserInfo:(void (^)(UserInfo *userInfo))successUserInfo failure:(void (^)(NSError *error))failure
+-(void) getUserInfo:(void (^)(UserInfo *userInfo))successUserInfo failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
 
@@ -243,7 +243,7 @@
      }];
 }
 
--(void) getSkilleeList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
+-(void) getSkilleeList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(errorFunc)failure
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_SKILLEE_LIST_URI, count, offset];
     [self prepareSkilleeRequest];
@@ -255,7 +255,7 @@
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
 }
 
--(void) getSkilleeResultForUrl: (NSString*) requestUrl withSuccess: (void (^)(NSArray *skilleeList))successSkillee failure:(void (^)(NSError *error))failure
+-(void) getSkilleeResultForUrl: (NSString*) requestUrl withSuccess: (void (^)(NSArray *skilleeList))successSkillee failure:(errorFunc)failure
 {
     [manager getObjectsAtPath:requestUrl
                    parameters:nil
@@ -274,28 +274,28 @@
      }];
 }
 
--(void) getSkilleeListForUser:(NSString*) userId count: (int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
+-(void) getSkilleeListForUser:(NSString*) userId count: (int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(errorFunc)failure
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?UserId=%@&Count=%i&Offset=%i", SKILLEEZ_URL, GET_USER_SKILLEE_LIST_URI, userId, count, offset];
     [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
--(void) getWaitingForApproval:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
+-(void) getWaitingForApproval:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(errorFunc)failure
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_WAITING_FOR_APPROVAL_URI, count, offset];
     [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
--(void) getFavoriteList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(void (^)(NSError *error))failure
+-(void) getFavoriteList:(int) count offset: (int) offset success: (void (^)(NSArray *skilleeList))successGetSkilleeList failure:(errorFunc)failure
 {
     NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_FAVORITE_LIST, count, offset];
     [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withSuccess:successGetSkilleeList failure:failure];
 }
 
--(void) getWaitingForApprovalCountSuccess: (void (^)(int approvalCount))success failure:(void (^)(NSError *error))failure
+-(void) getWaitingForApprovalCountSuccess: (void (^)(int approvalCount))success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -312,7 +312,7 @@
      }];
 }
 
--(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -363,7 +363,7 @@
     [manager enqueueObjectRequestOperation:operation];
 }
 
--(void) postRemoveSkillee:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postRemoveSkillee:(NSString*) skilleeId success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -380,7 +380,7 @@
      }];
 }
 
--(void) postAddToFavorites:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postAddToFavorites:(NSString*) skilleeId success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -397,7 +397,7 @@
      }];
 }
 
--(void) postRemoveFromFavorites:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postRemoveFromFavorites:(NSString*) skilleeId success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -414,7 +414,7 @@
      }];
 }
 
--(void) postMarkAsTatle:(NSString*) skilleeId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postMarkAsTatle:(NSString*) skilleeId success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -431,7 +431,7 @@
      }];
 }
 
--(void) postApproveOrDenySkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postApproveOrDenySkillee:(NSString*) skilleeId isApproved:(BOOL)approved success: (void (^)(void))success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -452,7 +452,7 @@
 }
 
 //TODO: service always return error - check it later
--(void) getCanApprove: (NSString*) skilleeId success: (void (^)(bool canApprove))success failure:(void (^)(NSError *error))failure
+-(void) getCanApprove: (NSString*) skilleeId success: (void (^)(bool canApprove))success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -473,7 +473,7 @@
 
 #pragma mark User - need to test
 
--(void) postAddChildToFamily:(NSString*) childName withPass:(NSString*) childPassword success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postAddChildToFamily:(NSString*) childName withPass:(NSString*) childPassword success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -493,7 +493,7 @@
      }];
 }
 
--(void) postInviteAdultToFamily:(NSString*) email success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postInviteAdultToFamily:(NSString*) email success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -512,7 +512,7 @@
      }];
 }
 
--(void) postRemoveMemberFromFamily:(NSString*) mainFamilyUserId memberId: (NSString*) memberId success: (void (^)(void))success failure:(void (^)(NSError *error))failure
+-(void) postRemoveMemberFromFamily:(NSString*) mainFamilyUserId memberId: (NSString*) memberId success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -539,7 +539,7 @@
      }];
 }
 
--(void) getFriendsAnsFamily: (NSString*) userId success: (void (^)(NSArray *friends))success failure:(void (^)(NSError *error))failure
+-(void) getFriendsAnsFamily: (NSString*) userId success: (void (^)(NSArray *friends))success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -561,7 +561,7 @@
      }];
 }
 
--(void) getAdultPermissions: (NSString*) userId forAdultId: (NSString*) adultId success: (void (^)(NSArray *permissions))success failure:(void (^)(NSError *error))failure
+-(void) getAdultPermissions: (NSString*) userId forAdultId: (NSString*) adultId success: (void (^)(NSArray *permissions))success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -585,7 +585,7 @@
 
 #pragma mark Profile - need to test
 
--(void) getProfileInfo:(NSString*) userId success: (void (^)(ProfileInfo *profileInfo))success failure:(void (^)(NSError *error))failure
+-(void) getProfileInfo:(NSString*) userId success: (void (^)(ProfileInfo *profileInfo))success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -609,7 +609,7 @@
      }];
 }
 
--(void) postProfileImage: (NSData*) imageData success: (void (^) (void))success failure:(void (^)(NSError *error))failure
+-(void) postProfileImage: (NSData*) imageData success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -645,7 +645,7 @@
     [manager enqueueObjectRequestOperation:operation];
 }
 
--(void) postProfileInfo: (ProfileInfo*) profileInfo success: (void (^) (void))success failure:(void (^)(NSError *error))failure
+-(void) postProfileInfo: (ProfileInfo*) profileInfo success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -674,7 +674,7 @@
 
 #pragma mark FOLLOW/UNFOLLOW
 
--(void) postFollowUser: (NSString*) userId success: (void (^) (void))success failure:(void (^)(NSError *error))failure
+-(void) postFollowUser: (NSString*) userId success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -693,7 +693,7 @@
      }];
 }
 
--(void) postUnfollowUser: (NSString*) userId success: (void (^) (void))success failure:(void (^)(NSError *error))failure
+-(void) postUnfollowUser: (NSString*) userId success: (voidFunc)success failure:(errorFunc)failure
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
