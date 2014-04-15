@@ -107,6 +107,8 @@
 		14B0DFF218F7CEEB00B85DFB /* subject_tech_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B0DFD218F7CEEB00B85DFB /* subject_tech_icon.png */; };
 		14B0DFF818F7E0BD00B85DFB /* SelectFavoriteCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B0DFF618F7E0BD00B85DFB /* SelectFavoriteCollectionViewCell.m */; };
 		14B0DFF918F7E0BD00B85DFB /* SelectFavoriteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B0DFF718F7E0BD00B85DFB /* SelectFavoriteCollectionViewCell.xib */; };
+		14B0DFFD18F9238D00B85DFB /* InviteToLoopApprovalTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B0DFFC18F9238D00B85DFB /* InviteToLoopApprovalTableCell.m */; };
+		14B0DFFF18F923A800B85DFB /* InviteToLoopApprovalTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B0DFFE18F923A800B85DFB /* InviteToLoopApprovalTableCell.xib */; };
 		14B1182E18F3BF5F002C022C /* ChildFamilyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B1182C18F3BF5F002C022C /* ChildFamilyViewController.m */; };
 		14B1182F18F3BF5F002C022C /* ChildFamilyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14B1182D18F3BF5F002C022C /* ChildFamilyViewController.xib */; };
 		14BCE63518D84F630047F490 /* SkilleeDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14BCE63418D84F630047F490 /* SkilleeDetailViewController.xib */; };
@@ -419,6 +421,9 @@
 		14B0DFF518F7E0BD00B85DFB /* SelectFavoriteCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectFavoriteCollectionViewCell.h; sourceTree = "<group>"; };
 		14B0DFF618F7E0BD00B85DFB /* SelectFavoriteCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFavoriteCollectionViewCell.m; sourceTree = "<group>"; };
 		14B0DFF718F7E0BD00B85DFB /* SelectFavoriteCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectFavoriteCollectionViewCell.xib; sourceTree = "<group>"; };
+		14B0DFFB18F9238D00B85DFB /* InviteToLoopApprovalTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteToLoopApprovalTableCell.h; sourceTree = "<group>"; };
+		14B0DFFC18F9238D00B85DFB /* InviteToLoopApprovalTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteToLoopApprovalTableCell.m; sourceTree = "<group>"; };
+		14B0DFFE18F923A800B85DFB /* InviteToLoopApprovalTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InviteToLoopApprovalTableCell.xib; sourceTree = "<group>"; };
 		14B1182B18F3BF5F002C022C /* ChildFamilyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildFamilyViewController.h; sourceTree = "<group>"; };
 		14B1182C18F3BF5F002C022C /* ChildFamilyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildFamilyViewController.m; sourceTree = "<group>"; };
 		14B1182D18F3BF5F002C022C /* ChildFamilyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildFamilyViewController.xib; sourceTree = "<group>"; };
@@ -774,6 +779,7 @@
 		149232A818D73A40001BAE8C /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
+				14B0DFFA18F9236500B85DFB /* LoopApprovalTableCell */,
 				140CDE7D18E965CC001E97A7 /* EditPermissionTableCell */,
 				14F090AC18E1C951000DAF80 /* ProfileTableCell */,
 				149232BF18D740CE001BAE8C /* FavoriteTableCell */,
@@ -912,6 +918,16 @@
 				14B0DFF718F7E0BD00B85DFB /* SelectFavoriteCollectionViewCell.xib */,
 			);
 			path = SelectFavoriteCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		14B0DFFA18F9236500B85DFB /* LoopApprovalTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				14B0DFFB18F9238D00B85DFB /* InviteToLoopApprovalTableCell.h */,
+				14B0DFFC18F9238D00B85DFB /* InviteToLoopApprovalTableCell.m */,
+				14B0DFFE18F923A800B85DFB /* InviteToLoopApprovalTableCell.xib */,
+			);
+			path = LoopApprovalTableCell;
 			sourceTree = "<group>";
 		};
 		14BCE63318D84F3E0047F490 /* SkilleeDetailViewController */ = {
@@ -1607,6 +1623,7 @@
 				84D9E0A918C9F32F00516E2D /* logo_img@2x.png in Resources */,
 				84E3E14818E45640000D8D0D /* search_img@2x.png in Resources */,
 				14D5736E18EBFAF700E0137C /* ChildProfileViewController.xib in Resources */,
+				14B0DFFF18F923A800B85DFB /* InviteToLoopApprovalTableCell.xib in Resources */,
 				14B0DFF218F7CEEB00B85DFB /* subject_tech_icon.png in Resources */,
 				84E7F69618E07752003662CA /* FriendsFamilyViewController.xib in Resources */,
 				14B0DFE218F7CEEB00B85DFB /* music_rock_icon.png in Resources */,
@@ -1828,6 +1845,7 @@
 				14554B3918F543A6007D92F4 /* ColorViewController.m in Sources */,
 				84D73B7518E95879007DDBDB /* InviteToLoopViewController.m in Sources */,
 				14A2CAED18E05DCE00A87F86 /* MenuViewController.m in Sources */,
+				14B0DFFD18F9238D00B85DFB /* InviteToLoopApprovalTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

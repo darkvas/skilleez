@@ -21,6 +21,7 @@
 #import "EditProfileViewController.h"
 #import "ChildProfileViewController.h"
 #import "ActivityIndicatorController.h"
+#import "InviteToLoopApprovalTableCell.h"
 
 #define LOOP 0
 #define APPROVES 1

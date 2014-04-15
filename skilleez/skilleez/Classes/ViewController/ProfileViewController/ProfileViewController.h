@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ProfileInfo.h"
 #import "KeyboardViewController.h"
+#import "ColorViewController.h"
+#import "SelectFavoriteViewController.h"
 
-@interface ProfileViewController : UIViewController <UITextViewDelegate>
+@interface ProfileViewController : UIViewController <UITextViewDelegate, FavoriteViewControllerDelegate, ColorViewControllerObserver>
 
 - (id)initWithProfile:(ProfileInfo *)profileInfo editMode:(BOOL)edit;
 

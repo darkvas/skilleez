@@ -113,20 +113,24 @@
             items = sport;
             self.whatColorLbl.text = @"What is your favorite sport?";
             self.selectColorLbl.hidden = YES;
+            [self.imageView setImage:[UIImage imageNamed:@"sport_baseball_icon.png"]];
             break;
         case SUBJECT:
             items = subjects;
             self.whatColorLbl.text = @"What is your favorite school subject?";
             self.selectColorLbl.hidden = YES;
+            [self.imageView setImage:[UIImage imageNamed:@"subject_art_icon.png"]];
             break;
         case MUSIC:
             items = music;
             self.whatColorLbl.text = @"What is your favorite music style?";
+            [self.imageView setImage:[UIImage imageNamed:@"music_classical_icon.png"]];
             self.selectColorLbl.hidden = YES;
             break;
         default:
             items = food;
             self.whatColorLbl.text = @"What is your favorite food?";
+            [self.imageView setImage:[UIImage imageNamed:@"food_blt_icon.png"]];
             self.selectColorLbl.hidden = YES;
             break;
     }

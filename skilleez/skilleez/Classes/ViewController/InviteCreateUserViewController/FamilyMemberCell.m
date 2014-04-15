@@ -40,7 +40,7 @@
     // Configure the view for the selected state
 }
 
--(void) setMemberData: (FamilyMemberModel*) familyMember andTag:(int) rowTag
+- (void)setMemberData:(FamilyMemberModel *)familyMember andTag:(int)rowTag
 {
     _familyMember = familyMember;
     

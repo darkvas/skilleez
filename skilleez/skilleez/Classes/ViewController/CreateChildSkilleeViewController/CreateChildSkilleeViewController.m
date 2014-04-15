@@ -11,11 +11,14 @@
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
 #import "ActivityIndicatorController.h"
+#import "FamilyMemberCell.h"
 
 @interface CreateChildSkilleeViewController (){
     UIImagePickerController *imagePicker;
     NSData* chosenData;
     enum mediaType dataMediaType;
+    NSMutableArray *childs;
+    NSString *selectedID;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *createSkilleeLbl;
@@ -29,11 +32,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *postOnTxt;
 @property (weak, nonatomic) IBOutlet UIView *childView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightCon;
+@property (strong, nonatomic) UITableView *dropdown;
+@property (strong, nonatomic) UIView *opacityLayer;
 
 - (IBAction)launchSkillee:(id)sender;
 - (IBAction)pickImage:(id)sender;
 - (IBAction)pickVideo:(id)sender;
 - (IBAction)titleTextViewDidChange:(id)sender;
+- (IBAction)selectChild:(id)sender;
 
 @end
 
@@ -76,6 +82,10 @@
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.delegate = self;
     self.launchBtn.enabled = NO;
+    if ([UserSettingsManager sharedInstance].IsAdult) {
+        [self addAdultOptions];
+        [self loadFamilyData:[UserSettingsManager sharedInstance].userInfo.UserID];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,6 +116,15 @@
         return NO;
     }
     
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField.tag == 13) {
+        [self showDropDown];
+        return NO;
+    }
     return YES;
 }
 
@@ -167,6 +186,46 @@
         self.btnSelectedMedia.hidden = NO;
     [self checkLaunchAbility];
 }
+
+#pragma mark - UITableViewDataSource
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    FamilyMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FamilyMemberCell"];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"FamilyMemberCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+        cell.delegate = self;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    [cell setSelectedBackgroundView:bgColorView];
+    [cell setMemberData:[childs objectAtIndex:indexPath.row] andTag:indexPath.row];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [childs count];
+}
+
+#pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 55;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self hideDropDown:[UIGestureRecognizer new]];
+    self.postOnTxt.text = ((FamilyMemberModel *)[childs objectAtIndex:indexPath.row]).FullName;
+    selectedID = ((FamilyMemberModel *)[childs objectAtIndex:indexPath.row]).Id;
+    [self.dropdown deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Class methods
 
 - (void)resignAll
 {
@@ -249,6 +308,22 @@
     self.btnSelectedMedia.hidden = YES;
 }
 
+- (void)addAdultOptions
+{
+    self.opacityLayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 504)];
+    self.opacityLayer .alpha = 0.0f;
+    self.opacityLayer .backgroundColor = [UIColor whiteColor];
+    [self.view addSubview: self.opacityLayer ];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideDropDown:)];
+    [self.opacityLayer addGestureRecognizer:tap];
+    self.dropdown = [[UITableView alloc] initWithFrame:CGRectMake(13, 99, 245, 0)];
+    self.dropdown.delegate = self;
+    self.dropdown.dataSource = self;
+    self.dropdown.backgroundColor = [UIColor colorWithRed:0.19 green:0.19 blue:0.19 alpha:1.0];
+    self.dropdown.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [self.view addSubview:self.dropdown];
+}
+
 - (IBAction)pickImage:(id)sender
 {
     imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString*) kUTTypeImage];
@@ -260,4 +335,48 @@
     imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
     [self presentModalViewController:imagePicker animated:YES];
 }
+
+- (IBAction)selectChild:(id)sender
+{
+    [self showDropDown];
+}
+
+- (void)showDropDown
+{
+    [UIView animateWithDuration:0.4f animations:^{
+        self.dropdown.frame =
+        CGRectMake(self.dropdown.frame.origin.x,
+                   self.dropdown.frame.origin.y,
+                   self.dropdown.frame.size.width,
+                   self.dropdown.frame.size.height + ([childs count] < 4 ? [childs count] * 55 : 170));
+        self.opacityLayer.alpha = 0.25;
+    }];
+    [self.dropdown reloadData];
+}
+
+- (void)hideDropDown:(UIGestureRecognizer *)recognizer
+{
+    [UIView animateWithDuration:0.4f animations:^{
+        self.dropdown.frame =
+        CGRectMake(self.dropdown.frame.origin.x,
+                   self.dropdown.frame.origin.y,
+                   self.dropdown.frame.size.width,
+                   self.dropdown.frame.size.height - ([childs count] < 4 ? [childs count] * 55 : 170));
+        self.opacityLayer.alpha = 0.0f;
+    }];
+}
+
+- (void)loadFamilyData:(NSString *)userId
+{
+    [[NetworkManager sharedInstance] getFriendsAnsFamily:userId success:^(NSArray *friends) {
+        childs = [NSMutableArray new];
+        for (FamilyMemberModel *member in friends) {
+            if(!member.IsAdult)
+                [childs addObject:member];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"Get Friends and family error: %@", error);
+    }];
+}
+
 @end
