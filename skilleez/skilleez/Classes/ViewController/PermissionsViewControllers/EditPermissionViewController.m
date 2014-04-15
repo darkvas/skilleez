@@ -114,14 +114,14 @@
 {
     [[NetworkManager sharedInstance] getAdultPermissions:[UserSettingsManager sharedInstance].userInfo.UserID
                                               forAdultId:@"3"
-                                                 success:^(NSArray *permissions) {
-                                                     [adultPermissions addObjectsFromArray: permissions];
-                                                     [self.tableView reloadData];
-                                                 }
-                                                 failure:^(NSError *error) {
-                                                     NSLog(@"Get Adult Permission error: %@", error);
-                                                 }];
-    
+                                            withCallBack:^(RequestResult *requestResult) {
+                                                if(requestResult.isSuccess) {
+                                                    [adultPermissions addObjectsFromArray: requestResult.returnArray];
+                                                    [self.tableView reloadData];
+                                                } else {
+                                                    NSLog(@"Get Adult Permission error: %@", requestResult.error);
+                                                }
+                                            }];
 }
 
 @end

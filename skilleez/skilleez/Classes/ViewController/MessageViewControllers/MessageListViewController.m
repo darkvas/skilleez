@@ -125,11 +125,12 @@
 
 -(void) getProfileInfo: (FamilyMemberModel*) member
 {
-    [[NetworkManager sharedInstance] getProfileInfo:member.Id success:^(ProfileInfo *profileInfo) {
-        [messages addObject:profileInfo];
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        
+    [[NetworkManager sharedInstance] getProfileInfo:member.Id withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            ProfileInfo* profileInfo = (ProfileInfo*) requestResult.firstObject;
+            [messages addObject:profileInfo];
+            [self.tableView reloadData];
+        }
     }];
 }
 

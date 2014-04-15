@@ -179,22 +179,23 @@
 
 - (void)loadFamilyData: (NSString*) userId
 {
-    [[NetworkManager sharedInstance] getFriendsAnsFamily:userId success:^(NSArray *friends) {
-        NSMutableArray* adultArray = [NSMutableArray new];
-        NSMutableArray* childrenArray = [NSMutableArray new];
-        for (FamilyMemberModel* member in friends) {
-            if(member.IsAdult)
-                [adultArray addObject:member];
-            else
-                [childrenArray addObject:member];
-
+    [[NetworkManager sharedInstance] getFriendsAnsFamily:userId withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            NSMutableArray* adultArray = [NSMutableArray new];
+            NSMutableArray* childrenArray = [NSMutableArray new];
+            for (FamilyMemberModel* member in requestResult.returnArray) {
+                if(member.IsAdult)
+                    [adultArray addObject:member];
+                else
+                    [childrenArray addObject:member];
+            }
+            _adultMembers = [NSArray arrayWithArray:adultArray];
+            _childrenMembers = [NSArray arrayWithArray:childrenArray];
+            
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"Get Friends and family error: %@", requestResult.error);
         }
-        _adultMembers = [NSArray arrayWithArray:adultArray];
-        _childrenMembers = [NSArray arrayWithArray:childrenArray];
-        
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        NSLog(@"Get Friends and family error: %@", error);
     }];
 }
 

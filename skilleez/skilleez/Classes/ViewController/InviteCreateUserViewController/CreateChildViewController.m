@@ -113,16 +113,18 @@
     NSString* childPass = _tfAccoundPass.text;
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postAddChildToFamily:childName withPass:childPass success:^(){
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        NSString* message = [NSString stringWithFormat:@"Child username: %@ and password: %@", childName, childPass];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        NSString* message = error.userInfo[NSLocalizedDescriptionKey];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
+    [[NetworkManager sharedInstance] postAddChildToFamily:childName withPass:childPass withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            NSString* message = [NSString stringWithFormat:@"Child username: %@ and password: %@", childName, childPass];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
     }];
 }
 

@@ -105,14 +105,14 @@
 - (void)loginWithUsername:(NSString *)username andPassword:(NSString *)password
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBeck:^(BOOL isLogined, NSError* error) {
+    [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBack:^(RequestResult *requestReturn) {
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        if (isLogined) {
+        if (requestReturn.isSuccess) {
             [self getAccountInformation];
             LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
             [self.navigationController pushViewController:loop animated:YES];
         } else {
-            NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+            NSString* message = requestReturn.error.userInfo[NSLocalizedDescriptionKey];
             if([message isEqualToString:@"Expected status code in (200-299), got 401"])
                 message = @"Incorrect login or password";
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
@@ -123,23 +123,29 @@
 
 - (void) getAccountInformation
 {
-    [[NetworkManager sharedInstance] getUserInfo:^(UserInfo *userInfo) {
-        [UserSettingsManager sharedInstance].IsAdmin = userInfo.IsAdmin;
-        [UserSettingsManager sharedInstance].IsAdult = userInfo.IsAdult;
-        [UserSettingsManager sharedInstance].IsVerified = userInfo.IsVerified;
-        [UserSettingsManager sharedInstance].userInfo = userInfo;
-        [self getAccountFriendList:userInfo.UserID];
-    } failure:^(NSError *error) {
-        NSLog(@"Error on GetUserInfo: %@", error);
+    [[NetworkManager sharedInstance] getUserInfo:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess){
+            UserInfo* userInfo = (UserInfo*)requestResult.firstObject;
+            
+            [UserSettingsManager sharedInstance].IsAdmin = userInfo.IsAdmin;
+            [UserSettingsManager sharedInstance].IsAdult = userInfo.IsAdult;
+            [UserSettingsManager sharedInstance].IsVerified = userInfo.IsVerified;
+            [UserSettingsManager sharedInstance].userInfo = userInfo;
+            [self getAccountFriendList:userInfo.UserID];
+        } else {
+            NSLog(@"Error on GetUserInfo: %@", requestResult.error);
+        }
     }];
 }
 
 - (void) getAccountFriendList: (NSString*) userId
 {
-    [[NetworkManager sharedInstance] getFriendsAnsFamily:userId success:^(NSArray *friends) {
-        [UserSettingsManager sharedInstance].friendsAndFamily = friends;
-    } failure:^(NSError *error) {
-        NSLog(@"Error on GetFriendsAnsFamily: %@", error);
+    [[NetworkManager sharedInstance] getFriendsAnsFamily :userId withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            [UserSettingsManager sharedInstance].friendsAndFamily = requestResult.returnArray;
+        } else {
+            NSLog(@"Error on GetFriendsAnsFamily: %@", requestResult.error);
+        }
     }];
 }
 

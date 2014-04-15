@@ -32,7 +32,7 @@
                         <action selector="changeSettingsPressed:" destination="-1" eventType="touchUpInside" id="C3T-xj-Aer"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settings_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="oVl-n2-MIr">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settings_img.png" translatesAutoresizingMaskIntoConstraints="NO" id="oVl-n2-MIr">
                     <rect key="frame" x="77" y="89" width="166" height="166"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -71,6 +71,6 @@
         </view>
     </objects>
     <resources>
-        <image name="settings_icon.png" width="44" height="44"/>
+        <image name="settings_img.png" width="120" height="120"/>
     </resources>
 </document>

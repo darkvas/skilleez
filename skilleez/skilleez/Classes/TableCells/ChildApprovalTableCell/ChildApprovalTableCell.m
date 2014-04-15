@@ -40,10 +40,12 @@
 
 - (IBAction)deleteSkillee:(id)sender
 {
-    [[NetworkManager sharedInstance] postRemoveSkillee:skilleeModel.Id success:^{
-        [self.delegate didSkiilleSelect:skilleeModel];
-    } failure:^(NSError *error) {
-        
+    [[NetworkManager sharedInstance] postRemoveSkillee:skilleeModel.Id withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            [self.delegate didSkiilleSelect:skilleeModel];
+        } else {
+            NSLog(@"Delete Skillee error: %@", requestResult.error);
+        }
     }];
 }
 

@@ -222,13 +222,19 @@
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     
-    [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest success:^{
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        [self clearFields];
-    } failure:^(NSError *error) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Launch failed" message:@"Launch skillee failed" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
+    [[NetworkManager sharedInstance] postCreateSkillee:skilleeRequest withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess){
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            [self clearFields];
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Launch failed"
+                                                            message:@"Launch skillee failed"
+                                                           delegate:self
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:@"OK", nil];
+            [alert show];
+        }
     }];
 }
 

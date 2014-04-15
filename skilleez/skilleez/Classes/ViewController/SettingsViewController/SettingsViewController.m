@@ -84,12 +84,13 @@
 
 -(void) loadProfileData
 {
-    [[NetworkManager sharedInstance] getProfileInfo:_userId success:^(ProfileInfo *profileInfo) {
+    [[NetworkManager sharedInstance] getProfileInfo:_userId withCallBack:^(RequestResult *requestResult) {
+       if(requestResult.isSuccess)  {
+           ProfileInfo *profileInfo = (ProfileInfo*)requestResult.firstObject;
         _profileInfo = profileInfo;
         self.tfUserId.text = profileInfo.Login;
         self.tfPassword.text = profileInfo.Password;
-    } failure:^(NSError *error) {
-        
+    }
     }];
 }
 

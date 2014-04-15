@@ -37,10 +37,12 @@
 
 - (IBAction)removeFromFavorites:(id)sender
 {
-    [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeModel.Id success:^{
-         [self.delegate didSkiilleSelect:skilleeModel];
-    } failure:^(NSError *error) {
-        NSLog(@"Failed remove from Favorites: %@, error: %@", skilleeModel.Id, error);
+    [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeModel.Id withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            [self.delegate didSkiilleSelect:skilleeModel];
+        } else {
+            NSLog(@"Failed remove from Favorites: %@, error: %@", skilleeModel.Id, requestResult.error);
+        }
     }];
 }
 

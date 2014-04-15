@@ -26,7 +26,7 @@
                         <outlet property="delegate" destination="-1" id="zyZ-qw-pby"/>
                     </connections>
                 </tableView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="email_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="IdK-1z-r5l">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mail_img.png" translatesAutoresizingMaskIntoConstraints="NO" id="IdK-1z-r5l">
                     <rect key="frame" x="77" y="89" width="166" height="166"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -44,6 +44,6 @@
         </view>
     </objects>
     <resources>
-        <image name="email_icon.png" width="44" height="44"/>
+        <image name="mail_img.png" width="120" height="120"/>
     </resources>
 </document>
