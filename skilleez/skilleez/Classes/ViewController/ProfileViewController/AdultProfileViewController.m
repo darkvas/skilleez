@@ -126,6 +126,8 @@
 
 - (IBAction)showSkilleez:(id)sender
 {
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id andTitle:self.familyMember.FullName];
+    [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
 - (IBAction)showPermits:(id)sender
@@ -156,6 +158,8 @@
 
 - (IBAction)sendEmail:(id)sender
 {
+    SendMessageViewController *sendMessageView = [[SendMessageViewController alloc] init];
+    [self.navigationController pushViewController:sendMessageView animated:YES];
 }
 
 - (IBAction)delete:(id)sender

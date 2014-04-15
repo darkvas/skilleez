@@ -33,7 +33,7 @@
     [[CellFiller sharedInstance] setSkilleezCell:self];
 }
 
-- (void)setSkilleezCell:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
+- (void)setSkilleezData:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag
 {
     skillee = element;
     [[CellFiller sharedInstance] setSkilleezData:cell andSkilleez:element andTag:tag];

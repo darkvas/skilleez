@@ -25,7 +25,7 @@
                     <color key="textColor" red="0.64705882349999999" green="0.49019607840000001" blue="0.039215686270000001" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="email_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="iQM-jL-dix">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mail_img.png" translatesAutoresizingMaskIntoConstraints="NO" id="iQM-jL-dix">
                     <rect key="frame" x="77" y="91" width="166" height="166"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -63,6 +63,6 @@
         </view>
     </objects>
     <resources>
-        <image name="email_icon.png" width="44" height="44"/>
+        <image name="mail_img.png" width="120" height="120"/>
     </resources>
 </document>

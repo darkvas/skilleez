@@ -311,6 +311,7 @@
     }
     self.postOnTxt.text = @"";
     chosenData = nil;
+    selectedBehalfID = nil;
     self.btnSelectedMedia.hidden = YES;
 }
 
