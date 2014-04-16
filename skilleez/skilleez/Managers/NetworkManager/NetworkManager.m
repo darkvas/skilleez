@@ -232,7 +232,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    [manager getObjectsAtPath:[SKILLEEZ_URL stringByAppendingString:GET_USERINFO_URI]
+    [manager getObjectsAtPath:GET_USERINFO_URI
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
@@ -246,7 +246,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 
 -(void) getSkilleeList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack
 {
-    NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_SKILLEE_LIST_URI, count, offset];
+    NSString* requestUrl = [NSString stringWithFormat:@"%@?Count=%i&Offset=%i", GET_SKILLEE_LIST_URI, count, offset];
     [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
@@ -277,21 +277,21 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 
 -(void) getSkilleeListForUser:(NSString*) userId count: (int) count offset: (int) offset withCallBack: (requestCallBack) callBack
 {
-    NSString* requestUrl = [NSString stringWithFormat:@"%@%@?UserId=%@&Count=%i&Offset=%i", SKILLEEZ_URL, GET_USER_SKILLEE_LIST_URI, userId, count, offset];
+    NSString* requestUrl = [NSString stringWithFormat:@"%@?UserId=%@&Count=%i&Offset=%i", GET_USER_SKILLEE_LIST_URI, userId, count, offset];
     [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
 
 -(void) getWaitingForApproval:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack
 {
-    NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_WAITING_FOR_APPROVAL_URI, count, offset];
+    NSString* requestUrl = [NSString stringWithFormat:@"%@?Count=%i&Offset=%i", GET_WAITING_FOR_APPROVAL_URI, count, offset];
     [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
 
 -(void) getFavoriteList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack
 {
-    NSString* requestUrl = [NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_FAVORITE_LIST, count, offset];
+    NSString* requestUrl = [NSString stringWithFormat:@"%@?Count=%i&Offset=%i", GET_FAVORITE_LIST, count, offset];
     [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
@@ -300,7 +300,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Count=%i&Offset=%i", SKILLEEZ_URL, GET_WAITING_FOR_APPROVAL_COUNT, 1, 0]
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Count=%i&Offset=%i", GET_WAITING_FOR_APPROVAL_COUNT, 1, 0]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
@@ -319,7 +319,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     
     NSMutableURLRequest *request = [manager multipartFormRequestWithObject:skilleeRequest
                                                                     method:RKRequestMethodPOST
-                                                                      path:[SKILLEEZ_URL stringByAppendingString:POST_CREATE_SKILLEE]
+                                                                      path:POST_CREATE_SKILLEE
                                                                 parameters:nil
                                                  constructingBodyWithBlock:^(id<AFMultipartFormData> formData) { }];
     [request setHTTPMethod:@"POST"];
@@ -373,7 +373,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     
     NSDictionary *jsonData = @{@"Id": skilleeId};
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE] parameters:jsonData
+    [manager postObject:nil path:POST_REMOVE parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
@@ -390,7 +390,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     
     NSDictionary *jsonData = @{@"Id": skilleeId};
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_ADD_TO_FAVORITES] parameters:jsonData
+    [manager postObject:nil path:POST_ADD_TO_FAVORITES parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
@@ -407,7 +407,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     
     NSDictionary *jsonData = @{@"Id": skilleeId};
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_REMOVE_FROM_FAVORITES] parameters:jsonData
+    [manager postObject:nil path:POST_REMOVE_FROM_FAVORITES parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
@@ -424,7 +424,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     
     NSDictionary *jsonData = @{@"Id": skilleeId};
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_MARK_AS_TATTLE] parameters:jsonData
+    [manager postObject:nil path:POST_MARK_AS_TATTLE parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
@@ -444,7 +444,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
         @"IsApproved": approved ? @"true" : @"false",
     };
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_APPROVE_OR_DENY] parameters:jsonData
+    [manager postObject:nil path:POST_APPROVE_OR_DENY parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:skilleeId]);});
@@ -460,7 +460,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Id=%@", SKILLEEZ_URL, GET_CAN_APPROVE, skilleeId]
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Id=%@", GET_CAN_APPROVE, skilleeId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
@@ -486,7 +486,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                                    @"ChildPassword": childPassword
                                };
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_ADD_CHILD_TO_FAMILY] parameters:jsonData
+    [manager postObject:nil path:POST_ADD_CHILD_TO_FAMILY parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:childName]);});
@@ -505,7 +505,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                                @"Email": email
                                };
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_INVITE_ADULT_TO_FAMILY] parameters:jsonData
+    [manager postObject:nil path:POST_INVITE_ADULT_TO_FAMILY parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:email]);});
@@ -532,7 +532,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                                @"MemberId": memberId
                                };
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_INVITE_ADULT_TO_FAMILY] parameters:jsonData
+    [manager postObject:nil path:POST_INVITE_ADULT_TO_FAMILY parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:memberId]);});
@@ -547,7 +547,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Id=%@", SKILLEEZ_URL, GET_FRIENDS_AND_FAMILY, userId]
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Id=%@", GET_FRIENDS_AND_FAMILY, userId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
@@ -569,7 +569,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?MainFamilyUserId=%@&AdultId=%@", SKILLEEZ_URL, GET_ADULTPERMISSIONS, userId, adultId]
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?MainFamilyUserId=%@&AdultId=%@", GET_ADULTPERMISSIONS, userId, adultId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
@@ -593,7 +593,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@%@?Id=%@", SKILLEEZ_URL, GET_PROFILEINFO_URI, userId]
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Id=%@", GET_PROFILEINFO_URI, userId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
@@ -619,7 +619,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
     
     NSMutableURLRequest *request = [manager multipartFormRequestWithObject:imageData
                                                                     method:RKRequestMethodPOST
-                                                                      path:[SKILLEEZ_URL stringByAppendingString:POST_PROFILEIMAGE_URI]
+                                                                      path:POST_PROFILEIMAGE_URI
                                                                 parameters:nil
                                                  constructingBodyWithBlock:^(id<AFMultipartFormData> formData) { }];
     [request setHTTPMethod:@"POST"];
@@ -667,7 +667,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                                @"AboutMe": profileInfo.AboutMe ? profileInfo.AboutMe : @""
                                };
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_PROFILEINFO_URI] parameters:jsonData
+    [manager postObject:nil path:POST_PROFILEINFO_URI parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:profileInfo]);});
@@ -688,7 +688,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                                @"Id": userId
                                };
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_FOLLOW_USER] parameters:jsonData
+    [manager postObject:nil path:POST_FOLLOW_USER parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:userId]);});
@@ -707,7 +707,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                                @"Id": userId
                                };
     
-    [manager postObject:nil path:[SKILLEEZ_URL stringByAppendingString:POST_UNFOLLOW_USER] parameters:jsonData
+    [manager postObject:nil path:POST_UNFOLLOW_USER parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:userId]);});
