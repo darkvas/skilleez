@@ -94,7 +94,7 @@ const int NUMBER_OF_ITEMS = 5;
 - (void) loadWaitingForApprovalCount
 {
     [[NetworkManager sharedInstance] getWaitingForApprovalCount:^(RequestResult *requestReturn) {
-        if(requestReturn.isSuccess){
+        if (requestReturn.isSuccess) {
             int approvalCount = [((NSNumber*)requestReturn.firstObject) intValue];
             NSLog(@"Waiting from approval count %i", approvalCount);
             [self setBadgeValue:approvalCount];
@@ -127,11 +127,6 @@ const int NUMBER_OF_ITEMS = 5;
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -154,10 +149,8 @@ const int NUMBER_OF_ITEMS = 5;
     SkilleeModel *skillee = [self getElementAt:indexPath.row];
     if ([className isEqualToString:@"SimpleTableCell"]) {
         BOOL canApprove = ![[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:skillee.UserId] && [UserSettingsManager sharedInstance].IsAdult;
-        //self.view.userInteractionEnabled = NO;
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:canApprove];
-        [self.navigationController pushViewControllerCustom:detail];
-        //[self.navigationController pushViewController:detail animated:YES];
+        [self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"AdultApprovalTableCell"]) {
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:YES];
         [self.navigationController pushViewController:detail animated:YES];
@@ -225,8 +218,7 @@ const int NUMBER_OF_ITEMS = 5;
     if ([className isEqualToString:@"SimpleTableCell"]) {
         BOOL canApprove = ![[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:skillee.UserId] && [UserSettingsManager sharedInstance].IsAdult;
         SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:canApprove];
-        [self.navigationController pushViewControllerCustom:detail];
-        //[self.navigationController pushViewController:detail animated:YES];
+        [self.navigationController pushViewController:detail animated:YES];
     } else if ([className isEqualToString:@"FavoriteTableCell"]) {
         offset = 0;
         count = NUMBER_OF_ITEMS;
@@ -243,7 +235,7 @@ const int NUMBER_OF_ITEMS = 5;
     }
 }
 
-- (void)didProfileSelect:(NSString*) profileId
+- (void)didProfileSelect:(NSString *)profileId
 {
     FamilyMemberModel *familyMember = [self findInFriends:profileId];
     if (familyMember)
@@ -252,30 +244,30 @@ const int NUMBER_OF_ITEMS = 5;
         [self showProfileNotFamilyMember:profileId];
 }
 
--(FamilyMemberModel*) findInFriends: (NSString*) profileId
+- (FamilyMemberModel *)findInFriends:(NSString *)profileId
 {
     for (FamilyMemberModel *member in [UserSettingsManager sharedInstance].friendsAndFamily) {
-        if([member.Id isEqualToString:profileId])
+        if ([member.Id isEqualToString:profileId])
             return member;
     }
     return nil;
 }
 
-- (void) showProfileFamilyMember: (FamilyMemberModel*) familyMember
+- (void)showProfileFamilyMember:(FamilyMemberModel *)familyMember
 {
     if (familyMember.IsAdult) {
         AdultProfileViewController *profilePermissionView = [AdultProfileViewController new];
         profilePermissionView.familyMember = familyMember;
-        [self.navigationController pushViewController:profilePermissionView animated:YES];
+        [self.navigationController pushViewControllerCustom:profilePermissionView];
     } else {
         ChildProfileViewController *childProfileView = [ChildProfileViewController new];
         childProfileView.showFriendsFamily = YES;
         childProfileView.familyMember = familyMember;
-        [self.navigationController pushViewController:childProfileView animated:YES];
+        [self.navigationController pushViewControllerCustom:childProfileView];
     }
 }
 
-- (void) showProfileNotFamilyMember: (NSString*) profileId
+- (void)showProfileNotFamilyMember:(NSString *)profileId
 {
     if ([profileId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID]) {
         EditProfileViewController *editProfileView = [EditProfileViewController new];
@@ -283,13 +275,14 @@ const int NUMBER_OF_ITEMS = 5;
     } else {
         ChildProfileViewController *defaultChildProfileView = [ChildProfileViewController new];
         defaultChildProfileView.showFriendsFamily = YES;
-        [self.navigationController pushViewController:defaultChildProfileView animated:YES];
+        [self.navigationController pushViewControllerCustom:defaultChildProfileView];
     }
 }
 
 #pragma mark - Data loading methods
 
-- (IBAction)loadItems:(id)sender {
+- (IBAction)loadItems:(id)sender
+{
     [self.createViewCtrl resignAll];
     [self hideCreateView:YES];
     toTop = YES;
@@ -511,10 +504,10 @@ const int NUMBER_OF_ITEMS = 5;
     return activityIndicator;
 }
 
-- (void)showFailureAlert: (NSError*) error withCaption: (NSString*) caption withIndicator: (UIActivityIndicatorView *) activityIndicator
+- (void)showFailureAlert:(NSError *)error withCaption:(NSString *)caption withIndicator:(UIActivityIndicatorView *) activityIndicator
 {
     [activityIndicator stopAnimating];
-    NSString* message = error.userInfo[NSLocalizedDescriptionKey];
+    NSString *message = error.userInfo[NSLocalizedDescriptionKey];
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:caption message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [alert show];
 }
@@ -527,10 +520,8 @@ const int NUMBER_OF_ITEMS = 5;
 - (void)hideCreateView:(BOOL)hide
 {
     self.tableView.hidden = !hide;
-    for (UIView *subView in self.contentView.subviews)
-    {
-        if (subView.tag == 2)
-        {
+    for (UIView *subView in self.contentView.subviews) {
+        if (subView.tag == 2) {
             [subView setHidden:hide];
         }
     }

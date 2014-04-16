@@ -43,15 +43,6 @@ enum {
 
 @implementation ProfileViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithProfile:(ProfileInfo *)profileInfo editMode:(BOOL)edit
 {
     if (self = [super init]) {

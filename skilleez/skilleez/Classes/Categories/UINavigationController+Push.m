@@ -50,9 +50,6 @@
          frame.origin.x = 0;
          viewController.view.frame = frame;
     } completion:^(BOOL finished) {
-        /*for (UIViewController *ctr in self.viewControllers) {
-            NSLog(@"%@", ctr);
-        }*/
     }];
 }
 
@@ -69,9 +66,6 @@
     [self addChildViewController:ui];
     [self.view addSubview:ui.view];
     [ui viewWillAppear:YES];
-    /*for (UIViewController *ctr in self.viewControllers) {
-        NSLog(@"%@", ctr);
-    }*/
     [UIView animateWithDuration:0.3f delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         CGRect frame = ui.view.frame;
         frame.origin.x = 0;
@@ -85,14 +79,7 @@
                 ui.view.layer.shadowRadius = 0.0f;
                 ui.view.layer.shadowOpacity = 0.00f;
                 [ui viewDidAppear:YES];
-                /*NSArray *ar = self.viewControllers;
-                NSMutableArray *mut = [NSMutableArray arrayWithArray:ar];
-                [mut removeObject:cur];
-                self.viewControllers = [NSArray arrayWithArray:mut];*/
             }
-            /*for (UIViewController *ctr in self.viewControllers) {
-                NSLog(@"%@", ctr);
-            }*/
     }];
 
 }

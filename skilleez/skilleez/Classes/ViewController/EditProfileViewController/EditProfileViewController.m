@@ -104,7 +104,7 @@ enum {
                                            image:self.sportImageName == nil ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName]
                                           method:@"chooseSport"],
                  [[TableItem alloc] initWithName:@"What's your favorite school subject?"
-                                           image:self.subjectImageName == nil ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.sportImageName]
+                                           image:self.subjectImageName == nil ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName]
                                           method:@"chooseSubject"],
                  [[TableItem alloc] initWithName:@"What's your favorite type of music?"
                                            image:self.musicImageName == nil ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName]
@@ -142,10 +142,10 @@ enum {
     self.foodImageName = profile.FavoriteFood;
     favoriteColor = profile.Color;
     ((TableItem *)questions[1]).image = [self getBlankImage:favoriteColor];
-    ((TableItem *)questions[2]).image = [UIImage imageNamed:profile.FavoriteSport];
-    ((TableItem *)questions[3]).image = [UIImage imageNamed:profile.FavoriteSchoolSubject];
-    ((TableItem *)questions[4]).image = [UIImage imageNamed:profile.FavoriteTypeOfMusic];
-    ((TableItem *)questions[5]).image = [UIImage imageNamed:profile.FavoriteFood];
+    ((TableItem *)questions[2]).image = self.sportImageName == nil ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName];
+    ((TableItem *)questions[3]).image = self.subjectImageName == nil ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName];
+    ((TableItem *)questions[4]).image = self.musicImageName == nil ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName];
+    ((TableItem *)questions[5]).image = self.foodImageName == nil ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName];
     [self.tableView reloadData];
 }
 
@@ -197,7 +197,7 @@ enum {
     }
 }
 
--(UIImage*) getBlankImage: (UIColor*) color
+- (UIImage *)getBlankImage:(UIColor *)color
 {
     const int defaultSize = 100;
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(defaultSize,defaultSize), NO, 0);
@@ -401,7 +401,7 @@ enum {
     }];
 }
 
--(NSString*) getStringFromColor: (UIColor*) color
+- (NSString *)getStringFromColor:(UIColor *)color
 {
     const CGFloat *components = CGColorGetComponents(color.CGColor);
     CGFloat r = components[0];
