@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "SkilleeModel.h"
 #import "SimpleTableCell.h"
+#import "CustomAlertView.h"
 
-@interface FavoriteTableCell : SimpleTableCell
+@interface FavoriteTableCell : SimpleTableCell<CustomIOS7AlertViewDelegate>
 
 - (void)setSkilleezData:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
 

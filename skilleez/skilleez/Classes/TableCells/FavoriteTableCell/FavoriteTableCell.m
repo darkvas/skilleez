@@ -42,18 +42,33 @@
 
 - (IBAction)removeFromFavorites:(id)sender
 {
-    [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeModel.Id withCallBack:^(RequestResult *requestResult) {
-        if(requestResult.isSuccess) {
-            [self.delegate didSkiilleSelect:skilleeModel];
-        } else {
-            NSLog(@"Failed remove from Favorites: %@, error: %@", skilleeModel.Id, requestResult.error);
-        }
-    }];
+    CustomAlertView *alert = [CustomAlertView new];
+    [alert setDefaultContainerView:@"Are you sure you want to remove this skilleez from favorites?"];
+    alert.alpha = 0.95;
+    [alert setDelegate:self];
+    [alert setUseMotionEffects:YES];
+    [alert show];
 }
 
 - (void)selectProfile:(UIGestureRecognizer*)recognizer
 {
     [self.delegate didProfileSelect:skilleeModel.UserId];
+}
+
+#pragma mark - CustomIOS7AlertViewDelegate
+
+- (void)customIOS7dialogButtonTouchUpInside:(CustomAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeModel.Id withCallBack:^(RequestResult *requestResult) {
+            if(requestResult.isSuccess) {
+                [self.delegate didSkiilleSelect:skilleeModel];
+            } else {
+                NSLog(@"Failed remove from Favorites: %@, error: %@", skilleeModel.Id, requestResult.error);
+            }
+        }];
+    }
+    [alertView close];
 }
 
 @end

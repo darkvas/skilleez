@@ -228,6 +228,18 @@ CGFloat buttonSpacerHeight = 0;
     return dialogContainer;
 }
 
+- (void)setDefaultContainerView:(NSString *)question
+{
+    containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 130)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 110)];
+    titleLabel.text = question;
+    titleLabel.numberOfLines = 3;
+    titleLabel.font = [UIFont getDKCrayonFontWithSize:26];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1.0];
+    [containerView addSubview:titleLabel];
+}
+
 // Helper function: add buttons to container
 - (void)addButtonsToView: (UIView *)container
 {
@@ -268,7 +280,7 @@ CGFloat buttonSpacerHeight = 0;
     [closeButton setTag:0];
     
     [closeButton setTitle:@"Yes" forState:UIControlStateNormal];
-    [closeButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    [closeButton setTitleColor:[UIColor colorWithRed:0.02 green:0.67 blue:0.25 alpha:1.0] forState:UIControlStateNormal];
     [closeButton setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
     [closeButton.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
     closeButton.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
@@ -283,7 +295,7 @@ CGFloat buttonSpacerHeight = 0;
     [cancel setTag:1];
     
     [cancel setTitle:@"Cancel" forState:UIControlStateNormal];
-    [cancel setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [cancel setTitleColor:[UIColor colorWithRed:0.74 green:0.23 blue:0.26 alpha:1.0] forState:UIControlStateNormal];
     [cancel setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
     [cancel.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
     cancel.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
