@@ -120,7 +120,7 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     }];
 }
 
-- (void) getAccountInformation
+- (void)getAccountInformation
 {
     [[NetworkManager sharedInstance] getUserInfo:^(RequestResult *requestResult) {
         if (requestResult.isSuccess){
@@ -137,7 +137,7 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     }];
 }
 
-- (void) getAccountFriendList: (NSString*) userId
+- (void)getAccountFriendList:(NSString *)userId
 {
     [[NetworkManager sharedInstance] getFriendsAnsFamily :userId withCallBack:^(RequestResult *requestResult) {
         if(requestResult.isSuccess) {
