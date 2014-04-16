@@ -43,15 +43,6 @@ enum {
 
 @implementation ProfileViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithProfile:(ProfileInfo *)profileInfo editMode:(BOOL)edit
 {
     if (self = [super init]) {
@@ -72,11 +63,10 @@ enum {
     [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
     self.userColorButton.backgroundColor = profile.Color;
     self.coloredView.backgroundColor = profile.Color;
-    //TODO:change on real data in future
-    [self.userSportButton setBackgroundImage:[UIImage imageNamed:@"sport_baseball_icon.png"] forState:UIControlStateNormal];
-    [self.userSubjectButton setBackgroundImage:[UIImage imageNamed:@"subject_art_icon.png"] forState:UIControlStateNormal];
-    [self.userMusicButton setBackgroundImage:[UIImage imageNamed:@"music_classical_icon.png"] forState:UIControlStateNormal];
-    [self.userFoodButton setBackgroundImage:[UIImage imageNamed:@"food_blt_icon.png"] forState:UIControlStateNormal];
+    [self.userSportButton setBackgroundImage:profile.FavoriteSport == nil ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:profile.FavoriteSport] forState:UIControlStateNormal];
+    [self.userSubjectButton setBackgroundImage:profile.FavoriteSchoolSubject == nil ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:profile.FavoriteSchoolSubject] forState:UIControlStateNormal];
+    [self.userMusicButton setBackgroundImage:profile.FavoriteTypeOfMusic == nil ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:profile.FavoriteTypeOfMusic] forState:UIControlStateNormal];
+    [self.userFoodButton setBackgroundImage:profile.FavoriteFood == nil ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:profile.FavoriteFood] forState:UIControlStateNormal];
     self.userDescTextView.text = profile.AboutMe == nil ? self.userDescTextView.text : profile.AboutMe;
     CGRect rect = self.userDescTextView.frame;
     CGSize textViewSize = [self.userDescTextView sizeThatFits:CGSizeMake(self.userDescTextView.frame.size.width, FLT_MAX)];

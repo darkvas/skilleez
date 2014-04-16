@@ -45,10 +45,10 @@ enum {
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxt;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UILabel *myProfileLbl;
-@property (strong, nonatomic) NSString *sportImage;
-@property (strong, nonatomic) NSString *subjectImage;
-@property (strong, nonatomic) NSString *musicImage;
-@property (strong, nonatomic) NSString *foodImage;
+@property (strong, nonatomic) NSString *sportImageName;
+@property (strong, nonatomic) NSString *subjectImageName;
+@property (strong, nonatomic) NSString *musicImageName;
+@property (strong, nonatomic) NSString *foodImageName;
 
 - (IBAction)editImagePressed:(id)sender;
 - (IBAction)saveProfilePressed:(id)sender;
@@ -91,26 +91,26 @@ enum {
     [self loadProfileInfo];
 }
 
--(void) prepareDefaultData
+- (void)prepareDefaultData
 {
     questions = [NSArray arrayWithObjects:
                  [[TableItem alloc] initWithName:@"Who am I?"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
                                           method:@"showProfile"],
                  [[TableItem alloc] initWithName:@"What's your favorite color?"
-                                           image:[self getBlankImage:[UIColor blackColor]]
+                                           image:favoriteColor == nil ? [self getBlankImage:[UIColor blackColor]] : [self getBlankImage:favoriteColor]
                                           method:@"chooseColor"],
                  [[TableItem alloc] initWithName:@"What's your favorite sport"
-                                           image:[UIImage imageNamed:@"sport_baseball_icon.png"]
+                                           image:self.sportImageName == nil ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName]
                                           method:@"chooseSport"],
                  [[TableItem alloc] initWithName:@"What's your favorite school subject?"
-                                           image:[UIImage imageNamed:@"subject_art_icon.png"]
+                                           image:self.subjectImageName == nil ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName]
                                           method:@"chooseSubject"],
                  [[TableItem alloc] initWithName:@"What's your favorite type of music?"
-                                           image:[UIImage imageNamed:@"music_classical_icon.png"]
+                                           image:self.musicImageName == nil ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName]
                                           method:@"chooseMusic"],
                  [[TableItem alloc] initWithName:@"What's your favorite food?"
-                                           image:[UIImage imageNamed:@"food_blt_icon.png"]
+                                           image:self.foodImageName == nil ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName]
                                           method:@"chooseFood"],
                  [[TableItem alloc] initWithName:@"My skilleez"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
@@ -131,13 +131,21 @@ enum {
     }];
 }
 
-- (void) updateProfileView
+- (void)updateProfileView
 {
     [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
     self.nameTxt.text = profile.ScreenName;
     self.loginTxt.text = profile.Login;
+    self.subjectImageName = profile.FavoriteSchoolSubject;
+    self.sportImageName = profile.FavoriteSport;
+    self.musicImageName = profile.FavoriteTypeOfMusic;
+    self.foodImageName = profile.FavoriteFood;
     favoriteColor = profile.Color;
     ((TableItem *)questions[1]).image = [self getBlankImage:favoriteColor];
+    ((TableItem *)questions[2]).image = self.sportImageName == nil ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName];
+    ((TableItem *)questions[3]).image = self.subjectImageName == nil ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName];
+    ((TableItem *)questions[4]).image = self.musicImageName == nil ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName];
+    ((TableItem *)questions[5]).image = self.foodImageName == nil ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName];
     [self.tableView reloadData];
 }
 
@@ -189,7 +197,7 @@ enum {
     }
 }
 
--(UIImage*) getBlankImage: (UIColor*) color
+- (UIImage *)getBlankImage:(UIColor *)color
 {
     const int defaultSize = 100;
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(defaultSize,defaultSize), NO, 0);
@@ -229,19 +237,19 @@ enum {
 {
     switch (type) {
         case SPORT:
-            self.sportImage = image;
+            self.sportImageName = image;
             ((TableItem *)questions[2]).image = [UIImage imageNamed:image];
             break;
         case SUBJECT:
-            self.subjectImage = image;
+            self.subjectImageName = image;
             ((TableItem *)questions[3]).image = [UIImage imageNamed:image];
             break;
         case MUSIC:
-            self.musicImage = image;
+            self.musicImageName = image;
             ((TableItem *)questions[4]).image = [UIImage imageNamed:image];
             break;
         default:
-            self.foodImage = image;
+            self.foodImageName = image;
             ((TableItem *)questions[5]).image = [UIImage imageNamed:image];
             break;
     }
@@ -274,7 +282,7 @@ enum {
 {
     SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType:SPORT];
     favorite.delegate = self;
-    favorite.selectedImage = self.sportImage;
+    favorite.selectedImage = self.sportImageName;
     [self.navigationController pushViewController:favorite animated:YES];
 }
 
@@ -282,7 +290,7 @@ enum {
 {
     SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType:SUBJECT];
     favorite.delegate = self;
-    favorite.selectedImage = self.subjectImage;
+    favorite.selectedImage = self.subjectImageName;
     [self.navigationController pushViewController:favorite animated:YES];
 }
 
@@ -290,7 +298,7 @@ enum {
 {
     SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType:MUSIC];
     favorite.delegate = self;
-    favorite.selectedImage = self.musicImage;
+    favorite.selectedImage = self.musicImageName;
     [self.navigationController pushViewController:favorite animated:YES];
 }
 
@@ -298,7 +306,7 @@ enum {
 {
     SelectFavoriteViewController *favorite = [[SelectFavoriteViewController alloc] initWithType:FOOD];
     favorite.delegate = self;
-    favorite.selectedImage = self.foodImage;
+    favorite.selectedImage = self.foodImageName;
     [self.navigationController pushViewController:favorite animated:YES];
 }
 
@@ -362,6 +370,10 @@ enum {
     profile.Login = self.loginTxt.text;
     profile.Password = self.passwordTxt.text;
     profile.FavoriteColor = [self getStringFromColor:favoriteColor];
+    profile.FavoriteSchoolSubject = self.subjectImageName;
+    profile.FavoriteSport = self.sportImageName;
+    profile.FavoriteTypeOfMusic = self.musicImageName;
+    profile.FavoriteFood = self.foodImageName;
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postProfileInfo:profile withCallBack:^(RequestResult *requestResult) {
@@ -377,7 +389,7 @@ enum {
     }];
 }
 
--(void)uploadImage
+- (void)uploadImage
 {
     NSData* imageData = UIImageJPEGRepresentation(self.userAvatarImg.image, 1.0f);
     [[NetworkManager sharedInstance] postProfileImage:imageData withCallBack:^(RequestResult *requestResult) {
@@ -389,7 +401,7 @@ enum {
     }];
 }
 
--(NSString*) getStringFromColor: (UIColor*) color
+- (NSString *)getStringFromColor:(UIColor *)color
 {
     const CGFloat *components = CGColorGetComponents(color.CGColor);
     CGFloat r = components[0];

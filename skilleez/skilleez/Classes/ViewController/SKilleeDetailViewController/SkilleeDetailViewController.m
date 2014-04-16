@@ -92,25 +92,12 @@ typedef enum {
     }
 }
 
--(void) canApproveByAPI
-{
-    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getCanApprove:skillee.Id withCallBack:^(RequestResult *requestReturn) {
-        if (requestReturn.isSuccess) {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            BOOL canApprove = [((NSNumber*)requestReturn.firstObject) boolValue];
-            NSLog(@"Can approve: %@", canApprove ? @"YES" : @"FALSE");
-        } else {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSLog(@"Failed get can approve: %@, error: %@", skillee.Id, requestReturn.error);
-        }
-    }];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [_player.moviePlayer prepareToPlay];
 }
+
+#pragma mark - Class methods
 
 - (void)didReceiveMemoryWarning
 {
@@ -121,8 +108,6 @@ typedef enum {
 - (void)cancel
 {
     [self.navigationController popViewControllerCustom];
-    //[self.navigationController popViewControllerAnimated:YES];
-
 }
 
 - (void)done
@@ -140,7 +125,7 @@ typedef enum {
     }
 }
 
-- (void) approveSkilleeAndExit: (BOOL) approve
+- (void)approveSkilleeAndExit:(BOOL)approve
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postApproveOrDenySkillee:skillee.Id isApproved:approve withCallBack:^(RequestResult *requestResult) {
@@ -227,6 +212,21 @@ typedef enum {
     self.denyBtn.hidden = YES;
 }
 
+- (void)canApproveByAPI
+{
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    [[NetworkManager sharedInstance] getCanApprove:skillee.Id withCallBack:^(RequestResult *requestReturn) {
+        if (requestReturn.isSuccess) {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            BOOL canApprove = [((NSNumber*)requestReturn.firstObject) boolValue];
+            NSLog(@"Can approve: %@", canApprove ? @"YES" : @"FALSE");
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            NSLog(@"Failed get can approve: %@, error: %@", skillee.Id, requestReturn.error);
+        }
+    }];
+}
+
 - (IBAction)deny:(id)sender {
     skilleeAction = SkilleeActionDeny;
 }
@@ -242,6 +242,16 @@ typedef enum {
         if(requestResult.isSuccess){
             NSLog(@"Success add to Favorites: %@", skillee.Id);
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            CustomAlertView *alert = [CustomAlertView new];
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setTitle:@"Ok" forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
+            alert.buttons = @[button];
+            [alert setDefaultContainerView:@"You have added this skillee to your favorites"];
+            alert.alpha = 0.95;
+            [alert setDelegate:self];
+            [alert setUseMotionEffects:YES];
+            [alert show];
         } else {
             NSLog(@"Failed add to Favorites: %@, error: %@", skillee.Id, requestResult.error);
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
@@ -256,6 +266,16 @@ typedef enum {
         if(requestResult.isSuccess){
             NSLog(@"Success mark as Tatle: %@", skillee.Id);
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            CustomAlertView *alert = [CustomAlertView new];
+            [alert setDefaultContainerView:@"You have added this skillee to tattles"];
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [button setTitle:@"Ok" forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
+            alert.buttons = @[button];
+            alert.alpha = 0.95;
+            [alert setDelegate:self];
+            [alert setUseMotionEffects:YES];
+            [alert show];
         } else {
             NSLog(@"Failed mark as Tatle: %@, error: %@", skillee.Id, requestResult.error);
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
@@ -266,7 +286,7 @@ typedef enum {
 - (IBAction)showImage:(id)sender
 {
     self.fullScreenImage = [[UIViewController alloc] init];
-    self.fullScreenImage.view.backgroundColor=[UIColor lightGrayColor];
+    self.fullScreenImage.view.backgroundColor = [UIColor lightGrayColor];
     self.fullScreenImage.view.userInteractionEnabled=YES;
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 548)];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -290,29 +310,7 @@ typedef enum {
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-/*
-- (void)pinch:(UIPinchGestureRecognizer *)gesture {
-    
-    if (gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateChanged) {
-        UIImageView *image;
-        for (UIView *view in self.fullScreenImage.view.subviews) {
-            if (view.tag == 1) {
-                image = (UIImageView *)view;
-            }
-        }
-        CGFloat currentScale = image.frame.size.width / image.bounds.size.width;
-        CGFloat newScale = currentScale * gesture.scale;
-        if (newScale < 1.0) {
-            newScale = 1.0;
-        } else if (newScale > 4.0) {
-            newScale = 4.0;
-        }
-        CGAffineTransform transform = CGAffineTransformMakeScale(newScale, newScale);
-        image.transform = transform;
-        gesture.scale = 1;
-    }
-}
-*/
+
 - (void)orientationChanged:(NSNotification *)notification
 {
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
@@ -333,6 +331,13 @@ typedef enum {
             }
         }
     }
+}
+
+#pragma mark - CustomIOS7AlertViewDelegate
+
+- (void)customIOS7dialogButtonTouchUpInside:(CustomAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [alertView close];
 }
 
 @end

@@ -75,19 +75,6 @@ const int FONT_SIZE_AP = 22;
     [alertView close];
 }
 
-- (UIView *)createAlertView
-{
-    UIView *demoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 130)];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 110)];
-    titleLabel.text = @"Are you sure you want to remove this user from your loop?";
-    titleLabel.numberOfLines = 3;
-    titleLabel.font = [UIFont getDKCrayonFontWithSize:26];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.textColor = [UIColor colorWithRed:0.41 green:0.41 blue:0.41 alpha:1.0];
-    [demoView addSubview:titleLabel];
-    return demoView;
-}
-
 #pragma mark - Class methods
 
 - (void)cancel
@@ -166,7 +153,7 @@ const int FONT_SIZE_AP = 22;
 - (IBAction)delete:(id)sender
 {
     CustomAlertView *alertView = [[CustomAlertView alloc] init];
-    [alertView setContainerView:[self createAlertView]];
+    [alertView setDefaultContainerView:@"Are you sure you want to remove this user from your loop?"];
     alertView.alpha = 0.95;
     [alertView setDelegate:self];
     [alertView setUseMotionEffects:YES];

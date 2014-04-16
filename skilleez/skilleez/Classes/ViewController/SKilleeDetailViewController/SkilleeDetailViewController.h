@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SkilleeModel.h"
+#import "CustomAlertView.h"
 
 extern const int BUTTON_FONT_SIZE_SD;
 extern const float BUTTON_BORDER_WIDTH_SD;
 
-@interface SkilleeDetailViewController : UIViewController
+@interface SkilleeDetailViewController : UIViewController<CustomIOS7AlertViewDelegate>
 
 @property (nonatomic) BOOL controllsHidden;
 

@@ -16,6 +16,8 @@
 #import "ChildFamilyViewController.h"
 #import "SkilleezListViewController.h"
 #import "SettingsViewController.h"
+#import "UserSettingsManager.h"
+#include "UINavigationController+Push.h"
 
 const float CORNER_RADIUS_CP = 5.f;
 const int FONT_SIZE_CP = 22;
@@ -89,7 +91,10 @@ const int FONT_SIZE_CP = 22;
 - (void)cancel
 {
     ChildFamilyViewController *childFamily = [[ChildFamilyViewController alloc] initWithChildID:self.familyMember.Id];
-    [self.navigationController pushViewController:childFamily animated:YES];
+    if ([self.familyMember.Id isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
+        [self.navigationController pushViewController:childFamily animated:YES];
+    else
+        [self.navigationController pushViewControllerCustom:childFamily];
 }
 
 - (IBAction)showSkilleez:(id)sender
@@ -101,10 +106,13 @@ const int FONT_SIZE_CP = 22;
 - (IBAction)showProfile:(id)sender
 {
     [[NetworkManager sharedInstance] getProfileInfo:self.familyMember.Id withCallBack:^(RequestResult *requestResult) {
-        if(requestResult.isSuccess) {
+        if (requestResult.isSuccess) {
             ProfileInfo *profileInfo = (ProfileInfo*) requestResult.firstObject;
             ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:NO];
-            [self.navigationController pushViewController:profileView animated:YES];
+            if ([self.familyMember.Id isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
+                [self.navigationController pushViewController:profileView animated:YES];
+            else
+                [self.navigationController pushViewControllerCustom:profileView];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:@"Problem with loading user data. Try again!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             [alert show];
