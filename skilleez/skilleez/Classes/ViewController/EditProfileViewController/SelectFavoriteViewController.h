@@ -16,7 +16,7 @@ extern const NSInteger FOOD;*/
 
 @protocol FavoriteViewControllerDelegate <NSObject>
 
-- (void)imageSelected:(UIImage *)image withType:(int)type;
+- (void)imageSelected:(NSString *)image withType:(int)type;
 
 @end
 
@@ -25,7 +25,7 @@ extern const NSInteger FOOD;*/
 - (id)initWithType:(int)favoriteType;
 - (id)initWithType:(int)favoriteType andProfile:(ProfileInfo *)profile;
 
-@property (strong, nonatomic) UIImage *selectedImage;
+@property (strong, nonatomic) NSString *selectedImage;
 @property (weak, nonatomic) id<FavoriteViewControllerDelegate> delegate;
 
 @end

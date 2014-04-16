@@ -418,7 +418,7 @@ const int NUMBER_OF_ITEMS = 5;
     return YES;
 }
 
-- (SkilleeModel *)getElementAt:(int)position
+- (SkilleeModel *)getElementAt:(NSInteger)position
 {
     switch (skillleType) {
         case LOOP:

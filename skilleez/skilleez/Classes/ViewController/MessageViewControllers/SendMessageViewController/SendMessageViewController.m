@@ -78,7 +78,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    self.lblSymbolsCount.text = [NSString stringWithFormat:@"%i/200", textView.text.length];
+    self.lblSymbolsCount.text = [NSString stringWithFormat:@"%lu/200", (unsigned long)textView.text.length];
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

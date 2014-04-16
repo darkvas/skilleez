@@ -23,6 +23,7 @@ enum {
     NSArray *items, *subjects, *sport, *food, *music;
     int type;
     ProfileInfo *profileInfo;
+    NSString *selectedImageName;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *whatColorLbl;
@@ -74,7 +75,7 @@ enum {
     // Do any additional setup after loading the view from its nib.
     [self setTypeInfo];
     if(self.selectedImage)
-        self.imageView.image = self.selectedImage;
+        self.imageView.image = [UIImage imageNamed:self.selectedImage];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,7 +108,7 @@ enum {
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.imageView setImage:[UIImage imageNamed:[items objectAtIndex:indexPath.row]]];
-    self.selectedImage = self.imageView.image;
+    self.selectedImage = [items objectAtIndex:indexPath.row];
      NSLog(@"selected color: %@", self.selectedImage);
 }
 

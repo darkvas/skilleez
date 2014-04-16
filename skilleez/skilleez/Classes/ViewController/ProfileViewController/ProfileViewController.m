@@ -170,20 +170,20 @@ enum {
 
 #pragma mark - FavoriteViewControllerDelegate
 
-- (void)imageSelected:(UIImage *)image withType:(int)type
+- (void)imageSelected:(NSString *)image withType:(int)type
 {
     switch (type) {
         case SPORT:
-            [self.userSportButton setBackgroundImage:image forState:UIControlStateNormal];
+            [self.userSportButton setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
             break;
         case SUBJECT:
-            [self.userSubjectButton setBackgroundImage:image forState:UIControlStateNormal];
+            [self.userSubjectButton setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
             break;
         case MUSIC:
-            [self.userMusicButton setBackgroundImage:image forState:UIControlStateNormal];
+            [self.userMusicButton setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
             break;
         default:
-            [self.userFoodButton setBackgroundImage:image forState:UIControlStateNormal];
+            [self.userFoodButton setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
             break;
     }
 }

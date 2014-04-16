@@ -45,10 +45,10 @@ enum {
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxt;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (weak, nonatomic) IBOutlet UILabel *myProfileLbl;
-@property (strong, nonatomic) UIImage *sportImage;
-@property (strong, nonatomic) UIImage *subjectImage;
-@property (strong, nonatomic) UIImage *musicImage;
-@property (strong, nonatomic) UIImage *foodImage;
+@property (strong, nonatomic) NSString *sportImage;
+@property (strong, nonatomic) NSString *subjectImage;
+@property (strong, nonatomic) NSString *musicImage;
+@property (strong, nonatomic) NSString *foodImage;
 
 - (IBAction)editImagePressed:(id)sender;
 - (IBAction)saveProfilePressed:(id)sender;
@@ -225,24 +225,24 @@ enum {
 
 #pragma mark - FavoriteViewControllerDelegate
 
-- (void)imageSelected:(UIImage *)image withType:(int)type
+- (void)imageSelected:(NSString *)image withType:(int)type
 {
     switch (type) {
         case SPORT:
             self.sportImage = image;
-            ((TableItem *)questions[2]).image = image;
+            ((TableItem *)questions[2]).image = [UIImage imageNamed:image];
             break;
         case SUBJECT:
             self.subjectImage = image;
-            ((TableItem *)questions[3]).image = image;
+            ((TableItem *)questions[3]).image = [UIImage imageNamed:image];
             break;
         case MUSIC:
             self.musicImage = image;
-            ((TableItem *)questions[4]).image = image;
+            ((TableItem *)questions[4]).image = [UIImage imageNamed:image];
             break;
         default:
             self.foodImage = image;
-            ((TableItem *)questions[5]).image = image;
+            ((TableItem *)questions[5]).image = [UIImage imageNamed:image];
             break;
     }
     [self.tableView reloadData];
