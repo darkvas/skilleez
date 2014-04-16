@@ -32,10 +32,11 @@ typedef void (^method) (void);
 @property (nonatomic, strong, setter = setUserInfo:) UserInfo* userInfo;
 @property (nonatomic, strong) NSArray* friendsAndFamily;
 
--(void) loadSettings;
--(void) saveSettings;
+- (void)loadSettings;
+- (void)saveSettings;
+- (void)deleteSettings;
 
--(void) setUserInfo:(UserInfo *)userInfo;
+- (void)setUserInfo:(UserInfo *)userInfo;
 
 - (void)addDelegateObserver:(method)observer;
 - (void)removeDelegateObserver:(method)observer;

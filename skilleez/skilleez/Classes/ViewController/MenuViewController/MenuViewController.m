@@ -14,6 +14,7 @@
 #import "EditProfileViewController.h"
 #import "TableItem.h"
 #import "MessageListViewController.h"
+#import "LoginViewController.h"
 
 @interface MenuViewController () {
     NSArray *items;
@@ -21,7 +22,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLbl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *logout;
 @property (strong, nonatomic) LoopActivityViewController *loopCtrl;
+
+- (IBAction)logout:(id)sender;
 
 @end
 
@@ -122,7 +126,8 @@
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userAvatarImg.layer.borderWidth = 3.f;
-    self.tableView.frame = CGRectMake(0, 82, 256, [items count] * 50);
+    self.tableView.frame = CGRectMake(0, 90, 256, [items count] * 50);
+    self.logout.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
 }
 
 - (void)showMyProfile
@@ -153,6 +158,13 @@
     MessageListViewController *messageListView = [MessageListViewController new];
     [self.loopCtrl.navigationController pushViewController:messageListView animated:YES];
     [self.loopCtrl hideMenu];
+}
+
+- (IBAction)logout:(id)sender
+{
+    [[UserSettingsManager sharedInstance] deleteSettings];
+    LoginViewController *login = [LoginViewController new];
+    [self.loopCtrl.navigationController pushViewController:login animated:YES];
 }
 
 @end

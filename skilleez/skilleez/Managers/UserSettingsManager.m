@@ -30,7 +30,7 @@
     return sharedInstance;
 }
 
-- (id) init
+- (id)init
 {
     if (self = [super init]) {
         observerCollection = [NSMutableSet new];
@@ -38,7 +38,7 @@
     return self;
 }
 
-- (void) loadSettings
+- (void)loadSettings
 {
     NSDictionary* dictSets = [[NSUserDefaults standardUserDefaults] objectForKey:USER_SETTINGS];
     self.username = dictSets[@"username"];
@@ -53,7 +53,19 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void) setUserInfo:(UserInfo *)userInfo
+- (void)deleteSettings
+{
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:USER_SETTINGS];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [UserSettingsManager sharedInstance].userInfo = Nil;
+    [UserSettingsManager sharedInstance].username = nil;
+    [UserSettingsManager sharedInstance].password = nil;
+    [UserSettingsManager sharedInstance].IsAdmin = nil;
+    [UserSettingsManager sharedInstance].IsAdult = nil;
+    [UserSettingsManager sharedInstance].remember = nil;
+}
+
+- (void)setUserInfo:(UserInfo *)userInfo
 {
     _userInfo = userInfo;
     [self notifyUserInfoObservers];
