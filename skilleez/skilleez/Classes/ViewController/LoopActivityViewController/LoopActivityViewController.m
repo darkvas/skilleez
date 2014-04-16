@@ -87,11 +87,12 @@ const int NUMBER_OF_ITEMS = 5;
     [self createBadge];
     [self setBadgeValue:0];
     [self loadSkilleeList];
+    [self highlightSelectedButton:10];
     [self loadWaitingForApprovalCount];
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void) loadWaitingForApprovalCount
+- (void)loadWaitingForApprovalCount
 {
     [[NetworkManager sharedInstance] getWaitingForApprovalCount:^(RequestResult *requestReturn) {
         if (requestReturn.isSuccess) {
@@ -109,17 +110,20 @@ const int NUMBER_OF_ITEMS = 5;
     if ([loopData count] > 0) {
         switch (skillleType) {
             case APPROVES:
+                [self highlightSelectedButton:11];
                 isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
                 className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
                 [self loadWaitingForApprovalInBackground:(count + offset) offset:0];
                 break;
             case FAVORITES:
+                [self highlightSelectedButton:12];
                 isChildApproval = NO;
                 className = [NSMutableString stringWithString:@"FavoriteTableCell"];
                 [self loadFavoriteInBackground:(count + offset) offset:0];
                 break;
             default:
                 isChildApproval = NO;
+                [self highlightSelectedButton:10];
                 className = [NSMutableString stringWithString:@"SimpleTableCell"];
                 [self loadSkilleeInBackground:(count + offset) offset:0];
                 break;
@@ -289,6 +293,7 @@ const int NUMBER_OF_ITEMS = 5;
     offset = 0;
     count = NUMBER_OF_ITEMS;
     canLoadOnScroll = NO;
+    [self highlightSelectedButton:(int)((UIButton *)sender).tag];
     switch (((UIButton *)sender).tag) {
         case 11:
             isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
@@ -543,6 +548,7 @@ const int NUMBER_OF_ITEMS = 5;
     } else {
         [self hideCreateView:NO];
     }
+    [self highlightSelectedButton:(int)((UIButton *)sender).tag];
 }
 
 - (IBAction)showMenu:(id)sender
@@ -578,6 +584,7 @@ const int NUMBER_OF_ITEMS = 5;
 {
     self.menuCtrl.view.frame = CGRectMake(-320, 0, 320, 568);
     self.transparentBtn.hidden = YES;
+    self.menuBtn.selected = !self.menuBtn.selected;
 }
 
 - (void)showMenu
@@ -596,7 +603,6 @@ const int NUMBER_OF_ITEMS = 5;
                              view.frame = frame;
                          }
                          completion:^(BOOL finished) {
-             
          }];
     } else {
         view.hidden = NO;
@@ -611,9 +617,40 @@ const int NUMBER_OF_ITEMS = 5;
                              view.frame = frame;
                          }
                          completion:^(BOOL finished) {
-             
          }];
     }
+    self.menuBtn.selected = !self.menuBtn.selected;
+}
+
+- (void)highlightSelectedButton:(int)button
+{
+    [self deselectAll];
+    switch (button) {
+        case 10:
+            self.topSkilleeBtn.selected = YES;
+            break;
+        case 11:
+            self.approvalSkilleeBtn.selected = YES;
+            break;
+        case 12:
+            self.favoriteSkilleeBtn.selected = YES;
+            break;
+        case 13:
+            self.createSkilleeBtn.selected = YES;
+            break;
+        default:
+            self.menuBtn.selected = !self.menuBtn.selected;
+            break;
+    }
+}
+
+- (void)deselectAll
+{
+    self.topSkilleeBtn.selected = NO;
+    self.favoriteSkilleeBtn.selected = NO;
+    self.approvalSkilleeBtn.selected = NO;
+    self.createSkilleeBtn.selected = NO;
+    self.menuBtn.selected = NO;
 }
 
 @end
