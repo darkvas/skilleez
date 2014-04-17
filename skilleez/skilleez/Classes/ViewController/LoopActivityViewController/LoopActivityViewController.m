@@ -110,20 +110,20 @@ const int NUMBER_OF_ITEMS = 5;
     if ([loopData count] > 0) {
         switch (skillleType) {
             case APPROVES:
-                [self highlightSelectedButton:11];
+                //[self highlightSelectedButton:11];
                 isChildApproval = ![UserSettingsManager sharedInstance].IsAdult;
                 className = isChildApproval ? [NSMutableString stringWithString:@"ChildApprovalTableCell"] : [NSMutableString stringWithString:@"AdultApprovalTableCell"];
                 [self loadWaitingForApprovalInBackground:(count + offset) offset:0];
                 break;
             case FAVORITES:
-                [self highlightSelectedButton:12];
+                //[self highlightSelectedButton:12];
                 isChildApproval = NO;
                 className = [NSMutableString stringWithString:@"FavoriteTableCell"];
                 [self loadFavoriteInBackground:(count + offset) offset:0];
                 break;
             default:
                 isChildApproval = NO;
-                [self highlightSelectedButton:10];
+                //[self highlightSelectedButton:10];
                 className = [NSMutableString stringWithString:@"SimpleTableCell"];
                 [self loadSkilleeInBackground:(count + offset) offset:0];
                 break;
@@ -376,7 +376,7 @@ const int NUMBER_OF_ITEMS = 5;
 - (void)loadWaitingForApprovalList
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getWaitingForApproval:count offset:offset withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getWaitingForApprovalSkilleez:count offset:offset withCallBack:^(RequestResult *requestResult) {
         if(requestResult.isSuccess) {
             NSArray* skilleeList = requestResult.returnArray;
             if (offset > 0) {
@@ -474,7 +474,7 @@ const int NUMBER_OF_ITEMS = 5;
 
 - (void)loadWaitingForApprovalInBackground:(int)counts offset:(int)offsets
 {
-    [[NetworkManager sharedInstance] getWaitingForApproval:counts offset:offsets withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getWaitingForApprovalSkilleez:counts offset:offsets withCallBack:^(RequestResult *requestResult) {
         if(requestResult.isSuccess) {
             NSArray* skilleeList = requestResult.returnArray;
             if (![self isArrayEquals:approvalData toOther:skilleeList]) {

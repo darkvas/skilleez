@@ -15,6 +15,7 @@ static NSString *GET_USERINFO_URI = @"api/User/GetMyInfo";
 static NSString *GET_SKILLEE_LIST_URI = @"api/Skillee/GetList";
 static NSString *GET_USER_SKILLEE_LIST_URI = @"api/Skillee/GetUserSkilleezList";
 static NSString *GET_WAITING_FOR_APPROVAL_URI = @"api/Skillee/GetWaitingForApprovalList";
+static NSString *GET_WAITING_FOR_APPROVAL_SKILLEEZ_URI = @"api/Skillee/GetWaitingForApprovalSkilleezList";
 static NSString *GET_WAITING_FOR_APPROVAL_COUNT = @"api/Skillee/GetWaitingForApprovalCount";
 static NSString *GET_FAVORITE_LIST = @"api/Skillee/GetFavoriteList";
 static NSString *GET_CAN_APPROVE = @"api/Skillee/CanApprove";
@@ -37,6 +38,8 @@ static NSString *GET_PROFILEINFO_BY_LOGIN = @"api/Profile/GetProfileInfoByLogin"
 static NSString *POST_PROFILEIMAGE_URI = @"api/Profile/EditProfileImage";
 static NSString *POST_PROFILEINFO_URI = @"api/Profile/EditProfileInfo";
 
+static NSString *GET_LOOP_BY_ID = @"api/Loop/GetLoopById";
+static NSString *GET_WAITING_FOR_APPROVAL_INVITATIONS_URI = @"api/Loop/GetWaitingForApprovalInvitationsToLoop";
 static NSString *POST_FOLLOW_USER = @"api/Loop/FollowUser";
 static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 
@@ -120,7 +123,7 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
     
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
                                                                                  method:RKRequestMethodGET
-                                                                            pathPattern:GET_WAITING_FOR_APPROVAL_URI
+                                                                            pathPattern:GET_WAITING_FOR_APPROVAL_SKILLEEZ_URI
                                                                                 keyPath:@"ReturnValue"
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
@@ -317,9 +320,9 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
     [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
 
--(void) getWaitingForApproval:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack
+-(void) getWaitingForApprovalSkilleez:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack
 {
-    NSString* requestUrl = [NSString stringWithFormat:@"%@?Count=%i&Offset=%i", GET_WAITING_FOR_APPROVAL_URI, count, offset];
+    NSString* requestUrl = [NSString stringWithFormat:@"%@?Count=%i&Offset=%i", GET_WAITING_FOR_APPROVAL_SKILLEEZ_URI, count, offset];
     [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }

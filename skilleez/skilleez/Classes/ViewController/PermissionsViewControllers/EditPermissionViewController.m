@@ -14,6 +14,7 @@
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
 #import "PermissionManagementViewController.h"
+#import "ActivityIndicatorController.h"
 
 const int FONT_SIZE_EP = 21;
 
@@ -112,16 +113,16 @@ const int FONT_SIZE_EP = 21;
               
 - (void)loadPermisionData
 {
-    [[NetworkManager sharedInstance] getAdultPermissions:[UserSettingsManager sharedInstance].userInfo.UserID
-                                              forAdultId:@"3"
-                                            withCallBack:^(RequestResult *requestResult) {
-                                                if(requestResult.isSuccess) {
-                                                    [adultPermissions addObjectsFromArray: requestResult.returnArray];
-                                                    [self.tableView reloadData];
-                                                } else {
-                                                    NSLog(@"Get Adult Permission error: %@", requestResult.error);
-                                                }
-                                            }];
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    [[NetworkManager sharedInstance] getAdultPermissions:[UserSettingsManager sharedInstance].userInfo.UserID forAdultId:@"3" withCallBack:^(RequestResult *requestResult) {
+            if(requestResult.isSuccess) {
+                [adultPermissions addObjectsFromArray: requestResult.returnArray];
+                [self.tableView reloadData];
+            } else {
+                NSLog(@"Get Adult Permission error: %@", requestResult.error);
+            }
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+    }];
 }
 
 @end
