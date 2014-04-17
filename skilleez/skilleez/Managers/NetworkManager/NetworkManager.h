@@ -25,7 +25,7 @@ typedef void (^requestCallBack)(RequestResult* requestResult);
 -(void) getUserInfo:(requestCallBack) callBack;
 -(void) getSkilleeList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 -(void) getSkilleeListForUser:(NSString*) userId count: (int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
--(void) getWaitingForApproval:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
+-(void) getWaitingForApprovalSkilleez:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 -(void) getWaitingForApprovalCount: (requestCallBack) callBack;
 -(void) getFavoriteList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 
@@ -48,5 +48,6 @@ typedef void (^requestCallBack)(RequestResult* requestResult);
 
 -(void) postFollowUser: (NSString*) userId withCallBack: (requestCallBack) callBack;
 -(void) postUnfollowUser: (NSString*) userId withCallBack: (requestCallBack) callBack;
+- (void)getLoopById:(NSString *)userId count:(int)count offset:(int)offset withCallBack:(requestCallBack)callBack;
 
 @end
