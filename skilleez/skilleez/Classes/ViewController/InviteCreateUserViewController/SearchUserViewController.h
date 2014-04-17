@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "KeyboardViewController.h"
+#import "CustomAlertView.h"
 
-@interface SearchUserViewController : KeyboardViewController
+@interface SearchUserViewController : KeyboardViewController <CustomIOS7AlertViewDelegate>
 
 @end

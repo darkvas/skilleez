@@ -125,7 +125,7 @@
 
 -(void) getProfileInfo: (FamilyMemberModel*) member
 {
-    [[NetworkManager sharedInstance] getProfileInfo:member.Id withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getProfileInfoByUserId:member.Id withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             ProfileInfo* profileInfo = (ProfileInfo*) requestResult.firstObject;
             [messages addObject:profileInfo];

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProfileInfo.h"
+#import "CustomAlertView.h"
 
-@interface FindUserViewController : UIViewController
+@interface FindUserViewController : UIViewController <CustomIOS7AlertViewDelegate>
+
+- (id)initWithProfile:(ProfileInfo *)profileInfo;
 
 @end

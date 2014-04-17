@@ -10,4 +10,6 @@
 
 @interface KeyboardViewController : UIViewController
 
+- (void) closeKeyboard;
+
 @end

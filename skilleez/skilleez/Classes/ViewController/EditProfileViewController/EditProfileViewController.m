@@ -121,7 +121,7 @@ enum {
 
 - (void) loadProfileInfo
 {
-    [[NetworkManager sharedInstance] getProfileInfo:[UserSettingsManager sharedInstance].userInfo.UserID withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getProfileInfoByUserId:[UserSettingsManager sharedInstance].userInfo.UserID withCallBack:^(RequestResult *requestResult) {
         if(requestResult.isSuccess){
             profile = (ProfileInfo *) requestResult.firstObject;
             [self updateProfileView];

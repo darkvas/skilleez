@@ -42,11 +42,15 @@ typedef void (^requestCallBack)(RequestResult* requestResult);
 -(void) postInviteAdultToFamily:(NSString*) email withCallBack: (requestCallBack) callBack;
 -(void) getAdultPermissions: (NSString*) userId forAdultId: (NSString*) adultId withCallBack: (requestCallBack) callBack;
 
--(void) getProfileInfo:(NSString*) userId withCallBack: (requestCallBack) callBack;
+-(void) getProfileInfoByLogin:(NSString*) login withCallBack:(requestCallBack)callBack;
+-(void) getProfileInfoByUserId:(NSString*) userId withCallBack: (requestCallBack) callBack;
 -(void) postProfileImage: (NSData*) imageData withCallBack: (requestCallBack) callBack;
 -(void) postProfileInfo: (ProfileInfo*) profileInfo withCallBack: (requestCallBack) callBack;
 
 -(void) postFollowUser: (NSString*) userId withCallBack: (requestCallBack) callBack;
 -(void) postUnfollowUser: (NSString*) userId withCallBack: (requestCallBack) callBack;
+
+-(void) postInviteToLoopByUserId: (NSString*) userId withCallBack: (requestCallBack) callBack;
+-(void) postInviteToLoopByEmail: (NSString*) email withCallBack: (requestCallBack) callBack;
 
 @end
