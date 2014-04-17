@@ -240,6 +240,12 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
                                                                                 keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:userInfoMapping
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_LOOP_BY_ID
+                                                                                keyPath:@"ReturnValue.FriendsFromLoop"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
                                                                                  method:RKRequestMethodAny
                                                                             pathPattern:POST_INVITE_TO_LOOP_BY_USERID
@@ -782,7 +788,27 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
      }];
 }
 
-#pragma mark - Invite To Loop methods
+- (void)getLoopById:(NSString *)userId count:(int)count offset:(int)offset withCallBack:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Id=%@&count=%i&offset=%i", GET_LOOP_BY_ID, userId, count, offset]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         NSMutableArray* friends = [NSMutableArray new];
+         for (NSObject* obj in mappingResult.array) {
+             if([obj isKindOfClass:[ProfileInfo class]])
+                 [friends addObject:obj];
+         }
+         
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:friends]);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
 
 -(void) postInviteToLoopByUserId: (NSString*) userId withCallBack: (requestCallBack) callBack
 {

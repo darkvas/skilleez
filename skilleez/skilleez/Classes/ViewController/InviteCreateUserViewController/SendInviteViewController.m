@@ -83,21 +83,39 @@
 -(IBAction)inviteUserPressed:(id)sender
 {
     NSString* email = self.tfUserEmail.text;
+    [self closeKeyboard];
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postInviteAdultToFamily: email withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] postInviteToLoopByEmail:email withCallBack:^(RequestResult *requestResult) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         if(requestResult.isSuccess) {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSString* message = [NSString stringWithFormat:@"Send invite to email: %@", email];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [alert show];
+            NSString* message = [NSString stringWithFormat:@"Invite Adult success\r\nSend invite to email: %@", email];
+            [self showAlertWithMessage:message];
+            self.tfUserEmail.text = @"";
         } else {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [alert show];
+            NSString* message = [NSString stringWithFormat:@"Invite Adult failed\r\n%@", requestResult.error.userInfo[NSLocalizedDescriptionKey]];
+            [self showAlertWithMessage:message];
         }
     }];
+}
+
+- (void) showAlertWithMessage:(NSString*) message
+{
+    CustomAlertView *alert = [CustomAlertView new];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"Ok" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
+    alert.buttons = @[button];
+    [alert setDefaultContainerView:message];
+    alert.alpha = 0.95;
+    [alert setDelegate:self];
+    [alert setUseMotionEffects:YES];
+    [alert show];
+}
+
+- (void) customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [alertView close];
 }
 
 @end
