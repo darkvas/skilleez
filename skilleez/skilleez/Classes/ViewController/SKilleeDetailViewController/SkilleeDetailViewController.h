@@ -13,7 +13,7 @@
 extern const int BUTTON_FONT_SIZE_SD;
 extern const float BUTTON_BORDER_WIDTH_SD;
 
-@interface SkilleeDetailViewController : UIViewController<CustomIOS7AlertViewDelegate>
+@interface SkilleeDetailViewController : UIViewController<CustomIOS7AlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) BOOL controllsHidden;
 

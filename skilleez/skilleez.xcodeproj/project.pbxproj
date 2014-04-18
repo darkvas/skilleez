@@ -159,6 +159,8 @@
 		14DB8B4F18E0233B00DEEC4C /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DB8B4E18E0233B00DEEC4C /* SplashViewController.m */; };
 		14F090AF18E1C96B000DAF80 /* ProfileTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F090AE18E1C96B000DAF80 /* ProfileTableCell.m */; };
 		14F090B318E1C9E9000DAF80 /* ProfileTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14F090B218E1C9E9000DAF80 /* ProfileTableCell.xib */; };
+		75A48EE0190134EC008AFBFD /* MoreButtonTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A48EDF190134EC008AFBFD /* MoreButtonTableCell.m */; };
+		75A48EE219013500008AFBFD /* MoreButtonTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A48EE119013500008AFBFD /* MoreButtonTableCell.xib */; };
 		75D6CA2118FD54FD005FD2BA /* s_thumb_down_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA1D18FD54FD005FD2BA /* s_thumb_down_img.png */; };
 		75D6CA2218FD54FD005FD2BA /* s_thumb_down_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA1E18FD54FD005FD2BA /* s_thumb_down_img@2x.png */; };
 		75D6CA2318FD54FD005FD2BA /* s_thumb_up_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA1F18FD54FD005FD2BA /* s_thumb_up_img.png */; };
@@ -533,6 +535,9 @@
 		14F090AD18E1C96B000DAF80 /* ProfileTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableCell.h; sourceTree = "<group>"; };
 		14F090AE18E1C96B000DAF80 /* ProfileTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableCell.m; sourceTree = "<group>"; };
 		14F090B218E1C9E9000DAF80 /* ProfileTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileTableCell.xib; sourceTree = "<group>"; };
+		75A48EDE190134EC008AFBFD /* MoreButtonTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreButtonTableCell.h; sourceTree = "<group>"; };
+		75A48EDF190134EC008AFBFD /* MoreButtonTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButtonTableCell.m; sourceTree = "<group>"; };
+		75A48EE119013500008AFBFD /* MoreButtonTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreButtonTableCell.xib; sourceTree = "<group>"; };
 		75D6CA1D18FD54FD005FD2BA /* s_thumb_down_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = s_thumb_down_img.png; sourceTree = "<group>"; };
 		75D6CA1E18FD54FD005FD2BA /* s_thumb_down_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_thumb_down_img@2x.png"; sourceTree = "<group>"; };
 		75D6CA1F18FD54FD005FD2BA /* s_thumb_up_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = s_thumb_up_img.png; sourceTree = "<group>"; };
@@ -859,6 +864,7 @@
 		149232A818D73A40001BAE8C /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
+				75A48EDA190134C4008AFBFD /* MoreButtonTableCell */,
 				14B0DFFA18F9236500B85DFB /* LoopApprovalTableCell */,
 				140CDE7D18E965CC001E97A7 /* EditPermissionTableCell */,
 				14F090AC18E1C951000DAF80 /* ProfileTableCell */,
@@ -1116,6 +1122,16 @@
 				14F090B218E1C9E9000DAF80 /* ProfileTableCell.xib */,
 			);
 			path = ProfileTableCell;
+			sourceTree = "<group>";
+		};
+		75A48EDA190134C4008AFBFD /* MoreButtonTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				75A48EDE190134EC008AFBFD /* MoreButtonTableCell.h */,
+				75A48EDF190134EC008AFBFD /* MoreButtonTableCell.m */,
+				75A48EE119013500008AFBFD /* MoreButtonTableCell.xib */,
+			);
+			path = MoreButtonTableCell;
 			sourceTree = "<group>";
 		};
 		75EC296F19000389007409BD /* LoopViewController */ = {
@@ -1811,6 +1827,7 @@
 				14B0DFF218F7CEEB00B85DFB /* subject_tech_icon.png in Resources */,
 				84DE0F6218FD15540066E2C8 /* settings_img@2x.png in Resources */,
 				84E7F69618E07752003662CA /* FriendsFamilyViewController.xib in Resources */,
+				75A48EE219013500008AFBFD /* MoreButtonTableCell.xib in Resources */,
 				14B0DFE218F7CEEB00B85DFB /* music_rock_icon.png in Resources */,
 				84E4D0D318F694DA002D264F /* MessageViewController.xib in Resources */,
 				84E14ED818F5295A002E6D7F /* SkilleezListViewController.xib in Resources */,
@@ -1978,6 +1995,7 @@
 				84E14ED718F5295A002E6D7F /* SkilleezListViewController.m in Sources */,
 				1465110518E31F98002C2B2A /* ProfileViewController.m in Sources */,
 				84E14EDC18F5668F002E6D7F /* AdultProfileViewController.m in Sources */,
+				75A48EE0190134EC008AFBFD /* MoreButtonTableCell.m in Sources */,
 				84D73B7A18E968B9007DDBDB /* SendInviteViewController.m in Sources */,
 				84E4D0CD18F694C3002D264F /* MessageListViewController.m in Sources */,
 				84EA05CA18D6F5FF008D940D /* SkilleeModel.m in Sources */,

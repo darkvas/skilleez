@@ -19,7 +19,6 @@ static NSString *cellName = @"SimpleTableCell";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIViewController *parent;
 
-
 @end
 
 @implementation LoopViewController
