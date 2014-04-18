@@ -96,7 +96,7 @@ const int FONT_SIZE_CP = 22;
 
 - (IBAction)showProfile:(id)sender
 {
-    [[NetworkManager sharedInstance] getProfileInfo:self.familyMember.Id withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getProfileInfoByUserId:self.familyMember.Id withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             ProfileInfo *profileInfo = (ProfileInfo*) requestResult.firstObject;
             ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:NO];

@@ -10,6 +10,8 @@
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
+#import "ActivityIndicatorController.h"
+#import "FindUserViewController.h"
 
 @interface SearchUserViewController ()
 
@@ -73,7 +75,43 @@
 
 -(IBAction)findUserPressed:(id)sender
 {
-    //NSString* userId = self.tfUserName.text;
+    [self closeKeyboard];
+    NSString* userLogin = self.tfUserName.text;
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    
+    [[NetworkManager sharedInstance] getProfileInfoByLogin:userLogin withCallBack:^(RequestResult *requestResult) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        
+        if (requestResult.isSuccess) {
+            ProfileInfo* profile = (ProfileInfo*)requestResult.firstObject;
+            FindUserViewController *foundUserView = [[FindUserViewController alloc] initWithProfile:profile];
+            [self.navigationController pushViewController:foundUserView animated:YES];
+        }
+        else {
+            [self showAlertNotFoundUser];
+        }
+    }];
+}
+
+- (void) showAlertNotFoundUser
+{
+    CustomAlertView *alert = [CustomAlertView new];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"Ok" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
+    alert.buttons = @[button];
+    [alert setDefaultContainerView:@"Not found such user"];
+    alert.alpha = 0.95;
+    [alert setDelegate:self];
+    [alert setUseMotionEffects:YES];
+    [alert show];
+}
+
+#pragma mark - CustomIOS7AlertViewDelegate
+
+- (void)customIOS7dialogButtonTouchUpInside:(CustomAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [alertView close];
 }
 
 @end

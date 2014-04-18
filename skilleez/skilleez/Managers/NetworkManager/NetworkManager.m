@@ -34,6 +34,7 @@ static NSString *GET_FRIENDS_AND_FAMILY = @"api/User/GetFriendsAndFamily";
 static NSString *GET_ADULTPERMISSIONS = @"api/User/GetAdultPermissions";
 
 static NSString *GET_PROFILEINFO_URI = @"api/Profile/GetProfileInfo";
+static NSString *GET_PROFILEINFO_BY_LOGIN = @"api/Profile/GetProfileInfoByLogin";//?Login={Login}
 static NSString *POST_PROFILEIMAGE_URI = @"api/Profile/EditProfileImage";
 static NSString *POST_PROFILEINFO_URI = @"api/Profile/EditProfileInfo";
 
@@ -41,6 +42,22 @@ static NSString *GET_LOOP_BY_ID = @"api/Loop/GetLoopById";
 static NSString *GET_WAITING_FOR_APPROVAL_INVITATIONS_URI = @"api/Loop/GetWaitingForApprovalInvitationsToLoop";
 static NSString *POST_FOLLOW_USER = @"api/Loop/FollowUser";
 static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
+
+/*
+GET api/Loop/GetLoopById/{Id}?Count={Count}&Offset={Offset}
+GET api/Loop/GetPendingInvitationsToLoop?Count={Count}&Offset={Offset}
+GET api/Loop/GetWaitingForApprovalInvitationsToLoop?Count={Count}&Offset={Offset}
+POST api/Loop/InviteToLoopByUserId
+POST api/Loop/InviteToLoopByEmail
+POST api/Loop/AcceptInvitationToLoop
+POST api/Loop/DeclineInvitationToLoop*/
+
+static NSString *GET_PENDING_INVITATIONS_TO_LOOP = @"api/Loop/GetPendingInvitationsToLoop";
+static NSString *GET_WAITING_FOR_APPROVAL_INVITATIONS_TO_LOOP = @"api/Loop/GetWaitingForApprovalInvitationsToLoop";
+static NSString *POST_INVITE_TO_LOOP_BY_USERID = @"api/Loop/InviteToLoopByUserId";
+static NSString *POST_INVITE_TO_LOOP_BY_EMAIL = @"api/Loop/InviteToLoopByEmail";
+static NSString *POST_ACCEPT_INVITATION_TO_LOOP = @"api/Loop/AcceptInvitationToLoop";
+static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationToLoop";
 
 @implementation NetworkManager
 {
@@ -193,6 +210,12 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                                                                                 keyPath:@"ReturnValue"
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[ProfileInfo defineObjectMapping]
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_PROFILEINFO_BY_LOGIN
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
                                                                                  method:RKRequestMethodAny
                                                                             pathPattern:POST_PROFILEIMAGE_URI
@@ -221,6 +244,18 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
                                                                                  method:RKRequestMethodGET
                                                                             pathPattern:GET_LOOP_BY_ID
                                                                                 keyPath:@"ReturnValue.FriendsFromLoop"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_INVITE_TO_LOOP_BY_USERID
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_INVITE_TO_LOOP_BY_EMAIL
+                                                                                keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
 }
@@ -321,6 +356,8 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
 }
+
+#pragma mark - Skillee methods
 
 -(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest withCallBack: (requestCallBack) callBack
 {
@@ -598,7 +635,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 
 #pragma mark Profile - need to test
 
--(void) getProfileInfo:(NSString*) userId withCallBack:(requestCallBack)callBack
+-(void) getProfileInfoByUserId:(NSString*) userId withCallBack:(requestCallBack)callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
@@ -614,6 +651,30 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
              }
          }
 
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:profile]);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+-(void) getProfileInfoByLogin:(NSString*) login withCallBack:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Login=%@", GET_PROFILEINFO_BY_LOGIN, login]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         ProfileInfo* profile;
+         for (NSObject* obj in mappingResult.array) {
+             if([obj isKindOfClass:[ProfileInfo class]]) {
+                 profile = (ProfileInfo*)obj;
+                 break;
+             }
+         }
+         
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:profile]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
@@ -744,6 +805,44 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:friends]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+-(void) postInviteToLoopByUserId: (NSString*) userId withCallBack: (requestCallBack) callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    NSDictionary *jsonData = @{
+                               @"Id": userId
+                               };
+    
+    [manager postObject:nil path:POST_INVITE_TO_LOOP_BY_USERID parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:userId]);});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+-(void) postInviteToLoopByEmail: (NSString*) email withCallBack: (requestCallBack) callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    NSDictionary *jsonData = @{
+                               @"Email": email
+                               };
+    
+    [manager postObject:nil path:POST_INVITE_TO_LOOP_BY_EMAIL parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:email]);});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];

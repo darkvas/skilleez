@@ -86,4 +86,9 @@
     [UIView commitAnimations];
 }
 
+- (void) closeKeyboard
+{
+    [self.view endEditing:YES];
+}
+
 @end

@@ -75,7 +75,7 @@
 
 -(void) loadProfileData
 {
-    [[NetworkManager sharedInstance] getProfileInfo:_userId withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getProfileInfoByUserId:_userId withCallBack:^(RequestResult *requestResult) {
        if(requestResult.isSuccess)  {
            ProfileInfo *profileInfo = (ProfileInfo*)requestResult.firstObject;
         _profileInfo = profileInfo;

@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "KeyboardViewController.h"
+#import "CustomAlertView.h"
 
-@interface SendInviteViewController : KeyboardViewController
+@interface SendInviteViewController : KeyboardViewController<CustomIOS7AlertViewDelegate>
 
 @end
