@@ -9,7 +9,7 @@
 #import "SkilleeDetailViewController.h"
 #import "SimpleTableCell.h"
 #import "UIFont+DefaultFont.h"
-#import "LoopActivityViewController.h"
+#import "HomeViewController.h"
 #import "NetworkManager.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "AppDelegate.h"
@@ -56,15 +56,6 @@ typedef enum {
 @end
 
 @implementation SkilleeDetailViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (id)initWithSkillee:(SkilleeModel *)skilleeEl andApproveOpportunity:(BOOL)enabled
 {

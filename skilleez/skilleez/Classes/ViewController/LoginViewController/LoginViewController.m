@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import "LoopActivityViewController.h"
+#import "HomeViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
@@ -34,14 +34,6 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
 @end
 
 @implementation LoginViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -108,7 +100,7 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         if (requestReturn.isSuccess) {
             [self getAccountInformation];
-            LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
+            HomeViewController *loop = [HomeViewController new];
             [self.navigationController pushViewController:loop animated:YES];
         } else {
             NSString* message = requestReturn.error.userInfo[NSLocalizedDescriptionKey];

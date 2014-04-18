@@ -7,7 +7,7 @@
 //
 
 #import "MenuViewController.h"
-#import "LoopActivityViewController.h"
+#import "HomeViewController.h"
 #import "FriendsFamilyViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "UserSettingsManager.h"
@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLbl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *logout;
-@property (strong, nonatomic) LoopActivityViewController *loopCtrl;
+@property (strong, nonatomic) HomeViewController *loopCtrl;
 
 - (IBAction)logout:(id)sender;
 
@@ -33,16 +33,7 @@
 
 #pragma mark - initialization
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (id)initWithLoopController:(LoopActivityViewController *)loop
+- (id)initWithController:(HomeViewController *)loop
 {
     if (self = [super init]) {
         self.loopCtrl = loop;
@@ -132,7 +123,7 @@
 
 - (void)showMyProfile
 {
-    EditProfileViewController *profile = [[EditProfileViewController alloc] initWithNibName:@"EditProfileViewController" bundle:nil];
+    EditProfileViewController *profile = [EditProfileViewController new];
     [self.loopCtrl.navigationController pushViewController:profile animated:YES];
     [self.loopCtrl hideMenu];
 }
@@ -148,7 +139,7 @@
 
 - (void)showFamily
 {
-    FriendsFamilyViewController *familyCtrl = [[FriendsFamilyViewController alloc] initWithNibName:@"FriendsFamilyViewController" bundle:nil];
+    FriendsFamilyViewController *familyCtrl = [FriendsFamilyViewController new];
     [self.loopCtrl.navigationController pushViewController:familyCtrl animated:YES];
     [self.loopCtrl hideMenu];
 }

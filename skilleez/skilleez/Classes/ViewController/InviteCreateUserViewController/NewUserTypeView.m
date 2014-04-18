@@ -25,15 +25,6 @@
 
 @implementation NewUserTypeView
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -71,13 +62,13 @@
 
 -(IBAction) createChildUser:(id)sender
 {
-    CreateChildViewController *createChildView = [[CreateChildViewController alloc] initWithNibName:@"CreateChildViewController" bundle:nil];
+    CreateChildViewController *createChildView = [CreateChildViewController new];
     [self.navigationController pushViewController:createChildView animated:YES];
 }
 
 -(IBAction) createAdultUser:(id)sender
 {
-    CreateAdultViewController *createAdultView = [[CreateAdultViewController alloc] initWithNibName:@"CreateAdultViewController" bundle:nil];
+    CreateAdultViewController *createAdultView = [CreateAdultViewController new];
     [self.navigationController pushViewController:createAdultView animated:YES];
 }
 

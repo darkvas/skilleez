@@ -38,15 +38,6 @@
 
 @implementation FriendsFamilyViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -201,19 +192,19 @@
 
 -(IBAction) createNewUser:(id)sender
 {
-    NewUserTypeView *newUserTypeView = [[NewUserTypeView alloc] initWithNibName:@"NewUserTypeView" bundle:nil];
+    NewUserTypeView *newUserTypeView = [NewUserTypeView new];
     [self.navigationController pushViewController:newUserTypeView animated:YES];
 }
 
 -(IBAction) inviteToLoop:(id)sender
 {
-    InviteToLoopViewController *inviteToLoopView = [[InviteToLoopViewController alloc] initWithNibName:@"InviteToLoopViewController" bundle:nil];
+    InviteToLoopViewController *inviteToLoopView = [InviteToLoopViewController new];
     [self.navigationController pushViewController:inviteToLoopView animated:YES];
 }
 
 -(IBAction) showPendingInvitations:(id)sender
 {
-    PendingInvitationsViewController *pendingInvitesView = [[PendingInvitationsViewController alloc] initWithNibName:@"PendingInvitationsViewController" bundle:nil];
+    PendingInvitationsViewController *pendingInvitesView = [PendingInvitationsViewController new];
     [self.navigationController pushViewController:pendingInvitesView animated:YES];
 }
 

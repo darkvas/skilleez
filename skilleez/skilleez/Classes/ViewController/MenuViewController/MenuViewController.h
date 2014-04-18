@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoopActivityViewController.h"
+#import "HomeViewController.h"
 
 @interface MenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
-- (id)initWithLoopController:(LoopActivityViewController *)loop;
+- (id)initWithController:(UIViewController *)loop;
 
 @end

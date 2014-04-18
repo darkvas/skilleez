@@ -34,15 +34,6 @@ const int NUMBER_OF_ITEMS_SL = 5;
 
 @implementation SkilleezListViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithUserId:(NSString *)userId andTitle: (NSString*) title
 {
     if (self = [super init]) {
