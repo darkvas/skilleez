@@ -23,6 +23,9 @@ const float CORNER_RADIUS_AP = 5.f;
 const int FONT_SIZE_AP = 22;
 
 @interface AdultProfileViewController ()
+{
+    FamilyMemberModel* _familyMember;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UIButton *skilleezBtn;
@@ -41,14 +44,22 @@ const int FONT_SIZE_AP = 22;
 
 @implementation AdultProfileViewController
 
+- (id)initWithFamilyMember:(FamilyMemberModel *)familyMember
+{
+    if (self = [super init]) {
+        _familyMember = familyMember;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self customize];
     
-    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:self.familyMember.FullName leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:_familyMember.FullName leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
-    [self.userAvatarImg setImageWithURL: self.familyMember.AvatarUrl];
+    [self.userAvatarImg setImageWithURL: _familyMember.AvatarUrl];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -105,7 +116,7 @@ const int FONT_SIZE_AP = 22;
 
 - (IBAction)showSkilleez:(id)sender
 {
-    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id andTitle:self.familyMember.FullName];
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:_familyMember.Id andTitle:_familyMember.FullName];
     [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
@@ -117,7 +128,7 @@ const int FONT_SIZE_AP = 22;
 
 - (IBAction)showProfile:(id)sender
 {
-    [[NetworkManager sharedInstance] getProfileInfoByUserId:self.familyMember.Id withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getProfileInfoByUserId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
         if(requestResult.isSuccess) {
             ProfileInfo* profileInfo = (ProfileInfo*) requestResult.firstObject;
             ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:[profileInfo.UserId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID]];
@@ -131,7 +142,7 @@ const int FONT_SIZE_AP = 22;
 
 - (IBAction)showSettings:(id)sender
 {
-    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithUserId: self.familyMember.Id];
+    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithUserId: _familyMember.Id];
     [self.navigationController pushViewController:settingsView animated:YES];
 }
 

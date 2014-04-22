@@ -23,6 +23,10 @@ const float CORNER_RADIUS_CP = 5.f;
 const int FONT_SIZE_CP = 22;
 
 @interface ChildProfileViewController ()
+{
+    FamilyMemberModel* _familyMember;
+    BOOL _showFriendsFamily;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UIButton *skilleezBtn;
@@ -37,19 +41,28 @@ const int FONT_SIZE_CP = 22;
 
 @implementation ChildProfileViewController
 
+- (id)initWithFamilyMember:(FamilyMemberModel *)familyMember andShowFriends:(BOOL) showFriendsFamily
+{
+    if (self = [super init]) {
+        _familyMember = familyMember;
+        _showFriendsFamily = showFriendsFamily;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     NavigationBarView *nav = [[NavigationBarView alloc] initWithViewController:self
-                                                                     withTitle:self.familyMember.FullName
+                                                                     withTitle:_familyMember.FullName
                                                                      leftImage:@"user_unselected"
                                                                    rightButton:YES
                                                                     rightTitle:@"Done"];
     [self.view addSubview:nav];
     [self customize];
     
-    [self.userAvatarImg setImageWithURL: self.familyMember.AvatarUrl];
+    [self.userAvatarImg setImageWithURL: _familyMember.AvatarUrl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,8 +94,8 @@ const int FONT_SIZE_CP = 22;
 
 - (void)cancel
 {
-    ChildFamilyViewController *childFamily = [[ChildFamilyViewController alloc] initWithChildID:self.familyMember.Id];
-    if ([self.familyMember.Id isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
+    ChildFamilyViewController *childFamily = [[ChildFamilyViewController alloc] initWithChildID:_familyMember.Id];
+    if ([_familyMember.Id isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
         [self.navigationController pushViewController:childFamily animated:YES];
     else
         [self.navigationController pushViewControllerCustom:childFamily];
@@ -90,17 +103,17 @@ const int FONT_SIZE_CP = 22;
 
 - (IBAction)showSkilleez:(id)sender
 {
-    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:self.familyMember.Id andTitle:self.familyMember.FullName];
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:_familyMember.Id andTitle:_familyMember.FullName];
     [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
 - (IBAction)showProfile:(id)sender
 {
-    [[NetworkManager sharedInstance] getProfileInfoByUserId:self.familyMember.Id withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getProfileInfoByUserId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             ProfileInfo *profileInfo = (ProfileInfo*) requestResult.firstObject;
             ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:NO];
-            if ([self.familyMember.Id isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
+            if ([_familyMember.Id isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
                 [self.navigationController pushViewController:profileView animated:YES];
             else
                 [self.navigationController pushViewControllerCustom:profileView];
@@ -113,7 +126,7 @@ const int FONT_SIZE_CP = 22;
 
 - (IBAction)showSettings:(id)sender
 {
-    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithUserId:self.familyMember.Id];
+    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithUserId:_familyMember.Id];
     [self.navigationController pushViewController:settingsView animated:YES];
 }
 

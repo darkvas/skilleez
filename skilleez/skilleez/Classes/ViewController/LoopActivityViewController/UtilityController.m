@@ -36,23 +36,24 @@
 {
     FamilyMemberModel *familyMember = [self findInFriends:profileId];
     if (familyMember)
-        if (familyMember.IsAdult) {
-            AdultProfileViewController *profilePermissionView = [AdultProfileViewController new];
-            profilePermissionView.familyMember = familyMember;
-            [controller.navigationController pushViewControllerCustom:profilePermissionView];
+        if ([profileId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID]) {
+            EditProfileViewController *editProfileView = [EditProfileViewController new];
+            [controller.navigationController pushViewController:editProfileView animated:YES];
         } else {
-            ChildProfileViewController *childProfileView = [ChildProfileViewController new];
-            childProfileView.showFriendsFamily = YES;
-            childProfileView.familyMember = familyMember;
-            [controller.navigationController pushViewControllerCustom:childProfileView];
+            if (familyMember.IsAdult && [UserSettingsManager sharedInstance].IsAdmin) {
+                AdultProfileViewController *profilePermissionView = [[AdultProfileViewController alloc] initWithFamilyMember:familyMember];
+                [controller.navigationController pushViewControllerCustom:profilePermissionView];
+            } else {
+                ChildProfileViewController *childProfileView = [[ChildProfileViewController alloc] initWithFamilyMember:familyMember andShowFriends:YES];
+                [controller.navigationController pushViewControllerCustom:childProfileView];
+            }
         }
     else
         if ([profileId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID]) {
             EditProfileViewController *editProfileView = [EditProfileViewController new];
             [controller.navigationController pushViewController:editProfileView animated:YES];
         } else {
-            ChildProfileViewController *defaultChildProfileView = [ChildProfileViewController new];
-            defaultChildProfileView.showFriendsFamily = YES;
+            ChildProfileViewController *defaultChildProfileView = [[ChildProfileViewController alloc] initWithFamilyMember:familyMember andShowFriends:YES];
             [controller.navigationController pushViewControllerCustom:defaultChildProfileView];
         }
 }

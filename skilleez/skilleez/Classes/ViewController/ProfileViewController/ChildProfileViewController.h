@@ -14,7 +14,6 @@ extern const int FONT_SIZE_CP;
 
 @interface ChildProfileViewController : UIViewController
 
-@property (strong, nonatomic) FamilyMemberModel* familyMember;
-@property (nonatomic) BOOL showFriendsFamily;
+- (id)initWithFamilyMember:(FamilyMemberModel *)familyMember andShowFriends:(BOOL) showFriendsFamily;
 
 @end
