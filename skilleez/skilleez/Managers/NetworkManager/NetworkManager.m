@@ -31,7 +31,9 @@ static NSString *POST_ADD_CHILD_TO_FAMILY = @"api/User/AddChildToTheFamily";
 static NSString *POST_INVITE_ADULT_TO_FAMILY = @"api/User/InviteAdultToTheFamily";
 static NSString *POST_REMOVE_MEMBER_FROM_FAMILY = @"api/User/DeleteMemberFromTheFamily";
 static NSString *GET_FRIENDS_AND_FAMILY = @"api/User/GetFriendsAndFamily";
+static NSString *GET_FAMILY_MEMBERS = @"api/User/GetFamilyMembers";
 static NSString *GET_ADULTPERMISSIONS = @"api/User/GetAdultPermissions";
+static NSString *POST_SETADULTPERMISSIONS = @"api/User/SetAdultPermissions";
 
 static NSString *GET_PROFILEINFO_URI = @"api/Profile/GetProfileInfo";
 static NSString *GET_PROFILEINFO_BY_LOGIN = @"api/Profile/GetProfileInfoByLogin";//?Login={Login}
@@ -101,15 +103,14 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
 
 -(void) initResponseDescriptors
 {
-    RKObjectMapping *userInfoMapping = [UserInfo defineObjectMapping];
-    [manager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:userInfoMapping
+    [manager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:[UserInfo defineObjectMapping]
                                                                                 method:RKRequestMethodGET
                                                                            pathPattern:GET_USERINFO_URI
                                                                                keyPath:@"ReturnValue"
                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
     RKObjectMapping *skilleeMapping = [SkilleeModel defineObjectMapping];
-    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[SkilleeModel defineObjectMapping]
                                                                                  method:RKRequestMethodGET
                                                                             pathPattern:GET_SKILLEE_LIST_URI
                                                                                 keyPath:@"ReturnValue"
@@ -192,9 +193,16 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
                                                                             pathPattern:POST_INVITE_ADULT_TO_FAMILY
                                                                                 keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[FamilyMemberModel defineObjectMapping]
                                                                                  method:RKRequestMethodGET
                                                                             pathPattern:GET_FRIENDS_AND_FAMILY
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[FamilyMemberModel defineObjectMapping]
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_FAMILY_MEMBERS
                                                                                 keyPath:@"ReturnValue"
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
@@ -202,6 +210,12 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
                                                                                  method:RKRequestMethodGET
                                                                             pathPattern:GET_ADULTPERMISSIONS
                                                                                 keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_SETADULTPERMISSIONS
+                                                                                keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[ProfileInfo defineObjectMapping]
@@ -240,7 +254,7 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
                                                                                 keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
-    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:userInfoMapping
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[UserInfo defineObjectMapping]
                                                                                  method:RKRequestMethodGET
                                                                             pathPattern:GET_LOOP_BY_ID
                                                                                 keyPath:@"ReturnValue.FriendsFromLoop"
@@ -566,13 +580,6 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    RKResponseDescriptor * responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
-                                                                                             method:RKRequestMethodAny
-                                                                                        pathPattern:nil
-                                                                                            keyPath:nil
-                                                                                        statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    [manager addResponseDescriptor:responseDescriptor];
-    
     NSDictionary *jsonData = @{
                                @"MainFamilyUserId": mainFamilyUserId,
                                @"MemberId": memberId
@@ -594,6 +601,28 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
     [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Id=%@", GET_FRIENDS_AND_FAMILY, userId]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         NSMutableArray* friendsFamilyMembers = [NSMutableArray new];
+         for (NSObject* obj in mappingResult.array) {
+             if([obj isKindOfClass:[FamilyMemberModel class]])
+                 [friendsFamilyMembers addObject:obj];
+         }
+         
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:friendsFamilyMembers]);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+-(void) getFamilyMembers: (NSString*) userId withCallBack: (requestCallBack) callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Id=%@", GET_FAMILY_MEMBERS, userId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
@@ -628,6 +657,31 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:permissions]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+- (void) postSetAdultPermissions:(AdultPermission*) permission withCallBack:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    NSDictionary *jsonData = @{
+                               @"Id": permission.Id,
+                               @"MainFamilyUserId": permission.MainFamilyUserId,
+                               @"AdultId": permission.AdultId,
+                               @"ChildId": permission.ChildId,
+                               @"ChangesApproval": permission.ChangesApproval ? @"true" : @"false",
+                               @"LoopApproval": permission.LoopApproval ? @"true" : @"false",
+                               @"ProfileApproval": permission.ProfileApproval ? @"true" : @"false"
+                               };
+    
+    [manager postObject:nil path:POST_SETADULTPERMISSIONS parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:permission]);});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
      }];
