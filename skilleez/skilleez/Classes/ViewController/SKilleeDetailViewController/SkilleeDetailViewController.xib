@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SkilleeDetailViewController">
@@ -31,7 +31,7 @@
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG.png" id="qdH-gU-OLp">
                             <rect key="frame" x="0.0" y="112" width="320" height="344"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" patternImage="565B5358-1DDA-4C0D-B73F-9FD0324E7152" colorSpace="pattern"/>
+                            <color key="backgroundColor" patternImage="7E47C514-03EF-442C-97BC-53870D8BA6EF" colorSpace="pattern"/>
                             <gestureRecognizers/>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="QYI-kk-eU2" appends="YES" id="IxB-YB-PmF"/>
@@ -69,21 +69,33 @@
                             <rect key="frame" x="132" y="22" width="56" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hFC-UZ-Zsp">
-                            <rect key="frame" x="20" y="20" width="71" height="73"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hFC-UZ-Zsp">
+                            <rect key="frame" x="10" y="22" width="56" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Back">
+                            <inset key="titleEdgeInsets" minX="-37" minY="48" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="15"/>
+                            <state key="normal" title="Back" image="big_back_BTN.png">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" image="big_back_BTN_press.png">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="back:" destination="-1" eventType="touchUpInside" id="fGn-JN-kTg"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EFB-5U-itp">
-                            <rect key="frame" x="240" y="20" width="71" height="73"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EFB-5U-itp">
+                            <rect key="frame" x="254" y="22" width="56" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="More">
+                            <inset key="titleEdgeInsets" minX="-33" minY="48" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="11" minY="0.0" maxX="0.0" maxY="15"/>
+                            <state key="normal" title="More" image="right_menu_BTN.png">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" image="right_menu_BTN_press.png">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="showMore:" destination="-1" eventType="touchUpInside" id="rkX-EP-o8s"/>
@@ -121,7 +133,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="565B5358-1DDA-4C0D-B73F-9FD0324E7152" width="320" height="460">
+        <image name="7E47C514-03EF-442C-97BC-53870D8BA6EF" width="320" height="460">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -9941,9 +9953,9 @@ ohscgAWABoAJEADSIAohIl8QFE5TVElGRlJlcHJlc2VudGF0aW9ugAeACE8SAAkJNk1NACoACPwIGBga
 /xcXG/8XFxv/GRkb/xcXGv8XFxr/FxcZ/xgYG/8XFxr/GBga/xgYG/8YGBr/GRkc/xoaHP8XFxr/Fxca
 /xkZHP8ZGRz/GBgc/xgYHP8aGh3/GRkd/xoaHv8YGBz/Ghod/xsbHf8bGx7/GRkb/xkZHP8ZGRz/GRkd
 /xkZHf8aGh7/Gxsd/xkZHP8ADgEAAAMAAAABAUAAAAEBAAMAAAABAcwAAAECAAMAAAAEAAj8tgEDAAMA
-AAABAAEAAAEGAAMAAAABAAIAAAERAAQAAAAFAAj8vgESAAMAAAABAAEAAAEVAAMAAAABAAQAAAEWAAMA
-AAABAGYAAAEXAAQAAAAFAAj80gEcAAMAAAABAAEAAAFSAAMAAAABAAEAAAFTAAMAAAAEAAj85odzAAcA
-AAxIAAj87gAAAAAACAAIAAgACAAAAAgAAf4IAAP8CAAF+ggAB/gIAAH+AAAB/gAAAf4AAAH+AAABBAAA
+AAABAAEAAAEGAAMAAAABAAIAAAERAAQAAAAFAAj80gESAAMAAAABAAEAAAEVAAMAAAABAAQAAAEWAAMA
+AAABAGYAAAEXAAQAAAAFAAj8vgEcAAMAAAABAAEAAAFSAAMAAAABAAEAAAFTAAMAAAAEAAj85odzAAcA
+AAxIAAj87gAAAAAACAAIAAgACAAB/gAAAf4AAAH+AAAB/gAAAQQAAAAACAAB/ggAA/wIAAX6CAAH+AgA
 AQABAAEAAQAADEhMaW5vAhAAAG1udHJSR0IgWFlaIAfOAAIACQAGADEAAGFjc3BNU0ZUAAAAAElFQyBz
 UkdCAAAAAAAAAAAAAAAAAAD21gABAAAAANMtSFAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAEWNwcnQAAAFQAAAAM2Rlc2MAAAGEAAAAbHd0cHQAAAHwAAAAFGJrcHQA
@@ -10009,5 +10021,9 @@ AAAAAAAAAAAJCvs
 </mutableData>
         </image>
         <image name="BG.png" width="320" height="568"/>
+        <image name="big_back_BTN.png" width="34" height="34"/>
+        <image name="big_back_BTN_press.png" width="34" height="34"/>
+        <image name="right_menu_BTN.png" width="34" height="34"/>
+        <image name="right_menu_BTN_press.png" width="34" height="34"/>
     </resources>
 </document>

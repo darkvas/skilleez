@@ -14,6 +14,9 @@
 #import "ProfileInfo.h"
 #import "AdultPermission.h"
 #import "RequestResult.h"
+#import "InvitorModel.h"
+#import "LoopInvitationModel.h"
+#import "InviteeModel.h"
 
 @interface NetworkManager : NSObject
 
@@ -26,6 +29,7 @@ typedef void (^requestCallBack)(RequestResult* requestResult);
 -(void) getSkilleeList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 -(void) getSkilleeListForUser:(NSString*) userId count: (int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 -(void) getWaitingForApprovalSkilleez:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
+- (void)getWaitingForApprovalList:(requestCallBack)callBack;
 -(void) getWaitingForApprovalCount: (requestCallBack) callBack;
 -(void) getFavoriteList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 

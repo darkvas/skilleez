@@ -313,10 +313,10 @@ typedef enum {
     if ([self isVideo:[skillee.MediaUrl absoluteString]]) {
         _player = [[MPMoviePlayerViewController alloc] initWithContentURL:skillee.MediaUrl];
         _player.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-        [_player.view setFrame:self.skilleeMediaImg.frame];
+        [_player.view setFrame:CGRectMake(0, 0, 320, 344)];
         [_player.moviePlayer setControlStyle:MPMovieControlStyleDefault];
         _player.moviePlayer.shouldAutoplay = NO;
-        [self.view addSubview:_player.view];
+        [self.skilleeMediaImg addSubview:_player.view];
         [_player.moviePlayer prepareToPlay];
         _player.moviePlayer.fullscreen = YES;
     } else {
@@ -352,6 +352,8 @@ typedef enum {
     [self.userNameLbl setFont:[UIFont getDKCrayonFontWithSize:25]];
     [self.skilleeTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleeCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
+    [self.back.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
+    [self.more.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
     self.userAvatarImg.layer.cornerRadius = 28.0;
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;

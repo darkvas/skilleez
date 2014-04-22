@@ -27,37 +27,7 @@
 
 @implementation InviteToLoopApprovalTableCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-- (void)fillCell
-{
-    //[self.userAvatarImageView setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
-    NSString *first = @"Ivan",
-            *second = @"Petroooo",
-        *fullString = [NSString stringWithFormat: @"%@, wants to invite %@ into her loop", first, second];
-    NSMutableAttributedString *attributted = [[NSMutableAttributedString alloc] initWithString:fullString];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:24] range:NSMakeRange(0, [first length])];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length], 17)];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:22] range:NSMakeRange([first length] + 18, [second length])];
-    [attributted addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange([first length] + 18, [second length])];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 18 + [second length], [fullString length])];
-}
-
-- (void)customize
+- (void)awakeFromNib
 {
     self.denyButton.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
     self.approveButton.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
@@ -65,12 +35,34 @@
     self.usersLabel.font = [UIFont getDKCrayonFontWithSize:20];
 }
 
-- (IBAction)viewProfile:(id)sender {
+- (void)fillCell:(LoopInvitationModel *)invitation andTag:(NSInteger)tag
+{
+    self.viewProfileButton.tag = tag;
+    [self.userAvatarImageView setImageWithURL:invitation.Invitor.AvatarUrl];
+    //TODO:change on scrren names
+    NSString *first = invitation.Invitor.Login,
+            *second = invitation.Invitee.Login,
+        *fullString = [NSString stringWithFormat: @"%@, wants to invite %@ into loop", first, second];
+    NSMutableAttributedString *attributted = [[NSMutableAttributedString alloc] initWithString:fullString];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:28] range:NSMakeRange(0, [first length] + 1)];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 1, 17)];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:22] range:NSMakeRange([first length] + 18, [second length])];
+    [attributted addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] range:NSMakeRange([first length] + 18, [second length])];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 18 + [second length], [fullString length] - ([first length] + 18 + [second length]))];
+    self.usersLabel.attributedText = attributted;
+    //self.userAboutLabel.text = invitation.Invitee.AboutMe;
 }
 
-- (IBAction)approve:(id)sender {
+- (IBAction)viewProfile:(id)sender
+{
+    [self.delegate didViewProfile:((UIButton *)sender).tag];
 }
 
-- (IBAction)deny:(id)sender {
+- (IBAction)approve:(id)sender
+{
+}
+
+- (IBAction)deny:(id)sender
+{
 }
 @end

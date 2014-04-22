@@ -44,11 +44,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    items = [NSArray arrayWithObjects:[[TableItem alloc] initWithName:@"My profile" image:nil method:@"showMyProfile"],
-                                      [[TableItem alloc] initWithName:@"Events" image:nil method:@"showMyProfile"],
-                                      [[TableItem alloc] initWithName:@"Find friends" image:nil method:@"showMyProfile"],
-                                      [[TableItem alloc] initWithName:@"My Messages" image:nil method:@"showMessages"],
-                                      [[TableItem alloc] initWithName:@"Friends & Family" image:nil method:@"showFamily"], nil];
+    items = [NSArray arrayWithObjects:[[TableItem alloc] initWithName:@"My profile" image:[UIImage imageNamed:@"my_profile_icon"] method:@"showMyProfile"],
+                                      [[TableItem alloc] initWithName:@"Events" image:[UIImage imageNamed:@"events_icon"] method:@"showMyProfile"],
+                                      [[TableItem alloc] initWithName:@"Find friends" image:[UIImage imageNamed:@"fing_user_BTN"] method:@"findFriends"],
+                                      //[[TableItem alloc] initWithName:@"My Messages" image:nil method:@"showMessages"],
+                                      [[TableItem alloc] initWithName:@"Friends & Family" image:[UIImage imageNamed:@"friends_and_family_icon"] method:@"showFamily"], nil];
     [self.userAvatarImg setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
     self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.FullName;
     [self customize];
@@ -86,6 +86,7 @@
     bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
     [cell setSelectedBackgroundView:bgColorView];
     cell.textLabel.textColor = [UIColor whiteColor];
+    cell.imageView.image = ((TableItem *)[items objectAtIndex:indexPath.row]).image;
     cell.textLabel.text = ((TableItem *)[items objectAtIndex:indexPath.row]).name;
     return cell;
 }
@@ -135,6 +136,9 @@
 
 - (void)findFriends
 {
+    SearchUserViewController *search = [SearchUserViewController new];
+    [self.loopCtrl.navigationController pushViewController:search animated:YES];
+    [self.loopCtrl hideMenu];
 }
 
 - (void)showFamily
