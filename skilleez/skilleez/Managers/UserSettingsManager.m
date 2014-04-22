@@ -60,9 +60,9 @@
     [UserSettingsManager sharedInstance].userInfo = Nil;
     [UserSettingsManager sharedInstance].username = nil;
     [UserSettingsManager sharedInstance].password = nil;
-    [UserSettingsManager sharedInstance].IsAdmin = nil;
-    [UserSettingsManager sharedInstance].IsAdult = nil;
-    [UserSettingsManager sharedInstance].remember = nil;
+    [UserSettingsManager sharedInstance].IsAdmin = NO;
+    [UserSettingsManager sharedInstance].IsAdult = NO;
+    [UserSettingsManager sharedInstance].remember = NO;
 }
 
 - (void)setUserInfo:(UserInfo *)userInfo

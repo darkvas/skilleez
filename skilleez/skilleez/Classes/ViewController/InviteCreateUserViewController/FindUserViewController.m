@@ -36,6 +36,23 @@ const int FONT_SIZE = 24;
 
 @implementation FindUserViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (id)initWithProfile:(ProfileInfo *) profileInfo
+{
+    if (self = [super init]) {
+        _profileInfo = profileInfo;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

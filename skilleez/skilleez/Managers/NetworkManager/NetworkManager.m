@@ -35,7 +35,7 @@ static NSString *GET_FAMILY_MEMBERS = @"api/User/GetFamilyMembers";
 static NSString *GET_ADULTPERMISSIONS = @"api/User/GetAdultPermissions";
 static NSString *POST_SETADULTPERMISSIONS = @"api/User/SetAdultPermissions";
 
-static NSString *GET_PROFILEINFO_URI = @"api/Profile/GetProfileInfo";
+static NSString *GET_PROFILEINFO_URI = @"api/Profile/GetProfileInfoById";
 static NSString *GET_PROFILEINFO_BY_LOGIN = @"api/Profile/GetProfileInfoByLogin";//?Login={Login}
 static NSString *POST_PROFILEIMAGE_URI = @"api/Profile/EditProfileImage";
 static NSString *POST_PROFILEINFO_URI = @"api/Profile/EditProfileInfo";
