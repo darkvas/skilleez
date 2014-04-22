@@ -14,7 +14,7 @@ static NSString *LOGIN_URI = @"Account/LogOn";
 static NSString *GET_USERINFO_URI = @"api/User/GetMyInfo";
 static NSString *GET_SKILLEE_LIST_URI = @"api/Skillee/GetList";
 static NSString *GET_USER_SKILLEE_LIST_URI = @"api/Skillee/GetUserSkilleezList";
-static NSString *GET_WAITING_FOR_APPROVAL_URI = @"api/Skillee/GetWaitingForApprovalList";
+static NSString *GET_WAITING_FOR_APPROVAL_LIST_URI = @"api/Skillee/GetWaitingForApprovalList";
 static NSString *GET_WAITING_FOR_APPROVAL_SKILLEEZ_URI = @"api/Skillee/GetWaitingForApprovalSkilleezList";
 static NSString *GET_WAITING_FOR_APPROVAL_COUNT = @"api/Skillee/GetWaitingForApprovalCount";
 static NSString *GET_FAVORITE_LIST = @"api/Skillee/GetFavoriteList";
@@ -33,7 +33,7 @@ static NSString *POST_REMOVE_MEMBER_FROM_FAMILY = @"api/User/DeleteMemberFromThe
 static NSString *GET_FRIENDS_AND_FAMILY = @"api/User/GetFriendsAndFamily";
 static NSString *GET_ADULTPERMISSIONS = @"api/User/GetAdultPermissions";
 
-static NSString *GET_PROFILEINFO_URI = @"api/Profile/GetProfileInfo";
+static NSString *GET_PROFILEINFO_URI = @"api/Profile/GetProfileInfoById";
 static NSString *GET_PROFILEINFO_BY_LOGIN = @"api/Profile/GetProfileInfoByLogin";//?Login={Login}
 static NSString *POST_PROFILEIMAGE_URI = @"api/Profile/EditProfileImage";
 static NSString *POST_PROFILEINFO_URI = @"api/Profile/EditProfileInfo";
@@ -258,6 +258,30 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
                                                                                 keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
+    RKObjectMapping *inviteeMapping = [InviteeModel defineObjectMapping];
+    RKObjectMapping *invitorMapping = [InvitorModel defineObjectMapping];
+    RKObjectMapping *invitationMapping = [LoopInvitationModel defineObjectMapping];
+    
+    [invitationMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Invitee"
+                                                                                      toKeyPath:@"Invitee"
+                                                                                    withMapping:inviteeMapping]];
+    
+    [invitationMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"Invitor"
+                                                                                      toKeyPath:@"Invitor"
+                                                                                    withMapping:invitorMapping]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:invitationMapping
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_WAITING_FOR_APPROVAL_LIST_URI
+                                                                                keyPath:@"ReturnValue.LoopInvitations"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:skilleeMapping
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_WAITING_FOR_APPROVAL_LIST_URI
+                                                                                keyPath:@"ReturnValue.Skilleez"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass (RKStatusCodeClassSuccessful)]];
+
 }
 
 #pragma mark - User requests
@@ -350,6 +374,27 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
      {
          int resultCount = [((PostResponse*)mappingResult.firstObject).ReturnValue integerValue];
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:@(resultCount)]);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+
+- (void)getWaitingForApprovalList:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    [manager getObjectsAtPath:GET_WAITING_FOR_APPROVAL_LIST_URI
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         NSMutableArray* skilleArray = [NSMutableArray new];
+         for (NSObject* obj in mappingResult.array) {
+             //if([obj isKindOfClass:[SkilleeModel class]])
+                 [skilleArray addObject:obj];
+         }
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:skilleArray]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {

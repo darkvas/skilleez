@@ -8,17 +8,17 @@
 
 #import "AdultApprovalViewController.h"
 
-static NSString *cellName = @"AdultApprovalTableCell";
+static NSString *skilleeCellName = @"AdultApprovalTableCell";
+static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 
-@interface AdultApprovalViewController () {
+@interface AdultApprovalViewController() {
     NSMutableArray *items;
-    int count, offset;
+    int count, offset, _skilleezIndex;
     BOOL canLoadOnScroll;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIViewController *parent;
-
 
 @end
 
@@ -38,13 +38,19 @@ static NSString *cellName = @"AdultApprovalTableCell";
     canLoadOnScroll = YES;
     offset = 0;
     count = NUMBER_OF_ITEMS;
+    _skilleezIndex = -1;
+    UINib *nib = [UINib nibWithNibName:skilleeCellName bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:skilleeCellName];
+    
+    nib = [UINib nibWithNibName:invitationCellName bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:invitationCellName];
+
     [self loadWaitingForApprovalList];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self loadWaitingForApprovalInBackground:(count + offset) offset:0];
+    //[self loadWaitingForApprovalList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,27 +63,36 @@ static NSString *cellName = @"AdultApprovalTableCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 417;
+    if (indexPath.row >= _skilleezIndex)
+        return 417;
+    else
+        return 490;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[items objectAtIndex:indexPath.row] andApproveOpportunity:YES];
-    [self.parent.navigationController pushViewController:detail animated:YES];
+    if ([[items objectAtIndex:indexPath.row] isKindOfClass:[SkilleeModel class]]) {
+        SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[items objectAtIndex:indexPath.row] andApproveOpportunity:YES];
+        [self.parent.navigationController pushViewController:detail animated:YES];
+    }
 }
 
 #pragma mark - UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellName];
-    if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:cellName owner:self options:nil];
-        cell = [nib objectAtIndex:0];
+    NSLog(@"%@", [items objectAtIndex:indexPath.row]);
+    if (indexPath.row >= _skilleezIndex) {
+        SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:skilleeCellName];
         cell.delegate = self;
+        [cell setSkilleezData:cell andSkilleez:[items objectAtIndex:indexPath.row] andTag:indexPath.row];
+        return cell;
+    } else {
+        InviteToLoopApprovalTableCell *cell = [tableView dequeueReusableCellWithIdentifier:invitationCellName];
+        cell.delegate = self;
+        [cell fillCell:[items objectAtIndex:indexPath.row] andTag:indexPath.row];
+        return cell;
     }
-    [cell setSkilleezData:cell andSkilleez:[items objectAtIndex:indexPath.row] andTag:indexPath.row];
-    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -110,19 +125,25 @@ static NSString *cellName = @"AdultApprovalTableCell";
     [self.parent.navigationController pushViewController:detail animated:YES];
 }
 
+#pragma mark - InviteToLoopDelegate
+
+- (void)didViewProfile:(NSInteger)index
+{
+    LoopInvitationModel *item = [items objectAtIndex:index];
+    NSString *profileId = item.Invitee.UserId;
+    [[UtilityController sharedInstance] profileSelect:profileId onController:self.parent];
+}
+
 #pragma mark - Class methods
 
 - (void)loadWaitingForApprovalList
 {
-    [[NetworkManager sharedInstance]  getWaitingForApprovalSkilleez:count offset:offset withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getWaitingForApprovalList:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             NSArray* skilleeList = requestResult.returnArray;
-            if (offset > 0) {
-                [items addObjectsFromArray:skilleeList];
-                [self.tableView reloadData];
-                
-            } else if (![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:items] && [skilleeList count] > 0) {
+            if (![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:items] && [skilleeList count] > 0) {
                 items = [NSMutableArray arrayWithArray:skilleeList];
+                [self setInvitationsIndex];
                 [self.tableView reloadData];
             }
             canLoadOnScroll = YES;
@@ -143,8 +164,9 @@ static NSString *cellName = @"AdultApprovalTableCell";
             NSArray* skilleeList = requestResult.returnArray;
             if (![[UtilityController sharedInstance] isArrayEquals:items toOther:skilleeList]) {
                 items = [NSMutableArray arrayWithArray:skilleeList];
+                [self setInvitationsIndex];
                 [self.tableView reloadData];
-                [[UtilityController sharedInstance] setBadgeValue:[items count] forController:self.parent];
+                [[UtilityController sharedInstance] setBadgeValue:([items count] - _skilleezIndex) forController:self.parent];
             }
         } else {
             NSLog(@"loadSkilleeInBackground error: %@", requestResult.error);
@@ -155,6 +177,16 @@ static NSString *cellName = @"AdultApprovalTableCell";
 - (void)allowLoadOnScroll
 {
     canLoadOnScroll = YES;
+}
+
+- (void)setInvitationsIndex
+{
+    for (int i = 0; i < items.count; i++) {
+        if ([items[i] isKindOfClass:[SkilleeModel class]]) {
+            _skilleezIndex = i;
+            break;
+        }
+    }
 }
 
 @end

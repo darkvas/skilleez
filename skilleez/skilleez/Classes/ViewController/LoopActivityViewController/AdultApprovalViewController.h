@@ -13,8 +13,9 @@
 #import "HomeViewController.h"
 #import "SkilleeDetailViewController.h"
 #import "UtilityController.h"
+#import "InviteToLoopApprovalTableCell.h"
 
-@interface AdultApprovalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, SimpleCellDelegate>
+@interface AdultApprovalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, SimpleCellDelegate, InviteToLoopDelegate>
 
 - (id)initWithParent:(UIViewController *)parentController;
 

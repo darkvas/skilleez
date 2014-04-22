@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HomeViewController.h"
+#import "SearchUserViewController.h"
 
 @interface MenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 

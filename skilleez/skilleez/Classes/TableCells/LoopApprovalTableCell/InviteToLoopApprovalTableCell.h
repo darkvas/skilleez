@@ -7,9 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoopInvitationModel.h"
+#import "SimpleTableCell.h"
+
+@protocol InviteToLoopDelegate <NSObject>
+
+- (void)didViewProfile:(NSInteger)index;
+
+@end
 
 @interface InviteToLoopApprovalTableCell : UITableViewCell
 
-- (void)fillCell;
+@property (nonatomic,strong) id delegate;
+
+- (void)fillCell:(LoopInvitationModel *)invitation andTag:(NSInteger)tag;
 
 @end

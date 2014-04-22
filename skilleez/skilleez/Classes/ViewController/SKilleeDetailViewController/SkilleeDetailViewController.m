@@ -352,6 +352,8 @@ typedef enum {
     [self.userNameLbl setFont:[UIFont getDKCrayonFontWithSize:25]];
     [self.skilleeTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
     [self.skilleeCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
+    [self.back.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
+    [self.more.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
     self.userAvatarImg.layer.cornerRadius = 28.0;
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
