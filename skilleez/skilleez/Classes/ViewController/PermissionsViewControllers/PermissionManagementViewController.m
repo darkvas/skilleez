@@ -9,13 +9,24 @@
 #import "PermissionManagementViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
+#import "NetworkManager.h"
+#import "ActivityIndicatorController.h"
+#import "CustomAlertView.h"
+#import "UserSettingsManager.h"
+#import "CustomAlertView.h"
+#import "ColorManager.h"
 
 const float CORNER_RADIUS_PM = 3.f;
 const int BOTTOM_LABEL_FONT_SIZE = 24;
 const int TOP_LABEL_FONT_SIZE = 21;
 
+const NSString* DEFAULT_PERMISSION_ID = @"0";
+
 @interface PermissionManagementViewController () {
     BOOL changesState, loopState, profileState;
+    FamilyMemberModel* _adult;
+    FamilyMemberModel* _child;
+    AdultPermission* _permission;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
@@ -30,7 +41,6 @@ const int TOP_LABEL_FONT_SIZE = 21;
 @property (weak, nonatomic) IBOutlet UILabel *canApproveLbl;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLbl;
 
-
 - (IBAction)changeChanges:(id)sender;
 - (IBAction)changeLoop:(id)sender;
 - (IBAction)changeProfile:(id)sender;
@@ -39,12 +49,42 @@ const int TOP_LABEL_FONT_SIZE = 21;
 
 @implementation PermissionManagementViewController
 
+- (id) initWithAdult: (FamilyMemberModel*) adult withChild: (FamilyMemberModel*) child andPermission: (AdultPermission*) permission
+{
+    if (self = [super init]) {
+        _adult = adult;
+        _child = child;
+        _permission = permission;
+        changesState = permission.ChangesApproval;
+        loopState = permission.LoopApproval;
+        profileState = permission.ProfileApproval;
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Child name" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:_child.FullName leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
+    
     [self customize];
+    
+    [self.userAvatarImg setImageWithURL: _child.AvatarUrl];
+    self.usernameLbl.text = _adult.FullName;
+    [self showState:changesState forButton:self.changesBtn];
+    [self showState:loopState forButton:self.loopBtn];
+    [self showState:profileState forButton:self.profileBtn];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,9 +118,56 @@ const int TOP_LABEL_FONT_SIZE = 21;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) done
+{
+    [self preparePermission];
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    [[NetworkManager sharedInstance] postSetAdultPermissions:_permission withCallBack:^(RequestResult *requestResult) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        if (requestResult.isSuccess){
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [self showAlertWithMessage:[NSString stringWithFormat:@"Set Permission error: %@", requestResult.error.userInfo[NSLocalizedDescriptionKey]]];
+        }
+    }];
+}
+
+- (void) preparePermission
+{
+    _permission.Id = _permission.Id ? _permission.Id : DEFAULT_PERMISSION_ID;
+    _permission.MainFamilyUserId = [UserSettingsManager sharedInstance].userInfo.UserID;
+    _permission.AdultId = _adult.Id;
+    _permission.ChildId = _child.Id;
+    _permission.ChildAvatarUrl = _child.AvatarUrl;
+    _permission.ChildName = _child.FullName;
+    
+    _permission.ChangesApproval = changesState;
+    _permission.LoopApproval = loopState;
+    _permission.ProfileApproval = profileState;
+}
+
+- (void) showAlertWithMessage:(NSString*) message
+{
+    CustomAlertView *alert = [CustomAlertView new];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:@"Ok" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
+    alert.buttons = @[button];
+    [alert setDefaultContainerView:message];
+    alert.alpha = 0.95;
+    [alert setDelegate:self];
+    [alert setUseMotionEffects:YES];
+    [alert show];
+}
+
+-(void) customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [alertView close];
+}
+
 - (void)showState:(BOOL)state forButton:(UIButton *)button
 {
-    button.backgroundColor = state ? [UIColor colorWithRed:0.96 green:0.77 blue:0.18 alpha:1.0] : [UIColor colorWithRed:0.81 green:0.81 blue:0.81 alpha:1.0];
+    button.backgroundColor = state ? [ColorManager colorForSelectedPermission] : [ColorManager colorForUnselectedPermission];
 }
 
 - (IBAction)changeChanges:(id)sender {

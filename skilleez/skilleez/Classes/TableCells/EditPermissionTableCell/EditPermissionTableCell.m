@@ -9,8 +9,13 @@
 #import "EditPermissionTableCell.h"
 #import "UIFont+DefaultFont.h"
 #import "PermissionManagementViewController.h"
+#import "ColorManager.h"
 
 @interface EditPermissionTableCell()
+{
+    FamilyMemberModel *_familyMember;
+    AdultPermission* _permission;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLbl;
@@ -48,14 +53,21 @@
     // Configure the view for the selected state
 }
 
-- (void)fillCell:(EditPermissionTableCell *)cell withPermission:(AdultPermission *)permission andTag:(NSInteger)tag
+- (void)fillCell:(EditPermissionTableCell*) cell withMember:(FamilyMemberModel*) childMember andPermission:(AdultPermission*) permission
 {
-    [cell.userAvatarImg setImageWithURL:[NSURL URLWithString:permission.ChildAvatarUrl]];
-    cell.usernameLbl.text = permission.ChildName;
-    cell.editPermissionsBtn.tag = tag;
+    _familyMember = childMember;
+    _permission = permission;
+    [cell.userAvatarImg setImageWithURL: childMember.AvatarUrl];
+    cell.usernameLbl.text = childMember.FullName;
+    
+    if (_permission.ChangesApproval || _permission.LoopApproval || _permission.ProfileApproval)
+        cell.permissionView.backgroundColor = [ColorManager colorForSelectedPermission];
+    else
+        cell.permissionView.backgroundColor = [ColorManager colorForUnselectedPermission];
 }
 
-- (IBAction)editPermission:(id)sender {
-    [self.delegate editPermissions:((UIButton *)sender).tag];
+- (IBAction)editPermission:(id)sender
+{
+    [self.delegate editPermissions:_permission forMember:_familyMember];
 }
 @end

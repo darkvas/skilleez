@@ -111,7 +111,7 @@ const int FONT_SIZE_AP = 22;
 
 - (IBAction)showPermits:(id)sender
 {
-    EditPermissionViewController *editPermission = [[EditPermissionViewController alloc] init];
+    EditPermissionViewController *editPermission = [[EditPermissionViewController alloc] initWithMemberInfo: _familyMember];
     [self.navigationController pushViewController:editPermission animated:YES];
 }
 

@@ -19,7 +19,9 @@
 const int FONT_SIZE_EP = 21;
 
 @interface EditPermissionViewController () {
-    NSMutableArray *adultPermissions;
+    FamilyMemberModel* _familyMember;
+    NSMutableArray* _childMembers;
+    NSMutableArray* _permissions;
 }
 @property (weak, nonatomic) IBOutlet UILabel *permitUsernameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *accountLbl;
@@ -30,6 +32,23 @@ const int FONT_SIZE_EP = 21;
 
 @implementation EditPermissionViewController
 
+- (id) initWithMemberInfo: (FamilyMemberModel*) member
+{
+    if (self = [super init]) {
+        _familyMember = member;
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -38,14 +57,13 @@ const int FONT_SIZE_EP = 21;
     [self.view addSubview: navBar];
     [self customize];
     
-    [self loadPermisionData];
-    // Do any additional setup after loading the view from its nib.
+    [self loadChildMembers];
+    [self loadPermissionData];
 }
 
-- (void)didReceiveMemoryWarning
+- (void) viewDidAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self loadPermissionData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -57,14 +75,33 @@ const int FONT_SIZE_EP = 21;
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"EditPermissionTableCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    [cell fillCell:cell withPermission:[adultPermissions objectAtIndex:indexPath.row] andTag:indexPath.row];
+    FamilyMemberModel* childMember = _childMembers[indexPath.row];
+    [cell fillCell: cell withMember:childMember andPermission:[self getPermissionForChild: childMember]];
     cell.delegate = self;
     return cell;
 }
 
+- (AdultPermission*) getPermissionForChild: (FamilyMemberModel*) childMember
+{
+    for (AdultPermission *permission in _permissions) {
+        if([permission.ChildId isEqualToString:childMember.Id])
+            return permission;
+    }
+    return [self getDefaultPermission];
+}
+
+- (AdultPermission*) getDefaultPermission
+{
+    AdultPermission *permission = [AdultPermission new];
+    permission.ChangesApproval = YES;
+    permission.LoopApproval = YES;
+    permission.ProfileApproval = YES;
+    return permission;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [adultPermissions count];
+    return [_childMembers count];
 }
 
 #pragma mark UITableViewDelegate
@@ -82,15 +119,20 @@ const int FONT_SIZE_EP = 21;
 
 #pragma mark - EditPermissionDelegate
 
-- (void)editPermissions:(NSInteger)tag
+- (void)editPermissions:(AdultPermission*) permission forMember: (FamilyMemberModel*) childMember
 {
-    PermissionManagementViewController *management = [PermissionManagementViewController new];
+    PermissionManagementViewController *management = [[PermissionManagementViewController alloc] initWithAdult: _familyMember withChild:childMember andPermission:permission];
     [self.navigationController pushViewController:management animated:YES];
 }
 
 #pragma mark - Class methods
 
 - (void)cancel
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)done
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -102,17 +144,33 @@ const int FONT_SIZE_EP = 21;
     self.permitUsernameLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_EP];
 }
               
-- (void)loadPermisionData
+- (void) loadChildMembers
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getAdultPermissions:[UserSettingsManager sharedInstance].userInfo.UserID forAdultId:@"3" withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getFamilyMembers:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
             if(requestResult.isSuccess) {
-                [adultPermissions addObjectsFromArray: requestResult.returnArray];
+                _childMembers = [[NSMutableArray alloc]  init];
+                for (FamilyMemberModel* member in requestResult.returnArray) {
+                    if (!member.IsAdult)
+                        [_childMembers addObject:member];
+                }
                 [self.tableView reloadData];
             } else {
-                NSLog(@"Get Adult Permission error: %@", requestResult.error);
+                NSLog(@"Get Family Members error: %@", requestResult.error);
             }
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+    }];
+}
+
+- (void) loadPermissionData
+{
+    [[NetworkManager sharedInstance] getAdultPermissions:[UserSettingsManager sharedInstance].userInfo.UserID forAdultId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            _permissions = [[NSMutableArray alloc] initWithArray: requestResult.returnArray];
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"Get Adult Permissions error: %@", requestResult.error);
+        }
     }];
 }
 
