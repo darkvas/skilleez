@@ -38,10 +38,10 @@
 - (void)fillCell:(LoopInvitationModel *)invitation andTag:(NSInteger)tag
 {
     self.viewProfileButton.tag = tag;
-    [self.userAvatarImageView setImageWithURL:invitation.Invitee.AvatarUrl];
+    [self.userAvatarImageView setImageWithURL:invitation.Invitor.AvatarUrl];
     //TODO:change on scrren names
-    NSString *first = invitation.Invitee.Login,
-            *second = invitation.Invitor.Login,
+    NSString *first = invitation.Invitor.Login,
+            *second = invitation.Invitee.Login,
         *fullString = [NSString stringWithFormat: @"%@, wants to invite %@ into loop", first, second];
     NSMutableAttributedString *attributted = [[NSMutableAttributedString alloc] initWithString:fullString];
     [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:28] range:NSMakeRange(0, [first length] + 1)];
