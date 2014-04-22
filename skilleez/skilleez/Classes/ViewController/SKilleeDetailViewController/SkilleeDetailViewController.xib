@@ -31,7 +31,7 @@
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG.png" id="qdH-gU-OLp">
                             <rect key="frame" x="0.0" y="112" width="320" height="344"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" patternImage="8AF58328-91CF-41A7-80EC-CEE9F273C404" colorSpace="pattern"/>
+                            <color key="backgroundColor" patternImage="7E47C514-03EF-442C-97BC-53870D8BA6EF" colorSpace="pattern"/>
                             <gestureRecognizers/>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="QYI-kk-eU2" appends="YES" id="IxB-YB-PmF"/>
@@ -133,7 +133,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="8AF58328-91CF-41A7-80EC-CEE9F273C404" width="320" height="460">
+        <image name="7E47C514-03EF-442C-97BC-53870D8BA6EF" width="320" height="460">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

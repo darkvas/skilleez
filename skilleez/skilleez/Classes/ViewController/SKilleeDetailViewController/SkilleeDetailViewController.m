@@ -313,10 +313,10 @@ typedef enum {
     if ([self isVideo:[skillee.MediaUrl absoluteString]]) {
         _player = [[MPMoviePlayerViewController alloc] initWithContentURL:skillee.MediaUrl];
         _player.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-        [_player.view setFrame:CGRectMake(0, 112, 320, 344)];
+        [_player.view setFrame:CGRectMake(0, 0, 320, 344)];
         [_player.moviePlayer setControlStyle:MPMovieControlStyleDefault];
         _player.moviePlayer.shouldAutoplay = NO;
-        [self.view addSubview:_player.view];
+        [self.skilleeMediaImg addSubview:_player.view];
         [_player.moviePlayer prepareToPlay];
         _player.moviePlayer.fullscreen = YES;
     } else {
