@@ -26,15 +26,6 @@
 
 @implementation MessageViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithMessage:(ProfileInfo *)profileInfo
 {
     if (self = [super init]) {

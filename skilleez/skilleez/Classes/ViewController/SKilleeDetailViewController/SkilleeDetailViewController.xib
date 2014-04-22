@@ -6,96 +6,87 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SkilleeDetailViewController">
             <connections>
-                <outlet property="approveBtn" destination="SY2-Xk-WcG" id="2XD-oM-IAL"/>
-                <outlet property="approveDisabledBtn" destination="J5O-9B-az6" id="dON-C3-dfh"/>
-                <outlet property="denyBtn" destination="lfg-nI-wNi" id="dAj-bs-GJd"/>
-                <outlet property="denyDisabledBtn" destination="gse-4h-w7z" id="GcZ-Bt-yLB"/>
-                <outlet property="favoriteBtn" destination="DWK-ml-fsj" id="hJ8-R2-Jj8"/>
+                <outlet property="back" destination="hFC-UZ-Zsp" id="gVw-sk-ftG"/>
+                <outlet property="leftView" destination="Dle-Yj-5gh" id="7lQ-zZ-Jgx"/>
+                <outlet property="more" destination="EFB-5U-itp" id="Ndl-Zw-hI8"/>
+                <outlet property="rightMenu" destination="7TO-I0-R0V" id="C7Q-lq-7B0"/>
                 <outlet property="skilleeCommentLbl" destination="f1g-li-2ME" id="xy4-wo-qur"/>
-                <outlet property="skilleeDateLbl" destination="xJW-FH-hkB" id="qqg-DX-JRT"/>
                 <outlet property="skilleeMediaImg" destination="qdH-gU-OLp" id="ddf-3H-VyV"/>
                 <outlet property="skilleeTitleLbl" destination="OKJ-0H-93V" id="TDJ-ob-odB"/>
-                <outlet property="tattleBtn" destination="ZjA-gv-UEe" id="1Hd-NW-9Z3"/>
-                <outlet property="userAvatarImg" destination="UDb-er-Yce" id="yI7-8B-Kst"/>
-                <outlet property="userNameLbl" destination="zRd-cY-Hr4" id="Nbb-CP-1gy"/>
+                <outlet property="tableView" destination="bqZ-X9-tuG" id="8YL-kg-egl"/>
+                <outlet property="userAvatarImg" destination="Lea-L9-DdW" id="RYZ-HF-SN3"/>
+                <outlet property="userNameLbl" destination="KoI-sd-90j" id="s3H-gf-aZE"/>
                 <outlet property="view" destination="1" id="dee-qM-k0Z"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="redraw" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wy0-cB-d0W">
-                    <rect key="frame" x="0.0" y="488" width="320" height="80"/>
+                <view contentMode="scaleToFill" id="Dle-Yj-5gh">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DWK-ml-fsj">
-                            <rect key="frame" x="160" y="0.0" width="80" height="80"/>
+                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG.png" id="qdH-gU-OLp">
+                            <rect key="frame" x="0.0" y="112" width="320" height="344"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="20"/>
-                            <state key="normal" title="FAVORITE" image="star_opaque_BTN.png">
-                                <color key="titleColor" red="0.27450980392156865" green="0.2627450980392157" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
+                            <color key="backgroundColor" patternImage="1EAF219D-9B8C-4317-A128-AE37B67F08CE" colorSpace="pattern"/>
+                            <gestureRecognizers/>
                             <connections>
-                                <action selector="favorite:" destination="-1" eventType="touchUpInside" id="GQW-bp-cTW"/>
+                                <outletCollection property="gestureRecognizers" destination="QYI-kk-eU2" appends="YES" id="IxB-YB-PmF"/>
                             </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZjA-gv-UEe">
-                            <rect key="frame" x="240" y="0.0" width="80" height="80"/>
+                        </imageView>
+                        <view contentMode="scaleToFill" id="0yi-tb-kdy">
+                            <rect key="frame" x="0.0" y="456" width="320" height="112"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="20"/>
-                            <state key="normal" title="TATTLE" image="warning_BTN.png">
-                                <color key="titleColor" red="0.27450980392156865" green="0.2627450980392157" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="tattle:" destination="-1" eventType="touchUpInside" id="FFJ-j9-RrB"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5O-9B-az6">
-                            <rect key="frame" x="80" y="0.0" width="80" height="80"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gone fishing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OKJ-0H-93V">
+                                    <rect key="frame" x="0.0" y="27" width="320" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yaaahhoooooo! i have caught a fish" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f1g-li-2ME">
+                                    <rect key="frame" x="0.0" y="65" width="320" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="tintColor" red="0.27843138579999999" green="0.74509805439999999" blue="0.082352943720000002" alpha="1" colorSpace="deviceRGB"/>
+                        </view>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Userovuch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KoI-sd-90j">
+                            <rect key="frame" x="60" y="80" width="200" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="20"/>
-                            <state key="normal" title="APPROVE" image="thumb_up_BTN_press.png">
-                                <color key="titleColor" red="0.27450980390000002" green="0.26274509800000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Lea-L9-DdW">
+                            <rect key="frame" x="132" y="22" width="56" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hFC-UZ-Zsp">
+                            <rect key="frame" x="20" y="20" width="71" height="73"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Back">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SY2-Xk-WcG">
-                            <rect key="frame" x="80" y="0.0" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="20"/>
-                            <state key="normal" title="APPROVE" image="thumb_up_BTN-1.png">
-                                <color key="titleColor" red="0.27450980392156865" green="0.2627450980392157" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
                             <connections>
-                                <action selector="approve:" destination="-1" eventType="touchUpInside" id="Jo0-vd-WoT"/>
+                                <action selector="back:" destination="-1" eventType="touchUpInside" id="fGn-JN-kTg"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gse-4h-w7z">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="EFB-5U-itp">
+                            <rect key="frame" x="240" y="20" width="71" height="73"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="20"/>
-                            <state key="normal" title="DENY" image="thumb_down_BTN_press.png">
-                                <color key="titleColor" red="0.27450980390000002" green="0.26274509800000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="More">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfg-nI-wNi">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <inset key="titleEdgeInsets" minX="-36" minY="50" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="20"/>
-                            <state key="normal" title="DENY" image="thumb_down_BTN.png">
-                                <color key="titleColor" red="0.27450980392156865" green="0.2627450980392157" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
                             <connections>
-                                <action selector="deny:" destination="-1" eventType="touchUpInside" id="OXV-if-jQp"/>
+                                <action selector="showMore:" destination="-1" eventType="touchUpInside" id="rkX-EP-o8s"/>
                             </connections>
                         </button>
                     </subviews>
@@ -134,31 +125,27 @@
                         </label>
                     </subviews>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0yi-tb-kdy">
-                    <rect key="frame" x="0.0" y="408" width="320" height="80"/>
+                <view contentMode="scaleToFill" id="7TO-I0-R0V">
+                    <rect key="frame" x="320" y="0.0" width="80" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gone fishing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OKJ-0H-93V">
-                            <rect key="frame" x="0.0" y="8" width="320" height="36"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Yaaahhoooooo! i have caught a fish" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1g-li-2ME">
-                            <rect key="frame" x="0.0" y="46" width="320" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" rowHeight="80" sectionHeaderHeight="1" sectionFooterHeight="1" id="bqZ-X9-tuG">
+                            <rect key="frame" x="0.0" y="20" width="80" height="233"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="Znt-gs-Xf4"/>
+                                <outlet property="delegate" destination="-1" id="bJQ-dy-fT3"/>
+                            </connections>
+                        </tableView>
                     </subviews>
-                    <color key="tintColor" red="0.27843138579999999" green="0.74509805439999999" blue="0.082352943720000002" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="backgroundColor" red="0.2627450980392157" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
             <gestureRecognizers/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
         <tapGestureRecognizer id="QYI-kk-eU2">
             <connections>
@@ -172,7 +159,7 @@
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
 c1dOU0NvbG9ygAKADRIgwAAAgAOAC1p7MzIwLCA0NjB90hUKFhhaTlMub2JqZWN0c6EXgASACtIVChod
-ohscgAWABoAJEADSIAohIl8QFE5TVElGRlJlcHJlc2VudGF0aW9ugAeACE8SAAj84k1NACoACPwIGBga
+ohscgAWABoAJEADSIAohIl8QFE5TVElGRlJlcHJlc2VudGF0aW9ugAeACE8SAAkJNk1NACoACPwIGBga
 /xkZG/8WFhj/GRkb/xcXGf8XFxr/Ghob/xgYGv8YGBr/Ghoc/xgYGf8WFhn/GRkc/xgYGv8ZGRz/GBga
 /xoaHP8ZGRv/GBgc/xgYGv8WFhn/GBga/xcXGv8XFxr/Fxca/xkZG/8XFxr/GBga/xcXGv8WFhn/FhYY
 /xgYGv8YGBr/Fxca/xgYGv8YGBv/GBgb/xcXGv8aGh3/GRkb/xkZHP8YGBv/GBgc/xoaHv8XFxv/GBgb
@@ -9986,27 +9973,74 @@ ohscgAWABoAJEADSIAohIl8QFE5TVElGRlJlcHJlc2VudGF0aW9ugAeACE8SAAj84k1NACoACPwIGBga
 /xgYG/8aGhz/Fxca/xgYGv8XFxr/Fxcb/xcXG/8XFxr/GRkc/xkZG/8XFxn/Fxcb/xYWGf8YGBr/GRkb
 /xcXG/8XFxv/GRkb/xcXGv8XFxr/FxcZ/xgYG/8XFxr/GBga/xgYG/8YGBr/GRkc/xoaHP8XFxr/Fxca
 /xkZHP8ZGRz/GBgc/xgYHP8aGh3/GRkd/xoaHv8YGBz/Ghod/xsbHf8bGx7/GRkb/xkZHP8ZGRz/GRkd
-/xkZHf8aGh7/Gxsd/xkZHP8ADQEAAAMAAAABAUAAAAEBAAMAAAABAcwAAAECAAMAAAAEAAj8qgEDAAMA
-AAABAAEAAAEGAAMAAAABAAIAAAERAAQAAAAFAAj8sgESAAMAAAABAAEAAAEVAAMAAAABAAQAAAEWAAMA
-AAABAGYAAAEXAAQAAAAFAAj8xgEcAAMAAAABAAEAAAFSAAMAAAABAAEAAAFTAAMAAAAEAAj82gAAAAAA
-CAAIAAgACAAAAAgAAf4IAAP8CAAF+ggAB/gIAAH+AAAB/gAAAf4AAAH+AAABBAAAAQABAAEAAdIlJico
-WiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VS
-ZXBaTlNJbWFnZVJlcFhOU09iamVjdNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMw
-LSvTMzQKNTY3V05TV2hpdGVcTlNDb2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9
-V05TSW1hZ2WiPCtfEA9OU0tleWVkQXJjaGl2ZXLRQEFUcm9vdIABAAAACAAAABEAAAAaAAAAIwAAAC0A
-AAAyAAAANwAAAEYAAABMAAAAVwAAAF4AAABlAAAAcgAAAHkAAACBAAAAgwAAAIUAAACKAAAAjAAAAI4A
-AACZAAAAngAAAKkAAACrAAAArQAAAK8AAAC0AAAAtwAAALkAAAC7AAAAvQAAAL8AAADEAAAA2wAAAN0A
-AADfAAj9xwAI/cwACP3XAAj94AAI/fMACP33AAj+CgAI/hUACP4eAAj+IwAI/isACP4uAAj+MwAI/kIA
-CP5GAAj+TQAI/lUACP5iAAj+ZwAI/mkACP5rAAj+cAAI/ngACP57AAj+gAAI/ogACP6LAAj+nQAI/qAA
-CP6lAAAAAAAABAEAAAAAAAAAQgAAAAAAAAAAAAAAAAAI/qc
+/xkZHf8aGh7/Gxsd/xkZHP8ADgEAAAMAAAABAUAAAAEBAAMAAAABAcwAAAECAAMAAAAEAAj8tgEDAAMA
+AAABAAEAAAEGAAMAAAABAAIAAAERAAQAAAAFAAj80gESAAMAAAABAAEAAAEVAAMAAAABAAQAAAEWAAMA
+AAABAGYAAAEXAAQAAAAFAAj8vgEcAAMAAAABAAEAAAFSAAMAAAABAAEAAAFTAAMAAAAEAAj85odzAAcA
+AAxIAAj87gAAAAAACAAIAAgACAAB/gAAAf4AAAH+AAAB/gAAAQQAAAAACAAB/ggAA/wIAAX6CAAH+AgA
+AQABAAEAAQAADEhMaW5vAhAAAG1udHJSR0IgWFlaIAfOAAIACQAGADEAAGFjc3BNU0ZUAAAAAElFQyBz
+UkdCAAAAAAAAAAAAAAAAAAD21gABAAAAANMtSFAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAEWNwcnQAAAFQAAAAM2Rlc2MAAAGEAAAAbHd0cHQAAAHwAAAAFGJrcHQA
+AAIEAAAAFHJYWVoAAAIYAAAAFGdYWVoAAAIsAAAAFGJYWVoAAAJAAAAAFGRtbmQAAAJUAAAAcGRtZGQA
+AALEAAAAiHZ1ZWQAAANMAAAAhnZpZXcAAAPUAAAAJGx1bWkAAAP4AAAAFG1lYXMAAAQMAAAAJHRlY2gA
+AAQwAAAADHJUUkMAAAQ8AAAIDGdUUkMAAAQ8AAAIDGJUUkMAAAQ8AAAIDHRleHQAAAAAQ29weXJpZ2h0
+IChjKSAxOTk4IEhld2xldHQtUGFja2FyZCBDb21wYW55AABkZXNjAAAAAAAAABJzUkdCIElFQzYxOTY2
+LTIuMQAAAAAAAAAAAAAAEnNSR0IgSUVDNjE5NjYtMi4xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYWVogAAAAAAAA81EAAQAAAAEWzFhZWiAAAAAAAAAAAAAAAAAA
+AAAAWFlaIAAAAAAAAG+iAAA49QAAA5BYWVogAAAAAAAAYpkAALeFAAAY2lhZWiAAAAAAAAAkoAAAD4QA
+ALbPZGVzYwAAAAAAAAAWSUVDIGh0dHA6Ly93d3cuaWVjLmNoAAAAAAAAAAAAAAAWSUVDIGh0dHA6Ly93
+d3cuaWVjLmNoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGRlc2MA
+AAAAAAAALklFQyA2MTk2Ni0yLjEgRGVmYXVsdCBSR0IgY29sb3VyIHNwYWNlIC0gc1JHQgAAAAAAAAAA
+AAAALklFQyA2MTk2Ni0yLjEgRGVmYXVsdCBSR0IgY29sb3VyIHNwYWNlIC0gc1JHQgAAAAAAAAAAAAAA
+AAAAAAAAAAAAAABkZXNjAAAAAAAAACxSZWZlcmVuY2UgVmlld2luZyBDb25kaXRpb24gaW4gSUVDNjE5
+NjYtMi4xAAAAAAAAAAAAAAAsUmVmZXJlbmNlIFZpZXdpbmcgQ29uZGl0aW9uIGluIElFQzYxOTY2LTIu
+MQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAdmlldwAAAAAAE6T+ABRfLgAQzxQAA+3MAAQTCwADXJ4A
+AAABWFlaIAAAAAAATAlWAFAAAABXH+dtZWFzAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAACjwAAAAJz
+aWcgAAAAAENSVCBjdXJ2AAAAAAAABAAAAAAFAAoADwAUABkAHgAjACgALQAyADcAOwBAAEUASgBPAFQA
+WQBeAGMAaABtAHIAdwB8AIEAhgCLAJAAlQCaAJ8ApACpAK4AsgC3ALwAwQDGAMsA0ADVANsA4ADlAOsA
+8AD2APsBAQEHAQ0BEwEZAR8BJQErATIBOAE+AUUBTAFSAVkBYAFnAW4BdQF8AYMBiwGSAZoBoQGpAbEB
+uQHBAckB0QHZAeEB6QHyAfoCAwIMAhQCHQImAi8COAJBAksCVAJdAmcCcQJ6AoQCjgKYAqICrAK2AsEC
+ywLVAuAC6wL1AwADCwMWAyEDLQM4A0MDTwNaA2YDcgN+A4oDlgOiA64DugPHA9MD4APsA/kEBgQTBCAE
+LQQ7BEgEVQRjBHEEfgSMBJoEqAS2BMQE0wThBPAE/gUNBRwFKwU6BUkFWAVnBXcFhgWWBaYFtQXFBdUF
+5QX2BgYGFgYnBjcGSAZZBmoGewaMBp0GrwbABtEG4wb1BwcHGQcrBz0HTwdhB3QHhgeZB6wHvwfSB+UH
++AgLCB8IMghGCFoIbgiCCJYIqgi+CNII5wj7CRAJJQk6CU8JZAl5CY8JpAm6Cc8J5Qn7ChEKJwo9ClQK
+agqBCpgKrgrFCtwK8wsLCyILOQtRC2kLgAuYC7ALyAvhC/kMEgwqDEMMXAx1DI4MpwzADNkM8w0NDSYN
+QA1aDXQNjg2pDcMN3g34DhMOLg5JDmQOfw6bDrYO0g7uDwkPJQ9BD14Peg+WD7MPzw/sEAkQJhBDEGEQ
+fhCbELkQ1xD1ERMRMRFPEW0RjBGqEckR6BIHEiYSRRJkEoQSoxLDEuMTAxMjE0MTYxODE6QTxRPlFAYU
+JxRJFGoUixStFM4U8BUSFTQVVhV4FZsVvRXgFgMWJhZJFmwWjxayFtYW+hcdF0EXZReJF64X0hf3GBsY
+QBhlGIoYrxjVGPoZIBlFGWsZkRm3Gd0aBBoqGlEadxqeGsUa7BsUGzsbYxuKG7Ib2hwCHCocUhx7HKMc
+zBz1HR4dRx1wHZkdwx3sHhYeQB5qHpQevh7pHxMfPh9pH5Qfvx/qIBUgQSBsIJggxCDwIRwhSCF1IaEh
+ziH7IiciVSKCIq8i3SMKIzgjZiOUI8Ij8CQfJE0kfCSrJNolCSU4JWgllyXHJfcmJyZXJocmtyboJxgn
+SSd6J6sn3CgNKD8ocSiiKNQpBik4KWspnSnQKgIqNSpoKpsqzysCKzYraSudK9EsBSw5LG4soizXLQwt
+QS12Last4S4WLkwugi63Lu4vJC9aL5Evxy/+MDUwbDCkMNsxEjFKMYIxujHyMioyYzKbMtQzDTNGM38z
+uDPxNCs0ZTSeNNg1EzVNNYc1wjX9Njc2cjauNuk3JDdgN5w31zgUOFA4jDjIOQU5Qjl/Obw5+To2OnQ6
+sjrvOy07azuqO+g8JzxlPKQ84z0iPWE9oT3gPiA+YD6gPuA/IT9hP6I/4kAjQGRApkDnQSlBakGsQe5C
+MEJyQrVC90M6Q31DwEQDREdEikTORRJFVUWaRd5GIkZnRqtG8Ec1R3tHwEgFSEtIkUjXSR1JY0mpSfBK
+N0p9SsRLDEtTS5pL4kwqTHJMuk0CTUpNk03cTiVObk63TwBPSU+TT91QJ1BxULtRBlFQUZtR5lIxUnxS
+x1MTU19TqlP2VEJUj1TbVShVdVXCVg9WXFapVvdXRFeSV+BYL1h9WMtZGllpWbhaB1pWWqZa9VtFW5Vb
+5Vw1XIZc1l0nXXhdyV4aXmxevV8PX2Ffs2AFYFdgqmD8YU9homH1YklinGLwY0Njl2PrZEBklGTpZT1l
+kmXnZj1mkmboZz1nk2fpaD9olmjsaUNpmmnxakhqn2r3a09rp2v/bFdsr20IbWBtuW4SbmtuxG8eb3hv
+0XArcIZw4HE6cZVx8HJLcqZzAXNdc7h0FHRwdMx1KHWFdeF2Pnabdvh3VnezeBF4bnjMeSp5iXnnekZ6
+pXsEe2N7wnwhfIF84X1BfaF+AX5ifsJ/I3+Ef+WAR4CogQqBa4HNgjCCkoL0g1eDuoQdhICE44VHhauG
+DoZyhteHO4efiASIaYjOiTOJmYn+imSKyoswi5aL/IxjjMqNMY2Yjf+OZo7OjzaPnpAGkG6Q1pE/kaiS
+EZJ6kuOTTZO2lCCUipT0lV+VyZY0lp+XCpd1l+CYTJi4mSSZkJn8mmia1ZtCm6+cHJyJnPedZJ3SnkCe
+rp8dn4uf+qBpoNihR6G2oiailqMGo3aj5qRWpMelOKWpphqmi6b9p26n4KhSqMSpN6mpqhyqj6sCq3Wr
+6axcrNCtRK24ri2uoa8Wr4uwALB1sOqxYLHWskuywrM4s660JbSctRO1irYBtnm28Ldot+C4WbjRuUq5
+wro7urW7LrunvCG8m70VvY++Cr6Evv+/er/1wHDA7MFnwePCX8Lbw1jD1MRRxM7FS8XIxkbGw8dBx7/I
+Pci8yTrJuco4yrfLNsu2zDXMtc01zbXONs62zzfPuNA50LrRPNG+0j/SwdNE08bUSdTL1U7V0dZV1tjX
+XNfg2GTY6Nls2fHadtr724DcBdyK3RDdlt4c3qLfKd+v4DbgveFE4cziU+Lb42Pj6+Rz5PzlhOYN5pbn
+H+ep6DLovOlG6dDqW+rl63Dr++yG7RHtnO4o7rTvQO/M8Fjw5fFy8f/yjPMZ86f0NPTC9VD13vZt9vv3
+ivgZ+Kj5OPnH+lf65/t3/Af8mP0p/br+S/7c/23//9IlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNfEBBO
+U0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVjdNIl
+Ji0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlNDb2xv
+clNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVkQXJj
+aGl2ZXLRQEFUcm9vdIABAAAACAAAABEAAAAaAAAAIwAAAC0AAAAyAAAANwAAAEYAAABMAAAAVwAAAF4A
+AABlAAAAcgAAAHkAAACBAAAAgwAAAIUAAACKAAAAjAAAAI4AAACZAAAAngAAAKkAAACrAAAArQAAAK8A
+AAC0AAAAtwAAALkAAAC7AAAAvQAAAL8AAADEAAAA2wAAAN0AAADfAAkKGwAJCiAACQorAAkKNAAJCkcA
+CQpLAAkKXgAJCmkACQpyAAkKdwAJCn8ACQqCAAkKhwAJCpYACQqaAAkKoQAJCqkACQq2AAkKuwAJCr0A
+CQq/AAkKxAAJCswACQrPAAkK1AAJCtwACQrfAAkK8QAJCvQACQr5AAAAAAAABAEAAAAAAAAAQgAAAAAA
+AAAAAAAAAAAJCvs
 </mutableData>
         </image>
         <image name="BG.png" width="320" height="568"/>
-        <image name="star_opaque_BTN.png" width="40" height="40"/>
-        <image name="thumb_down_BTN.png" width="40" height="40"/>
-        <image name="thumb_down_BTN_press.png" width="40" height="40"/>
-        <image name="thumb_up_BTN-1.png" width="40" height="40"/>
-        <image name="thumb_up_BTN_press.png" width="40" height="40"/>
-        <image name="warning_BTN.png" width="40" height="40"/>
     </resources>
 </document>

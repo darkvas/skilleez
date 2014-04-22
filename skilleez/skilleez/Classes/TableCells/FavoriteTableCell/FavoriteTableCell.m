@@ -50,7 +50,7 @@
     [alert show];
 }
 
-- (void)selectProfile:(UIGestureRecognizer*)recognizer
+- (void)selectProfile:(UIGestureRecognizer *)recognizer
 {
     [self.delegate didProfileSelect:skilleeModel.UserId];
 }

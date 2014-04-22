@@ -25,15 +25,6 @@
 
 @implementation InviteToLoopViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -72,13 +63,13 @@
 
 -(IBAction) searchUser:(id)sender
 {
-    SearchUserViewController *searchUserView = [[SearchUserViewController alloc] initWithNibName:@"SearchUserViewController" bundle:nil];
+    SearchUserViewController *searchUserView = [SearchUserViewController new];
     [self.navigationController pushViewController:searchUserView animated:YES];
 }
 
 -(IBAction) inviteToSkilleez:(id)sender
 {
-    SendInviteViewController *sendInviteView = [[SendInviteViewController alloc] initWithNibName:@"SendInviteViewController" bundle:nil];
+    SendInviteViewController *sendInviteView = [SendInviteViewController new];
     [self.navigationController pushViewController:sendInviteView animated:YES];
 }
 

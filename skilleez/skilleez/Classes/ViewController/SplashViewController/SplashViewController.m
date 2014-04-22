@@ -10,22 +10,13 @@
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
 #import "LoginViewController.h"
-#import "LoopActivityViewController.h"
+#import "HomeViewController.h"
 
 @interface SplashViewController ()
 
 @end
 
 @implementation SplashViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -36,13 +27,13 @@
 - (void)loadSettings
 {
     UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
-    LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    LoginViewController *login = [LoginViewController new];
     [userSettings loadSettings];
     if (userSettings.remember) {
         [[NetworkManager sharedInstance] tryLogin:userSettings.username password:userSettings.password withLoginCallBack:^(RequestResult *requestResult) {
             if (requestResult.isSuccess) {
                 [login getAccountInformation];
-                LoopActivityViewController *loop = [[LoopActivityViewController alloc] initWithNibName:@"LoopActivityViewController" bundle:nil];
+                HomeViewController *loop = [HomeViewController new];
                 [self.navigationController pushViewController:loop animated:YES];
             } else {
                 NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];

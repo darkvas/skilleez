@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 MobileSoft365. All rights reserved.
 //
 
-#import "CreateChildSkilleeViewController.h"
+#import "CreateSkilleeViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
 #import "ActivityIndicatorController.h"
 #import "FamilyMemberCell.h"
 
-@interface CreateChildSkilleeViewController (){
+@interface CreateSkilleeViewController (){
     UIImagePickerController *imagePicker;
     NSData* chosenData;
     enum mediaType dataMediaType;
@@ -43,16 +43,7 @@
 
 @end
 
-@implementation CreateChildSkilleeViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@implementation CreateSkilleeViewController
 
 - (void)viewDidLoad
 {
@@ -66,7 +57,6 @@
     imgView.frame = CGRectMake(0, 0, 295, 128);
     [self.commentTxt addSubview: imgView];
     UILabel *placeholder = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 195, 36)];
-    //placeholder.textColor = [UIColor colorWithRed:0.09 green:0.09 blue:0.12 alpha:1.0];
     placeholder.textColor = [UIColor whiteColor];
     [placeholder setFont:[UIFont getDKCrayonFontWithSize:22]];
     placeholder.text = @"Enter Comments here";

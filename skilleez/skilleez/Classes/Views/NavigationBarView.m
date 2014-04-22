@@ -17,15 +17,6 @@
 
 @implementation NavigationBarView
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super init];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (id)initWithViewController:(UIViewController *)viewCtrl withTitle:(NSString *)title leftTitle:(NSString *)leftTitle rightButton:(BOOL)rightButton rightTitle:(NSString *)rightTitle
 {
     if (self = [super init]) {

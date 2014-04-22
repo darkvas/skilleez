@@ -21,7 +21,7 @@
     self.navigationCtrl = [[UINavigationController alloc] init];
     
     self.window.rootViewController = self.navigationCtrl;
-    SplashViewController *login = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
+    SplashViewController *login = [SplashViewController new];
     [self.navigationCtrl pushViewController:login animated:NO];
     [self.navigationCtrl setNavigationBarHidden:YES animated:NO];
     
