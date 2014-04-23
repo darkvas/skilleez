@@ -13,6 +13,7 @@
 #import "HomeViewController.h"
 #import "SkilleeDetailViewController.h"
 #import "UtilityController.h"
+#import "AdultApprovalTableCell.h"
 #import "InviteToLoopApprovalTableCell.h"
 
 @interface AdultApprovalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, SimpleCellDelegate, InviteToLoopDelegate>

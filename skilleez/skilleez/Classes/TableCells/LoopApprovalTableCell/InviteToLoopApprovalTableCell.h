@@ -20,6 +20,6 @@
 
 @property (nonatomic,strong) id delegate;
 
-- (void)fillCell:(LoopInvitationModel *)invitation andTag:(NSInteger)tag;
+- (void)fillCell:(LoopInvitationModel *)invitation forAdultOfInvitor:(BOOL)isInvitor andTag:(NSInteger)tag;
 
 @end

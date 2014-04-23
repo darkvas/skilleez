@@ -35,22 +35,28 @@
     self.usersLabel.font = [UIFont getDKCrayonFontWithSize:20];
 }
 
-- (void)fillCell:(LoopInvitationModel *)invitation andTag:(NSInteger)tag
+- (void)fillCell:(LoopInvitationModel *)invitation forAdultOfInvitor:(BOOL)isInvitor andTag:(NSInteger)tag
 {
     self.viewProfileButton.tag = tag;
-    [self.userAvatarImageView setImageWithURL:invitation.Invitor.AvatarUrl];
-    //TODO:change on scrren names
+    //TODO:change on screen names
     NSString *first = invitation.Invitor.Login,
-            *second = invitation.Invitee.Login,
-        *fullString = [NSString stringWithFormat: @"%@, wants to invite %@ into loop", first, second];
+    *second = invitation.Invitee.Login,
+    *fullString = [NSString stringWithFormat: @"%@, wants to invite %@ into loop", first, second];
     NSMutableAttributedString *attributted = [[NSMutableAttributedString alloc] initWithString:fullString];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:28] range:NSMakeRange(0, [first length] + 1)];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:32] range:NSMakeRange(0, [first length] + 1)];
     [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 1, 17)];
     [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:22] range:NSMakeRange([first length] + 18, [second length])];
-    [attributted addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] range:NSMakeRange([first length] + 18, [second length])];
     [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 18 + [second length], [fullString length] - ([first length] + 18 + [second length]))];
+    if (isInvitor) {
+        [self.userAvatarImageView setImageWithURL:invitation.Invitee.AvatarUrl];
+        self.userAboutLabel.text = invitation.Invitee.AboutMe;
+        [attributted addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] range:NSMakeRange([first length] + 18, [second length])];
+    } else {
+        [self.userAvatarImageView setImageWithURL:invitation.Invitor.AvatarUrl];
+        self.userAboutLabel.text = invitation.Invitor.AboutMe;
+        [attributted addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] range:NSMakeRange(0, [first length] + 1)];
+    }
     self.usersLabel.attributedText = attributted;
-    //self.userAboutLabel.text = invitation.Invitee.AboutMe;
 }
 
 - (IBAction)viewProfile:(id)sender

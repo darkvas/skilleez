@@ -173,6 +173,7 @@ typedef enum {
 
 - (IBAction)showMore:(id)sender
 {
+    self.more.selected = !self.more.selected;
     UIView *view = self.leftView,
     *view2 = self.rightMenu;
     if (view.frame.origin.x == 0) {
