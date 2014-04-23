@@ -15,6 +15,6 @@ extern const int FONT_SIZE_AP;
 
 @interface AdultProfileViewController : UIViewController<CustomIOS7AlertViewDelegate>
 
-@property (strong, nonatomic) FamilyMemberModel* familyMember;
+- (id)initWithFamilyMember:(FamilyMemberModel *)familyMember;
 
 @end

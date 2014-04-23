@@ -141,13 +141,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        AdultProfileViewController *profilePermissionView = [AdultProfileViewController new];
-        profilePermissionView.familyMember = _adultMembers[indexPath.row];
-        [self.navigationController pushViewController:profilePermissionView animated:YES];
+        if([UserSettingsManager sharedInstance].IsAdmin) {
+            AdultProfileViewController *adultProfileView = [[AdultProfileViewController alloc] initWithFamilyMember:_adultMembers[indexPath.row]];
+            [self.navigationController pushViewController:adultProfileView animated:YES];
+        } else {
+            ChildProfileViewController *profileView = [[ChildProfileViewController alloc] initWithFamilyMember:_adultMembers[indexPath.row]
+                                                                                                     andShowFriends:NO];
+            [self.navigationController pushViewController:profileView animated:YES];
+        }
     } else {
-        ChildProfileViewController *childProfileView = [ChildProfileViewController new];
-        childProfileView.familyMember = _childrenMembers[indexPath.row];
-        childProfileView.showFriendsFamily = NO;
+        ChildProfileViewController *childProfileView = [[ChildProfileViewController alloc] initWithFamilyMember:_childrenMembers[indexPath.row]
+                                                                                                 andShowFriends:NO];
         [self.navigationController pushViewController:childProfileView animated:YES];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
