@@ -66,12 +66,12 @@
     self.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
     self.currentCtrl = viewCtrl;
     
-    UILabel *titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(75, 24, 170, 40)];
-    titleLbl.text = title;
-    titleLbl.textAlignment = NSTextAlignmentCenter;
-    titleLbl.font = [UIFont getDKCrayonFontWithSize:24];
-    titleLbl.textColor = [UIColor orangeColor];
-    [self addSubview:titleLbl];
+    self.titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(75, 24, 170, 40)];
+    self.titleLbl.text = title;
+    self.titleLbl.textAlignment = NSTextAlignmentCenter;
+    self.titleLbl.font = [UIFont getDKCrayonFontWithSize:24];
+    self.titleLbl.textColor = [UIColor orangeColor];
+    [self addSubview:self.titleLbl];
 }
 
 - (void)addRightButton:(NSString *)rightTitle viewController:(UIViewController *)viewCtrl

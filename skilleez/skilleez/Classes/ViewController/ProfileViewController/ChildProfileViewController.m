@@ -24,14 +24,16 @@ const int FONT_SIZE_CP = 22;
 
 @interface ChildProfileViewController ()
 {
-    FamilyMemberModel* _familyMember;
+    NSString *_familyMemberId;
     BOOL _showFriendsFamily;
+    ProfileInfo *_childProfile;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatarImg;
 @property (weak, nonatomic) IBOutlet UIButton *skilleezBtn;
 @property (weak, nonatomic) IBOutlet UIButton *profileBtn;
 @property (weak, nonatomic) IBOutlet UIButton *settingsBtn;
+@property (strong, nonatomic) NavigationBarView *navBar;
 
 - (IBAction)showSkilleez:(id)sender;
 - (IBAction)showProfile:(id)sender;
@@ -41,10 +43,10 @@ const int FONT_SIZE_CP = 22;
 
 @implementation ChildProfileViewController
 
-- (id)initWithFamilyMember:(FamilyMemberModel *)familyMember andShowFriends:(BOOL) showFriendsFamily
+- (id)initWithFamilyMemberId:(NSString *)familyMemberId andShowFriends:(BOOL) showFriendsFamily
 {
     if (self = [super init]) {
-        _familyMember = familyMember;
+        _familyMemberId = familyMemberId;
         _showFriendsFamily = showFriendsFamily;
     }
     return self;
@@ -53,16 +55,25 @@ const int FONT_SIZE_CP = 22;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NavigationBarView *nav = [[NavigationBarView alloc] initWithViewController:self
-                                                                     withTitle:_familyMember.FullName
+    self.navBar = [[NavigationBarView alloc] initWithViewController:self
+                                                                     withTitle:_childProfile.ScreenName
                                                                      leftImage:@"user_unselected"
                                                                    rightButton:YES
                                                                     rightTitle:@"Done"];
-    [self.view addSubview:nav];
-    [self customize];
-    
-    [self.userAvatarImg setImageWithURL: _familyMember.AvatarUrl];
+    [self.view addSubview:self.navBar];
+    [[NetworkManager sharedInstance] getProfileInfoByUserId:_familyMemberId withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            _childProfile = (ProfileInfo *)requestResult.firstObject;
+            self.navBar.titleLbl.text = _childProfile.ScreenName;
+            [self customize];
+            [self.userAvatarImg setImageWithURL: _childProfile.AvatarUrl];
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        } else {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:@"Problem with loading user data. Try again!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,8 +105,8 @@ const int FONT_SIZE_CP = 22;
 
 - (void)cancel
 {
-    ChildFamilyViewController *childFamily = [[ChildFamilyViewController alloc] initWithChildID:_familyMember.Id];
-    if ([_familyMember.Id isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
+    ChildFamilyViewController *childFamily = [[ChildFamilyViewController alloc] initWithChildID:_childProfile.UserId];
+    if ([_childProfile.UserId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
         [self.navigationController pushViewController:childFamily animated:YES];
     else
         [self.navigationController pushViewControllerCustom:childFamily];
@@ -103,30 +114,22 @@ const int FONT_SIZE_CP = 22;
 
 - (IBAction)showSkilleez:(id)sender
 {
-    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:_familyMember.Id andTitle:_familyMember.FullName];
+    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:_childProfile.UserId andTitle:_childProfile.ScreenName];
     [self.navigationController pushViewController:skilleezView animated:YES];
 }
 
 - (IBAction)showProfile:(id)sender
 {
-    [[NetworkManager sharedInstance] getProfileInfoByUserId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
-        if (requestResult.isSuccess) {
-            ProfileInfo *profileInfo = (ProfileInfo*) requestResult.firstObject;
-            ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:NO];
-            if ([_familyMember.Id isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
-                [self.navigationController pushViewController:profileView animated:YES];
-            else
-                [self.navigationController pushViewControllerCustom:profileView];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:@"Problem with loading user data. Try again!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            [alert show];
-        }
-    }];
+    ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:_childProfile editMode:NO];
+    if ([_childProfile.UserId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID])
+        [self.navigationController pushViewController:profileView animated:YES];
+    else
+        [self.navigationController pushViewControllerCustom:profileView];
 }
 
 - (IBAction)showSettings:(id)sender
 {
-    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithUserId:_familyMember.Id];
+    SettingsViewController *settingsView = [[SettingsViewController alloc] initWithUserId:_childProfile.UserId];
     [self.navigationController pushViewController:settingsView animated:YES];
 }
 

@@ -18,7 +18,7 @@ static NSString *cellName = @"FavoriteTableCell";
 @interface FavoriteViewController () {
     NSMutableArray *items;
     int count, offset;
-    BOOL canLoadOnScroll;
+    BOOL canLoadOnScroll, showView;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -40,8 +40,9 @@ static NSString *cellName = @"FavoriteTableCell";
 {
     [super viewDidLoad];
     canLoadOnScroll = YES;
-    offset = 0;
+    showView = YES;
     count = NUMBER_OF_ITEMS;
+    offset = 0;
     [self loadFavoriteList];
 }
 
@@ -108,6 +109,7 @@ static NSString *cellName = @"FavoriteTableCell";
     offset = 0;
     count = NUMBER_OF_ITEMS;
     canLoadOnScroll = NO;
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [self loadFavoriteList];
 }
 
@@ -132,8 +134,10 @@ static NSString *cellName = @"FavoriteTableCell";
             [[UtilityController sharedInstance] showFailureAlert:requestResult.error withCaption:@"Load Favorites failed"];
         }
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        if (offset == 0)
+        if (showView) {
             [[UtilityController sharedInstance] showAnotherViewController:self];
+            showView = NO;
+        }
     }];
 }
 

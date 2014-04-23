@@ -60,6 +60,8 @@ static NSString *POST_INVITE_TO_LOOP_BY_USERID = @"api/Loop/InviteToLoopByUserId
 static NSString *POST_INVITE_TO_LOOP_BY_EMAIL = @"api/Loop/InviteToLoopByEmail";
 static NSString *POST_ACCEPT_INVITATION_TO_LOOP = @"api/Loop/AcceptInvitationToLoop";
 static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationToLoop";
+static NSString *POST_APPROVE_INVITATION_TO_LOOP = @"api/Loop/ApproveInvitationToLoop";
+static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvitationToLoop";
 
 @implementation NetworkManager
 {
@@ -296,6 +298,29 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
                                                                                 keyPath:@"ReturnValue.Skilleez"
                                                                             statusCodes:RKStatusCodeIndexSetForClass (RKStatusCodeClassSuccessful)]];
 
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_ACCEPT_INVITATION_TO_LOOP
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_DECLINE_INVITATION_TO_LOOP
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_APPROVE_INVITATION_TO_LOOP
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:POST_DISAPPROVE_INVITATION_TO_LOOP
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
 }
 
 #pragma mark - User requests
@@ -909,6 +934,8 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
      }];
 }
 
+#pragma mark - Invitation to loop
+
 -(void) postInviteToLoopByUserId: (NSString*) userId withCallBack: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
@@ -940,6 +967,82 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:email]);});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+- (void)postAcceptInvitationToLoop:(NSString *)invitationId withCallBack:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    NSDictionary *jsonData = @{
+                               @"Id": invitationId
+                               };
+    
+    [manager postObject:nil path:POST_ACCEPT_INVITATION_TO_LOOP parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:invitationId]);});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+- (void)postDeclineInvitationToLoop:(NSString *)invitationId withCallBack:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    NSDictionary *jsonData = @{
+                               @"Id": invitationId
+                               };
+
+    [manager postObject:nil path:POST_ACCEPT_INVITATION_TO_LOOP parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:invitationId]);});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+- (void)postApproveInvitationToLoop:(NSString *)invitationId withCallBack:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    NSDictionary *jsonData = @{
+                               @"Id": invitationId
+                               };
+    
+    [manager postObject:nil path:POST_APPROVE_INVITATION_TO_LOOP parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:invitationId]);});
+     }
+                failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+- (void)postDisapproveInvitationToLoop:(NSString *)invitationId withCallBack:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    NSDictionary *jsonData = @{
+                               @"Id": invitationId
+                               };
+    
+    [manager postObject:nil path:POST_DISAPPROVE_INVITATION_TO_LOOP parameters:jsonData
+                success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:invitationId]);});
      }
                 failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {

@@ -13,6 +13,7 @@
 #import "SkilleeDetailViewController.h"
 #import "UtilityController.h"
 #import "SimpleTableCell.h"
+#import "InviteToLoopApprovalTableCell.h"
 
 @interface ChildApprovalViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, SimpleCellDelegate>
 
