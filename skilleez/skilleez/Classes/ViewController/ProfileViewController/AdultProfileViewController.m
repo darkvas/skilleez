@@ -69,14 +69,6 @@ const int FONT_SIZE_AP = 22;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - CustomIOS7AlertViewDelegate
-
-- (void)customIOS7dialogButtonTouchUpInside:(CustomAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSLog(@"Delegate: Button at position %ld is clicked on alertView %ld.", (long)buttonIndex, (long)[alertView tag]);
-    [alertView close];
-}
-
 #pragma mark - Class methods
 
 - (void)cancel
@@ -154,12 +146,14 @@ const int FONT_SIZE_AP = 22;
 
 - (IBAction)delete:(id)sender
 {
-    CustomAlertView *alertView = [[CustomAlertView alloc] init];
-    [alertView setDefaultContainerView:@"Are you sure you want to remove this user from your loop?"];
-    alertView.alpha = 0.95;
-    [alertView setDelegate:self];
-    [alertView setUseMotionEffects:YES];
+    CustomAlertView *alertView = [[CustomAlertView alloc] initDefaultYesCancelWithText:@"Are you sure you want to remove this user from your loop?" delegate:nil];   
     [alertView show];
+}
+
+- (void)dismissAlert:(CustomAlertView *)alertView withButtonIndex:(NSInteger)buttonIndex
+{
+    //TODO:remove logic here
+    [alertView close];
 }
       
 @end

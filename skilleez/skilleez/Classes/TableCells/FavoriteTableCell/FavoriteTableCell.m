@@ -42,11 +42,7 @@
 
 - (IBAction)removeFromFavorites:(id)sender
 {
-    CustomAlertView *alert = [CustomAlertView new];
-    [alert setDefaultContainerView:@"Are you sure you want to remove this skilleez from favorites?"];
-    alert.alpha = 0.95;
-    [alert setDelegate:self];
-    [alert setUseMotionEffects:YES];
+    CustomAlertView *alert = [[CustomAlertView alloc] initDefaultYesCancelWithText:@"Are you sure you want to remove this skilleez from favorites?" delegate:self];
     [alert show];
 }
 
@@ -57,7 +53,7 @@
 
 #pragma mark - CustomIOS7AlertViewDelegate
 
-- (void)customIOS7dialogButtonTouchUpInside:(CustomAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)dismissAlert:(CustomAlertView *)alertView withButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
         [[NetworkManager sharedInstance] postRemoveFromFavorites:skilleeModel.Id withCallBack:^(RequestResult *requestResult) {

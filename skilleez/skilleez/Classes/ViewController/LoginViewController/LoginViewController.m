@@ -79,8 +79,8 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
 - (void)setCustomFonts
 {
     [self.txtFieldUserName setFont:[UIFont getDKCrayonFontWithSize:36]];
-    [self.txtFieldUserName setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
-    [self.txtFieldUserPassword setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.txtFieldUserName setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.txtFieldUserPassword setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.txtFieldUserPassword setFont:[UIFont getDKCrayonFontWithSize:36]];
     [self.loginBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:36]];
     [self.rememberMeBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:18]];

@@ -1,19 +1,9 @@
-//
-//  CustomIOS7AlertView.h
-//  CustomIOS7AlertView
-//
-//  Created by Richard on 20/09/2013.
-//  Copyright (c) 2013 Wimagguc.
-//
-//  Lincesed under The MIT License (MIT)
-//  http://opensource.org/licenses/MIT
-//
-
 #import <UIKit/UIKit.h>
 
 @protocol CustomIOS7AlertViewDelegate
 
-- (void)customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+@optional
+- (void)dismissAlert:(id)alertView withButtonIndex:(NSInteger)buttonIndex;
 
 @end
 
@@ -28,8 +18,9 @@
 @property (nonatomic, retain) NSArray *buttonTitles;
 @property (nonatomic, retain) NSArray *buttons;
 @property (nonatomic, assign) BOOL useMotionEffects;
+@property (nonatomic, assign) SEL methodName;
 
-@property (copy) void (^onButtonTouchUpInside)(CustomAlertView *alertView, int buttonIndex) ;
+@property (copy) void (^onButtonClick)(CustomAlertView *alertView, int buttonIndex);
 
 - (id)init;
 
@@ -37,12 +28,14 @@
  DEPRECATED: Use the [CustomIOS7AlertView init] method without passing a parent view.
  */
 - (id)initWithParentView: (UIView *)_parentView __attribute__ ((deprecated));
+- (id)initDefaultOkWithText:(NSString *)text delegate:(id)delegateClass;
+- (id)initDefaultYesCancelWithText:(NSString *)text delegate:(id)delegateClass;
+- (id)initDefaultWithText:(NSString *)text delegate:(id)delegateClass buttons:(NSArray *)titles;
 
 - (void)show;
 - (void)close;
 
 - (IBAction)customIOS7dialogButtonTouchUpInside:(id)sender;
-- (void)setOnButtonTouchUpInside:(void (^)(CustomAlertView *alertView, int buttonIndex))onButtonTouchUpInside;
 - (void)setDefaultContainerView:(NSString *)question;
 
 - (void)deviceOrientationDidChange: (NSNotification *)notification;

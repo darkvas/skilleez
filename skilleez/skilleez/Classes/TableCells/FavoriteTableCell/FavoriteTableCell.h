@@ -11,7 +11,7 @@
 #import "SimpleTableCell.h"
 #import "CustomAlertView.h"
 
-@interface FavoriteTableCell : SimpleTableCell<CustomIOS7AlertViewDelegate>
+@interface FavoriteTableCell : SimpleTableCell
 
 - (void)setSkilleezData:(FavoriteTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag;
 

@@ -95,23 +95,19 @@ const int FONT_SIZE = 24;
     [self askToInvite];
 }
 
-- (void) askToInvite
+- (void)askToInvite
 {
-    CustomAlertView *alert = [CustomAlertView new];
-    [alert setDefaultContainerView:@"Would you like to invite this user to your loop?"];
-    alert.alpha = 0.95;
-    [alert setDelegate:self];
-    [alert setUseMotionEffects:YES];
+    CustomAlertView *alert = [[CustomAlertView alloc] initDefaultYesCancelWithText:@"Would you like to invite this user to your loop?" delegate:self];
     [alert show];
 }
 
 #pragma mark - CustomIOS7AlertViewDelegate
 
-- (void)customIOS7dialogButtonTouchUpInside:(CustomAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)dismissAlert:(CustomAlertView *)alertView withButtonIndex:(NSInteger)buttonIndex
 {
     [alertView close];
     
-    if (!alertView.buttons) {
+    if (buttonIndex == 0) {
         [self sendInviteRequest];
     }
 }
@@ -132,17 +128,9 @@ const int FONT_SIZE = 24;
     }];
 }
 
-- (void) showAlertWithMessage:(NSString*) message
+- (void)showAlertWithMessage:(NSString*) message
 {
-    CustomAlertView *alert = [CustomAlertView new];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:@"Ok" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
-    alert.buttons = @[button];
-    [alert setDefaultContainerView:message];
-    alert.alpha = 0.95;
-    [alert setDelegate:self];
-    [alert setUseMotionEffects:YES];
+    CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:nil];
     [alert show];
 }
 

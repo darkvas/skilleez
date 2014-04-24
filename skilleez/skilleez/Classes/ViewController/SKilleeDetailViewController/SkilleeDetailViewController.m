@@ -77,10 +77,10 @@ typedef enum {
                                                  name:@"UIDeviceOrientationDidChangeNotification"
                                                object:nil];
     buttons = [NSMutableArray arrayWithObjects:
-               [[TableItem alloc] initWithName:@"APPROVE" image:[UIImage imageNamed:@"thumb_up_BTN-1.png"] method:@"approve"],
-               [[TableItem alloc] initWithName:@"DENY" image:[UIImage imageNamed:@"thumb_down_BTN.png"] method:@"deny"],
-               [[TableItem alloc] initWithName:@"FAVORITE" image:[UIImage imageNamed:@"star_opaque_BTN.png"] method:@"favorite"],
-               [[TableItem alloc] initWithName:@"TATTLE" image:[UIImage imageNamed:@"warning_BTN.png"] method:@"tattle"], nil];
+               [[TableItem alloc] initWithName:@"APPROVE" image:[UIImage imageNamed:@"thumb_up_BTN-1"] method:@"approve"],
+               [[TableItem alloc] initWithName:@"DENY" image:[UIImage imageNamed:@"thumb_down_BTN"] method:@"deny"],
+               [[TableItem alloc] initWithName:@"FAVORITE" image:[UIImage imageNamed:@"star_opaque_BTN"] method:@"favorite"],
+               [[TableItem alloc] initWithName:@"TATTLE" image:[UIImage imageNamed:@"warning_BTN"] method:@"tattle"], nil];
     if (!enabledApprove) {
         [buttons removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)]];
     }
@@ -132,13 +132,6 @@ typedef enum {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [buttons count];
-}
-
-#pragma mark - CustomIOS7AlertViewDelegate
-
-- (void)customIOS7dialogButtonTouchUpInside:(CustomAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    [alertView close];
 }
 
 #pragma mark - Class methods
@@ -229,11 +222,13 @@ typedef enum {
 - (void)deny
 {
     skilleeAction = SkilleeActionDeny;
+    [self approveSkilleeAndExit:NO];
 }
 
 - (void)approve
 {
     skilleeAction = SkilleeActionApprove;
+    [self approveSkilleeAndExit:YES];
 }
 
 - (void)favorite
@@ -243,15 +238,7 @@ typedef enum {
         if(requestResult.isSuccess){
             NSLog(@"Success add to Favorites: %@", skillee.Id);
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            CustomAlertView *alert = [CustomAlertView new];
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setTitle:@"Ok" forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
-            alert.buttons = @[button];
-            [alert setDefaultContainerView:@"You have added this skillee to your favorites"];
-            alert.alpha = 0.95;
-            [alert setDelegate:self];
-            [alert setUseMotionEffects:YES];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"You have added this skillee to your favorites" delegate:nil];
             [alert show];
         } else {
             NSLog(@"Failed add to Favorites: %@, error: %@", skillee.Id, requestResult.error);
@@ -267,15 +254,7 @@ typedef enum {
         if(requestResult.isSuccess){
             NSLog(@"Success mark as Tatle: %@", skillee.Id);
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            CustomAlertView *alert = [CustomAlertView new];
-            [alert setDefaultContainerView:@"You have added this skillee to tattles"];
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setTitle:@"Ok" forState:UIControlStateNormal];
-            [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
-            alert.buttons = @[button];
-            alert.alpha = 0.95;
-            [alert setDelegate:self];
-            [alert setUseMotionEffects:YES];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"You have added this skillee to tattles" delegate:nil];
             [alert show];
         } else {
             NSLog(@"Failed mark as Tatle: %@, error: %@", skillee.Id, requestResult.error);
@@ -291,12 +270,13 @@ typedef enum {
         if(requestResult.isSuccess) {
             NSLog(@"Success %@: %@", approve ? @"approved" : @"denied", skillee.Id);
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            [self.navigationController popViewControllerCustom];
+            NSString *message = [NSString stringWithFormat:@"You have %@ this skillee", approve ? @"approved" : @"denied"];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:nil];
+            [alert show];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSString* title = [NSString stringWithFormat:@"%@ failed", approve ? @"Approve" : @"Deny"];
-            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            NSString *message = [NSString stringWithFormat:@"You have not %@ this skillee. Please try again!", skilleeAction == SkilleeActionApprove ? @"approved" : @"denied"];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:nil];
             [alert show];
         }
     }];
