@@ -1,14 +1,3 @@
-//
-//  CustomIOS7AlertView.m
-//  CustomIOS7AlertView
-//
-//  Created by Richard on 20/09/2013.
-//  Copyright (c) 2013 Wimagguc.
-//
-//  Lincesed under The MIT License (MIT)
-//  http://opensource.org/licenses/MIT
-//
-
 #import "CustomAlertView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIFont+DefaultFont.h"
@@ -23,7 +12,7 @@ const static CGFloat kCustomIOS7MotionEffectExtent                 = 10.0;
 CGFloat buttonHeight = 0;
 CGFloat buttonSpacerHeight = 0;
 
-@synthesize parentView, containerView, dialogView, buttonView, onButtonTouchUpInside;
+@synthesize parentView, containerView, dialogView, buttonView, onButtonClick;
 @synthesize delegate;
 @synthesize buttonTitles;
 @synthesize buttons;
@@ -35,6 +24,44 @@ CGFloat buttonSpacerHeight = 0;
     if (_parentView) {
         self.frame = _parentView.frame;
         self.parentView = _parentView;
+    }
+    return self;
+}
+
+- (id)initDefaultWithText:(NSString *)text delegate:(id)delegateClass buttons:(NSArray *)titles
+{
+    if (self = [super init]) {
+        self.buttonTitles = titles;
+        self.delegate = delegateClass == nil ? self : delegateClass;
+        [self setDefaultContainerView:text];
+        self.alpha = 0.95;
+        [self setUseMotionEffects:YES];
+    }
+    return self;
+}
+
+- (id)initDefaultOkWithText:(NSString *)text delegate:(id)delegateClass
+{
+    if (self = [super init]) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setTitle:@"Ok" forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
+        self.buttons = @[button];
+        self.delegate = delegateClass == nil ? self : delegateClass;
+        [self setDefaultContainerView:text];
+        self.alpha = 0.95;
+        [self setUseMotionEffects:YES];
+    }
+    return self;
+}
+
+- (id)initDefaultYesCancelWithText:(NSString *)text delegate:(id)delegateClass
+{
+    if (self = [super init]) {
+        [self setDefaultContainerView:text];
+        self.alpha = 0.95;
+        self.delegate = delegateClass == nil ? self : delegateClass;
+        [self setUseMotionEffects:YES];
     }
     return self;
 }
@@ -123,12 +150,17 @@ CGFloat buttonSpacerHeight = 0;
 - (IBAction)customIOS7dialogButtonTouchUpInside:(id)sender
 {
     if (delegate != NULL) {
-        [delegate customIOS7dialogButtonTouchUpInside:self clickedButtonAtIndex:[sender tag]];
+        [delegate dismissAlert:self withButtonIndex:[sender tag]];
     }
 
-    if (onButtonTouchUpInside != NULL) {
-        onButtonTouchUpInside(self, [sender tag]);
+    if (onButtonClick != NULL) {
+        onButtonClick(self, [sender tag]);
     }
+}
+
+- (void)dismissAlert:(CustomAlertView *)alertView withButtonIndex:(NSInteger)buttonIndex
+{
+    [self close];
 }
 
 // Default button behaviour
@@ -269,7 +301,7 @@ CGFloat buttonSpacerHeight = 0;
 // Roma's function: add custom buttons to container
 - (void)addCustomButtonsToView:(UIView *)container
 {
-    if (buttons != nil)
+    if (buttons != nil || buttonTitles != nil)
         return;
     CGFloat buttonWidth = container.bounds.size.width / 2;
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -338,13 +370,8 @@ CGFloat buttonSpacerHeight = 0;
 // Helper function: count and return the screen's size
 - (CGSize)countScreenSize
 {
-    if (buttonTitles == nil || [buttons count] > 0) {
-        buttonHeight       = kCustomIOS7AlertViewDefaultButtonHeight;
-        buttonSpacerHeight = kCustomIOS7AlertViewDefaultButtonSpacerHeight;
-    } else {
-        buttonHeight = 0;
-        buttonSpacerHeight = 0;
-    }
+    buttonHeight       = kCustomIOS7AlertViewDefaultButtonHeight;
+    buttonSpacerHeight = kCustomIOS7AlertViewDefaultButtonSpacerHeight;
 
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;

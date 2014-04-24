@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "FamilyMemberModel.h"
+#import "ActivityIndicatorController.h"
 
 extern const float CORNER_RADIUS_CP;
 extern const int FONT_SIZE_CP;
 
 @interface ChildProfileViewController : UIViewController
 
-- (id)initWithFamilyMember:(FamilyMemberModel *)familyMember andShowFriends:(BOOL) showFriendsFamily;
+- (id)initWithFamilyMemberId:(NSString *)familyMemberId andShowFriends:(BOOL) showFriendsFamily;
 
 @end

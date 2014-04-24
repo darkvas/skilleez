@@ -60,5 +60,9 @@ typedef void (^requestCallBack)(RequestResult* requestResult);
 
 -(void) postInviteToLoopByUserId: (NSString*) userId withCallBack: (requestCallBack) callBack;
 -(void) postInviteToLoopByEmail: (NSString*) email withCallBack: (requestCallBack) callBack;
+- (void)postAcceptInvitationToLoop:(NSString *)invitationId withCallBack:(requestCallBack)callBack;
+- (void)postDeclineInvitationToLoop:(NSString *)invitationId withCallBack:(requestCallBack)callBack;
+- (void)postApproveInvitationToLoop:(NSString *)invitationId withCallBack:(requestCallBack)callBack;
+- (void)postDisapproveInvitationToLoop:(NSString *)invitationId withCallBack:(requestCallBack)callBack;
 
 @end

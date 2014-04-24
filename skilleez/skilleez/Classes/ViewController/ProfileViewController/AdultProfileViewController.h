@@ -13,7 +13,7 @@
 extern const float CORNER_RADIUS_AP;
 extern const int FONT_SIZE_AP;
 
-@interface AdultProfileViewController : UIViewController<CustomIOS7AlertViewDelegate>
+@interface AdultProfileViewController : UIViewController
 
 - (id)initWithFamilyMember:(FamilyMemberModel *)familyMember;
 

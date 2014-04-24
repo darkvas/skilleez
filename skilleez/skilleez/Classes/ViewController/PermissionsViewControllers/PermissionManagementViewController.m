@@ -13,7 +13,6 @@
 #import "ActivityIndicatorController.h"
 #import "CustomAlertView.h"
 #import "UserSettingsManager.h"
-#import "CustomAlertView.h"
 #import "ColorManager.h"
 
 const float CORNER_RADIUS_PM = 3.f;
@@ -148,21 +147,8 @@ const NSString* DEFAULT_PERMISSION_ID = @"0";
 
 - (void) showAlertWithMessage:(NSString*) message
 {
-    CustomAlertView *alert = [CustomAlertView new];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:@"Ok" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
-    alert.buttons = @[button];
-    [alert setDefaultContainerView:message];
-    alert.alpha = 0.95;
-    [alert setDelegate:self];
-    [alert setUseMotionEffects:YES];
+    CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:nil];
     [alert show];
-}
-
--(void) customIOS7dialogButtonTouchUpInside:(id)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    [alertView close];
 }
 
 - (void)showState:(BOOL)state forButton:(UIButton *)button

@@ -8,12 +8,12 @@
 
 #import "ChildApprovalViewController.h"
 
-static NSString *cellName = @"ChildApprovalTableCell";
+static NSString *skilleeCellName = @"ChildApprovalTableCell";
+static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 
 @interface ChildApprovalViewController () {
-    NSMutableArray *items;
-    int count, offset;
-    BOOL canLoadOnScroll;
+    NSMutableArray *_items;
+    BOOL _showView;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -35,16 +35,17 @@ static NSString *cellName = @"ChildApprovalTableCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    canLoadOnScroll = YES;
-    offset = 0;
-    count = NUMBER_OF_ITEMS;
+    _showView = YES;
+    UINib *nib = [UINib nibWithNibName:skilleeCellName bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:skilleeCellName];
+    nib = [UINib nibWithNibName:invitationCellName bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:invitationCellName];
     [self loadWaitingForApprovalList];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self loadWaitingForApprovalInBackground:(count + offset) offset:0];
+    //[self loadWaitingForApprovalInBackground:(count + offset) offset:0];
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,7 +63,7 @@ static NSString *cellName = @"ChildApprovalTableCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[items objectAtIndex:indexPath.row] andApproveOpportunity:YES];
+    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[_items objectAtIndex:indexPath.row] andApproveOpportunity:YES];
     [self.parent.navigationController pushViewController:detail animated:YES];
 }
 
@@ -70,33 +71,25 @@ static NSString *cellName = @"ChildApprovalTableCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellName];
-    if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:cellName owner:self options:nil];
-        cell = [nib objectAtIndex:0];
+    if ([[_items objectAtIndex:indexPath.row] isKindOfClass:[SkilleeModel class]]) {
+        SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:skilleeCellName];
         cell.delegate = self;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(selectProfile:)];
         [cell.avatarImg addGestureRecognizer:tap];
+        [cell setSkilleezData:cell andSkilleez:[_items objectAtIndex:indexPath.row] andTag:indexPath.row];
+        return cell;
+    } else {
+        InviteToLoopApprovalTableCell *cell = [tableView dequeueReusableCellWithIdentifier:invitationCellName];
+        cell.delegate = self;
+        LoopInvitationModel *invitation = [_items objectAtIndex:indexPath.row];
+        [cell fillCellForInviteeChild:invitation andTag:indexPath.row];
+        return cell;
     }
-    [cell setSkilleezData:cell andSkilleez:[items objectAtIndex:indexPath.row] andTag:indexPath.row];
-    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [items count];
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (self.tableView.contentSize.height - self.tableView.contentOffset.y == 504 && canLoadOnScroll) {
-        count = NUMBER_OF_ITEMS;
-        offset = [items count];
-        [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-        [self loadWaitingForApprovalList];
-    }
+    return [_items count];
 }
 
 #pragma mark - SimpleTableCellDelegate
@@ -108,9 +101,6 @@ static NSString *cellName = @"ChildApprovalTableCell";
 
 - (void)didSkiilleSelect:(SkilleeModel *)skillee
 {
-    offset = 0;
-    count = NUMBER_OF_ITEMS;
-    canLoadOnScroll = NO;
     [self loadWaitingForApprovalList];
 }
 
@@ -118,25 +108,21 @@ static NSString *cellName = @"ChildApprovalTableCell";
 
 - (void)loadWaitingForApprovalList
 {
-    [[NetworkManager sharedInstance]  getWaitingForApprovalSkilleez:count offset:offset withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getWaitingForApprovalList:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             NSArray* skilleeList = requestResult.returnArray;
-            if (offset > 0) {
-                [items addObjectsFromArray:skilleeList];
-                [self.tableView reloadData];
-                
-            } else if (![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:items] && [skilleeList count] > 0) {
-                items = [NSMutableArray arrayWithArray:skilleeList];
+            if (![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:_items] && [skilleeList count] > 0) {
+                _items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
             }
-            canLoadOnScroll = YES;
-            [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
         } else {
             [[UtilityController sharedInstance] showFailureAlert:requestResult.error withCaption:@"Load loop failed"];
         }
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        if (offset == 0)
+        if (_showView) {
             [[UtilityController sharedInstance] showAnotherViewController:self];
+            _showView = NO;
+        }
     }];
 }
 
@@ -145,20 +131,15 @@ static NSString *cellName = @"ChildApprovalTableCell";
     [[NetworkManager sharedInstance] getWaitingForApprovalSkilleez:counts offset:offsets withCallBack:^(RequestResult *requestResult) {
         if(requestResult.isSuccess) {
             NSArray* skilleeList = requestResult.returnArray;
-            if (![[UtilityController sharedInstance] isArrayEquals:items toOther:skilleeList]) {
-                items = [NSMutableArray arrayWithArray:skilleeList];
+            if (![[UtilityController sharedInstance] isArrayEquals:_items toOther:skilleeList]) {
+                _items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
-                [[UtilityController sharedInstance] setBadgeValue:[items count] forController:self.parent];
+                [[UtilityController sharedInstance] setBadgeValue:[_items count] forController:self.parent];
             }
         } else {
             NSLog(@"loadSkilleeInBackground error: %@", requestResult.error);
         }
     }];
-}
-
-- (void)allowLoadOnScroll
-{
-    canLoadOnScroll = YES;
 }
 
 @end

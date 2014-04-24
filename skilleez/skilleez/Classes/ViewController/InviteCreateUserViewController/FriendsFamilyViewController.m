@@ -145,13 +145,13 @@
             AdultProfileViewController *adultProfileView = [[AdultProfileViewController alloc] initWithFamilyMember:_adultMembers[indexPath.row]];
             [self.navigationController pushViewController:adultProfileView animated:YES];
         } else {
-            ChildProfileViewController *profileView = [[ChildProfileViewController alloc] initWithFamilyMember:_adultMembers[indexPath.row]
-                                                                                                     andShowFriends:NO];
+            ChildProfileViewController *profileView = [[ChildProfileViewController alloc] initWithFamilyMemberId:((FamilyMemberModel *)_adultMembers[indexPath.row]).Id andShowFriends:NO];
+            [[ActivityIndicatorController sharedInstance] startActivityIndicator:profileView];
             [self.navigationController pushViewController:profileView animated:YES];
         }
     } else {
-        ChildProfileViewController *childProfileView = [[ChildProfileViewController alloc] initWithFamilyMember:_childrenMembers[indexPath.row]
-                                                                                                 andShowFriends:NO];
+        ChildProfileViewController *childProfileView = [[ChildProfileViewController alloc] initWithFamilyMemberId:((FamilyMemberModel *)_childrenMembers[indexPath.row]).Id andShowFriends:NO];
+        [[ActivityIndicatorController sharedInstance] startActivityIndicator:childProfileView];
         [self.navigationController pushViewController:childProfileView animated:YES];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

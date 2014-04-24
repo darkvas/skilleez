@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "LoopInvitationModel.h"
 #import "SimpleTableCell.h"
+#import "NetworkManager.h"
 
 @protocol InviteToLoopDelegate <NSObject>
 
 - (void)didViewProfile:(NSInteger)index;
+- (void)didActionSuccess;
 
 @end
 
@@ -20,6 +22,7 @@
 
 @property (nonatomic,strong) id delegate;
 
-- (void)fillCell:(LoopInvitationModel *)invitation andTag:(NSInteger)tag;
+- (void)fillCell:(LoopInvitationModel *)invitation forAdultOfInvitor:(BOOL)isInvitor andTag:(NSInteger)tag;
+- (void)fillCellForInviteeChild:(LoopInvitationModel *)invitation andTag:(NSInteger)tag;
 
 @end

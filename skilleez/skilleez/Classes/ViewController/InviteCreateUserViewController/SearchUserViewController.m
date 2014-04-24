@@ -95,23 +95,8 @@
 
 - (void) showAlertNotFoundUser
 {
-    CustomAlertView *alert = [CustomAlertView new];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:@"Ok" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:0.27 green:0.53 blue:0.95 alpha:1.0] forState:UIControlStateNormal];
-    alert.buttons = @[button];
-    [alert setDefaultContainerView:@"Not found such user"];
-    alert.alpha = 0.95;
-    [alert setDelegate:self];
-    [alert setUseMotionEffects:YES];
+    CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Not found such user" delegate:nil];
     [alert show];
-}
-
-#pragma mark - CustomIOS7AlertViewDelegate
-
-- (void)customIOS7dialogButtonTouchUpInside:(CustomAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    [alertView close];
 }
 
 @end
