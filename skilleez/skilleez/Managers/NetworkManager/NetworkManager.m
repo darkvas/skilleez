@@ -931,6 +931,8 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
      }];
 }
 
+#pragma mark - Invitation to loop
+
 - (void) getPendingInvitations:(int)count offset:(int)offset withCallBack:(requestCallBack)callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
