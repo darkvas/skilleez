@@ -45,15 +45,6 @@ static NSString *GET_WAITING_FOR_APPROVAL_INVITATIONS_URI = @"api/Loop/GetWaitin
 static NSString *POST_FOLLOW_USER = @"api/Loop/FollowUser";
 static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 
-/*
-GET api/Loop/GetLoopById/{Id}?Count={Count}&Offset={Offset}
-GET api/Loop/GetPendingInvitationsToLoop?Count={Count}&Offset={Offset}
-GET api/Loop/GetWaitingForApprovalInvitationsToLoop?Count={Count}&Offset={Offset}
-POST api/Loop/InviteToLoopByUserId
-POST api/Loop/InviteToLoopByEmail
-POST api/Loop/AcceptInvitationToLoop
-POST api/Loop/DeclineInvitationToLoop*/
-
 static NSString *GET_PENDING_INVITATIONS_TO_LOOP = @"api/Loop/GetPendingInvitationsToLoop";
 static NSString *GET_WAITING_FOR_APPROVAL_INVITATIONS_TO_LOOP = @"api/Loop/GetWaitingForApprovalInvitationsToLoop";
 static NSString *POST_INVITE_TO_LOOP_BY_USERID = @"api/Loop/InviteToLoopByUserId";
@@ -295,6 +286,12 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
                                                                             pathPattern:GET_WAITING_FOR_APPROVAL_LIST_URI
                                                                                 keyPath:@"ReturnValue.Skilleez"
                                                                             statusCodes:RKStatusCodeIndexSetForClass (RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:invitationMapping
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_PENDING_INVITATIONS_TO_LOOP
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
 
 }
 
@@ -902,6 +899,28 @@ static NSString *POST_DECLINE_INVITATION_TO_LOOP = @"api/Loop/DeclineInvitationT
          }
          
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:friends]);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+- (void) getPendingInvitations:(int)count offset:(int)offset withCallBack:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?count=%i&offset=%i", GET_PENDING_INVITATIONS_TO_LOOP, count, offset]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         NSMutableArray* pendingInvitations = [NSMutableArray new];
+         for (NSObject* obj in mappingResult.array) {
+             if([obj isKindOfClass:[LoopInvitationModel class]])
+                 [pendingInvitations addObject:obj];
+         }
+         
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:pendingInvitations]);});
      }
                       failure:^(RKObjectRequestOperation * operaton, NSError * error)
      {
