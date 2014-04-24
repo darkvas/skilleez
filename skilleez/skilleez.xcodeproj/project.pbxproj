@@ -259,6 +259,10 @@
 		84D9E10A18CA01CC00516E2D /* skilleez_spotlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10818CA01CC00516E2D /* skilleez_spotlight@2x.png */; };
 		84D9E10D18CA01D800516E2D /* BG_loading_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10B18CA01D800516E2D /* BG_loading_img.png */; };
 		84D9E10E18CA01D800516E2D /* BG_loading_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D9E10C18CA01D800516E2D /* BG_loading_img@2x.png */; };
+		84DA15FC1908096400C6A40B /* PendingInvitationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DA15FB1908096400C6A40B /* PendingInvitationCell.m */; };
+		84DA15FE1908098B00C6A40B /* PendingInvitationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DA15FD1908098B00C6A40B /* PendingInvitationCell.xib */; };
+		84DA1E7C1908FAFE00503BC5 /* AcceptInvitationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DA1E7A1908FAFE00503BC5 /* AcceptInvitationViewController.m */; };
+		84DA1E7D1908FAFE00503BC5 /* AcceptInvitationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DA1E7B1908FAFE00503BC5 /* AcceptInvitationViewController.xib */; };
 		84DA71AB18EED0CB0013AECD /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DA71AA18EED0CB0013AECD /* KeyboardViewController.m */; };
 		84DA71AE18EED8750013AECD /* ActivityIndicatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DA71AD18EED8750013AECD /* ActivityIndicatorController.m */; };
 		84DE0F5A18FD10FC0066E2C8 /* RequestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DE0F5918FD10FC0066E2C8 /* RequestResult.m */; };
@@ -681,6 +685,12 @@
 		84D9E10818CA01CC00516E2D /* skilleez_spotlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skilleez_spotlight@2x.png"; sourceTree = "<group>"; };
 		84D9E10B18CA01D800516E2D /* BG_loading_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BG_loading_img.png; sourceTree = "<group>"; };
 		84D9E10C18CA01D800516E2D /* BG_loading_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BG_loading_img@2x.png"; sourceTree = "<group>"; };
+		84DA15FA1908096400C6A40B /* PendingInvitationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PendingInvitationCell.h; sourceTree = "<group>"; };
+		84DA15FB1908096400C6A40B /* PendingInvitationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PendingInvitationCell.m; sourceTree = "<group>"; };
+		84DA15FD1908098B00C6A40B /* PendingInvitationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PendingInvitationCell.xib; sourceTree = "<group>"; };
+		84DA1E791908FAFE00503BC5 /* AcceptInvitationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptInvitationViewController.h; sourceTree = "<group>"; };
+		84DA1E7A1908FAFE00503BC5 /* AcceptInvitationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptInvitationViewController.m; sourceTree = "<group>"; };
+		84DA1E7B1908FAFE00503BC5 /* AcceptInvitationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptInvitationViewController.xib; sourceTree = "<group>"; };
 		84DA71A918EED0CB0013AECD /* KeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
 		84DA71AA18EED0CB0013AECD /* KeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
 		84DA71AC18EED8750013AECD /* ActivityIndicatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorController.h; sourceTree = "<group>"; };
@@ -904,6 +914,7 @@
 		149232A818D73A40001BAE8C /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
+				84DA15F61908090800C6A40B /* PendingInvitationCell */,
 				75A48EDA190134C4008AFBFD /* MoreButtonTableCell */,
 				14B0DFFA18F9236500B85DFB /* LoopApprovalTableCell */,
 				140CDE7D18E965CC001E97A7 /* EditPermissionTableCell */,
@@ -1507,6 +1518,16 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		84DA15F61908090800C6A40B /* PendingInvitationCell */ = {
+			isa = PBXGroup;
+			children = (
+				84DA15FA1908096400C6A40B /* PendingInvitationCell.h */,
+				84DA15FB1908096400C6A40B /* PendingInvitationCell.m */,
+				84DA15FD1908098B00C6A40B /* PendingInvitationCell.xib */,
+			);
+			path = PendingInvitationCell;
+			sourceTree = "<group>";
+		};
 		84DA71A818EED0890013AECD /* HelpersViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1637,6 +1658,9 @@
 				14B1182B18F3BF5F002C022C /* ChildFamilyViewController.h */,
 				14B1182C18F3BF5F002C022C /* ChildFamilyViewController.m */,
 				14B1182D18F3BF5F002C022C /* ChildFamilyViewController.xib */,
+				84DA1E791908FAFE00503BC5 /* AcceptInvitationViewController.h */,
+				84DA1E7A1908FAFE00503BC5 /* AcceptInvitationViewController.m */,
+				84DA1E7B1908FAFE00503BC5 /* AcceptInvitationViewController.xib */,
 			);
 			path = InviteCreateUserViewController;
 			sourceTree = "<group>";
@@ -1796,6 +1820,7 @@
 				149232B818D73A40001BAE8C /* ChildApprovalTableCell.xib in Resources */,
 				14C8F37118DC3F6E0052E915 /* circle_delete@2x.png in Resources */,
 				14BCE6F218D9EEA40047F490 /* create_BTN.png in Resources */,
+				84DA15FE1908098B00C6A40B /* PendingInvitationCell.xib in Resources */,
 				1494F26918DAE31D00728C1B /* thumb_down_BTN_press@2x.png in Resources */,
 				84E3E12E18E45640000D8D0D /* adult_icon@2x.png in Resources */,
 				750560F0190650D50079B427 /* events_icon@2x.png in Resources */,
@@ -1810,6 +1835,7 @@
 				140CDE9418EA930C001E97A7 /* permit_icon.png in Resources */,
 				1494F27718DAF0AB00728C1B /* back_BTN_press@2x.png in Resources */,
 				84E3E15018E45640000D8D0D /* yes(check)_white@2x.png in Resources */,
+				84DA1E7D1908FAFE00503BC5 /* AcceptInvitationViewController.xib in Resources */,
 				14B0DFD918F7CEEB00B85DFB /* food_pop_corn_icon.png in Resources */,
 				140CDE9218EA930C001E97A7 /* email_icon.png in Resources */,
 				14B0DFE818F7CEEB00B85DFB /* sport_skate_icon.png in Resources */,
@@ -2062,6 +2088,7 @@
 				149232B718D73A40001BAE8C /* ChildApprovalTableCell.m in Sources */,
 				84D9E05F18C9C3D500516E2D /* AppDelegate.m in Sources */,
 				750560FA1906527E0079B427 /* LoopInvitationModel.m in Sources */,
+				84DA15FC1908096400C6A40B /* PendingInvitationCell.m in Sources */,
 				849D2DBB18E1C4CB00828ED4 /* FamilyMemberModel.m in Sources */,
 				1492329E18D6DD90001BAE8C /* UIFont+DefaultFont.m in Sources */,
 				84CEC78D18E2DF3D00DD55B5 /* NewUserTypeView.m in Sources */,
@@ -2083,6 +2110,7 @@
 				84CEC79218E2FD1400DD55B5 /* CreateChildViewController.m in Sources */,
 				140CDE7B18E958D0001E97A7 /* PermissionManagementViewController.m in Sources */,
 				84D6CE1818D1BE6D008ABB5E /* NetworkManager.m in Sources */,
+				84DA1E7C1908FAFE00503BC5 /* AcceptInvitationViewController.m in Sources */,
 				84EA05CE18D6FC3A008D940D /* UserSettingsManager.m in Sources */,
 				14D5736D18EBFAF600E0137C /* ChildProfileViewController.m in Sources */,
 				140CDE7618E9589D001E97A7 /* EditPermissionViewController.m in Sources */,

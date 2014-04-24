@@ -8,11 +8,17 @@
 
 #import "PendingInvitationsViewController.h"
 #import "NavigationBarView.h"
+#import "NetworkManager.h"
+#import "PendingInvitationCell.h"
+#import "AcceptInvitationViewController.h"
+#import "LoopInvitationModel.h"
 
 @interface PendingInvitationsViewController ()
 {
-    NSArray *tableData;
+    NSArray *_pendingInvitations;
 }
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -25,12 +31,25 @@
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Pending Invitations" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self loadPendingInvitations];
 }
 
-- (void)didReceiveMemoryWarning
+- (void) loadPendingInvitations
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [[NetworkManager sharedInstance] getPendingInvitations:20 offset:0 withCallBack:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            _pendingInvitations = requestResult.returnArray;
+            [self.tableView reloadData];
+        } else {
+            
+        }
+    }];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{    
+    [self loadPendingInvitations];
 }
 
 - (void) cancel
@@ -45,30 +64,32 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return tableData.count;
+    return _pendingInvitations.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return  55.0f;
+    return  100.0f;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSString* className = @"FamilyMemberCell";
-    
-    /*FamilyMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:className];
+    PendingInvitationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PendingInvitationCell"];
     if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PendingInvitationCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
-        cell.delegate = self;
     }
     
-    if(indexPath.section == 0)
-        [cell setMemberData:[_adultMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
-    else
-        [cell setMemberData:[_childrenMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
-    */
-    return [UITableViewCell new];
+    [cell fillCell:cell withInvitation:_pendingInvitations[indexPath.row]];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    LoopInvitationModel* invitation = _pendingInvitations[indexPath.row];
+    AcceptInvitationViewController *acceptInviteView = [[AcceptInvitationViewController alloc] initWithInvitation:invitation];
+    [self.navigationController pushViewController:acceptInviteView animated:YES];
 }
 
 @end

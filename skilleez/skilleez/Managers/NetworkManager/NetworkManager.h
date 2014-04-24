@@ -32,6 +32,7 @@ typedef void (^requestCallBack)(RequestResult* requestResult);
 - (void)getWaitingForApprovalList:(requestCallBack)callBack;
 -(void) getWaitingForApprovalCount: (requestCallBack) callBack;
 -(void) getFavoriteList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
+- (void) getPendingInvitations:(int)count offset:(int)offset withCallBack:(requestCallBack)callBack;
 
 -(void) postCreateSkillee:(SkilleeRequest*) skilleeRequest withCallBack: (requestCallBack) callBack;
 -(void) postRemoveSkillee:(NSString*) skilleeId withCallBack: (requestCallBack) callBack;
