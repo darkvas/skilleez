@@ -13,6 +13,8 @@
 #import "UserSettingsManager.h"
 #import "SkilleeDetailViewController.h"
 #import "ActivityIndicatorController.h"
+#import "UtilityController.h"
+#import "CustomAlertView.h"
 
 const int NUMBER_OF_ITEMS_SL = 5;
 
@@ -155,8 +157,7 @@ const int NUMBER_OF_ITEMS_SL = 5;
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load Skilleez failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Load Skilleez failed" delegate:nil];
             [alert show];
         }
     }];

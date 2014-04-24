@@ -583,8 +583,8 @@
 		75EC296218FFE4AE007409BD /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		75EC296318FFE4AE007409BD /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
 		75EC296418FFE4AE007409BD /* FavoriteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoriteViewController.xib; sourceTree = "<group>"; };
-		75EC296718FFF44F007409BD /* UtilityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityController.h; sourceTree = "<group>"; };
-		75EC296818FFF44F007409BD /* UtilityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityController.m; sourceTree = "<group>"; };
+		75EC296718FFF44F007409BD /* UtilityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UtilityController.h; path = ../LoopActivityViewController/UtilityController.h; sourceTree = "<group>"; };
+		75EC296818FFF44F007409BD /* UtilityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UtilityController.m; path = ../LoopActivityViewController/UtilityController.m; sourceTree = "<group>"; };
 		75EC296A18FFFAF0007409BD /* LoopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopViewController.h; sourceTree = "<group>"; };
 		75EC296B18FFFAF0007409BD /* LoopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoopViewController.m; sourceTree = "<group>"; };
 		75EC296C18FFFAF0007409BD /* LoopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoopViewController.xib; sourceTree = "<group>"; };
@@ -1318,8 +1318,6 @@
 				84D6CE2018D1BF1F008ABB5E /* HomeViewController.h */,
 				84D6CE2118D1BF1F008ABB5E /* HomeViewController.m */,
 				84D6CE2218D1BF1F008ABB5E /* HomeViewController.xib */,
-				75EC296718FFF44F007409BD /* UtilityController.h */,
-				75EC296818FFF44F007409BD /* UtilityController.m */,
 			);
 			name = HomeViewController;
 			path = LoopActivityViewController;
@@ -1514,6 +1512,8 @@
 			children = (
 				84DA71A918EED0CB0013AECD /* KeyboardViewController.h */,
 				84DA71AA18EED0CB0013AECD /* KeyboardViewController.m */,
+				75EC296718FFF44F007409BD /* UtilityController.h */,
+				75EC296818FFF44F007409BD /* UtilityController.m */,
 				84DA71AC18EED8750013AECD /* ActivityIndicatorController.h */,
 				84DA71AD18EED8750013AECD /* ActivityIndicatorController.m */,
 			);

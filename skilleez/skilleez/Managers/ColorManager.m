@@ -10,12 +10,12 @@
 
 @implementation ColorManager
 
-+(UIColor *) colorForSelectedPermission
++ (UIColor *)colorForSelectedPermission
 {
     return [UIColor colorWithRed:0.96 green:0.77 blue:0.18 alpha:1.0];
 }
 
-+(UIColor *) colorForUnselectedPermission
++ (UIColor *)colorForUnselectedPermission
 {
     return [UIColor colorWithRed:0.81 green:0.81 blue:0.81 alpha:1.0];
 }

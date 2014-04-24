@@ -18,6 +18,8 @@
 #import "SettingsViewController.h"
 #import "UserSettingsManager.h"
 #include "UINavigationController+Push.h"
+#import "UtilityController.h"
+#import "CustomAlertView.h"
 
 const float CORNER_RADIUS_CP = 5.f;
 const int FONT_SIZE_CP = 22;
@@ -70,7 +72,7 @@ const int FONT_SIZE_CP = 22;
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:@"Problem with loading user data. Try again!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Problem with loading user data. Try again!" delegate:nil];
             [alert show];
         }
     }];

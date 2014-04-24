@@ -103,4 +103,9 @@
     home.currentViewController = child;
 }
 
+- (NSString *)getErrorMessage:(NSError *)error
+{
+    return [[NSJSONSerialization JSONObjectWithData:[((NSString *)error.userInfo[NSLocalizedRecoverySuggestionErrorKey]) dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil] objectForKey:@"ErrorMessage"];
+}
+
 @end

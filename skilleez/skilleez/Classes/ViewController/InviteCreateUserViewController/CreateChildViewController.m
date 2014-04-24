@@ -10,6 +10,8 @@
 #import "NavigationBarView.h"
 #import "NetworkManager.h"
 #import "UIFont+DefaultFont.h"
+#import "CustomAlertView.h"
+#import "UtilityController.h"
 #import "ActivityIndicatorController.h"
 
 @interface CreateChildViewController ()
@@ -37,7 +39,7 @@
 
 #pragma mark - UIAlerViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)dismissAlert:(CustomAlertView *)alertView withButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
         self.tfAccoundPass.text = @"";
@@ -100,6 +102,7 @@
 
 - (IBAction)createUserPressed:(id)sender
 {
+    [self closeKeyboard];
     NSString* childName = _tfAccountId.text;
     NSString* childPass = _tfAccoundPass.text;
     
@@ -107,13 +110,11 @@
     [[NetworkManager sharedInstance] postAddChildToFamily:childName withPass:childPass withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSString* message = [NSString stringWithFormat:@"Child username: %@ and password: %@", childName, childPass];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Create Child success" delegate:self];
             [alert show];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create Child failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Create Child failed" delegate:nil];
             [alert show];
         }
     }];

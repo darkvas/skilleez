@@ -120,10 +120,7 @@ const int FONT_SIZE = 24;
         if (requestResult.isSuccess) {
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
-            if([message isEqualToString:@"Expected status code in (200-299), got 500"])
-                message = @"May be you send invite before";
-            [self showAlertWithMessage: message];
+            [self showAlertWithMessage: @"May be you send invite before"];
         }
     }];
 }

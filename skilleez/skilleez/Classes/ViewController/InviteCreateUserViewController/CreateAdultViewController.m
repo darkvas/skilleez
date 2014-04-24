@@ -10,6 +10,8 @@
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
+#import "UtilityController.h"
+#import "CustomAlertView.h"
 #import "ActivityIndicatorController.h"
 
 @interface CreateAdultViewController ()
@@ -36,7 +38,7 @@
 
 #pragma mark - UIAlerViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)dismissAlert:(CustomAlertView *)alertView withButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
         self.tfUserEmail.text = @"";
@@ -91,19 +93,18 @@
 
 -(IBAction)inviteUserPressed:(id)sender
 {
+    [self closeKeyboard];
     NSString* email = self.tfUserEmail.text;
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postInviteAdultToFamily: email withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSString* message = [NSString stringWithFormat:@"Send invite to email: %@", email];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult success" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Invite Adult success" delegate:nil];
             [alert show];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invite Adult failed" message: message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Invite Adult failed" delegate:nil];
             [alert show];
         }
     }];

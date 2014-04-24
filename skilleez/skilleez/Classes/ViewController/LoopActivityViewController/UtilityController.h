@@ -25,4 +25,6 @@
 - (void)showFailureAlert:(NSError *)error withCaption:(NSString *)caption;
 - (void)setBadgeValue:(int)value forController:(UIViewController *)homeController;
 - (void)showAnotherViewController:(UIViewController *)child;
+- (NSString *)getErrorMessage:(NSError *)error;
+
 @end

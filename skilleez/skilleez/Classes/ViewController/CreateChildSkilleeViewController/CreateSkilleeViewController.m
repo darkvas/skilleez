@@ -12,6 +12,8 @@
 #import "UserSettingsManager.h"
 #import "ActivityIndicatorController.h"
 #import "FamilyMemberCell.h"
+#import "CustomAlertView.h"
+#import "UtilityController.h"
 
 @interface CreateSkilleeViewController (){
     UIImagePickerController *imagePicker;
@@ -277,11 +279,7 @@
             [self clearFields];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Launch failed"
-                                                            message:@"Launch skillee failed"
-                                                           delegate:self
-                                                  cancelButtonTitle:nil
-                                                  otherButtonTitles:@"OK", nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Launch skillee failed" delegate:nil];
             [alert show];
         }
     }];

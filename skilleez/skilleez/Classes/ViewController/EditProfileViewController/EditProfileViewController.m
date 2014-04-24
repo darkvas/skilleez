@@ -15,6 +15,8 @@
 #import "NetworkManager.h"
 #import "ProfileInfo.h"
 #import "ActivityIndicatorController.h"
+#import "CustomAlertView.h"
+#import "UtilityController.h"
 #import "SkilleezListViewController.h"
 
 enum {
@@ -373,8 +375,7 @@ enum {
             [self done];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
             [alert show];
         }
     }];
@@ -384,9 +385,8 @@ enum {
 {
     NSData* imageData = UIImageJPEGRepresentation(self.userAvatarImg.image, 1.0f);
     [[NetworkManager sharedInstance] postProfileImage:imageData withCallBack:^(RequestResult *requestResult) {
-        if (! requestResult.isSuccess) {
-            NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Load image failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        if (!requestResult.isSuccess) {
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
             [alert show];
         }
     }];

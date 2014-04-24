@@ -9,6 +9,8 @@
 #import "InviteToLoopApprovalTableCell.h"
 #import "UIFont+DefaultFont.h"
 #import "UserSettingsManager.h"
+#import "UtilityController.h"
+#import "CustomAlertView.h"
 
 @interface InviteToLoopApprovalTableCell() {
     LoopInvitationModel *_invitation;
@@ -93,7 +95,7 @@
             [self.delegate didActionSuccess];
         } else {
             NSLog(@"Fail post approve invitation to loop");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"An error has occured" message:@"Houston we had a problem" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
             [alert show];
         }
     }];
@@ -106,7 +108,7 @@
             [self.delegate didActionSuccess];
         } else {
             NSLog(@"Fail post disapprove invitation to loop");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"An error has occured" message:@"Houston we had a problem" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
             [alert show];
         }
     }];
@@ -119,7 +121,7 @@
             [self.delegate didActionSuccess];
         } else {
             NSLog(@"Fail post accept invitation to loop");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"An error has occured" message:@"Houston we had a problem" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
             [alert show];
         }
     }];
@@ -132,7 +134,7 @@
             [self.delegate didActionSuccess];
         } else {
             NSLog(@"Fail post decline invitation to loop");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"An error has occured" message:@"Houston we had a problem" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
             [alert show];
         }
     }];

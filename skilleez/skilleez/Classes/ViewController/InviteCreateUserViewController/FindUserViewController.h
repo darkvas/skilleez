@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ProfileInfo.h"
 #import "CustomAlertView.h"
+#import "UtilityController.h"
 
 @interface FindUserViewController : UIViewController
 

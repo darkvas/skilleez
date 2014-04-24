@@ -36,10 +36,7 @@
                 HomeViewController *loop = [HomeViewController new];
                 [self.navigationController pushViewController:loop animated:YES];
             } else {
-                NSString* message = requestResult.error.userInfo[NSLocalizedDescriptionKey];
-                if([message isEqualToString:@"Expected status code in (200-299), got 401"])
-                    message = @"Incorrect login or password";
-                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Incorrect login or password" delegate:nil];
                 [alert show];
             }
         }];

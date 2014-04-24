@@ -11,6 +11,8 @@
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 #import "UserSettingsManager.h"
+#import "CustomAlertView.h"
+#import "UtilityController.h"
 #import "ActivityIndicatorController.h"
 
 static NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Register";
@@ -103,10 +105,7 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
             HomeViewController *loop = [HomeViewController new];
             [self.navigationController pushViewController:loop animated:YES];
         } else {
-            NSString* message = requestReturn.error.userInfo[NSLocalizedDescriptionKey];
-            if([message isEqualToString:@"Expected status code in (200-299), got 401"])
-                message = @"Incorrect login or password";
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Login failed" message:message delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestReturn.error] delegate:nil];
             [alert show];
         }
     }];
