@@ -31,7 +31,7 @@
 {
     self.labelName.font = [UIFont getDKCrayonFontWithSize:22.f];
     self.imageAvatar.layer.masksToBounds = YES;
-    self.imageAvatar.layer.cornerRadius = 7.f;
+    self.imageAvatar.layer.cornerRadius = 34.f;
     self.imageAvatar.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.imageAvatar.layer.borderWidth = 3.f;
 }

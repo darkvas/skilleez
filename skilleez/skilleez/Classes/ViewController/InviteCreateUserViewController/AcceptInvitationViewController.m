@@ -9,6 +9,11 @@
 #import "AcceptInvitationViewController.h"
 #import "UIFont+DefaultFont.h"
 #import "NavigationBarView.h"
+#import "ChildProfileViewController.h"
+#import "NetworkManager.h"
+#import "CustomAlertView.h"
+#import "UtilityController.h"
+#import "ActivityIndicatorController.h"
 
 @interface AcceptInvitationViewController ()
 {
@@ -84,17 +89,38 @@
 
 - (IBAction)viewProfile:(id)sender
 {
-    
+    ChildProfileViewController *defaultChildProfileView = [[ChildProfileViewController alloc] initWithFamilyMemberId:_invitation.Invitor.UserId andShowFriends:YES];
+    [self.navigationController pushViewController:defaultChildProfileView animated:YES];
 }
 
 - (IBAction)acceptInvitation:(id)sender
 {
-    
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    [[NetworkManager sharedInstance] postApproveInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        if (requestResult.isSuccess) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            NSLog(@"Fail post accept invitation to loop");
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
+            [alert show];
+        }
+    }];
 }
 
 - (IBAction)declineInvitation:(id)sender
 {
-    
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    [[NetworkManager sharedInstance] postApproveInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        if (requestResult.isSuccess) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            NSLog(@"Fail post decline invitation to loop");
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
+            [alert show];
+        }
+    }];
 }
 
 @end
