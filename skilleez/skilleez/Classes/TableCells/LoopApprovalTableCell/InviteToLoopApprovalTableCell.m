@@ -53,15 +53,21 @@
     [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_SMALL] range:NSMakeRange([first length] + 18 + [second length], [fullString length] - ([first length] + 18 + [second length]))];
     if (isInvitor) {
         [self.userAvatarImageView setImageWithURL:invitation.Invitee.AvatarUrl];
-        self.userAboutLabel.text = invitation.Invitee.AboutMe;
+        [self setAboutLabel:invitation.Invitee.AboutMe];
         [attributted addAttribute:NSForegroundColorAttributeName value:[ColorManager defaultTintColor] range:NSMakeRange([first length] + 18, [second length])];
     } else {
         [self.userAvatarImageView setImageWithURL:invitation.Invitor.AvatarUrl];
-        self.userAboutLabel.text = invitation.Invitor.AboutMe;
+        [self setAboutLabel:invitation.Invitor.AboutMe];
         [attributted addAttribute:NSForegroundColorAttributeName value:[ColorManager defaultTintColor] range:NSMakeRange(0, [first length] + 1)];
     }
     self.usersLabel.attributedText = attributted;
     [self setButtonsMethods];
+}
+
+- (void)setAboutLabel:(NSString*)aboutText
+{
+    if (!aboutText && [aboutText isEqualToString:@""])
+        self.userAboutLabel.text = aboutText;
 }
 
 - (void)fillCellForInviteeChild:(LoopInvitationModel *)invitation andTag:(NSInteger)tag
