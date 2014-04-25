@@ -11,6 +11,7 @@
 @interface InvitorModel : NSObject
 
 @property (nonatomic, strong) NSString *UserId;
+@property (nonatomic) BOOL CurrentUserIsApprover;
 @property (nonatomic, strong) NSString *Login;
 @property (nonatomic, strong) NSString *ScreenName;
 @property (nonatomic, strong) NSString *FavoriteColor;

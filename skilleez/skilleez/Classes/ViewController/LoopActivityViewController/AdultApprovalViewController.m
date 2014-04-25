@@ -86,7 +86,7 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
         InviteToLoopApprovalTableCell *cell = [tableView dequeueReusableCellWithIdentifier:invitationCellName];
         cell.delegate = self;
         LoopInvitationModel *invitation = [_items objectAtIndex:indexPath.row];
-        [cell fillCell:invitation forAdultOfInvitor:[self isAdultsChildInvitor:invitation.Invitor.UserId] andTag:indexPath.row];
+        [cell fillCell:invitation forAdultOfInvitor:invitation.Invitor.CurrentUserIsApprover andTag:indexPath.row];
         return cell;
     }
 }

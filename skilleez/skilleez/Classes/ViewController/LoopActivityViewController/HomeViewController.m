@@ -12,6 +12,9 @@
 const int NUMBER_OF_ITEMS = 5;
 
 @interface HomeViewController ()
+{
+    NSTimer *timerUpdateBadge;
+}
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIButton *topSkilleeBtn;
@@ -47,6 +50,24 @@ const int NUMBER_OF_ITEMS = 5;
     [self highlightSelectedButton:10];
     [self loadWaitingForApprovalCount];
     // Do any additional setup after loading the view from its nib.
+    
+    [self startTimer];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self stopTimer];
+}
+
+- (IBAction)startTimer
+{
+    timerUpdateBadge = [NSTimer scheduledTimerWithTimeInterval:40 target:self selector:@selector(loadWaitingForApprovalCount) userInfo:nil repeats:YES];
+    [timerUpdateBadge fire];
+}
+
+- (IBAction)stopTimer
+{
+    [timerUpdateBadge invalidate];
 }
 
 - (void)loadWaitingForApprovalCount

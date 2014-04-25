@@ -25,6 +25,7 @@
     RKObjectMapping *mapping = [RKObjectMapping mappingForClass:[InvitorModel class]];
     
     [mapping addAttributeMappingsFromArray:@[      @"UserId",
+                                                   @"CurrentUserIsApprover",
                                                    @"Login",
                                                    @"ScreenName",
                                                    @"FavoriteColor",
