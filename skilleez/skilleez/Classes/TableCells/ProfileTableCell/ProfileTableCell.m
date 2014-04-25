@@ -8,6 +8,7 @@
 
 #import "ProfileTableCell.h"
 #import "UIFont+DefaultFont.h"
+#import "ColorManager.h"
 
 @interface ProfileTableCell()
 
@@ -35,7 +36,7 @@
     self.questionImage.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.questionImage.layer.borderWidth = 3.f;
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
     [self setSelectedBackgroundView:bgColorView];
 }
 
