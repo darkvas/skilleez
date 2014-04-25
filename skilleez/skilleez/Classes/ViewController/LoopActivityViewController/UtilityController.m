@@ -46,7 +46,6 @@
                 [controller.navigationController pushViewControllerCustom:profilePermissionView];
             } else {
                 ChildProfileViewController *childProfileView = [[ChildProfileViewController alloc] initWithFamilyMemberId:familyMember.Id andShowFriends:YES];
-                [[ActivityIndicatorController sharedInstance] startActivityIndicator:childProfileView];
                 [controller.navigationController pushViewControllerCustom:childProfileView];
             }
         }
@@ -56,7 +55,6 @@
             [controller.navigationController pushViewController:editProfileView animated:YES];
         } else {
             ChildProfileViewController *defaultChildProfileView = [[ChildProfileViewController alloc] initWithFamilyMemberId:profileId andShowFriends:YES];
-            [[ActivityIndicatorController sharedInstance] startActivityIndicator:defaultChildProfileView];
             [controller.navigationController pushViewControllerCustom:defaultChildProfileView];
         }
 }

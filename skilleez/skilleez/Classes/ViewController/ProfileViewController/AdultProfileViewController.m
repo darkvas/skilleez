@@ -117,7 +117,9 @@
 
 - (IBAction)showProfile:(id)sender
 {
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getProfileInfoByUserId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         if(requestResult.isSuccess) {
             ProfileInfo* profileInfo = (ProfileInfo*) requestResult.firstObject;
             ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:[profileInfo.UserId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID]];

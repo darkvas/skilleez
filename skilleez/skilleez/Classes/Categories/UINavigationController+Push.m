@@ -38,6 +38,8 @@
 
 - (void)pushViewControllerCustom:(UIViewController *)viewController
 {
+    //todo use beginIgnore for other custom push/pop animations
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     viewController.view.frame = CGRectMake(-320, 0, 320, 568);
     viewController.view.layer.shadowColor = [[UIColor blackColor] CGColor];
     viewController.view.layer.shadowOffset = CGSizeMake(15.f,0.0f);
@@ -50,6 +52,7 @@
          frame.origin.x = 0;
          viewController.view.frame = frame;
     } completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     }];
 }
 

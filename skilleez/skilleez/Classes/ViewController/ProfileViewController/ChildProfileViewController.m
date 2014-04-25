@@ -60,6 +60,8 @@
                                                                    rightButton:YES
                                                                     rightTitle:@"Done"];
     [self.view addSubview:self.navBar];
+    
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getProfileInfoByUserId:_familyMemberId withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             _childProfile = (ProfileInfo *)requestResult.firstObject;

@@ -65,7 +65,7 @@ enum {
     [self.userSubjectButton setBackgroundImage:[profile.FavoriteSchoolSubject isEqualToString:@""] ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:profile.FavoriteSchoolSubject] forState:UIControlStateNormal];
     [self.userMusicButton setBackgroundImage:[profile.FavoriteTypeOfMusic isEqualToString:@""] ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:profile.FavoriteTypeOfMusic] forState:UIControlStateNormal];
     [self.userFoodButton setBackgroundImage:[profile.FavoriteFood isEqualToString:@""] ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:profile.FavoriteFood] forState:UIControlStateNormal];
-    self.userDescTextView.text = [profile.AboutMe isEqualToString:@""] ? self.userDescTextView.text : profile.AboutMe;
+    self.userDescTextView.text = (!profile.AboutMe || [profile.AboutMe isEqualToString:@""]) ? self.userDescTextView.text : profile.AboutMe;
     CGRect rect = self.userDescTextView.frame;
     CGSize textViewSize = [self.userDescTextView sizeThatFits:CGSizeMake(self.userDescTextView.frame.size.width, FLT_MAX)];
     textViewSize.height += 10;
@@ -196,6 +196,7 @@ enum {
 
 - (void)done
 {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)customize
