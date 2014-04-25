@@ -11,6 +11,7 @@
 #import "UserSettingsManager.h"
 #import "UtilityController.h"
 #import "CustomAlertView.h"
+#import "ColorManager.h"
 
 @interface InviteToLoopApprovalTableCell() {
     LoopInvitationModel *_invitation;
@@ -53,11 +54,11 @@
     if (isInvitor) {
         [self.userAvatarImageView setImageWithURL:invitation.Invitee.AvatarUrl];
         self.userAboutLabel.text = invitation.Invitee.AboutMe;
-        [attributted addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] range:NSMakeRange([first length] + 18, [second length])];
+        [attributted addAttribute:NSForegroundColorAttributeName value:[ColorManager defaultTintColor] range:NSMakeRange([first length] + 18, [second length])];
     } else {
         [self.userAvatarImageView setImageWithURL:invitation.Invitor.AvatarUrl];
         self.userAboutLabel.text = invitation.Invitor.AboutMe;
-        [attributted addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] range:NSMakeRange(0, [first length] + 1)];
+        [attributted addAttribute:NSForegroundColorAttributeName value:[ColorManager defaultTintColor] range:NSMakeRange(0, [first length] + 1)];
     }
     self.usersLabel.attributedText = attributted;
     [self setButtonsMethods];
@@ -78,7 +79,7 @@
     [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 18 + [second length], [fullString length] - ([first length] + 18 + [second length]))];
     [self.userAvatarImageView setImageWithURL:invitation.Invitor.AvatarUrl];
     self.userAboutLabel.text = invitation.Invitor.AboutMe;
-    [attributted addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] range:NSMakeRange(0, [first length] + 1)];
+    [attributted addAttribute:NSForegroundColorAttributeName value:[ColorManager defaultTintColor] range:NSMakeRange(0, [first length] + 1)];
     self.usersLabel.attributedText = attributted;
     [self setButtonsMethods];
 }

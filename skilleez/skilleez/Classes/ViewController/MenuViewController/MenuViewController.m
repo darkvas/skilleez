@@ -15,6 +15,7 @@
 #import "TableItem.h"
 #import "MessageListViewController.h"
 #import "LoginViewController.h"
+#import "ColorManager.h"
 
 @interface MenuViewController () {
     NSArray *items;
@@ -80,10 +81,10 @@
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"UITableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    cell.backgroundColor = [UIColor colorWithRed:0.19 green:0.19 blue:0.19 alpha:1.f];
+    cell.backgroundColor = [ColorManager colorForCellBackground];
     cell.textLabel.font = [UIFont getDKCrayonFontWithSize:22.f];
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
     [cell setSelectedBackgroundView:bgColorView];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.imageView.image = ((TableItem *)[items objectAtIndex:indexPath.row]).image;

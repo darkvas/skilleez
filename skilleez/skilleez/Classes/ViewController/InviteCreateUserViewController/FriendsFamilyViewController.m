@@ -16,6 +16,7 @@
 #import "AdultProfileViewController.h"
 #import "NewUserTypeView.h"
 #import "InviteToLoopViewController.h"
+#import "ColorManager.h"
 #import "PendingInvitationsViewController.h"
 #import "ChildProfileViewController.h"
 
@@ -111,7 +112,7 @@
         [cell setMemberData:[_childrenMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
     
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
     [cell setSelectedBackgroundView:bgColorView];
     return cell;
 }
@@ -132,7 +133,7 @@
     lblSectionHeader.textColor = [UIColor whiteColor];
     
     UIView *headerView = [[UIView alloc] init];
-    headerView.backgroundColor = [UIColor colorWithRed:98.0/255.0 green:98.0/255.0 blue:98.0/255.0 alpha:1.0];
+    headerView.backgroundColor = [ColorManager colorForFriendsCellHeader];
     [headerView addSubview:lblSectionHeader];
     
     return headerView;

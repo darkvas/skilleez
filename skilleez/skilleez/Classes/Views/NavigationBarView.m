@@ -8,6 +8,7 @@
 
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
+#import "ColorManager.h"
 
 @interface NavigationBarView ()
 
@@ -63,7 +64,7 @@
 - (void)setDefault:(UIViewController *)viewCtrl titile:(NSString *)title
 {
     self.frame = CGRectMake(0, 0, 320, 64);
-    self.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    self.backgroundColor = [ColorManager colorForDarkBackground];
     self.currentCtrl = viewCtrl;
     
     self.titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(75, 24, 170, 40)];

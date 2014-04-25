@@ -13,6 +13,7 @@
 #import "ActivityIndicatorController.h"
 #import "FamilyMemberCell.h"
 #import "CustomAlertView.h"
+#import "ColorManager.h"
 #import "UtilityController.h"
 
 @interface CreateSkilleeViewController (){
@@ -191,7 +192,7 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+    bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
     [cell setSelectedBackgroundView:bgColorView];
     [cell setMemberData:[childs objectAtIndex:indexPath.row] andTag:indexPath.row];
     return cell;
@@ -314,7 +315,7 @@
     self.dropdown = [[UITableView alloc] initWithFrame:CGRectMake(13, 99, 245, 0)];
     self.dropdown.delegate = self;
     self.dropdown.dataSource = self;
-    self.dropdown.backgroundColor = [UIColor colorWithRed:0.19 green:0.19 blue:0.19 alpha:1.0];
+    self.dropdown.backgroundColor = [ColorManager colorForCellBackground];
     self.dropdown.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view addSubview:self.dropdown];
 }

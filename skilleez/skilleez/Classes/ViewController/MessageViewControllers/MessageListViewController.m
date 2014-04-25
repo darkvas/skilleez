@@ -12,6 +12,7 @@
 #import "MessageCell.h"
 #import "MessageViewController.h"
 #import "UserSettingsManager.h"
+#import "ColorManager.h"
 #import "NetworkManager.h"
 
 @interface MessageListViewController ()
@@ -87,7 +88,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headerView = [[UIView alloc] init];
-    headerView.backgroundColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:125.0/255.0 alpha:1.0];
+    headerView.backgroundColor = [ColorManager colorForMessageCellHeader];
     
     return headerView;
 }

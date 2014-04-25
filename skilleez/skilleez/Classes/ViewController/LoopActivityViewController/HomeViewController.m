@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "ColorManager.h"
 
 const int NUMBER_OF_ITEMS = 5;
 
@@ -139,7 +140,7 @@ const int NUMBER_OF_ITEMS = 5;
     self.badge.font = [UIFont systemFontOfSize:12];
     self.badge.minimumScaleFactor = 7 / 12;
     self.badge.textColor = [UIColor whiteColor];
-    self.badge.backgroundColor = [UIColor colorWithRed:0.96 green:0.47 blue:0.49 alpha:1.0];
+    self.badge.backgroundColor = [ColorManager colorForBadgeBackground];
     [self.approvalSkilleeBtn addSubview:self.badge];
 }
 

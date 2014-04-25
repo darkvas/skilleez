@@ -1282,13 +1282,13 @@
 				149232A818D73A40001BAE8C /* TableCells */,
 				84EA05C518D6F5FF008D940D /* Models */,
 				1492329B18D6DD61001BAE8C /* Categories */,
-				84D6CE1A18D1BF1F008ABB5E /* ViewController */,
+				84D6CE1A18D1BF1F008ABB5E /* ViewControllers */,
 			);
 			name = Classes;
 			path = skilleez/Classes;
 			sourceTree = SOURCE_ROOT;
 		};
-		84D6CE1A18D1BF1F008ABB5E /* ViewController */ = {
+		84D6CE1A18D1BF1F008ABB5E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				14BCE63918D89A300047F490 /* CreateChildSkilleeViewController */,
@@ -1306,6 +1306,7 @@
 				84E14ED318F5292C002E6D7F /* SkilleezListViewController */,
 				14DB8B4A18E022B600DEEC4C /* SplashViewController */,
 			);
+			name = ViewControllers;
 			path = ViewController;
 			sourceTree = "<group>";
 		};

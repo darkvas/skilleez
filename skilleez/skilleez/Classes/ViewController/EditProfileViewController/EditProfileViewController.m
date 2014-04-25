@@ -18,6 +18,7 @@
 #import "CustomAlertView.h"
 #import "UtilityController.h"
 #import "SkilleezListViewController.h"
+#import "ColorManager.h"
 
 enum {
     SPORT = 0,
@@ -169,11 +170,11 @@ enum {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"UITableViewCell" owner:self options:nil];
             cell = [nib objectAtIndex:0];
         }
-        cell.backgroundColor = [UIColor colorWithRed:0.19 green:0.19 blue:0.19 alpha:1.f];
+        cell.backgroundColor = [ColorManager colorForCellBackground];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.font = [UIFont getDKCrayonFontWithSize:31.f];
         UIView *bgColorView = [[UIView alloc] init];
-        bgColorView.backgroundColor = [UIColor colorWithRed:0.94 green:0.72 blue:0.12 alpha:1.f];
+        bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
         [cell setSelectedBackgroundView:bgColorView];
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.textLabel.text = ((TableItem *)[questions objectAtIndex:indexPath.row]).name;

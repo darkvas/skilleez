@@ -10,7 +10,13 @@
 
 @interface ColorManager : NSObject
 
-+(UIColor *) colorForSelectedPermission;
-+(UIColor *) colorForUnselectedPermission;
++ (UIColor *)colorForSelectedPermission;
++ (UIColor *)colorForUnselectedPermission;
++ (UIColor *)colorForDarkBackground;
++ (UIColor *)defaultTintColor;
++ (UIColor *)colorForCellBackground;
++ (UIColor *)colorForMessageCellHeader;
++ (UIColor *)colorForFriendsCellHeader;
++ (UIColor *)colorForBadgeBackground;
 
 @end
