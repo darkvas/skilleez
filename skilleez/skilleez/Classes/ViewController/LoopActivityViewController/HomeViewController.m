@@ -109,6 +109,7 @@ const int NUMBER_OF_ITEMS = 5;
             break;
         }
     }
+    [self loadWaitingForApprovalCount];
     [self highlightSelectedButton:(int)((UIButton *)sender).tag];
 }
 

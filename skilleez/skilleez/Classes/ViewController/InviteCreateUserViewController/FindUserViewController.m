@@ -116,7 +116,8 @@
         if (requestResult.isSuccess) {
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            [self showAlertWithMessage: @"May be you send invite before"];
+            NSString *errorMessage = [[UtilityController sharedInstance] getErrorMessage:requestResult.error];
+            [self showAlertWithMessage: errorMessage];
         }
     }];
 }

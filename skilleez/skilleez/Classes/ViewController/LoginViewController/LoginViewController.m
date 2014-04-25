@@ -105,10 +105,22 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
             HomeViewController *loop = [HomeViewController new];
             [self.navigationController pushViewController:loop animated:YES];
         } else {
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestReturn.error] delegate:nil];
+            NSString* loginErrorMessage = [self getLoginErrorMessage: requestReturn.error];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:loginErrorMessage delegate:nil];
             [alert show];
         }
     }];
+}
+
+- (NSString*)getLoginErrorMessage:(NSError*) anError
+{
+    NSString *errorMessage = [[UtilityController sharedInstance] getErrorMessage:anError];
+    if (!errorMessage || [errorMessage isEqualToString:@""]) {
+        NSString* message = anError.userInfo[NSLocalizedDescriptionKey];
+        if([message isEqualToString:@"Expected status code in (200-299), got 401"])
+            return @"Incorrect login or password";
+    }
+    return errorMessage;
 }
 
 - (void)getAccountInformation

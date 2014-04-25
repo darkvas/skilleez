@@ -96,7 +96,7 @@
 - (IBAction)acceptInvitation:(id)sender
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postApproveInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] postAcceptInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         if (requestResult.isSuccess) {
             [self.navigationController popViewControllerAnimated:YES];
@@ -111,7 +111,7 @@
 - (IBAction)declineInvitation:(id)sender
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postApproveInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] postDeclineInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         if (requestResult.isSuccess) {
             [self.navigationController popViewControllerAnimated:YES];
