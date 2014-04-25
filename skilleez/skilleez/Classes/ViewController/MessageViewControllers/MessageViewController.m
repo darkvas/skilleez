@@ -46,16 +46,16 @@
 
 - (void)customizeElements
 {
-    [self.btnSaveMessage.layer setCornerRadius:5.0f];
-    [self.btnSaveMessage.titleLabel setFont:[UIFont getDKCrayonFontWithSize:30.0f]];
+    [self.btnSaveMessage.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [self.btnSaveMessage.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_BIG]];
     
     self.senderAvatar.layer.cornerRadius = 83.0f;
     self.senderAvatar.layer.masksToBounds = YES;
     self.senderAvatar.layer.borderColor = _profile.Color.CGColor;
-    self.senderAvatar.layer.borderWidth = 3.0;
+    self.senderAvatar.layer.borderWidth = BORDER_WIDTH_MEDIUM;
     [self.senderAvatar setImageWithURL: _profile.AvatarUrl];
     
-    [self.textMessage setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [self.textMessage setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
     self.textMessage.text = _profile.AboutMe ? _profile.AboutMe : (_profile.ScreenName ? _profile.ScreenName : _profile.Login);
     
     self.textMessage.editable = NO;

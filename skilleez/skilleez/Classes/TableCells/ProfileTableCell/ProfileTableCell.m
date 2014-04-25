@@ -30,11 +30,11 @@
 
 - (void)awakeFromNib
 {
-    self.questionText.font = [UIFont getDKCrayonFontWithSize:22.f];
+    self.questionText.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.questionImage.layer.masksToBounds = YES;
     self.questionImage.layer.cornerRadius = 7.f;
     self.questionImage.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.questionImage.layer.borderWidth = 3.f;
+    self.questionImage.layer.borderWidth = BORDER_WIDTH_MEDIUM;
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
     [self setSelectedBackgroundView:bgColorView];

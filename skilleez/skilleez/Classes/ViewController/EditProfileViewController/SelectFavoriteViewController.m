@@ -150,12 +150,12 @@ enum {
 
 - (void)customize
 {
-    self.whatColorLbl.font = [UIFont getDKCrayonFontWithSize:22.f];
-    self.selectColorLbl.font = [UIFont getDKCrayonFontWithSize:18.f];
+    self.whatColorLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.selectColorLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
     self.imageView.layer.masksToBounds = YES;
     self.imageView.layer.cornerRadius = 14.f;
     self.imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.imageView.layer.borderWidth = 5.f;
+    self.imageView.layer.borderWidth = BORDER_WIDTH_BIG;
 }
 
 @end

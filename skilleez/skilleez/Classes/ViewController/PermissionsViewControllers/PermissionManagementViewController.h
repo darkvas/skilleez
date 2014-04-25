@@ -11,10 +11,6 @@
 #import "AdultPermission.h"
 #import "CustomAlertView.h"
 
-extern const float CORNER_RADIUS_PM;
-extern const int BOTTOM_LABEL_FONT_SIZE;
-extern const int TOP_LABEL_FONT_SIZE;
-
 @interface PermissionManagementViewController : UIViewController
 
 - (id) initWithAdult: (FamilyMemberModel*) adult withChild: (FamilyMemberModel*) child andPermission: (AdultPermission*) permission;

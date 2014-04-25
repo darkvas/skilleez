@@ -36,8 +36,8 @@
 {
     self.senderAvatar.layer.cornerRadius = 46.0f;
     self.senderAvatar.layer.masksToBounds = YES;
-    self.senderAvatar.layer.borderWidth = 3.0;
-    [self.messageText setFont:[UIFont getDKCrayonFontWithSize:21]];
+    self.senderAvatar.layer.borderWidth = BORDER_WIDTH_MEDIUM;
+    [self.messageText setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

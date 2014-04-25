@@ -315,7 +315,7 @@ CGFloat buttonSpacerHeight = 0;
     [closeButton setTitleColor:[UIColor colorWithRed:0.02 green:0.67 blue:0.25 alpha:1.0] forState:UIControlStateNormal];
     [closeButton setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
     [closeButton.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
-    closeButton.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
+    closeButton.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
     
     UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
     UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(buttonWidth - 1, container.bounds.size.height - buttonHeight, 2, buttonHeight)];
@@ -330,7 +330,7 @@ CGFloat buttonSpacerHeight = 0;
     [cancel setTitleColor:[UIColor colorWithRed:0.74 green:0.23 blue:0.26 alpha:1.0] forState:UIControlStateNormal];
     [cancel setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
     [cancel.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
-    cancel.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
+    cancel.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
     
     [container addSubview:closeButton];
     [container addSubview:cancel];
@@ -348,7 +348,7 @@ CGFloat buttonSpacerHeight = 0;
         [closeButton addTarget:self action:@selector(customIOS7dialogButtonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [closeButton setTag:i];
         [closeButton.layer setCornerRadius:kCustomIOS7AlertViewCornerRadius];
-        [closeButton.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
+        [closeButton.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_SMALL]];
         [container addSubview:closeButton];
         if ([buttons count] > 1) {
             UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(buttonWidth - 1, container.bounds.size.height - buttonHeight, 2, buttonHeight)];

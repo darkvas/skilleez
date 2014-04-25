@@ -43,7 +43,7 @@
 
 -(void) customizeElements
 {
-    [self.lblMessages setFont:[UIFont getDKCrayonFontWithSize:22.0f]];
+    [self.lblMessages setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
 }
 
 - (void)didReceiveMemoryWarning

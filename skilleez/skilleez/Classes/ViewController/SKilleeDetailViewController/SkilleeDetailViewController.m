@@ -77,10 +77,10 @@ typedef enum {
                                                  name:@"UIDeviceOrientationDidChangeNotification"
                                                object:nil];
     buttons = [NSMutableArray arrayWithObjects:
-               [[TableItem alloc] initWithName:@"APPROVE" image:[UIImage imageNamed:@"thumb_up_BTN-1"] method:@"approve"],
-               [[TableItem alloc] initWithName:@"DENY" image:[UIImage imageNamed:@"thumb_down_BTN"] method:@"deny"],
-               [[TableItem alloc] initWithName:@"FAVORITE" image:[UIImage imageNamed:@"star_opaque_BTN"] method:@"favorite"],
-               [[TableItem alloc] initWithName:@"TATTLE" image:[UIImage imageNamed:@"warning_BTN"] method:@"tattle"], nil];
+               [[TableItem alloc] initWithName:@"APPROVE" image:[UIImage imageNamed:@"thumb-up"] method:@"approve"],
+               [[TableItem alloc] initWithName:@"DENY" image:[UIImage imageNamed:@"thumb-down"] method:@"deny"],
+               [[TableItem alloc] initWithName:@"FAVORITE" image:[UIImage imageNamed:@"star2"] method:@"favorite"],
+               [[TableItem alloc] initWithName:@"TATTLE" image:[UIImage imageNamed:@"warning2"] method:@"tattle"], nil];
     if (!enabledApprove) {
         [buttons removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)]];
     }
@@ -330,15 +330,15 @@ typedef enum {
 
 - (void)setCellFonts
 {
-    [self.userNameLbl setFont:[UIFont getDKCrayonFontWithSize:25]];
-    [self.skilleeTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
-    [self.skilleeCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [self.back.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
-    [self.more.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
+    [self.userNameLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
+    [self.skilleeTitleLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_BIG]];
+    [self.skilleeCommentLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
+    [self.back.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_SMALL]];
+    [self.more.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_SMALL]];
     self.userAvatarImg.layer.cornerRadius = 28.0;
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.userAvatarImg.layer.borderWidth = 3.0;
+    self.userAvatarImg.layer.borderWidth = BORDER_WIDTH_MEDIUM;
 }
 
 - (void)dismissModalView

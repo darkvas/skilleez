@@ -40,7 +40,7 @@
 {
     skilleeModel = element;
     [[CellFiller sharedInstance] setSkilleezData:cell andSkilleez:element andTag:tag];
-    [cell.waitingForApprovalLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
+    [cell.waitingForApprovalLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
 }
 
 - (IBAction)deleteSkillee:(id)sender

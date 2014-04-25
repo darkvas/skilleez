@@ -135,6 +135,8 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
                 _items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
             }
+            if ([_items count] == 0)
+                [[UtilityController sharedInstance] showEmptyView:self text:@"You have no skilleez or invitations in approval."];
         } else {
             [[UtilityController sharedInstance] showFailureAlert:requestResult.error withCaption:@"Load loop failed"];
         }

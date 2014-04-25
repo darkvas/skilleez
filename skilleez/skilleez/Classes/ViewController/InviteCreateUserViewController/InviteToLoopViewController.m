@@ -37,13 +37,13 @@
 
 -(void) customizeElements
 {
-    [self.btnSearchUser.layer setCornerRadius:5.0f];
-    [self.btnInviteUser.layer setCornerRadius:5.0f];
+    [self.btnSearchUser.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [self.btnInviteUser.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
-    [self.btnSearchUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [self.btnInviteUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [self.btnSearchUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM]];
+    [self.btnInviteUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM]];
     self.btnInviteUser.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [self.lblInfo setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [self.lblInfo setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
 }
 
 - (void)didReceiveMemoryWarning

@@ -82,7 +82,7 @@
         cell = [nib objectAtIndex:0];
     }
     cell.backgroundColor = [ColorManager colorForCellBackground];
-    cell.textLabel.font = [UIFont getDKCrayonFontWithSize:22.f];
+    cell.textLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
     [cell setSelectedBackgroundView:bgColorView];
@@ -114,13 +114,13 @@
 
 - (void)customize
 {
-    [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:28]];
+    [self.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_BIG]];
     self.userAvatarImg.layer.cornerRadius = 32.f;
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.userAvatarImg.layer.borderWidth = 3.f;
+    self.userAvatarImg.layer.borderWidth = BORDER_WIDTH_MEDIUM;
     self.tableView.frame = CGRectMake(0, 90, 256, [items count] * 50);
-    self.logout.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
+    self.logout.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
 }
 
 - (void)showMyProfile

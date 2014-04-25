@@ -75,10 +75,10 @@
 
 - (void) customizeElements
 {
-    self.buttonDecline.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
-    self.buttonAccept.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
-    self.labelUserAbout.font = [UIFont getDKCrayonFontWithSize:18];
-    self.labelUser.font = [UIFont getDKCrayonFontWithSize:20];
+    self.buttonDecline.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.buttonAccept.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.labelUserAbout.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
+    self.labelUser.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
 }
 
 - (void) prepareData

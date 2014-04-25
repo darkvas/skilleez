@@ -8,6 +8,7 @@
 
 #import "AdultApprovalTableCell.h"
 #import "CellFiller.h"
+#import "UIFont+DefaultFont.h"
 
 @interface AdultApprovalTableCell()
 {
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *skilleezCommentLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *attachmentImg;
 @property (weak, nonatomic) IBOutlet UIButton *detailBtn;
+@property (weak, nonatomic) IBOutlet UILabel *labelPendingApproval;
 
 - (IBAction)showSkillee:(id)sender;
 
@@ -31,6 +33,7 @@
 - (void)awakeFromNib
 {
     [[CellFiller sharedInstance] setSkilleezCell:self];
+    self.labelPendingApproval.font = [UIFont getDKCrayonFontWithSize:LABEL_BIG];
 }
 
 - (void)setSkilleezData:(AdultApprovalTableCell *)cell andSkilleez:(SkilleeModel *)element andTag:(NSInteger)tag

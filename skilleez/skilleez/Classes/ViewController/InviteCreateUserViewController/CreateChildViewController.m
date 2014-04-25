@@ -61,15 +61,15 @@
 
 - (void)customizeElements
 {
-    [_tfAccountId.layer setCornerRadius:5.0f];
+    [_tfAccountId.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     //_tfAccountId.layer set
-    [_tfAccoundPass.layer setCornerRadius:5.0f];
-    [_btnCreateUser.layer setCornerRadius:5.0f];
+    [_tfAccoundPass.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [_btnCreateUser.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
-    [_tfAccountId setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_tfAccoundPass setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_btnCreateUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_lblAccountDetails setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_tfAccountId setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [_tfAccoundPass setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [_btnCreateUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [_lblAccountDetails setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
     
     [self setLeftMargin:10 forTextField:self.tfAccountId];
     [self setLeftMargin:10 forTextField:self.tfAccoundPass];

@@ -58,12 +58,12 @@
 
 -(void) customizeElements
 {
-    [_btnCreateUser.layer setCornerRadius:5.0f];
-    [_btnInviteToLoop.layer setCornerRadius:5.0f];
+    [_btnCreateUser.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [_btnInviteToLoop.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
-    [_btnCreateUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_btnInviteToLoop.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_btnPendingInvites.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_btnCreateUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM]];
+    [_btnInviteToLoop.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM]];
+    [_btnPendingInvites.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM]];
     
     if (![UserSettingsManager sharedInstance].IsAdult)
     {
@@ -128,7 +128,7 @@
 {
     UILabel *lblSectionHeader = [[UILabel alloc] init];
     lblSectionHeader.frame = CGRectMake(20, 22, 320, 20);
-    lblSectionHeader.font = [UIFont getDKCrayonFontWithSize:21];
+    lblSectionHeader.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     lblSectionHeader.text = [self tableView:tableView titleForHeaderInSection:section];
     lblSectionHeader.textColor = [UIColor whiteColor];
     

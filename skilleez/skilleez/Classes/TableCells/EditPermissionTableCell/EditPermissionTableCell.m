@@ -41,8 +41,8 @@
 {
     self.userAvatarImg.layer.masksToBounds = YES;
     self.userAvatarImg.layer.cornerRadius = 30.f;
-    self.usernameLbl.font = [UIFont getDKCrayonFontWithSize:20];
-    self.editPermissionsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:18];
+    self.usernameLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.editPermissionsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
     self.permissionView.layer.cornerRadius = 4.f;
 }
 

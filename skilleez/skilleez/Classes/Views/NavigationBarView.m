@@ -32,7 +32,7 @@
         [cancelBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
         [cancelBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
         [cancelBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
-        [cancelBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:21]];
+        [cancelBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_SMALL]];
         [self addSubview:cancelBtn];
         
         if (rightButton) {
@@ -49,7 +49,6 @@
         //TODO: change image
         UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 20, 60, 44)];
         [cancelBtn setImage:[UIImage imageNamed:leftImage] forState:UIControlStateNormal];
-        //[cancelBtn setImage:[UIImage imageNamed:@"back_BTN_press.png"] forState:UIControlStateHighlighted];
         [cancelBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [cancelBtn addTarget:viewCtrl action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cancelBtn];
@@ -70,7 +69,7 @@
     self.titleLbl = [[UILabel alloc] initWithFrame:CGRectMake(75, 24, 170, 40)];
     self.titleLbl.text = title;
     self.titleLbl.textAlignment = NSTextAlignmentCenter;
-    self.titleLbl.font = [UIFont getDKCrayonFontWithSize:24];
+    self.titleLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.titleLbl.textColor = [UIColor orangeColor];
     [self addSubview:self.titleLbl];
 }
@@ -80,7 +79,7 @@
     UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(245, 20, 60, 44)];
     [doneBtn setTitle:rightTitle forState:UIControlStateNormal];
     [doneBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateHighlighted];
-    [doneBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:21]];
+    [doneBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_SMALL]];
     [doneBtn setTitleEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
     [doneBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     [doneBtn addTarget:viewCtrl action:@selector(done) forControlEvents:UIControlEventTouchUpInside];

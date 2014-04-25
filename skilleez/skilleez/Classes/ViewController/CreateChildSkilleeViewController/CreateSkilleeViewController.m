@@ -61,7 +61,7 @@
     [self.commentTxt addSubview: imgView];
     UILabel *placeholder = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 195, 36)];
     placeholder.textColor = [UIColor whiteColor];
-    [placeholder setFont:[UIFont getDKCrayonFontWithSize:22]];
+    [placeholder setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
     placeholder.text = @"Enter Comments here";
     [self.commentTxt addSubview:placeholder];
     [self.commentTxt sendSubviewToBack: imgView];
@@ -251,14 +251,14 @@
 
 - (void)setDefaultFonts
 {
-    [self.createSkilleeLbl setFont:[UIFont getDKCrayonFontWithSize:31]];
-    [self.titleTxt setFont:[UIFont getDKCrayonFontWithSize:22]];
-    [self.commentTxt setFont:[UIFont getDKCrayonFontWithSize:22]];
-    [self.postOnTxt setFont:[UIFont getDKCrayonFontWithSize:22]];
-    [self.btnAddPhoto.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
-    [self.btnAddVideo.titleLabel setFont:[UIFont getDKCrayonFontWithSize:22]];
-    [self.launchBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:31]];
-    [self.termsBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:16]];
+    [self.createSkilleeLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_BIG]];
+    [self.titleTxt setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
+    [self.commentTxt setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
+    [self.postOnTxt setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
+    [self.btnAddPhoto.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_SMALL]];
+    [self.btnAddVideo.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_SMALL]];
+    [self.launchBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_SMALL]];
+    [self.termsBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:LABEL_SMALL]];
     [self.titleTxt setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.postOnTxt setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
 }

@@ -37,12 +37,12 @@
 
 -(void) customizeElements
 {
-    [_btnCreateChild.layer setCornerRadius:5.0f];
-    [_btnCreateAdult.layer setCornerRadius:5.0f];
+    [_btnCreateChild.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [_btnCreateAdult.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
-    [_btnCreateChild.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_btnCreateAdult.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_lblTypeAsk setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_btnCreateChild.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM]];
+    [_btnCreateAdult.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM]];
+    [_lblTypeAsk setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
 }
 
 - (void)didReceiveMemoryWarning

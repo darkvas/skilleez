@@ -38,13 +38,13 @@
 
 -(void) customizeElements
 {
-    [self.tfUserName.layer setCornerRadius:5.0f];
-    [_btnFindUser.layer setCornerRadius:5.0f];
+    [self.tfUserName.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [_btnFindUser.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
-    [self.tfUserName setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [self.btnFindUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:30.0f]];
-    [self.lblInfo setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [self.lblTip setFont:[UIFont getDKCrayonFontWithSize:18.0f]];
+    [self.tfUserName setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [self.btnFindUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_BIG]];
+    [self.lblInfo setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
+    [self.lblTip setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
     
     [self setLeftMargin:10 forTextField:self.tfUserName];
 }

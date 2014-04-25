@@ -51,15 +51,15 @@
 
 - (void)customizeElements
 {
-    [self.tfUserId.layer setCornerRadius:5.0f];
-    [self.tfPassword.layer setCornerRadius:5.0f];
-    [self.btnChangeSettings.layer setCornerRadius:5.0f];
+    [self.tfUserId.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [self.tfPassword.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [self.btnChangeSettings.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
-    [self.tfUserId setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [self.tfPassword setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [self.btnChangeSettings.titleLabel setFont:[UIFont getDKCrayonFontWithSize:30.0f]];
-    [self.lblUserIdTip setFont:[UIFont getDKCrayonFontWithSize:18.0f]];
-    [self.lblPasswordTip setFont:[UIFont getDKCrayonFontWithSize:18.0f]];
+    [self.tfUserId setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [self.tfPassword setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [self.btnChangeSettings.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_BIG]];
+    [self.lblUserIdTip setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
+    [self.lblPasswordTip setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
     
     [self setLeftMargin:10 forTextField:self.tfUserId];
     [self setLeftMargin:10 forTextField:self.tfPassword];

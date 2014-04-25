@@ -58,12 +58,12 @@
 
 -(void) customizeElements
 {
-    [_tfUserEmail.layer setCornerRadius:5.0f];
-    [_btnInviteUser.layer setCornerRadius:5.0f];
+    [_tfUserEmail.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [_btnInviteUser.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
-    [_tfUserEmail setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_btnInviteUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [_lblInviteDetails setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
+    [_tfUserEmail setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [_btnInviteUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [_lblInviteDetails setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
     
     [self setLeftMargin:10 forTextField:self.tfUserEmail];
 }

@@ -76,7 +76,7 @@
 {
     UILabel *lblSectionHeader = [[UILabel alloc] init];
     lblSectionHeader.frame = CGRectMake(20, 22, 320, 20);
-    lblSectionHeader.font = [UIFont getDKCrayonFontWithSize:21];
+    lblSectionHeader.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     lblSectionHeader.text = [self tableView:tableView titleForHeaderInSection:section];
     lblSectionHeader.textColor = [UIColor whiteColor];
     
