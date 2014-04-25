@@ -134,6 +134,8 @@ static NSString *cellName = @"SimpleTableCell";
                 items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
             }
+            if ([items count] == 0)
+                [[UtilityController sharedInstance] showEmptyView:self text:@"You have no skilleez. Please add some, to see them here"];
             canLoadOnScroll = YES;
             [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
         } else {

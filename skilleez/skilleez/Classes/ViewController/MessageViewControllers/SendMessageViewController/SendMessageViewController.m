@@ -39,13 +39,13 @@
 - (void)customizeElements
 {
     self.tfMessage.delegate = self;
-    [self.tfMessage.layer setCornerRadius:5.0f];
-    [self.btnSendMessage.layer setCornerRadius:5.0f];
+    [self.tfMessage.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [self.btnSendMessage.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
-    [self.tfMessage setFont:[UIFont getDKCrayonFontWithSize:24.0f]];
-    [self.btnSendMessage.titleLabel setFont:[UIFont getDKCrayonFontWithSize:30.0f]];
-    [self.lblSymbolsCount setFont:[UIFont getDKCrayonFontWithSize:18.0f]];
-    [self.lblTip setFont:[UIFont getDKCrayonFontWithSize:18.0f]];
+    [self.tfMessage setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [self.btnSendMessage.titleLabel setFont:[UIFont getDKCrayonFontWithSize:BUTTON_BIG]];
+    [self.lblSymbolsCount setFont:[UIFont getDKCrayonFontWithSize:LABEL_SMALL]];
+    [self.lblTip setFont:[UIFont getDKCrayonFontWithSize:LABEL_SMALL]];
 }
 
 - (void)didReceiveMemoryWarning

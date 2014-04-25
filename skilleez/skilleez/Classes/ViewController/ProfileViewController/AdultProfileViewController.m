@@ -19,9 +19,6 @@
 #import "SkilleezListViewController.h"
 #import "SettingsViewController.h"
 
-const float CORNER_RADIUS_AP = 5.f;
-const int FONT_SIZE_AP = 22;
-
 @interface AdultProfileViewController ()
 {
     FamilyMemberModel* _familyMember;
@@ -83,27 +80,27 @@ const int FONT_SIZE_AP = 22;
 
 - (void)customize
 {
-    self.skilleezBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
-    self.profileBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
-    self.permitBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
-    self.emailBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
-    self.deleteBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_AP];
+    self.skilleezBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.profileBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.permitBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.emailBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.deleteBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
     self.userAvatarImg.layer.masksToBounds = YES;
-    self.userAvatarImg.layer.borderWidth = CORNER_RADIUS_AP;
+    self.userAvatarImg.layer.borderWidth = BORDER_WIDTH_BIG;
     self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.profileBtn.layer.masksToBounds = YES;
-    self.profileBtn.layer.cornerRadius = CORNER_RADIUS_AP;
+    self.profileBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
     self.permitBtn.layer.masksToBounds = YES;
-    self.permitBtn.layer.cornerRadius = CORNER_RADIUS_AP;
+    self.permitBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
     self.emailBtn.layer.masksToBounds = YES;
-    self.emailBtn.layer.cornerRadius = CORNER_RADIUS_AP;
+    self.emailBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
     self.skilleezBtn.layer.masksToBounds = YES;
-    self.skilleezBtn.layer.cornerRadius = CORNER_RADIUS_AP;
+    self.skilleezBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
     self.deleteBtn.layer.masksToBounds = YES;
-    self.deleteBtn.layer.cornerRadius = CORNER_RADIUS_AP;
+    self.deleteBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
     self.deleteBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.deleteBtn.layer.borderWidth = 3.f;
+    self.deleteBtn.layer.borderWidth = BORDER_WIDTH_MEDIUM;
 }
 
 - (IBAction)showSkilleez:(id)sender

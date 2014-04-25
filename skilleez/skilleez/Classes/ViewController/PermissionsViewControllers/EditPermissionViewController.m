@@ -81,16 +81,16 @@ const int FONT_SIZE_EP = 21;
     return cell;
 }
 
-- (AdultPermission*) getPermissionForChild: (FamilyMemberModel*) childMember
+- (AdultPermission *)getPermissionForChild:(FamilyMemberModel *)childMember
 {
     for (AdultPermission *permission in _permissions) {
-        if([permission.ChildId isEqualToString:childMember.Id])
+        if ([permission.ChildId isEqualToString:childMember.Id])
             return permission;
     }
     return [self getDefaultPermission];
 }
 
-- (AdultPermission*) getDefaultPermission
+- (AdultPermission *)getDefaultPermission
 {
     AdultPermission *permission = [AdultPermission new];
     permission.ChangesApproval = YES;
@@ -119,7 +119,7 @@ const int FONT_SIZE_EP = 21;
 
 #pragma mark - EditPermissionDelegate
 
-- (void)editPermissions:(AdultPermission*) permission forMember: (FamilyMemberModel*) childMember
+- (void)editPermissions:(AdultPermission *)permission forMember:(FamilyMemberModel *)childMember
 {
     PermissionManagementViewController *management = [[PermissionManagementViewController alloc] initWithAdult: _familyMember withChild:childMember andPermission:permission];
     [self.navigationController pushViewController:management animated:YES];
@@ -139,9 +139,9 @@ const int FONT_SIZE_EP = 21;
 
 - (void)customize
 {
-    self.permitLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_EP];
-    self.accountLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_EP];
-    self.permitUsernameLbl.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_EP];
+    self.permitLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.accountLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.permitUsernameLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
 }
               
 - (void) loadChildMembers

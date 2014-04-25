@@ -7,6 +7,7 @@
 //
 
 #import "UtilityController.h"
+#import "UIFont+DefaultFont.h"
 
 @implementation UtilityController
 
@@ -106,6 +107,17 @@
 - (NSString *)getErrorMessage:(NSError *)error
 {
     return [[NSJSONSerialization JSONObjectWithData:[((NSString *)error.userInfo[NSLocalizedRecoverySuggestionErrorKey]) dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil] objectForKey:@"ErrorMessage"];
+}
+
+- (void)showEmptyView:(UIViewController *)viewController text:(NSString *)text
+{
+    UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 280, 280)];
+    emptyLabel.numberOfLines = 4;
+    emptyLabel.font = [UIFont getDKCrayonFontWithSize:LABEL_BIG];
+    emptyLabel.textColor = [UIColor grayColor];
+    emptyLabel.textAlignment = NSTextAlignmentCenter;
+    emptyLabel.text = text;
+    [viewController.view addSubview:emptyLabel];
 }
 
 @end

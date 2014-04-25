@@ -112,12 +112,12 @@
 
 - (void)customize
 {
-    self.whatColorLbl.font = [UIFont getDKCrayonFontWithSize:26.f];
-    self.selectColorLbl.font = [UIFont getDKCrayonFontWithSize:18.f];
+    self.whatColorLbl.font = [UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM];
+    self.selectColorLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
     self.colorImg.layer.masksToBounds = YES;
     self.colorImg.layer.cornerRadius = 14.f;
     self.colorImg.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.colorImg.layer.borderWidth = 5.f;
+    self.colorImg.layer.borderWidth = BORDER_WIDTH_BIG;
 }
 
 @end

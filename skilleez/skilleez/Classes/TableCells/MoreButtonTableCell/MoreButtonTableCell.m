@@ -8,7 +8,6 @@
 
 #import "MoreButtonTableCell.h"
 
-const int BUTTON_FONT_SIZE_SD = 19;
 const float BUTTON_BORDER_WIDTH_SD = 1.0;
 
 @interface MoreButtonTableCell()
@@ -22,7 +21,7 @@ const float BUTTON_BORDER_WIDTH_SD = 1.0;
 
 - (void)awakeFromNib
 {
-    self.nameLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_FONT_SIZE_SD];
+    self.nameLabel.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
 }
 
 - (void)fillCell:(MoreButtonTableCell *)cell withItem:(TableItem *)item

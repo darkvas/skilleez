@@ -38,8 +38,8 @@
     _memberAvatar.layer.cornerRadius = 23.0;
     _memberAvatar.layer.masksToBounds = YES;
     _memberAvatar.layer.borderColor = [UIColor whiteColor].CGColor;
-    _memberAvatar.layer.borderWidth = 3.0;
-    [_memberName setFont:[UIFont getDKCrayonFontWithSize:21]];
+    _memberAvatar.layer.borderWidth = BORDER_WIDTH_MEDIUM;
+    [_memberName setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

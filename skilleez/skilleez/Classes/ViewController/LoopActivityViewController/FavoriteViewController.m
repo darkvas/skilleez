@@ -130,6 +130,8 @@ static NSString *cellName = @"FavoriteTableCell";
             }
             canLoadOnScroll = YES;
             [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
+            if ([items count] == 0)
+                [[UtilityController sharedInstance] showEmptyView:self text:@"You have no skilleez in favorites. Please add some, to see them here"];
         } else {
             [[UtilityController sharedInstance] showFailureAlert:requestResult.error withCaption:@"Load Favorites failed"];
         }

@@ -29,11 +29,11 @@
 
 - (void)awakeFromNib
 {
-    self.labelName.font = [UIFont getDKCrayonFontWithSize:22.f];
+    self.labelName.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.imageAvatar.layer.masksToBounds = YES;
     self.imageAvatar.layer.cornerRadius = 34.f;
     self.imageAvatar.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.imageAvatar.layer.borderWidth = 3.f;
+    self.imageAvatar.layer.borderWidth = BORDER_WIDTH_MEDIUM;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

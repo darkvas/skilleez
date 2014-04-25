@@ -32,10 +32,10 @@
 
 - (void)awakeFromNib
 {
-    self.denyButton.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
-    self.approveButton.titleLabel.font = [UIFont getDKCrayonFontWithSize:22];
-    self.userAboutLabel.font = [UIFont getDKCrayonFontWithSize:18];
-    self.usersLabel.font = [UIFont getDKCrayonFontWithSize:20];
+    self.denyButton.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.approveButton.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.userAboutLabel.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
+    self.usersLabel.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
 }
 
 - (void)fillCell:(LoopInvitationModel *)invitation forAdultOfInvitor:(BOOL)isInvitor andTag:(NSInteger)tag
@@ -47,10 +47,10 @@
     *second = invitation.Invitee.Login,
     *fullString = [NSString stringWithFormat: @"%@, wants to invite %@ into loop", first, second];
     NSMutableAttributedString *attributted = [[NSMutableAttributedString alloc] initWithString:fullString];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:32] range:NSMakeRange(0, [first length] + 1)];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 1, 17)];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:22] range:NSMakeRange([first length] + 18, [second length])];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 18 + [second length], [fullString length] - ([first length] + 18 + [second length]))];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_BIG] range:NSMakeRange(0, [first length] + 1)];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_SMALL] range:NSMakeRange([first length] + 1, 17)];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM] range:NSMakeRange([first length] + 18, [second length])];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_SMALL] range:NSMakeRange([first length] + 18 + [second length], [fullString length] - ([first length] + 18 + [second length]))];
     if (isInvitor) {
         [self.userAvatarImageView setImageWithURL:invitation.Invitee.AvatarUrl];
         self.userAboutLabel.text = invitation.Invitee.AboutMe;
@@ -73,10 +73,10 @@
     *second = invitation.Invitee.Login,
     *fullString = [NSString stringWithFormat: @"%@, wants to invite you %@ into loop", first, second];
     NSMutableAttributedString *attributted = [[NSMutableAttributedString alloc] initWithString:fullString];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:32] range:NSMakeRange(0, [first length] + 1)];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 1, 17)];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:22] range:NSMakeRange([first length] + 18, [second length])];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:18] range:NSMakeRange([first length] + 18 + [second length], [fullString length] - ([first length] + 18 + [second length]))];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_BIG] range:NSMakeRange(0, [first length] + 1)];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_SMALL] range:NSMakeRange([first length] + 1, 17)];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM] range:NSMakeRange([first length] + 18, [second length])];
+    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_SMALL] range:NSMakeRange([first length] + 18 + [second length], [fullString length] - ([first length] + 18 + [second length]))];
     [self.userAvatarImageView setImageWithURL:invitation.Invitor.AvatarUrl];
     self.userAboutLabel.text = invitation.Invitor.AboutMe;
     [attributted addAttribute:NSForegroundColorAttributeName value:[ColorManager defaultTintColor] range:NSMakeRange(0, [first length] + 1)];

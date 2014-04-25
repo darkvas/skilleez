@@ -95,16 +95,16 @@ enum {
                                            image:favoriteColor == nil ? [self getBlankImage:[UIColor blackColor]] : [self getBlankImage:favoriteColor]
                                           method:@"chooseColor"],
                  [[TableItem alloc] initWithName:@"What's your favorite sport"
-                                           image:self.sportImageName == nil ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName]
+                                           image:[self.sportImageName isEqualToString:@""] ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName]
                                           method:@"chooseSport"],
                  [[TableItem alloc] initWithName:@"What's your favorite school subject?"
-                                           image:self.subjectImageName == nil ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName]
+                                           image:[self.subjectImageName isEqualToString:@""] ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName]
                                           method:@"chooseSubject"],
                  [[TableItem alloc] initWithName:@"What's your favorite type of music?"
-                                           image:self.musicImageName == nil ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName]
+                                           image:[self.musicImageName isEqualToString:@""] ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName]
                                           method:@"chooseMusic"],
                  [[TableItem alloc] initWithName:@"What's your favorite food?"
-                                           image:self.foodImageName == nil ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName]
+                                           image:[self.foodImageName isEqualToString:@""] ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName]
                                           method:@"chooseFood"],
                  [[TableItem alloc] initWithName:@"My skilleez"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
@@ -136,10 +136,10 @@ enum {
     self.foodImageName = profile.FavoriteFood;
     favoriteColor = profile.Color;
     ((TableItem *)questions[1]).image = [self getBlankImage:favoriteColor];
-    ((TableItem *)questions[2]).image = self.sportImageName == nil ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName];
-    ((TableItem *)questions[3]).image = self.subjectImageName == nil ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName];
-    ((TableItem *)questions[4]).image = self.musicImageName == nil ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName];
-    ((TableItem *)questions[5]).image = self.foodImageName == nil ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName];
+    ((TableItem *)questions[2]).image = [self.sportImageName isEqualToString:@""] ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName];
+    ((TableItem *)questions[3]).image = [self.subjectImageName isEqualToString:@""] ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName];
+    ((TableItem *)questions[4]).image = [self.musicImageName isEqualToString:@""] ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName];
+    ((TableItem *)questions[5]).image = [self.foodImageName isEqualToString:@""] ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName];
     [self.tableView reloadData];
 }
 
@@ -172,7 +172,7 @@ enum {
         }
         cell.backgroundColor = [ColorManager colorForCellBackground];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.font = [UIFont getDKCrayonFontWithSize:31.f];
+        cell.textLabel.font = [UIFont getDKCrayonFontWithSize:LABEL_BIG];
         UIView *bgColorView = [[UIView alloc] init];
         bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
         [cell setSelectedBackgroundView:bgColorView];
@@ -221,6 +221,7 @@ enum {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.view endEditing:YES];
     [self performSelector:NSSelectorFromString(((TableItem *)[questions objectAtIndex:indexPath.row]).method)];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -307,23 +308,23 @@ enum {
 - (void)cutomize
 {
     self.userAvatarImg.layer.masksToBounds = YES;
-    self.userAvatarImg.layer.borderWidth = 5.f;
+    self.userAvatarImg.layer.borderWidth = BORDER_WIDTH_BIG;
     self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.editAvatarBtn.layer.cornerRadius = 7.f;
-    self.myProfileLbl.font = [UIFont getDKCrayonFontWithSize:31.f];
-    self.editAvatarBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:24.f];
+    self.myProfileLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_BIG];
+    self.editAvatarBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM];
     self.saveBtn.layer.cornerRadius = 7.f;
-    self.saveBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:24.f];
-    self.nameLbl.font = [UIFont getDKCrayonFontWithSize:21.f];
-    self.loginLbl.font = [UIFont getDKCrayonFontWithSize:21.f];
-    self.passwordLbl.font = [UIFont getDKCrayonFontWithSize:21.f];
+    self.saveBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM];
+    self.nameLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.loginLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.passwordLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.nameTxt.delegate = self;
     self.loginTxt.delegate = self;
     self.passwordTxt.delegate = self;
-    self.nameTxt.font = [UIFont getDKCrayonFontWithSize:18];
-    self.loginTxt.font = [UIFont getDKCrayonFontWithSize:18];
-    self.passwordTxt.font = [UIFont getDKCrayonFontWithSize:18];
+    self.nameTxt.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
+    self.loginTxt.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
+    self.passwordTxt.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
 }
 
 - (void)cancel

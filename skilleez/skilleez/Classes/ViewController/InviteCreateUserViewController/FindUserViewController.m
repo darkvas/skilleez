@@ -13,10 +13,6 @@
 #import "ActivityIndicatorController.h"
 #import "CustomAlertView.h"
 
-const float CORNER_RADIUS = 5.f;
-const float BORDER_WIDTH = 3.f;
-const int FONT_SIZE = 24;
-
 @interface FindUserViewController ()
 {
     ProfileInfo *_profileInfo;
@@ -67,15 +63,15 @@ const int FONT_SIZE = 24;
 
 - (void) customize
 {
-    self.btnYes.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.btnYes.layer.cornerRadius = CORNER_RADIUS;
-    self.btnNo.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.btnNo.layer.cornerRadius = CORNER_RADIUS;
-    self.lblUserName.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
-    self.lblQuestion.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE];
+    self.btnYes.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM];
+    self.btnYes.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
+    self.btnNo.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_MEDIUM];
+    self.btnNo.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
+    self.lblUserName.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.lblQuestion.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     
     self.imgUserAvatar.layer.masksToBounds = YES;
-    self.imgUserAvatar.layer.borderWidth = BORDER_WIDTH;
+    self.imgUserAvatar.layer.borderWidth = BORDER_WIDTH_MEDIUM;
     self.imgUserAvatar.layer.cornerRadius = 103.f;
     self.imgUserAvatar.layer.borderColor = [[UIColor whiteColor] CGColor];
 }

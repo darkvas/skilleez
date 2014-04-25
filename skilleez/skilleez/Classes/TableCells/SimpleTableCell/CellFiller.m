@@ -49,11 +49,11 @@
     cell.avatarImg.layer.cornerRadius = 23.0;
     cell.avatarImg.layer.masksToBounds = YES;
     cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    cell.avatarImg.layer.borderWidth = 3.0;
-    [cell.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
-    [cell.dateLbl setFont:[UIFont getDKCrayonFontWithSize:16]];
-    [cell.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:35]];
-    [cell.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:21]];
+    cell.avatarImg.layer.borderWidth = BORDER_WIDTH_MEDIUM;
+    [cell.usernameLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
+    [cell.dateLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_SMALL]];
+    [cell.skilleezTitleLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_BIG]];
+    [cell.skilleezCommentLbl setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
 }
 
 @end

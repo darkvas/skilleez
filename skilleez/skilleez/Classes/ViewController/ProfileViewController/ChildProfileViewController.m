@@ -21,9 +21,6 @@
 #import "UtilityController.h"
 #import "CustomAlertView.h"
 
-const float CORNER_RADIUS_CP = 5.f;
-const int FONT_SIZE_CP = 22;
-
 @interface ChildProfileViewController ()
 {
     NSString *_familyMemberId;
@@ -89,15 +86,15 @@ const int FONT_SIZE_CP = 22;
 - (void)customize
 {
     self.userAvatarImg.layer.masksToBounds = YES;
-    self.userAvatarImg.layer.borderWidth = 5.f;
+    self.userAvatarImg.layer.borderWidth = BORDER_WIDTH_BIG;
     self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.skilleezBtn.layer.cornerRadius = CORNER_RADIUS_CP;
-    self.skilleezBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_CP];
-    self.profileBtn.layer.cornerRadius = CORNER_RADIUS_CP;
-    self.profileBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_CP];
-    self.settingsBtn.layer.cornerRadius = CORNER_RADIUS_CP;
-    self.settingsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:FONT_SIZE_CP];
+    self.skilleezBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
+    self.skilleezBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.profileBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
+    self.profileBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
+    self.settingsBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
+    self.settingsBtn.titleLabel.font = [UIFont getDKCrayonFontWithSize:BUTTON_SMALL];
 }
 
 - (void)done

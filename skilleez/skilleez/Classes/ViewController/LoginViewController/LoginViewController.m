@@ -80,14 +80,14 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
 
 - (void)setCustomFonts
 {
-    [self.txtFieldUserName setFont:[UIFont getDKCrayonFontWithSize:36]];
+    [self.txtFieldUserName setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_BIG]];
     [self.txtFieldUserName setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.txtFieldUserPassword setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
-    [self.txtFieldUserPassword setFont:[UIFont getDKCrayonFontWithSize:36]];
-    [self.loginBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:36]];
-    [self.rememberMeBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:18]];
-    [self.registerBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:18]];
-    [self.forgotPasswordBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:18]];
+    [self.txtFieldUserPassword setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_BIG]];
+    [self.loginBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:36.0]];
+    [self.rememberMeBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:LABEL_SMALL]];
+    [self.registerBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:LABEL_SMALL]];
+    [self.forgotPasswordBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:LABEL_SMALL]];
 }
 
 - (IBAction)loginPressed:(UIButton *)sender

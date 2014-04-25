@@ -15,10 +15,6 @@
 #import "UserSettingsManager.h"
 #import "ColorManager.h"
 
-const float CORNER_RADIUS_PM = 3.f;
-const int BOTTOM_LABEL_FONT_SIZE = 24;
-const int TOP_LABEL_FONT_SIZE = 21;
-
 const NSString* DEFAULT_PERMISSION_ID = @"0";
 
 @interface PermissionManagementViewController () {
@@ -97,19 +93,19 @@ const NSString* DEFAULT_PERMISSION_ID = @"0";
 - (void)customize
 {
     self.userAvatarImg.layer.masksToBounds = YES;
-    self.userAvatarImg.layer.borderWidth = 5.f;
+    self.userAvatarImg.layer.borderWidth = BORDER_WIDTH_BIG;
     self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.approvalLbl.font = [UIFont getDKCrayonFontWithSize:31];
-    self.userCanApproveLbl.font = [UIFont getDKCrayonFontWithSize:TOP_LABEL_FONT_SIZE];
-    self.canApproveLbl.font = [UIFont getDKCrayonFontWithSize:TOP_LABEL_FONT_SIZE];
-    self.usernameLbl.font = [UIFont getDKCrayonFontWithSize:TOP_LABEL_FONT_SIZE];
-    self.changesLbl.font = [UIFont getDKCrayonFontWithSize:BOTTOM_LABEL_FONT_SIZE];
-    self.loopLbl.font = [UIFont getDKCrayonFontWithSize:BOTTOM_LABEL_FONT_SIZE];
-    self.profileLbl.font = [UIFont getDKCrayonFontWithSize:BOTTOM_LABEL_FONT_SIZE];
-    self.changesBtn.layer.cornerRadius = CORNER_RADIUS_PM;
-    self.loopBtn.layer.cornerRadius = CORNER_RADIUS_PM;
-    self.profileBtn.layer.cornerRadius = CORNER_RADIUS_PM;
+    self.approvalLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_BIG];
+    self.userCanApproveLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
+    self.canApproveLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
+    self.usernameLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.changesLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.loopLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.profileLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.changesBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_SMALL;
+    self.loopBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_SMALL;
+    self.profileBtn.layer.cornerRadius = BUTTON_CORNER_RADIUS_SMALL;
 }
 
 - (void)cancel

@@ -11,8 +11,6 @@
 #import "UIFont+DefaultFont.h"
 #import "ColorViewController.h"
 
-const float CORNER_RADIUS_PV = 5.f;
-const float BORDER_WIDTH_PV = 2.f;
 enum {
     SPORT = 0,
     SUBJECT = 1,
@@ -63,11 +61,11 @@ enum {
     [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
     self.userColorButton.backgroundColor = profile.Color;
     self.coloredView.backgroundColor = profile.Color;
-    [self.userSportButton setBackgroundImage:profile.FavoriteSport == nil ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:profile.FavoriteSport] forState:UIControlStateNormal];
-    [self.userSubjectButton setBackgroundImage:profile.FavoriteSchoolSubject == nil ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:profile.FavoriteSchoolSubject] forState:UIControlStateNormal];
-    [self.userMusicButton setBackgroundImage:profile.FavoriteTypeOfMusic == nil ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:profile.FavoriteTypeOfMusic] forState:UIControlStateNormal];
-    [self.userFoodButton setBackgroundImage:profile.FavoriteFood == nil ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:profile.FavoriteFood] forState:UIControlStateNormal];
-    self.userDescTextView.text = profile.AboutMe == nil ? self.userDescTextView.text : profile.AboutMe;
+    [self.userSportButton setBackgroundImage:[profile.FavoriteSport isEqualToString:@""] ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:profile.FavoriteSport] forState:UIControlStateNormal];
+    [self.userSubjectButton setBackgroundImage:[profile.FavoriteSchoolSubject isEqualToString:@""] ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:profile.FavoriteSchoolSubject] forState:UIControlStateNormal];
+    [self.userMusicButton setBackgroundImage:[profile.FavoriteTypeOfMusic isEqualToString:@""] ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:profile.FavoriteTypeOfMusic] forState:UIControlStateNormal];
+    [self.userFoodButton setBackgroundImage:[profile.FavoriteFood isEqualToString:@""] ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:profile.FavoriteFood] forState:UIControlStateNormal];
+    self.userDescTextView.text = [profile.AboutMe isEqualToString:@""] ? self.userDescTextView.text : profile.AboutMe;
     CGRect rect = self.userDescTextView.frame;
     CGSize textViewSize = [self.userDescTextView sizeThatFits:CGSizeMake(self.userDescTextView.frame.size.width, FLT_MAX)];
     textViewSize.height += 10;
@@ -81,7 +79,6 @@ enum {
     [self turnEditMode];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
-	// Do any additional setup after loading the view.216
 }
 
 - (void)didReceiveMemoryWarning
@@ -203,44 +200,32 @@ enum {
 
 - (void)customize
 {
-    self.userDescTextView.font = [UIFont getDKCrayonFontWithSize:21.f];
+    self.userDescTextView.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.userDescTextView.textColor = [UIColor whiteColor];
     self.userAvatarImg.layer.masksToBounds = YES;
-    self.userAvatarImg.layer.borderWidth = BORDER_WIDTH_PV;
+    self.userAvatarImg.layer.borderWidth = BORDER_WIDTH_SMALL;
     self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userColorButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userColorButton.layer.masksToBounds = YES;
-    self.userColorButton.layer.borderWidth = BORDER_WIDTH_PV;
-    self.userColorButton.layer.cornerRadius = CORNER_RADIUS_PV;
+    self.userColorButton.layer.borderWidth = BORDER_WIDTH_SMALL;
+    self.userColorButton.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
     self.userSportButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userSportButton.layer.masksToBounds = YES;
-    self.userSportButton.layer.borderWidth = BORDER_WIDTH_PV;
-    self.userSportButton.layer.cornerRadius = CORNER_RADIUS_PV;
+    self.userSportButton.layer.borderWidth = BORDER_WIDTH_SMALL;
+    self.userSportButton.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
     self.userMusicButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userMusicButton.layer.masksToBounds = YES;
-    self.userMusicButton.layer.borderWidth = BORDER_WIDTH_PV;
-    self.userMusicButton.layer.cornerRadius = CORNER_RADIUS_PV;
+    self.userMusicButton.layer.borderWidth = BORDER_WIDTH_SMALL;
+    self.userMusicButton.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
     self.userSubjectButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userSubjectButton.layer.masksToBounds = YES;
-    self.userSubjectButton.layer.borderWidth = BORDER_WIDTH_PV;
-    self.userSubjectButton.layer.cornerRadius = CORNER_RADIUS_PV;
+    self.userSubjectButton.layer.borderWidth = BORDER_WIDTH_SMALL;
+    self.userSubjectButton.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
     self.userFoodButton.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.userFoodButton.layer.masksToBounds = YES;
-    self.userFoodButton.layer.borderWidth = BORDER_WIDTH_PV;
-    self.userFoodButton.layer.cornerRadius = CORNER_RADIUS_PV;
-}
-
-- (UIImage *)getBlankImage:(UIColor *)color
-{
-    const int defaultSize = 100;
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(defaultSize,defaultSize), NO, 0);
-    UIBezierPath* bezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, defaultSize, defaultSize)];
-    [color setFill];
-    [bezierPath fill];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
+    self.userFoodButton.layer.borderWidth = BORDER_WIDTH_SMALL;
+    self.userFoodButton.layer.cornerRadius = BUTTON_CORNER_RADIUS_MEDIUM;
 }
 
 - (IBAction)selectColor:(id)sender {
