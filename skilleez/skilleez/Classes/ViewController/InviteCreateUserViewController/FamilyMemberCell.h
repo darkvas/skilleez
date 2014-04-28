@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "FamilyMemberModel.h"
+#import "ProfileInfo.h"
 
 @interface FamilyMemberCell : UITableViewCell
 
 @property (nonatomic,strong) id delegate;
 
 -(void) setMemberData: (FamilyMemberModel*) familyMember andTag:(int) rowTag;
+-(void) setProfileData: (ProfileInfo*) profile andTag:(int) rowTag;
 
 @end
