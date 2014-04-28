@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Invite to loop" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Invite to loop" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     
     [self customizeElements];
@@ -59,6 +59,7 @@
 
 - (void) done
 {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(IBAction) searchUser:(id)sender

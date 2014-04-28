@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"New User" leftTitle:@"Cancel" rightButton:YES rightTitle:@""];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"New User" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
 	
     [self customizeElements];
@@ -58,6 +58,7 @@
 
 - (void) done
 {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(IBAction) createChildUser:(id)sender
