@@ -127,7 +127,7 @@ enum {
 
 - (void)updateProfileView
 {
-    [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
+    [self.userAvatarImg setImageWithURL:profile.AvatarUrl];
     self.nameTxt.text = profile.ScreenName;
     self.loginTxt.text = profile.Login;
     self.subjectImageName = profile.FavoriteSchoolSubject;
@@ -369,7 +369,6 @@ enum {
     profile.FavoriteSport = self.sportImageName;
     profile.FavoriteTypeOfMusic = self.musicImageName;
     profile.FavoriteFood = self.foodImageName;
-    
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postProfileInfo:profile withCallBack:^(RequestResult *requestResult) {
         if(requestResult.isSuccess) {
