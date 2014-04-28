@@ -77,9 +77,9 @@ typedef enum {
                                                  name:@"UIDeviceOrientationDidChangeNotification"
                                                object:nil];
     buttons = [NSMutableArray arrayWithObjects:
-               [[TableItem alloc] initWithName:@"APPROVE" image:[UIImage imageNamed:@"thumb-up"] method:@"approve"],
-               [[TableItem alloc] initWithName:@"DENY" image:[UIImage imageNamed:@"thumb-down"] method:@"deny"],
-               [[TableItem alloc] initWithName:@"FAVORITE" image:[UIImage imageNamed:@"star2"] method:@"favorite"],
+               [[TableItem alloc] initWithName:@"APPROVE" image:[UIImage imageNamed:@"Thumb-up"] method:@"approve"],
+               [[TableItem alloc] initWithName:@"DENY" image:[UIImage imageNamed:@"Thumb-down"] method:@"deny"],
+               [[TableItem alloc] initWithName:@"FAVORITE" image:[UIImage imageNamed:@"Star2"] method:@"favorite"],
                [[TableItem alloc] initWithName:@"TATTLE" image:[UIImage imageNamed:@"warning2"] method:@"tattle"], nil];
     if (enabledApprove) {
         [self canApproveByAPI];

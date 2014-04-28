@@ -104,16 +104,18 @@
 
 - (NSString *)getErrorMessage:(NSError *)error
 {
-    NSString* errorDescr = (NSString *) error.userInfo[NSLocalizedRecoverySuggestionErrorKey];
-    if (errorDescr && errorDescr.length > 0)
-        return [[NSJSONSerialization JSONObjectWithData:[((NSString *)error.userInfo[NSLocalizedRecoverySuggestionErrorKey]) dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil] objectForKey:@"ErrorMessage"];
-    else {
-        errorDescr = error.userInfo[NSLocalizedDescriptionKey];
-        if (errorDescr && errorDescr.length > 0)
-            return errorDescr;
-        else
-            return [NSString stringWithFormat:@"%@", error];
+    if(error.userInfo[NSLocalizedRecoverySuggestionErrorKey]) {
+        NSDictionary *errorInfo = [NSJSONSerialization JSONObjectWithData:[((NSString *)error.userInfo[NSLocalizedRecoverySuggestionErrorKey]) dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+        
+        if (errorInfo) {
+            NSString *errorMessage = [errorInfo objectForKey:@"ErrorMessage"];
+            if (errorMessage && errorMessage.length > 0)
+                return errorMessage;
+        }
     }
+    
+    NSString *errorDescr = error.userInfo[NSLocalizedDescriptionKey];
+    return (errorDescr && errorDescr.length > 0) ? errorDescr :[NSString stringWithFormat:@"%@", error];
 }
 
 - (UILabel *)showEmptyView:(UIViewController *)viewController text:(NSString *)text
