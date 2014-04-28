@@ -104,7 +104,16 @@
 
 - (NSString *)getErrorMessage:(NSError *)error
 {
-    return [[NSJSONSerialization JSONObjectWithData:[((NSString *)error.userInfo[NSLocalizedRecoverySuggestionErrorKey]) dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil] objectForKey:@"ErrorMessage"];
+    NSString* errorDescr = (NSString *) error.userInfo[NSLocalizedRecoverySuggestionErrorKey];
+    if (errorDescr && errorDescr.length > 0)
+        return [[NSJSONSerialization JSONObjectWithData:[((NSString *)error.userInfo[NSLocalizedRecoverySuggestionErrorKey]) dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil] objectForKey:@"ErrorMessage"];
+    else {
+        errorDescr = error.userInfo[NSLocalizedDescriptionKey];
+        if (errorDescr && errorDescr.length > 0)
+            return errorDescr;
+        else
+            return [NSString stringWithFormat:@"%@", error];
+    }
 }
 
 - (void)showEmptyView:(UIViewController *)viewController text:(NSString *)text
