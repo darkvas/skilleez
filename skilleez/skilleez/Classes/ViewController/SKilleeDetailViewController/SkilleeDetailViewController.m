@@ -27,7 +27,7 @@ typedef enum {
 
 @interface SkilleeDetailViewController () {
     SkilleeModel *skillee;
-    BOOL enabledApprove;
+    BOOL enabledApprove;//TODO: in future will be not needed when can approve by API will work
     SkilleeAction skilleeAction;
     NSMutableArray *buttons;
 }
@@ -81,8 +81,11 @@ typedef enum {
                [[TableItem alloc] initWithName:@"DENY" image:[UIImage imageNamed:@"thumb-down"] method:@"deny"],
                [[TableItem alloc] initWithName:@"FAVORITE" image:[UIImage imageNamed:@"star2"] method:@"favorite"],
                [[TableItem alloc] initWithName:@"TATTLE" image:[UIImage imageNamed:@"warning2"] method:@"tattle"], nil];
-    if (!enabledApprove) {
+    if (enabledApprove) {
+        [self canApproveByAPI];
+    } else {
         [buttons removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)]];
+        [self.tableView reloadData];
     }
     self.rightMenu.frame = CGRectMake(320, 0, 80, 568);
     [self.view addSubview:self.rightMenu];
@@ -317,13 +320,21 @@ typedef enum {
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getCanApprove:skillee.Id withCallBack:^(RequestResult *requestReturn) {
+        BOOL canApprove = NO;
         if (requestReturn.isSuccess) {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            BOOL canApprove = [((NSNumber*)requestReturn.firstObject) boolValue];
+            canApprove = [((NSNumber*)requestReturn.firstObject) boolValue];
             NSLog(@"Can approve: %@", canApprove ? @"YES" : @"FALSE");
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
             NSLog(@"Failed get can approve: %@, error: %@", skillee.Id, requestReturn.error);
+        }
+        if (canApprove) {
+            [buttons removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)]];
+            CGRect frame = self.tableView.frame;
+            frame.size.height = [buttons count] * 80;
+            self.tableView.frame = frame;
+            [self.tableView reloadData];
         }
     }];
 }

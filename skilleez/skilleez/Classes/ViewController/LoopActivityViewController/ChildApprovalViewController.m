@@ -63,7 +63,7 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[_items objectAtIndex:indexPath.row] andApproveOpportunity:YES];
+    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:[_items objectAtIndex:indexPath.row] andApproveOpportunity:NO];
     [self.parent.navigationController pushViewController:detail animated:YES];
 }
 

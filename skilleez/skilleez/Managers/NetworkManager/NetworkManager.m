@@ -172,7 +172,7 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
                                                                                  method:RKRequestMethodGET
                                                                             pathPattern:GET_CAN_APPROVE
-                                                                                keyPath:@"ReturnValue"
+                                                                                keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
