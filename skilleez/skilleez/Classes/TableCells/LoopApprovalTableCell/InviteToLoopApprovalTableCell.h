@@ -23,6 +23,5 @@
 @property (nonatomic,strong) id delegate;
 
 - (void)fillCell:(LoopInvitationModel *)invitation forAdultOfInvitor:(BOOL)isInvitor andTag:(NSInteger)tag;
-- (void)fillCellForInviteeChild:(LoopInvitationModel *)invitation andTag:(NSInteger)tag;
 
 @end

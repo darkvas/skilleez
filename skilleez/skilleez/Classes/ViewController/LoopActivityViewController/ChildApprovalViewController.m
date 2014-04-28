@@ -9,7 +9,6 @@
 #import "ChildApprovalViewController.h"
 
 static NSString *skilleeCellName = @"ChildApprovalTableCell";
-static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 
 @interface ChildApprovalViewController () {
     NSMutableArray *_items;
@@ -18,7 +17,7 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIViewController *parent;
-
+@property (strong, nonatomic) UILabel *emptyTableLabel;
 
 @end
 
@@ -38,8 +37,6 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
     _showView = YES;
     UINib *nib = [UINib nibWithNibName:skilleeCellName bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:skilleeCellName];
-    nib = [UINib nibWithNibName:invitationCellName bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:invitationCellName];
     [self loadWaitingForApprovalList];
 }
 
@@ -71,20 +68,12 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[_items objectAtIndex:indexPath.row] isKindOfClass:[SkilleeModel class]]) {
-        SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:skilleeCellName];
-        cell.delegate = self;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(selectProfile:)];
-        [cell.avatarImg addGestureRecognizer:tap];
-        [cell setSkilleezData:cell andSkilleez:[_items objectAtIndex:indexPath.row] andTag:indexPath.row];
-        return cell;
-    } else {
-        InviteToLoopApprovalTableCell *cell = [tableView dequeueReusableCellWithIdentifier:invitationCellName];
-        cell.delegate = self;
-        LoopInvitationModel *invitation = [_items objectAtIndex:indexPath.row];
-        [cell fillCellForInviteeChild:invitation andTag:indexPath.row];
-        return cell;
-    }
+    SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:skilleeCellName];
+    cell.delegate = self;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(selectProfile:)];
+    [cell.avatarImg addGestureRecognizer:tap];
+    [cell setSkilleezData:cell andSkilleez:[_items objectAtIndex:indexPath.row] andTag:indexPath.row];
+    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -110,13 +99,15 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 {
     [[NetworkManager sharedInstance] getWaitingForApprovalList:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
+            [self.emptyTableLabel removeFromSuperview];
             NSArray* skilleeList = requestResult.returnArray;
             if (![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:_items] && [skilleeList count] > 0) {
                 _items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
             }
             if ([_items count] == 0)
-                [[UtilityController sharedInstance] showEmptyView:self text:@"You have no skilleez waiting for approval"];
+                self.emptyTableLabel = [[UtilityController sharedInstance] showEmptyView:self text:@"You have no skilleez waiting for approval"];
+            [self.view addSubview: self.emptyTableLabel];
         } else {
             [[UtilityController sharedInstance] showFailureAlert:requestResult.error withCaption:@"Load loop failed"];
         }

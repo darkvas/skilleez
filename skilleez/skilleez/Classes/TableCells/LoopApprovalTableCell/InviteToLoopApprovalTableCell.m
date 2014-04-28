@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *denyButton;
 
 - (IBAction)viewProfile:(id)sender;
+- (IBAction)approve:(id)sender;
+- (IBAction)disapprove:(id)sender;
 
 @end
 
@@ -61,33 +63,12 @@
         [attributted addAttribute:NSForegroundColorAttributeName value:[ColorManager defaultTintColor] range:NSMakeRange(0, [first length] + 1)];
     }
     self.usersLabel.attributedText = attributted;
-    [self setButtonsMethods];
 }
 
 - (void)setAboutLabel:(NSString*)aboutText
 {
     if (!aboutText && [aboutText isEqualToString:@""])
         self.userAboutLabel.text = aboutText;
-}
-
-- (void)fillCellForInviteeChild:(LoopInvitationModel *)invitation andTag:(NSInteger)tag
-{
-    _invitation = invitation;
-    self.viewProfileButton.tag = tag;
-    //TODO:change on screen names
-    NSString *first = invitation.Invitor.Login,
-    *second = invitation.Invitee.Login,
-    *fullString = [NSString stringWithFormat: @"%@, wants to invite you %@ into loop", first, second];
-    NSMutableAttributedString *attributted = [[NSMutableAttributedString alloc] initWithString:fullString];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_BIG] range:NSMakeRange(0, [first length] + 1)];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_SMALL] range:NSMakeRange([first length] + 1, 17)];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM] range:NSMakeRange([first length] + 18, [second length])];
-    [attributted addAttribute:NSFontAttributeName value:[UIFont getDKCrayonFontWithSize:LABEL_SMALL] range:NSMakeRange([first length] + 18 + [second length], [fullString length] - ([first length] + 18 + [second length]))];
-    [self.userAvatarImageView setImageWithURL:invitation.Invitor.AvatarUrl];
-    self.userAboutLabel.text = invitation.Invitor.AboutMe;
-    [attributted addAttribute:NSForegroundColorAttributeName value:[ColorManager defaultTintColor] range:NSMakeRange(0, [first length] + 1)];
-    self.usersLabel.attributedText = attributted;
-    [self setButtonsMethods];
 }
 
 - (IBAction)viewProfile:(id)sender
@@ -121,42 +102,4 @@
     }];
 }
 
-- (IBAction)accept:(id)sender
-{
-    [[NetworkManager sharedInstance] postApproveInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
-        if (requestResult.isSuccess) {
-            [self.delegate didActionSuccess];
-        } else {
-            NSLog(@"Fail post accept invitation to loop");
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
-            [alert show];
-        }
-    }];
-}
-
-- (IBAction)decline:(id)sender
-{
-    [[NetworkManager sharedInstance] postApproveInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
-        if (requestResult.isSuccess) {
-            [self.delegate didActionSuccess];
-        } else {
-            NSLog(@"Fail post decline invitation to loop");
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
-            [alert show];
-        }
-    }];
-}
-
-- (void)setButtonsMethods
-{
-    if ([[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:_invitation.Invitee.UserId]) {
-        [self.approveButton addTarget:self action:@selector(accept:) forControlEvents:UIControlEventTouchUpInside];
-        [self.denyButton addTarget:self action:@selector(decline:) forControlEvents:UIControlEventTouchUpInside];
-        self.approveButton.titleLabel.text = @"Accept";
-        self.denyButton.titleLabel.text = @"Decline";
-    } else {
-        [self.approveButton addTarget:self action:@selector(approve:) forControlEvents:UIControlEventTouchUpInside];
-        [self.denyButton addTarget:self action:@selector(disapprove:) forControlEvents:UIControlEventTouchUpInside];
-    }
-}
 @end

@@ -27,7 +27,7 @@ static NSString *POST_REMOVE_FROM_FAVORITES = @"api/Skillee/RemoveFromFavorites"
 static NSString *POST_MARK_AS_TATTLE = @"api/Skillee/MarkAsTattle";
 static NSString *POST_APPROVE_OR_DENY = @"api/Skillee/ApproveOrDeny";
 
-static NSString *POST_ADD_CHILD_TO_FAMILY = @"api/User/AddChildToTheFamily";
+static NSString *POST_ADD_CHILD_TO_FAMILY = @"api/User/AddChild";
 static NSString *POST_INVITE_ADULT_TO_FAMILY = @"api/User/InviteAdultToTheFamily";
 static NSString *POST_REMOVE_MEMBER_FROM_FAMILY = @"api/User/DeleteMemberFromTheFamily";
 static NSString *GET_FRIENDS_AND_FAMILY = @"api/User/GetFriendsAndFamily";

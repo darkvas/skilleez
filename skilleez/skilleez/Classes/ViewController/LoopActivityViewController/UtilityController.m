@@ -116,7 +116,7 @@
     }
 }
 
-- (void)showEmptyView:(UIViewController *)viewController text:(NSString *)text
+- (UILabel *)showEmptyView:(UIViewController *)viewController text:(NSString *)text
 {
     UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 280, 280)];
     emptyLabel.numberOfLines = 4;
@@ -124,7 +124,7 @@
     emptyLabel.textColor = [UIColor grayColor];
     emptyLabel.textAlignment = NSTextAlignmentCenter;
     emptyLabel.text = text;
-    [viewController.view addSubview:emptyLabel];
+    return emptyLabel;
 }
 
 @end

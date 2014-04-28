@@ -18,6 +18,7 @@ static NSString *cellName = @"SimpleTableCell";
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIViewController *parent;
+@property (strong, nonatomic) UILabel *emptyTableLabel;
 
 @end
 
@@ -126,6 +127,7 @@ static NSString *cellName = @"SimpleTableCell";
 {
     [[NetworkManager sharedInstance]  getSkilleeList:count offset:offset withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
+            [self.emptyTableLabel removeFromSuperview];
             NSArray* skilleeList = requestResult.returnArray;
             if (offset > 0) {
                 [items addObjectsFromArray:skilleeList];
@@ -135,7 +137,8 @@ static NSString *cellName = @"SimpleTableCell";
                 [self.tableView reloadData];
             }
             if ([items count] == 0)
-                [[UtilityController sharedInstance] showEmptyView:self text:@"You have no skilleez. Please add some, to see them here"];
+                self.emptyTableLabel = [[UtilityController sharedInstance] showEmptyView:self text:@"You have no skilleez. Please add some, to see them here"];
+            [self.view addSubview:self.emptyTableLabel];
             canLoadOnScroll = YES;
             [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
         } else {

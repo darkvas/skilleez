@@ -97,7 +97,7 @@
     NSString* email = self.tfUserEmail.text;
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postInviteAdultToFamily: email withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] postInviteToLoopByEmail: email withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
             CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Invite Adult success" delegate:nil];
