@@ -110,7 +110,7 @@
     [[NetworkManager sharedInstance] postAddChildToFamily:childName withPass:childPass withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Create Child success" delegate:self];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Create Child success" delegate:nil];
             [alert show];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];

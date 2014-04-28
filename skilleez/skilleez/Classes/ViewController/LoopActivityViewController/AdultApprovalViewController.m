@@ -18,6 +18,7 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIViewController *parent;
+@property (strong, nonatomic) UILabel *emptyTableLabel;
 
 @end
 
@@ -114,7 +115,7 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 - (void)didViewProfile:(NSInteger)index
 {
     LoopInvitationModel *item = [_items objectAtIndex:index];
-    NSString *profileId = [self isAdultsChildInvitor:item.Invitor.UserId] ? item.Invitee.UserId : item.Invitor.UserId;
+    NSString *profileId = item.Invitor.CurrentUserIsApprover ? item.Invitee.UserId : item.Invitor.UserId;
     [[UtilityController sharedInstance] profileSelect:profileId onController:self.parent];
 }
 
@@ -130,13 +131,15 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 {
     [[NetworkManager sharedInstance] getWaitingForApprovalList:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
+            [self.emptyTableLabel removeFromSuperview];
             NSArray* skilleeList = requestResult.returnArray;
             if (![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:_items] && [skilleeList count] > 0) {
                 _items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
             }
             if ([_items count] == 0)
-                [[UtilityController sharedInstance] showEmptyView:self text:@"You have no skilleez or invitations in approval."];
+                self.emptyTableLabel = [[UtilityController sharedInstance] showEmptyView:self text:@"You have no skilleez or invitations in approval."];
+            [self.view addSubview:self.emptyTableLabel];
         } else {
             [[UtilityController sharedInstance] showFailureAlert:requestResult.error withCaption:@"Load loop failed"];
         }

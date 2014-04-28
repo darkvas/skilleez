@@ -329,7 +329,7 @@ typedef enum {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
             NSLog(@"Failed get can approve: %@, error: %@", skillee.Id, requestReturn.error);
         }
-        if (canApprove) {
+        if (!canApprove) {
             [buttons removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)]];
             CGRect frame = self.tableView.frame;
             frame.size.height = [buttons count] * 80;

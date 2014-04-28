@@ -26,6 +26,6 @@
 - (void)setBadgeValue:(int)value forController:(UIViewController *)homeController;
 - (void)showAnotherViewController:(UIViewController *)child;
 - (NSString *)getErrorMessage:(NSError *)error;
-- (void)showEmptyView:(UIViewController *)viewController text:(NSString *)text;
+- (UILabel *)showEmptyView:(UIViewController *)viewController text:(NSString *)text;
 
 @end
