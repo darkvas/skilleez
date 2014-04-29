@@ -34,6 +34,7 @@ enum {
     BOOL imageChanged;
     UIImagePickerController *imagePicker;
     UIColor *favoriteColor;
+    NSString *_aboutMe;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -95,16 +96,16 @@ enum {
                                            image:favoriteColor == nil ? [self getBlankImage:[UIColor blackColor]] : [self getBlankImage:favoriteColor]
                                           method:@"chooseColor"],
                  [[TableItem alloc] initWithName:@"What's your favorite sport"
-                                           image:[self.sportImageName isEqualToString:@""] ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName]
+                                           image:[self.sportImageName isEqualToString:@""] || !self.sportImageName ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName]
                                           method:@"chooseSport"],
                  [[TableItem alloc] initWithName:@"What's your favorite school subject?"
-                                           image:[self.subjectImageName isEqualToString:@""] ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName]
+                                           image:[self.subjectImageName isEqualToString:@""] || !self.subjectImageName ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName]
                                           method:@"chooseSubject"],
                  [[TableItem alloc] initWithName:@"What's your favorite type of music?"
-                                           image:[self.musicImageName isEqualToString:@""] ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName]
+                                           image:[self.musicImageName isEqualToString:@""] || !self.musicImageName ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName]
                                           method:@"chooseMusic"],
                  [[TableItem alloc] initWithName:@"What's your favorite food?"
-                                           image:[self.foodImageName isEqualToString:@""] ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName]
+                                           image:[self.foodImageName isEqualToString:@""] || !self.foodImageName ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName]
                                           method:@"chooseFood"],
                  [[TableItem alloc] initWithName:@"My skilleez"
                                            image:[UIImage imageNamed:@"pandimg_BTN.png"]
@@ -127,7 +128,7 @@ enum {
 
 - (void)updateProfileView
 {
-    [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
+    [self.userAvatarImg setImageWithURL:profile.AvatarUrl];
     self.nameTxt.text = profile.ScreenName;
     self.loginTxt.text = profile.Login;
     self.subjectImageName = profile.FavoriteSchoolSubject;
@@ -136,10 +137,10 @@ enum {
     self.foodImageName = profile.FavoriteFood;
     favoriteColor = profile.Color;
     ((TableItem *)questions[1]).image = [self getBlankImage:favoriteColor];
-    ((TableItem *)questions[2]).image = [self.sportImageName isEqualToString:@""] ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName];
-    ((TableItem *)questions[3]).image = [self.subjectImageName isEqualToString:@""] ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName];
-    ((TableItem *)questions[4]).image = [self.musicImageName isEqualToString:@""] ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName];
-    ((TableItem *)questions[5]).image = [self.foodImageName isEqualToString:@""] ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName];
+    ((TableItem *)questions[2]).image = [self.sportImageName isEqualToString:@""] || !self.sportImageName ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:self.sportImageName];
+    ((TableItem *)questions[3]).image = [self.subjectImageName isEqualToString:@""] || !self.subjectImageName ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:self.subjectImageName];
+    ((TableItem *)questions[4]).image = [self.musicImageName isEqualToString:@""] || !self.musicImageName ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:self.musicImageName];
+    ((TableItem *)questions[5]).image = [self.foodImageName isEqualToString:@""] || !self.foodImageName ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:self.foodImageName];
     [self.tableView reloadData];
 }
 
@@ -251,11 +252,19 @@ enum {
     [self.tableView reloadData];
 }
 
+#pragma mark - ProfileViewDelegate
+
+- (void)aboutMeChanged:(NSString *)aboutMe
+{
+    _aboutMe = aboutMe;
+}
+
 #pragma mark - Class methods
 
 - (void)showProfile
 {
     ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profile editMode:YES];
+    profileView.delegate = self;
     [self.navigationController pushViewController:profileView animated:YES];
 }
 
@@ -369,7 +378,7 @@ enum {
     profile.FavoriteSport = self.sportImageName;
     profile.FavoriteTypeOfMusic = self.musicImageName;
     profile.FavoriteFood = self.foodImageName;
-    
+    profile.AboutMe = _aboutMe;
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postProfileInfo:profile withCallBack:^(RequestResult *requestResult) {
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];

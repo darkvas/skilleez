@@ -16,14 +16,12 @@
 #import "NetworkManager.h"
 #import "ColorManager.h"
 
-int const DEFAULT_FRIENDS_COUNT = 100;
-int const DEFAULT_FRIENDS_OFFSET = 0;
-
 @interface ChildFamilyViewController ()
 {
-    //NSArray* _adultMembers;
-    NSArray* _childrenMembers;
+    NSMutableArray *_childrenMembers;
     NSString *childId;
+    int _count, _offset;
+    BOOL _canLoadOnScroll;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -48,7 +46,9 @@ int const DEFAULT_FRIENDS_OFFSET = 0;
     [self.view addSubview: navBar];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.allowsSelection = NO;
-    
+    _canLoadOnScroll = YES;
+    _count = NUMBER_OF_ITEMS;
+    _offset = 0;
     [self loadFamilyData:childId];
 }
 
@@ -63,11 +63,22 @@ int const DEFAULT_FRIENDS_OFFSET = 0;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.tableView.contentSize.height - self.tableView.contentOffset.y == 504 && _canLoadOnScroll) {
+        _count = NUMBER_OF_ITEMS;
+        _offset = [_childrenMembers count];
+        [self loadFamilyData:childId];
+    }
+}
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return  55.0f;
+    return 55.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -90,25 +101,6 @@ int const DEFAULT_FRIENDS_OFFSET = 0;
     return headerView;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    /*if (indexPath.section == 0) {
-        if([UserSettingsManager sharedInstance].IsAdmin) {
-            AdultProfileViewController *adultProfileView = [[AdultProfileViewController alloc] initWithFamilyMember:_adultMembers[indexPath.row]];
-            [self.navigationController pushViewController:adultProfileView animated:YES];
-        } else {
-            ChildProfileViewController *profileView = [[ChildProfileViewController alloc] initWithFamilyMember:_adultMembers[indexPath.row]
-                                                                                                andShowFriends:NO];
-            [self.navigationController pushViewController:profileView animated:YES];
-        }
-    } else {
-        ChildProfileViewController *childProfileView = [[ChildProfileViewController alloc] initWithFamilyMember:_childrenMembers[indexPath.row]
-                                                                                                 andShowFriends:NO];
-        [self.navigationController pushViewController:childProfileView animated:YES];
-    }
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];*/
-}
-
 #pragma mark - UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,11 +113,7 @@ int const DEFAULT_FRIENDS_OFFSET = 0;
         cell = [nib objectAtIndex:0];
         cell.delegate = self;
     }
-    
-    /*if(indexPath.section == 0)
-        [cell setMemberData:[_adultMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
-    else*/
-        [cell setProfileData:[_childrenMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
+   [cell setProfileData:[_childrenMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
@@ -139,18 +127,12 @@ int const DEFAULT_FRIENDS_OFFSET = 0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    /*if(section == 0)
-        return [_adultMembers count];
-    else*/
-        return [_childrenMembers count];
+    return [_childrenMembers count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    /*if(section == 0)
-        return @"Adults";
-    else*/
-        return @"Friends in Loop";
+    return @"Friends in Loop";
 }
 
 #pragma mark - Class methods
@@ -167,25 +149,33 @@ int const DEFAULT_FRIENDS_OFFSET = 0;
 
 - (void)loadFamilyData:(NSString *)userId
 {
-    [[NetworkManager sharedInstance] getLoopById:userId count:DEFAULT_FRIENDS_COUNT offset:DEFAULT_FRIENDS_OFFSET
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    [[NetworkManager sharedInstance] getLoopById:userId count:_count offset:_offset
                                     withCallBack:^(RequestResult *requestResult) {
-        if(requestResult.isSuccess){
-            //NSMutableArray* adultArray = [NSMutableArray new];
-            NSMutableArray* childrenArray = [NSMutableArray new];
-            for (ProfileInfo* member in requestResult.returnArray) {
-                /*if(member.)
-                    [adultArray addObject:member];
-                else*/
+        if (requestResult.isSuccess) {
+            NSMutableArray *childrenArray = [NSMutableArray new];
+            for (ProfileInfo *member in requestResult.returnArray) {
                     [childrenArray addObject:member];
             }
-            //_adultMembers = [NSArray arrayWithArray:adultArray];
-            _childrenMembers = [NSArray arrayWithArray:childrenArray];
-            
+            if (_offset > 0) {
+                [_childrenMembers addObjectsFromArray:childrenArray];
+                
+            } else if (![[UtilityController sharedInstance] isArrayEquals:_childrenMembers toOther:childrenArray] && [childrenArray count] > 0) {
+                _childrenMembers = [NSMutableArray arrayWithArray:childrenArray];
+            }
             [self.tableView reloadData];
+            _canLoadOnScroll = YES;
+            [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
         } else {
             NSLog(@"Get Friends and family error: %@", requestResult.error);
         }
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
     }];
+}
+
+- (void)allowLoadOnScroll
+{
+    _canLoadOnScroll = YES;
 }
 
 @end

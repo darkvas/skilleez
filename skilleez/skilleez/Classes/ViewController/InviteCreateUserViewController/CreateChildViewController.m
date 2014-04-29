@@ -108,15 +108,15 @@
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postAddChildToFamily:childName withPass:childPass withCallBack:^(RequestResult *requestResult) {
+        NSString *message;
         if (requestResult.isSuccess) {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Create Child success" delegate:nil];
-            [alert show];
+            message = @"Create Child success";
         } else {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Create Child failed" delegate:nil];
-            [alert show];
+            message = @"Create Child failed";
         }
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:nil];
+        [alert show];
     }];
 }
 

@@ -31,7 +31,7 @@ const int NUMBER_OF_ITEMS_SL = 5;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (strong, nonatomic) UILabel *emptyLabel;
 @end
 
 @implementation SkilleezListViewController
@@ -154,6 +154,9 @@ const int NUMBER_OF_ITEMS_SL = 5;
             }
             skilleeList = nil;
             [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
+            if ([skilleez count] == 0)
+                self.emptyLabel = [[UtilityController sharedInstance] showEmptyView:self text:@"ou have no skilleez. Please add some, to see them here"];
+            [self.view addSubview:self.emptyLabel];
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];

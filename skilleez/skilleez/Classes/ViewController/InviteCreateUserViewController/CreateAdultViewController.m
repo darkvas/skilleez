@@ -98,15 +98,15 @@
     
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postInviteToLoopByEmail: email withCallBack:^(RequestResult *requestResult) {
+        NSString *message;
         if (requestResult.isSuccess) {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Invite Adult success" delegate:nil];
-            [alert show];
+            message = @"Invite Adult success";
         } else {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Invite Adult failed" delegate:nil];
-            [alert show];
+            message = @"Invite Adult failed";
         }
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+        CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:nil];
+        [alert show];
     }];
 }
 
