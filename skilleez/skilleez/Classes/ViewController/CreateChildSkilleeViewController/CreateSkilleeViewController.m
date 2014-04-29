@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightCon;
 @property (strong, nonatomic) UITableView *dropdown;
 @property (strong, nonatomic) UIView *opacityLayer;
+@property (strong, nonatomic) UIButton *clearPostOnBehalf;
 
 - (IBAction)launchSkillee:(id)sender;
 - (IBAction)pickImage:(id)sender;
@@ -215,6 +216,7 @@
     [self hideDropDown:[UIGestureRecognizer new]];
     self.postOnTxt.text = ((FamilyMemberModel *)[childs objectAtIndex:indexPath.row]).FullName;
     selectedBehalfID = ((FamilyMemberModel *)[childs objectAtIndex:indexPath.row]).Id;
+    self.clearPostOnBehalf.hidden = NO;
     [self.dropdown deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -318,6 +320,12 @@
     self.dropdown.backgroundColor = [ColorManager colorForCellBackground];
     self.dropdown.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self.view addSubview:self.dropdown];
+    self.clearPostOnBehalf = [UIButton new];
+    self.clearPostOnBehalf.hidden = YES;
+    [self.clearPostOnBehalf setImage:[UIImage imageNamed:@"closing_black"] forState:UIControlStateNormal];
+    self.clearPostOnBehalf.frame = CGRectMake(208, 0, 36, 36);
+    [self.clearPostOnBehalf addTarget:self action:@selector(clearBehalf) forControlEvents:UIControlEventTouchUpInside];
+    [self.postOnTxt addSubview:self.clearPostOnBehalf];
 }
 
 - (IBAction)pickImage:(id)sender
@@ -335,6 +343,13 @@
 - (IBAction)selectChild:(id)sender
 {
     [self showDropDown];
+}
+
+- (void)clearBehalf
+{
+    self.postOnTxt.text = @"";
+    selectedBehalfID = @"";
+    self.clearPostOnBehalf.hidden = YES;
 }
 
 - (void)showDropDown
