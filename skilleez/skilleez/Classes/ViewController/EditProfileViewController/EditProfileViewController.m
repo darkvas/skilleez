@@ -381,13 +381,29 @@ enum {
     profile.AboutMe = _aboutMe;
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postProfileInfo:profile withCallBack:^(RequestResult *requestResult) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         if(requestResult.isSuccess) {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            [self performSelector:@selector(updateAccountInformation) withObject:nil afterDelay:5];
             [self done];
         } else {
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
             CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
             [alert show];
+        }
+    }];
+}
+
+- (void)updateAccountInformation
+{
+    [[NetworkManager sharedInstance] getUserInfo:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess){
+            UserInfo* userInfo = (UserInfo*)requestResult.firstObject;
+            
+            [UserSettingsManager sharedInstance].IsAdmin = userInfo.IsAdmin;
+            [UserSettingsManager sharedInstance].IsAdult = userInfo.IsAdult;
+            [UserSettingsManager sharedInstance].IsVerified = userInfo.IsVerified;
+            [UserSettingsManager sharedInstance].userInfo = userInfo;
+        } else {
+            NSLog(@"Error on GetUserInfo: %@", requestResult.error);
         }
     }];
 }

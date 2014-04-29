@@ -51,7 +51,7 @@
                                       //[[TableItem alloc] initWithName:@"My Messages" image:nil method:@"showMessages"],
                                       [[TableItem alloc] initWithName:@"Friends & Family" image:[UIImage imageNamed:@"friends_and_family_icon"] method:@"showFamily"], nil];
     [self.userAvatarImg setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
-    self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.FullName;
+    self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.Login;
     [self customize];
     
     [self subscribeUserInfo];
@@ -62,7 +62,7 @@
 {
     [[UserSettingsManager sharedInstance] addDelegateObserver:^{
         [self.userAvatarImg setImageWithURL:[UserSettingsManager sharedInstance].userInfo.AvatarUrl];
-        self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.FullName;
+        self.usernameLbl.text = [UserSettingsManager sharedInstance].userInfo.Login;
     }];
 }
 
