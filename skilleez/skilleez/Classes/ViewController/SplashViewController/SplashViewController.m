@@ -38,6 +38,7 @@
             } else {
                 CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Incorrect login or password" delegate:nil];
                 [alert show];
+                [self.navigationController pushViewController:login animated:YES];
             }
         }];
     } else {

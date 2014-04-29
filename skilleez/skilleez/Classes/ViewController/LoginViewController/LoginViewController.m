@@ -52,7 +52,8 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     [userSettings loadSettings];
     if (userSettings.remember) {
         self.rememberMeBtn.selected = userSettings.remember;
-        [self loginWithUsername:userSettings.username andPassword:userSettings.password];
+        self.txtFieldUserName.text = userSettings.username;
+        self.txtFieldUserPassword.text = userSettings.password;
     }
 }
 
@@ -101,6 +102,8 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     [[NetworkManager sharedInstance] tryLogin:username password:password withLoginCallBack:^(RequestResult *requestReturn) {
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         if (requestReturn.isSuccess) {
+            if([UserSettingsManager sharedInstance].remember)
+                [self saveLoginAndPassword];
             [self getAccountInformation];
             HomeViewController *loop = [HomeViewController new];
             [self.navigationController pushViewController:loop animated:YES];
@@ -154,6 +157,11 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     
     userSettings.remember = !userSettings.remember;
     [sender setSelected:userSettings.remember];
+}
+
+- (void)saveLoginAndPassword
+{
+    UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
     userSettings.username = self.txtFieldUserName.text;
     userSettings.password = self.txtFieldUserPassword.text;
     
