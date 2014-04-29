@@ -247,7 +247,7 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
                                                                                 keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
-    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[UserInfo defineObjectMapping]
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[ProfileInfo defineObjectMapping]
                                                                                  method:RKRequestMethodGET
                                                                             pathPattern:GET_LOOP_BY_ID
                                                                                 keyPath:@"ReturnValue.FriendsFromLoop"

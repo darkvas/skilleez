@@ -16,9 +16,12 @@
 #import "NetworkManager.h"
 #import "ColorManager.h"
 
+int const DEFAULT_FRIENDS_COUNT = 100;
+int const DEFAULT_FRIENDS_OFFSET = 0;
+
 @interface ChildFamilyViewController ()
 {
-    NSArray* _adultMembers;
+    //NSArray* _adultMembers;
     NSArray* _childrenMembers;
     NSString *childId;
 }
@@ -119,10 +122,10 @@
         cell.delegate = self;
     }
     
-    if(indexPath.section == 0)
+    /*if(indexPath.section == 0)
         [cell setMemberData:[_adultMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
-    else
-        [cell setMemberData:[_childrenMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
+    else*/
+        [cell setProfileData:[_childrenMembers objectAtIndex:indexPath.row] andTag:indexPath.row];
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [ColorManager colorForDarkBackground];
@@ -131,23 +134,23 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(section == 0)
+    /*if(section == 0)
         return [_adultMembers count];
-    else
+    else*/
         return [_childrenMembers count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if(section == 0)
+    /*if(section == 0)
         return @"Adults";
-    else
-        return @"Children";
+    else*/
+        return @"Friends in Loop";
 }
 
 #pragma mark - Class methods
@@ -164,17 +167,18 @@
 
 - (void)loadFamilyData:(NSString *)userId
 {
-    [[NetworkManager sharedInstance] getFriendsAnsFamily:userId withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getLoopById:userId count:DEFAULT_FRIENDS_COUNT offset:DEFAULT_FRIENDS_OFFSET
+                                    withCallBack:^(RequestResult *requestResult) {
         if(requestResult.isSuccess){
-            NSMutableArray* adultArray = [NSMutableArray new];
+            //NSMutableArray* adultArray = [NSMutableArray new];
             NSMutableArray* childrenArray = [NSMutableArray new];
-            for (FamilyMemberModel* member in requestResult.returnArray) {
-                if(member.IsAdult)
+            for (ProfileInfo* member in requestResult.returnArray) {
+                /*if(member.)
                     [adultArray addObject:member];
-                else
+                else*/
                     [childrenArray addObject:member];
             }
-            _adultMembers = [NSArray arrayWithArray:adultArray];
+            //_adultMembers = [NSArray arrayWithArray:adultArray];
             _childrenMembers = [NSArray arrayWithArray:childrenArray];
             
             [self.tableView reloadData];

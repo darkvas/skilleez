@@ -12,6 +12,7 @@
 @interface FamilyMemberCell()
 {
     FamilyMemberModel* _familyMember;
+    ProfileInfo* _profile;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *memberName;
@@ -54,6 +55,13 @@
     _familyMember = familyMember;
     [_memberAvatar setImageWithURL: _familyMember.AvatarUrl];
     _memberName.text = _familyMember.FullName;
+}
+
+-(void) setProfileData: (ProfileInfo*) profile andTag:(int) rowTag
+{
+    _profile = profile;
+    [_memberAvatar setImageWithURL: _profile.AvatarUrl];
+    _memberName.text = _profile.Login;
 }
 
 @end
