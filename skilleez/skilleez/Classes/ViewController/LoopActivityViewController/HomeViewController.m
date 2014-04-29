@@ -136,7 +136,8 @@ const int NUMBER_OF_ITEMS = 5;
 
 #pragma mark - Class UI methods
 
-- (IBAction)createSkillee:(id)sender {
+- (IBAction)createSkillee:(id)sender
+{
     self.createViewCtrl = [CreateSkilleeViewController new];
     [self.contentView addSubview:self.createViewCtrl.view];
     [self addChildViewController:self.createViewCtrl];

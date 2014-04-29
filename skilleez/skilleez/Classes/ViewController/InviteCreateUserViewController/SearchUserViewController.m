@@ -73,30 +73,28 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(IBAction)findUserPressed:(id)sender
+- (IBAction)findUserPressed:(id)sender
 {
     [self closeKeyboard];
     NSString* userLogin = self.tfUserName.text;
-    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    
-    [[NetworkManager sharedInstance] getProfileInfoByLogin:userLogin withCallBack:^(RequestResult *requestResult) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        
-        if (requestResult.isSuccess) {
-            ProfileInfo* profile = (ProfileInfo*)requestResult.firstObject;
-            FindUserViewController *foundUserView = [[FindUserViewController alloc] initWithProfile:profile];
-            [self.navigationController pushViewController:foundUserView animated:YES];
-        }
-        else {
-            [self showAlertNotFoundUser];
-        }
-    }];
-}
-
-- (void) showAlertNotFoundUser
-{
-    CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Not found such user" delegate:nil];
-    [alert show];
+    if ([userLogin isEqualToString:[UserSettingsManager sharedInstance].userInfo.Login]) {
+        CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Hey, buddy, it's yours id:) Try another one" delegate:nil];
+        [alert show];
+    } else {
+        [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+        [[NetworkManager sharedInstance] getProfileInfoByLogin:userLogin withCallBack:^(RequestResult *requestResult) {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            
+            if (requestResult.isSuccess) {
+                ProfileInfo* profile = (ProfileInfo*)requestResult.firstObject;
+                FindUserViewController *foundUserView = [[FindUserViewController alloc] initWithProfile:profile];
+                [self.navigationController pushViewController:foundUserView animated:YES];
+            } else {
+                CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
+                [alert show];
+            }
+        }];
+    }
 }
 
 @end
