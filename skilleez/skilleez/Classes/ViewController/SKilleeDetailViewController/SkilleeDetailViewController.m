@@ -274,7 +274,7 @@ typedef enum {
             NSLog(@"Success %@: %@", approve ? @"approved" : @"denied", skillee.Id);
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
             NSString *message = [NSString stringWithFormat:@"You have %@ this skillee", approve ? @"approved" : @"denied"];
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:nil];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:self];
             [alert show];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
@@ -283,6 +283,17 @@ typedef enum {
             [alert show];
         }
     }];
+}
+
+#pragma mark - CustomIOS7AlertViewDelegate
+
+- (void)dismissAlert:(CustomAlertView *)alertView withButtonIndex:(NSInteger)buttonIndex
+{
+    [alertView close];
+    
+    if (buttonIndex == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)setSkillee
