@@ -133,7 +133,7 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
         if (requestResult.isSuccess) {
             [self.emptyTableLabel removeFromSuperview];
             NSArray* skilleeList = requestResult.returnArray;
-            if (![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:_items] && [skilleeList count] > 0) {
+            if ((![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:_items] && [skilleeList count] > 0) || ([skilleeList count] == 0 && [_items count] == 1)) {
                 _items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
             }

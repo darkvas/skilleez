@@ -132,7 +132,7 @@ static NSString *cellName = @"SimpleTableCell";
             if (offset > 0) {
                 [items addObjectsFromArray:skilleeList];
                 [self.tableView reloadData];
-            } else if (![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:items] && [skilleeList count] > 0) {
+            } else if ((![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:items] && [skilleeList count] > 0) || ([skilleeList count] == 0 && [items count] == 1)) {
                 items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
             }
