@@ -10,7 +10,8 @@
 #import "ProfileTableCell.h"
 #import "ColorViewController.h"
 #import "SelectFavoriteViewController.h"
+#import "ProfileViewController.h"
 
-@interface EditProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ColorViewControllerObserver, FavoriteViewControllerDelegate>
+@interface EditProfileViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ColorViewControllerObserver, FavoriteViewControllerDelegate, ProfileViewDelegate>
 
 @end

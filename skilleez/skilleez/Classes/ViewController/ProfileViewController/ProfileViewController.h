@@ -12,7 +12,15 @@
 #import "ColorViewController.h"
 #import "SelectFavoriteViewController.h"
 
+@protocol ProfileViewDelegate <NSObject>
+
+- (void)aboutMeChanged:(NSString *)aboutMe;
+
+@end
+
 @interface ProfileViewController : UIViewController <UITextViewDelegate, FavoriteViewControllerDelegate, ColorViewControllerObserver>
+
+@property (weak, nonatomic) id<ProfileViewDelegate> delegate;
 
 - (id)initWithProfile:(ProfileInfo *)profileInfo editMode:(BOOL)edit;
 

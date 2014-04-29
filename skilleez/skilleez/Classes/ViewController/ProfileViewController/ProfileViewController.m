@@ -61,10 +61,10 @@ enum {
     [self.userAvatarImg setImageWithURL: profile.AvatarUrl];
     self.userColorButton.backgroundColor = profile.Color;
     self.coloredView.backgroundColor = profile.Color;
-    [self.userSportButton setBackgroundImage:[profile.FavoriteSport isEqualToString:@""] ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:profile.FavoriteSport] forState:UIControlStateNormal];
-    [self.userSubjectButton setBackgroundImage:[profile.FavoriteSchoolSubject isEqualToString:@""] ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:profile.FavoriteSchoolSubject] forState:UIControlStateNormal];
-    [self.userMusicButton setBackgroundImage:[profile.FavoriteTypeOfMusic isEqualToString:@""] ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:profile.FavoriteTypeOfMusic] forState:UIControlStateNormal];
-    [self.userFoodButton setBackgroundImage:[profile.FavoriteFood isEqualToString:@""] ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:profile.FavoriteFood] forState:UIControlStateNormal];
+    [self.userSportButton setBackgroundImage:[profile.FavoriteSport isEqualToString:@""] || !profile.FavoriteSport ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:profile.FavoriteSport] forState:UIControlStateNormal];
+    [self.userSubjectButton setBackgroundImage:[profile.FavoriteSchoolSubject isEqualToString:@""] || !profile.FavoriteSchoolSubject ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:profile.FavoriteSchoolSubject] forState:UIControlStateNormal];
+    [self.userMusicButton setBackgroundImage:[profile.FavoriteTypeOfMusic isEqualToString:@""] || !profile.FavoriteTypeOfMusic ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:profile.FavoriteTypeOfMusic] forState:UIControlStateNormal];
+    [self.userFoodButton setBackgroundImage:[profile.FavoriteFood isEqualToString:@""] || !profile.FavoriteFood ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:profile.FavoriteFood] forState:UIControlStateNormal];
     self.userDescTextView.text = (!profile.AboutMe || [profile.AboutMe isEqualToString:@""]) ? self.userDescTextView.text : profile.AboutMe;
     CGRect rect = self.userDescTextView.frame;
     CGSize textViewSize = [self.userDescTextView sizeThatFits:CGSizeMake(self.userDescTextView.frame.size.width, FLT_MAX)];
@@ -196,6 +196,7 @@ enum {
 
 - (void)done
 {
+    [self.delegate aboutMeChanged:self.userDescTextView.text];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
