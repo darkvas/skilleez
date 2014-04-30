@@ -14,9 +14,9 @@
 #import "UtilityController.h"
 #import "ActivityIndicatorController.h"
 
-const int kMaxFieldLenght = 50;
-static NSString *allowedLoginChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.@";
-static NSString *allowedPasswordChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.@";
+const int kMaxFieldLength = 50;
+static NSString *allowedLoginChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+static NSString *allowedPasswordChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-,.@";
 
 @interface CreateChildViewController ()
 
@@ -61,44 +61,32 @@ static NSString *allowedPasswordChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl
     return YES;
 }
 
-/*- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"stack(.*).html" options:0 error:NULL];
-    NSString *str = @"stackoverflow.html";
-    NSTextCheckingResult *match = [regex firstMatchInString:str options:0 range:NSMakeRange(0, [str length])];
-
-    if(textField == self.tfAccountId) {
-        if([string isEqualToString:@" "])
-            return NO;
-        return YES;
+    if (textField == self.tfAccountId) {
+        return [self validateTextField:textField withNewString:string withRange:range withAllowedString:allowedLoginChars];
     } else {
-        if([string isEqualToString:@" "])
-            return NO;
-        return YES;
+        return [self validateTextField:textField withNewString:string withRange:range withAllowedString:allowedPasswordChars];
     }
-}*/
+}
 
-/*- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (BOOL)validateTextField:(UITextField *) textField withNewString: (NSString *)string withRange:(NSRange)range withAllowedString: (NSString *) allowedChars
 {
-    if (textField != self.passwordTextField) {
-        //MaxLenght
-        NSUInteger oldLength = [textField.text length];
-        NSUInteger replacementLength = [string length];
-        NSUInteger rangeLength = range.length;
-        
-        NSUInteger newLength = oldLength - rangeLength + replacementLength;
-        
-        BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
-        
-        //AllowedCharacters
-        NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:acceptableCharacter] invertedSet];
-        
-        NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-        return (newLength <= kMaxFieldLenght || returnKey) && [string isEqualToString:filtered];
-    } else {
-        return YES;
-    }
-}*/
+    //MaxLenght
+    NSUInteger oldLength = [textField.text length];
+    NSUInteger replacementLength = [string length];
+    NSUInteger rangeLength = range.length;
+    
+    NSUInteger newLength = oldLength - rangeLength + replacementLength;
+    
+    BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+    
+    //AllowedCharacters
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:allowedLoginChars] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    return (newLength <= kMaxFieldLength || returnKey) && [string isEqualToString:filtered];
+}
 
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender
 {

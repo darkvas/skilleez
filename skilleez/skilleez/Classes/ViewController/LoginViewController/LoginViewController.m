@@ -15,6 +15,9 @@
 #import "UtilityController.h"
 #import "ActivityIndicatorController.h"
 
+const int kMaxLoginLength = 50;
+static NSString *allowedLoginChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
 static NSString *REGISTER_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Register";
 static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/ForgotPassword";
 
@@ -176,6 +179,33 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
 - (IBAction)registerPressed:(UIButton *)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:REGISTER_URL]];
+}
+
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == self.txtFieldUserName) {
+        return [self validateTextField:textField withNewString:string withRange:range withAllowedString:allowedLoginChars];
+    } else {
+        return YES;
+    }
+}
+
+- (BOOL)validateTextField:(UITextField *) textField withNewString: (NSString *)string withRange:(NSRange)range withAllowedString: (NSString *) allowedChars
+{
+    //MaxLenght
+    NSUInteger oldLength = [textField.text length];
+    NSUInteger replacementLength = [string length];
+    NSUInteger rangeLength = range.length;
+    
+    NSUInteger newLength = oldLength - rangeLength + replacementLength;
+    
+    BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+    
+    //AllowedCharacters
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:allowedLoginChars] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    return (newLength <= kMaxLoginLength || returnKey) && [string isEqualToString:filtered];
 }
 
 @end
