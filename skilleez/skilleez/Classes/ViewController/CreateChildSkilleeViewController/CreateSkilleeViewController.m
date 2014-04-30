@@ -16,6 +16,8 @@
 #import "ColorManager.h"
 #import "UtilityController.h"
 
+static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Pages.Terms.Url";
+
 @interface CreateSkilleeViewController (){
     UIImagePickerController *imagePicker;
     NSData* chosenData;
@@ -44,6 +46,7 @@
 - (IBAction)pickVideo:(id)sender;
 - (IBAction)titleTextViewDidChange:(id)sender;
 - (IBAction)selectChild:(id)sender;
+- (IBAction)showTerms:(id)sender;
 
 @end
 
@@ -343,6 +346,10 @@
 - (IBAction)selectChild:(id)sender
 {
     [self showDropDown];
+}
+
+- (IBAction)showTerms:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:TERMS_URL]];
 }
 
 - (void)clearBehalf
