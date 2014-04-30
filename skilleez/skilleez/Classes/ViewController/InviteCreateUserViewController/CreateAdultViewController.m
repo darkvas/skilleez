@@ -95,7 +95,7 @@
 {
     [self closeKeyboard];
     NSString* email = self.tfUserEmail.text;
-    
+    if ([self validateEmailWithString:email]) {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] postInviteToLoopByEmail: email withCallBack:^(RequestResult *requestResult) {
         NSString *message;
@@ -108,6 +108,17 @@
         CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:nil];
         [alert show];
     }];
+    } else {
+        CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Please enter a valid email" delegate:nil];
+        [alert show];
+    }
+}
+
+- (BOOL)validateEmailWithString:(NSString *)email
+{
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:email];
 }
 
 @end
