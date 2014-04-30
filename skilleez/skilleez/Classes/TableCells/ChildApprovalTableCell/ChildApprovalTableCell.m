@@ -10,6 +10,7 @@
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 #import "CellFiller.h"
+#import "CustomAlertView.h"
 
 @interface ChildApprovalTableCell()
 {
@@ -45,18 +46,29 @@
 
 - (IBAction)deleteSkillee:(id)sender
 {
-    [[NetworkManager sharedInstance] postRemoveSkillee:skilleeModel.Id withCallBack:^(RequestResult *requestResult) {
-        if (requestResult.isSuccess) {
-            [self.delegate didSkiilleSelect:skilleeModel];
-        } else {
-            NSLog(@"Delete Skillee error: %@", requestResult.error);
-        }
-    }];
+    CustomAlertView *alert = [[CustomAlertView alloc] initDefaultYesCancelWithText:@"Are you sure you want to remove this skilleez?" delegate:self];
+    [alert show];
 }
 
 - (void)selectProfile:(UIGestureRecognizer*)recognizer
 {
     [self.delegate didProfileSelect:skilleeModel.UserId];
+}
+
+#pragma mark - CustomIOS7AlertViewDelegate
+
+- (void)dismissAlert:(CustomAlertView *)alertView withButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [[NetworkManager sharedInstance] postRemoveSkillee:skilleeModel.Id withCallBack:^(RequestResult *requestResult) {
+            if (requestResult.isSuccess) {
+                [self.delegate didSkiilleSelect:skilleeModel];
+            } else {
+                NSLog(@"Delete Skillee error: %@", requestResult.error);
+            }
+        }];
+    }
+    [alertView close];
 }
 
 @end
