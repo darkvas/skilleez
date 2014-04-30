@@ -10,6 +10,7 @@
 #import "NavigationBarView.h"
 #import "UIFont+DefaultFont.h"
 #import "ColorViewController.h"
+#import "UtilityController.h"
 
 enum {
     SPORT = 0,
@@ -153,6 +154,8 @@ enum {
 {
     self.userColorButton.backgroundColor = color;
     self.coloredView.backgroundColor = color;
+    profile.Color = color;
+    profile.FavoriteColor = [[UtilityController sharedInstance] getStringFromColor:color];
 }
 
 #pragma mark - FavoriteViewControllerDelegate
@@ -162,15 +165,19 @@ enum {
     switch (type) {
         case SPORT:
             [self.userSportButton setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+            profile.FavoriteSport = image;
             break;
         case SUBJECT:
             [self.userSubjectButton setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+            profile.FavoriteSchoolSubject = image;
             break;
         case MUSIC:
             [self.userMusicButton setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+            profile.FavoriteTypeOfMusic = image;
             break;
         default:
             [self.userFoodButton setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+            profile.FavoriteFood = image;
             break;
     }
 }
@@ -196,7 +203,8 @@ enum {
 
 - (void)done
 {
-    [self.delegate aboutMeChanged:self.userDescTextView.text];
+    profile.AboutMe = self.userDescTextView.text;
+    [self.delegate profileChanged:profile];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

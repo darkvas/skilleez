@@ -25,7 +25,6 @@ extern const NSInteger FOOD;*/
 - (id)initWithType:(int)favoriteType;
 - (id)initWithType:(int)favoriteType andProfile:(ProfileInfo *)profile;
 
-@property (strong, nonatomic) NSString *selectedImage;
 @property (weak, nonatomic) id<FavoriteViewControllerDelegate> delegate;
 
 @end
