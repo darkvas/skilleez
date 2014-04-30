@@ -14,7 +14,7 @@
 
 @protocol ProfileViewDelegate <NSObject>
 
-- (void)aboutMeChanged:(NSString *)aboutMe;
+- (void)profileChanged:(ProfileInfo *)profile;
 
 @end
 

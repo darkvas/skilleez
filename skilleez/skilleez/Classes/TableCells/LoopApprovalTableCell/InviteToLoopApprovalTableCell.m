@@ -91,7 +91,7 @@
 
 - (IBAction)disapprove:(id)sender
 {
-    [[NetworkManager sharedInstance] postApproveInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] postDisapproveInvitationToLoop:_invitation.InvitationId withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             [self.delegate didActionSuccess];
         } else {

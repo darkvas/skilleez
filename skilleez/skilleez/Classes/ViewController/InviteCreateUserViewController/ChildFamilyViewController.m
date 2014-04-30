@@ -111,6 +111,7 @@
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
         cell = [nib objectAtIndex:0];
+        cell.accessoryType = UITableViewCellAccessoryNone;
         cell.delegate = self;
     }
    [cell setProfileData:[_childrenMembers objectAtIndex:indexPath.row] andTag:indexPath.row];

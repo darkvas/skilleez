@@ -27,5 +27,5 @@
 - (void)showAnotherViewController:(UIViewController *)child;
 - (NSString *)getErrorMessage:(NSError *)error;
 - (UILabel *)showEmptyView:(UIViewController *)viewController text:(NSString *)text;
-
+- (NSString *)getStringFromColor:(UIColor *)color;
 @end

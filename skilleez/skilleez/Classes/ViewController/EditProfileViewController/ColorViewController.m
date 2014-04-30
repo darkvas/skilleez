@@ -57,8 +57,8 @@
     [self.view addSubview: navBar];
     // Do any additional setup after loading the view from its nib.
     self.colorImg.backgroundColor = profileInfo.Color;
-    if(self.selectedColor)
-        self.colorImg.backgroundColor = self.selectedColor;
+    if(profileInfo.Color)
+        self.colorImg.backgroundColor = profileInfo.Color;
 }
 
 - (void)didReceiveMemoryWarning

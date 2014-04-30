@@ -1044,7 +1044,7 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
                                @"Id": invitationId
                                };
 
-    [manager postObject:nil path:POST_ACCEPT_INVITATION_TO_LOOP parameters:jsonData
+    [manager postObject:nil path:POST_DECLINE_INVITATION_TO_LOOP parameters:jsonData
                 success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:invitationId]);});

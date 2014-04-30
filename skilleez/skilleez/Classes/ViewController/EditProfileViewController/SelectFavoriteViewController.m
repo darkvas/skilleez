@@ -23,9 +23,9 @@ enum {
     NSArray *items, *subjects, *sport, *food, *music;
     int type;
     ProfileInfo *profileInfo;
-    NSString *selectedImageName;
 }
 
+@property (strong, nonatomic) NSString *selectedImage;
 @property (weak, nonatomic) IBOutlet UILabel *whatColorLbl;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *selectColorLbl;
@@ -65,8 +65,6 @@ enum {
     [self.view addSubview: navBar];
     // Do any additional setup after loading the view from its nib.
     [self setTypeInfo];
-    if(self.selectedImage)
-        self.imageView.image = [UIImage imageNamed:self.selectedImage];
 }
 
 - (void)didReceiveMemoryWarning
@@ -112,24 +110,24 @@ enum {
             items = sport;
             self.whatColorLbl.text = @"What is your favorite sport?";
             self.selectColorLbl.hidden = YES;
-            [self.imageView setImage:[UIImage imageNamed:@"sport_baseball_icon.png"]];
+            [self.imageView setImage:[profileInfo.FavoriteSport isEqualToString:@""] || !profileInfo.FavoriteSport ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:profileInfo.FavoriteSport]];
             break;
         case SUBJECT:
             items = subjects;
             self.whatColorLbl.text = @"What is your favorite school subject?";
             self.selectColorLbl.hidden = YES;
-            [self.imageView setImage:[UIImage imageNamed:@"subject_art_icon.png"]];
+            [self.imageView setImage:[profileInfo.FavoriteSchoolSubject isEqualToString:@""] || !profileInfo.FavoriteSchoolSubject ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:profileInfo.FavoriteSchoolSubject]];
             break;
         case MUSIC:
             items = music;
             self.whatColorLbl.text = @"What is your favorite music style?";
-            [self.imageView setImage:[UIImage imageNamed:@"music_classical_icon.png"]];
+            [self.imageView setImage:[profileInfo.FavoriteTypeOfMusic isEqualToString:@""] || !profileInfo.FavoriteTypeOfMusic ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:profileInfo.FavoriteTypeOfMusic]];
             self.selectColorLbl.hidden = YES;
             break;
         default:
             items = food;
             self.whatColorLbl.text = @"What is your favorite food?";
-            [self.imageView setImage:[UIImage imageNamed:@"food_blt_icon.png"]];
+            [self.imageView setImage:[profileInfo.FavoriteFood isEqualToString:@""] || !profileInfo.FavoriteFood ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:profileInfo.FavoriteFood]];
             self.selectColorLbl.hidden = YES;
             break;
     }
