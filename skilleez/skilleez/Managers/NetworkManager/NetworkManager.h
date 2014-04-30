@@ -31,6 +31,7 @@ typedef void (^requestCallBack)(RequestResult* requestResult);
 -(void) getWaitingForApprovalSkilleez:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 - (void)getWaitingForApprovalList:(requestCallBack)callBack;
 -(void) getWaitingForApprovalCount: (requestCallBack) callBack;
+- (void)getWaitingForApprovalInvitationsList:(requestCallBack)callBack;
 -(void) getFavoriteList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 - (void) getPendingInvitations:(int)count offset:(int)offset withCallBack:(requestCallBack)callBack;
 

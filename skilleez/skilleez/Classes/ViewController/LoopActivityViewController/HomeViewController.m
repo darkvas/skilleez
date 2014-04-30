@@ -14,6 +14,7 @@ const int NUMBER_OF_ITEMS = 5;
 @interface HomeViewController ()
 {
     NSTimer *timerUpdateBadge;
+    int _invitationsCount, _approvalCount;
 }
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -48,7 +49,7 @@ const int NUMBER_OF_ITEMS = 5;
     [self createBadge];
     [[UtilityController sharedInstance] setBadgeValue:0 forController:self];
     [self highlightSelectedButton:10];
-    [self loadWaitingForApprovalCount];
+    [self loadCounts];
     // Do any additional setup after loading the view from its nib.
     
     [self startTimer];
@@ -61,7 +62,7 @@ const int NUMBER_OF_ITEMS = 5;
 
 - (IBAction)startTimer
 {
-    timerUpdateBadge = [NSTimer scheduledTimerWithTimeInterval:40 target:self selector:@selector(loadWaitingForApprovalCount) userInfo:nil repeats:YES];
+    timerUpdateBadge = [NSTimer scheduledTimerWithTimeInterval:40 target:self selector:@selector(loadCounts) userInfo:nil repeats:YES];
     [timerUpdateBadge fire];
 }
 
@@ -70,16 +71,41 @@ const int NUMBER_OF_ITEMS = 5;
     [timerUpdateBadge invalidate];
 }
 
+- (void)loadCounts
+{
+    _approvalCount = -1;
+    _invitationsCount = -1;
+    [self loadInvitationsCount];
+    //TODO: change on invitations count method when API will be ready
+    [self loadWaitingForApprovalCount];
+}
+
 - (void)loadWaitingForApprovalCount
 {
     [[NetworkManager sharedInstance] getWaitingForApprovalCount:^(RequestResult *requestReturn) {
         if (requestReturn.isSuccess) {
-            int approvalCount = [((NSNumber*)requestReturn.firstObject) intValue];
-            NSLog(@"Waiting from approval count %i", approvalCount);
-            [[UtilityController sharedInstance] setBadgeValue:approvalCount forController:self];
+            _approvalCount = [((NSNumber*)requestReturn.firstObject) intValue];
+            NSLog(@"Waiting from approval count %i", _approvalCount);
         } else {
+            _approvalCount = 0;
             NSLog(@"Waiting from approval error: %@", requestReturn.error);
         }
+        if (_invitationsCount != -1)
+            [[UtilityController sharedInstance] setBadgeValue:(_approvalCount +_invitationsCount) forController:self];
+    }];
+}
+
+- (void)loadInvitationsCount
+{
+    [[NetworkManager sharedInstance] getWaitingForApprovalInvitationsList:^(RequestResult *requestResult) {
+        if (requestResult.isSuccess) {
+            _invitationsCount = [requestResult.returnArray count];
+        } else {
+            _invitationsCount = 0;
+            NSLog(@"Waiting invitations count error: %@", requestResult.error);
+        }
+        if (_approvalCount != -1)
+            [[UtilityController sharedInstance] setBadgeValue:(_approvalCount +_invitationsCount) forController:self];
     }];
 }
 

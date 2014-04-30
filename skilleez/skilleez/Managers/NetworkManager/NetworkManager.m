@@ -41,7 +41,6 @@ static NSString *POST_PROFILEIMAGE_URI = @"api/Profile/EditProfileImage";
 static NSString *POST_PROFILEINFO_URI = @"api/Profile/EditProfileInfo";
 
 static NSString *GET_LOOP_BY_ID = @"api/Loop/GetLoopById";
-static NSString *GET_WAITING_FOR_APPROVAL_INVITATIONS_URI = @"api/Loop/GetWaitingForApprovalInvitationsToLoop";
 static NSString *POST_FOLLOW_USER = @"api/Loop/FollowUser";
 static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 
@@ -318,6 +317,12 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
                                                                             pathPattern:POST_DISAPPROVE_INVITATION_TO_LOOP
                                                                                 keyPath:nil
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[LoopInvitationModel defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:GET_WAITING_FOR_APPROVAL_INVITATIONS_TO_LOOP
+                                                                                keyPath:@"ReturnValue"
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
 }
 
 #pragma mark - User requests
@@ -429,6 +434,25 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
          for (NSObject* obj in mappingResult.array) {
              //if([obj isKindOfClass:[SkilleeModel class]])
                  [skilleArray addObject:obj];
+         }
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:skilleArray]);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
+
+- (void)getWaitingForApprovalInvitationsList:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Count=%i&Offset=%i", GET_WAITING_FOR_APPROVAL_INVITATIONS_TO_LOOP, 10, 0]
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         NSMutableArray* skilleArray = [NSMutableArray new];
+         for (NSObject* obj in mappingResult.array) {
+             [skilleArray addObject:obj];
          }
          dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValueArray:skilleArray]);});
      }
