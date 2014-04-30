@@ -151,16 +151,13 @@ static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Acco
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    if ([self.commentTxt.text isEqualToString:@""])
-    {
-        for (UIView *lbl in self.commentTxt.subviews)
-        {
-            if ([lbl isKindOfClass:[UILabel class]])
-            {
+    if ([self.commentTxt.text isEqualToString:@""]) {
+        for (UIView *lbl in self.commentTxt.subviews) {
+            if ([lbl isKindOfClass:[UILabel class]]) {
                 UILabel *label = (UILabel *)lbl;
                 label.text = @"Enter Comments here";
             }
-        } ;
+        } 
     }
 }
 
