@@ -60,15 +60,12 @@ static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Acco
     self.postOnTxt.delegate = self;
     self.heightCon.constant = [UserSettingsManager sharedInstance].IsAdult ? 453 : 506;
     [self setDefaultFonts];
-    UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"big_text_view_BG.png"]];
-    imgView.frame = CGRectMake(0, 0, 295, 128);
-    [self.commentTxt addSubview: imgView];
+
     UILabel *placeholder = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 195, 36)];
     placeholder.textColor = [UIColor whiteColor];
     [placeholder setFont:[UIFont getDKCrayonFontWithSize:LABEL_MEDIUM]];
     placeholder.text = @"Enter Comments here";
     [self.commentTxt addSubview:placeholder];
-    [self.commentTxt sendSubviewToBack: imgView];
     [self.commentTxt sendSubviewToBack:placeholder];
     UIEdgeInsets insets = self.commentTxt.textContainerInset;
     insets.left = 6;

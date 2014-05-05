@@ -117,11 +117,11 @@
                             </connections>
                         </textField>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jOo-nY-Jkx">
-                            <rect key="frame" x="13" y="52" width="295" height="128"/>
+                            <rect key="frame" x="13" y="54" width="295" height="122"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="295" id="Vi7-Gg-wwN"/>
-                                <constraint firstAttribute="height" constant="128" id="miZ-fB-RJy"/>
+                                <constraint firstAttribute="height" constant="122" id="miZ-fB-RJy"/>
                             </constraints>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -192,6 +192,14 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="big_text_view_BG.png" translatesAutoresizingMaskIntoConstraints="NO" id="sHj-TG-czc">
+                            <rect key="frame" x="13" y="52" width="295" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="128" id="3WD-Km-xlj"/>
+                                <constraint firstAttribute="width" constant="295" id="kyu-0e-D7q"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -199,19 +207,22 @@
                         <constraint firstItem="KZt-8c-NgR" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="75" id="ABi-GH-dBR"/>
                         <constraint firstItem="tpS-Kg-9ga" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="75" id="B9h-t1-XA3"/>
                         <constraint firstItem="gZv-O7-7Za" firstAttribute="top" secondItem="cEI-6L-tJd" secondAttribute="top" constant="1" id="Bsd-7K-APc"/>
+                        <constraint firstItem="sHj-TG-czc" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="13" id="C1A-QF-DxK"/>
                         <constraint firstItem="tpS-Kg-9ga" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3JL-0p-DBQ" secondAttribute="bottom" constant="64" id="CZN-b6-VZZ"/>
+                        <constraint firstItem="sHj-TG-czc" firstAttribute="top" secondItem="gZv-O7-7Za" secondAttribute="bottom" constant="15" id="FQn-K3-Vhk"/>
                         <constraint firstItem="tpS-Kg-9ga" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KZt-8c-NgR" secondAttribute="bottom" constant="64" id="IWf-86-78H"/>
                         <constraint firstItem="7IX-oR-bHi" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" id="RbP-Zh-D0O"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="453" id="VaL-VX-6rD"/>
                         <constraint firstItem="7IX-oR-bHi" firstAttribute="top" secondItem="tpS-Kg-9ga" secondAttribute="bottom" constant="1" id="WBh-Fj-h0M"/>
-                        <constraint firstItem="3JL-0p-DBQ" firstAttribute="top" secondItem="jOo-nY-Jkx" secondAttribute="bottom" constant="24" id="hBt-eO-6zH"/>
-                        <constraint firstItem="KZt-8c-NgR" firstAttribute="top" secondItem="jOo-nY-Jkx" secondAttribute="bottom" constant="24" id="kmf-XF-dQ9"/>
+                        <constraint firstItem="3JL-0p-DBQ" firstAttribute="top" secondItem="jOo-nY-Jkx" secondAttribute="bottom" constant="28" id="hBt-eO-6zH"/>
+                        <constraint firstItem="KZt-8c-NgR" firstAttribute="top" secondItem="jOo-nY-Jkx" secondAttribute="bottom" constant="28" id="kmf-XF-dQ9"/>
                         <constraint firstItem="3JL-0p-DBQ" firstAttribute="leading" secondItem="KZt-8c-NgR" secondAttribute="trailing" constant="8" id="pNK-wH-Yrq"/>
-                        <constraint firstItem="jOo-nY-Jkx" firstAttribute="top" secondItem="gZv-O7-7Za" secondAttribute="bottom" constant="15" id="qs5-dM-fDh"/>
+                        <constraint firstItem="jOo-nY-Jkx" firstAttribute="top" secondItem="gZv-O7-7Za" secondAttribute="bottom" constant="17" id="qs5-dM-fDh"/>
                         <constraint firstItem="jOo-nY-Jkx" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="13" id="rhg-dY-zzr"/>
                         <constraint firstAttribute="width" constant="320" id="uNn-Jt-g00"/>
                         <constraint firstItem="tpS-Kg-9ga" firstAttribute="top" secondItem="KZt-8c-NgR" secondAttribute="bottom" priority="700" constant="64" id="ued-lo-WZQ"/>
                         <constraint firstItem="gZv-O7-7Za" firstAttribute="leading" secondItem="cEI-6L-tJd" secondAttribute="leading" constant="13" id="ynU-pg-LTy"/>
+                        <constraint firstItem="KZt-8c-NgR" firstAttribute="bottom" secondItem="sHj-TG-czc" secondAttribute="bottom" constant="44" id="zXg-pC-ZFQ"/>
                     </constraints>
                 </view>
             </subviews>
@@ -228,6 +239,7 @@
     </objects>
     <resources>
         <image name="Camera_icon.png" width="23" height="19"/>
+        <image name="big_text_view_BG.png" width="295" height="128"/>
         <image name="film_strip_icon.png" width="19" height="19"/>
         <image name="go_btn.png" width="12" height="21"/>
         <image name="rocket_BTN.png" width="52" height="52"/>
