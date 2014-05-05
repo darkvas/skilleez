@@ -105,6 +105,7 @@ static NSString *cellName = @"SimpleTableCell";
         offset = [items count];
         [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
         [self loadSkilleeList];
+        canLoadOnScroll = NO;
     }
 }
 

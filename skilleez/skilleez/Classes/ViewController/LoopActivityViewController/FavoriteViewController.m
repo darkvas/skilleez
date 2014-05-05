@@ -94,6 +94,7 @@ static NSString *cellName = @"FavoriteTableCell";
         [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
         count = NUMBER_OF_ITEMS;
         offset = [items count];
+        canLoadOnScroll = NO;
         [self loadFavoriteList];
     }
 }
