@@ -14,6 +14,10 @@
 #import "UtilityController.h"
 #import "ActivityIndicatorController.h"
 
+const int kMaxFieldLength = 50;
+static NSString *allowedLoginChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+static NSString *allowedPasswordChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-,.@";
+
 @interface CreateChildViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *tfAccountId;
@@ -57,24 +61,64 @@
     return YES;
 }
 
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == self.tfAccountId) {
+        return [self validateTextField:textField withNewString:string withRange:range withAllowedString:allowedLoginChars];
+    } else {
+        return [self validateTextField:textField withNewString:string withRange:range withAllowedString:allowedPasswordChars];
+    }
+}
+
+- (BOOL)validateTextField:(UITextField *) textField withNewString: (NSString *)string withRange:(NSRange)range withAllowedString: (NSString *) allowedChars
+{
+    //MaxLenght
+    NSUInteger oldLength = [textField.text length];
+    NSUInteger replacementLength = [string length];
+    NSUInteger rangeLength = range.length;
+    
+    NSUInteger newLength = oldLength - rangeLength + replacementLength;
+    
+    BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+    
+    //AllowedCharacters
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:allowedLoginChars] invertedSet];
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    return (newLength <= kMaxFieldLength || returnKey) && [string isEqualToString:filtered];
+}
+
+- (BOOL) canPerformAction:(SEL)action withSender:(id)sender
+{
+    NSString* actionName = NSStringFromSelector(action);
+    if ([actionName isEqualToString:@"paste:"])
+        return NO;
+    if ([actionName isEqualToString:@"cut:"])
+        return NO;
+    if (action == @selector(selectAll:))
+        return NO;
+    return [super canPerformAction:action withSender:sender];
+}
+
+
 #pragma mark - Class methods
 
 - (void)customizeElements
 {
-    [_tfAccountId.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
-    //_tfAccountId.layer set
-    [_tfAccoundPass.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
-    [_btnCreateUser.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [self.tfAccountId.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+
+    [self.tfAccoundPass.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    [self.btnCreateUser.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
-    [_tfAccountId setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
-    [_tfAccoundPass setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
-    [_btnCreateUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
-    [_lblAccountDetails setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [self.tfAccountId setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [self.tfAccoundPass setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [self.btnCreateUser.titleLabel setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
+    [self.lblAccountDetails setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
     
     [self setLeftMargin:10 forTextField:self.tfAccountId];
     [self setLeftMargin:10 forTextField:self.tfAccoundPass];
-    _tfAccoundPass.delegate = self;
-    _tfAccountId.delegate = self;
+    self.tfAccoundPass.delegate = self;
+    self.tfAccountId.delegate = self;
 }
 
 - (void)setLeftMargin:(int)leftMargin forTextField:(UITextField *)textField
@@ -112,7 +156,7 @@
         if (requestResult.isSuccess) {
             message = @"Create Child success";
         } else {
-            message = @"Create Child failed";
+            message = [NSString stringWithFormat:@"Create Child failed\r\n%@", [[UtilityController sharedInstance] getErrorMessage:requestResult.error]];
         }
         [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:message delegate:nil];
