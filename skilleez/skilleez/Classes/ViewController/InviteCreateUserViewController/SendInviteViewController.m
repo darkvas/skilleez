@@ -11,6 +11,7 @@
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 #import "ActivityIndicatorController.h"
+#import "UtilityController.h"
 
 @interface SendInviteViewController ()
 
@@ -75,19 +76,23 @@
 {
     NSString* email = self.tfUserEmail.text;
     [self closeKeyboard];
-    
-    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] postInviteToLoopByEmail:email withCallBack:^(RequestResult *requestResult) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        if(requestResult.isSuccess) {
-            NSString* message = [NSString stringWithFormat:@"Invite Adult success\r\nSend invite to email: %@", email];
-            [self showAlertWithMessage:message];
-            self.tfUserEmail.text = @"";
-        } else {
-            NSString* message = [NSString stringWithFormat:@"Invite Adult failed\r\n%@", requestResult.error.userInfo[NSLocalizedDescriptionKey]];
-            [self showAlertWithMessage:message];
-        }
-    }];
+    if ([[UtilityController sharedInstance] validateEmailWithString:email]) {
+        [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+        [[NetworkManager sharedInstance] postInviteToLoopByEmail:email withCallBack:^(RequestResult *requestResult) {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            if(requestResult.isSuccess) {
+                NSString* message = [NSString stringWithFormat:@"Invite Adult success\r\nSend invite to email: %@", email];
+                [self showAlertWithMessage:message];
+                self.tfUserEmail.text = @"";
+            } else {
+                NSString* message = [NSString stringWithFormat:@"Invite Adult failed\r\n%@", requestResult.error.userInfo[NSLocalizedDescriptionKey]];
+                [self showAlertWithMessage:message];
+            }
+        }];
+    } else {
+        CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Please enter a valid email" delegate:nil];
+        [alert show];
+    }
 }
 
 - (void) showAlertWithMessage:(NSString*) message
