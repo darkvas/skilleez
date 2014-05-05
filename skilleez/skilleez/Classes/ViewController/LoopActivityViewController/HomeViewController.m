@@ -74,14 +74,15 @@ const int NUMBER_OF_ITEMS = 5;
 
 - (void)loadCounts
 {
-    [self loadInvitationsCount];
+    if([UserSettingsManager sharedInstance].IsAdult)
+        [self loadInvitationsCount];
     //TODO: change on invitations count method when API will be ready
     [self loadWaitingForApprovalCount];
 }
 
 - (void)loadWaitingForApprovalCount
 {
-    [[NetworkManager sharedInstance] getWaitingForApprovalCount:^(RequestResult *requestReturn) {
+    [[NetworkManager sharedInstance] getWaitingForApprovalSkilleeCount:^(RequestResult *requestReturn) {
         if (requestReturn.isSuccess) {
             self._approvalCount = [((NSNumber*)requestReturn.firstObject) intValue];
             NSLog(@"Waiting from approval count %i", self._approvalCount);
@@ -95,9 +96,9 @@ const int NUMBER_OF_ITEMS = 5;
 
 - (void)loadInvitationsCount
 {
-    [[NetworkManager sharedInstance] getWaitingForApprovalInvitationsList:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getWaitingForApprovalInvitationCount:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
-            self._invitationsCount = [requestResult.returnArray count];
+            self._invitationsCount = [((NSNumber*)requestResult.firstObject) intValue];
         } else {
             self._invitationsCount = 0;
             NSLog(@"Waiting invitations count error: %@", requestResult.error);

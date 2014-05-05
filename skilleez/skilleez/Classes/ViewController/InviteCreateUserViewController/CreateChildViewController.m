@@ -13,10 +13,7 @@
 #import "CustomAlertView.h"
 #import "UtilityController.h"
 #import "ActivityIndicatorController.h"
-
-const int kMaxFieldLength = 50;
-static NSString *allowedLoginChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-static NSString *allowedPasswordChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-,.@";
+#import "TextValidator.h"
 
 @interface CreateChildViewController ()
 
@@ -64,28 +61,10 @@ static NSString *allowedPasswordChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField == self.tfAccountId) {
-        return [self validateTextField:textField withNewString:string withRange:range withAllowedString:allowedLoginChars];
+        return [TextValidator allowInputCharForAccount:textField withNewString:string withRange:range];
     } else {
-        return [self validateTextField:textField withNewString:string withRange:range withAllowedString:allowedPasswordChars];
+        return [TextValidator allowInputCharForPassword:textField withNewString:string withRange:range];
     }
-}
-
-- (BOOL)validateTextField:(UITextField *) textField withNewString: (NSString *)string withRange:(NSRange)range withAllowedString: (NSString *) allowedChars
-{
-    //MaxLenght
-    NSUInteger oldLength = [textField.text length];
-    NSUInteger replacementLength = [string length];
-    NSUInteger rangeLength = range.length;
-    
-    NSUInteger newLength = oldLength - rangeLength + replacementLength;
-    
-    BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
-    
-    //AllowedCharacters
-    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:allowedLoginChars] invertedSet];
-    
-    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-    return (newLength <= kMaxFieldLength || returnKey) && [string isEqualToString:filtered];
 }
 
 - (BOOL) canPerformAction:(SEL)action withSender:(id)sender

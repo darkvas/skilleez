@@ -100,7 +100,7 @@ static NSString *skilleeCellName = @"ChildApprovalTableCell";
     [[NetworkManager sharedInstance] getWaitingForApprovalList:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             [self.emptyTableLabel removeFromSuperview];
-            NSArray* skilleeList = requestResult.returnArray;
+            NSArray* skilleeList = [self getSkilleeList: requestResult.returnArray];
             if ((![[UtilityController sharedInstance] isArrayEquals:skilleeList toOther:_items] && [skilleeList count] > 0) || ([skilleeList count] == 0 && [_items count] == 1)) {
                 _items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
@@ -123,7 +123,7 @@ static NSString *skilleeCellName = @"ChildApprovalTableCell";
 {
     [[NetworkManager sharedInstance] getWaitingForApprovalSkilleez:counts offset:offsets withCallBack:^(RequestResult *requestResult) {
         if(requestResult.isSuccess) {
-            NSArray* skilleeList = requestResult.returnArray;
+            NSArray* skilleeList = [self getSkilleeList: requestResult.returnArray];
             if (![[UtilityController sharedInstance] isArrayEquals:_items toOther:skilleeList]) {
                 _items = [NSMutableArray arrayWithArray:skilleeList];
                 [self.tableView reloadData];
@@ -133,6 +133,16 @@ static NSString *skilleeCellName = @"ChildApprovalTableCell";
             NSLog(@"loadSkilleeInBackground error: %@", requestResult.error);
         }
     }];
+}
+
+- (NSArray*)getSkilleeList:(NSArray*) inputArray
+{
+    NSMutableArray* skilleeList = [NSMutableArray new];
+    for (NSObject *skillee in inputArray) {
+        if([skillee isKindOfClass:[SkilleeModel class]])
+            [skilleeList addObject:skillee];
+    }
+    return skilleeList;
 }
 
 @end

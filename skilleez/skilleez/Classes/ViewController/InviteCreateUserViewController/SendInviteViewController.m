@@ -11,7 +11,7 @@
 #import "UIFont+DefaultFont.h"
 #import "NetworkManager.h"
 #import "ActivityIndicatorController.h"
-#import "UtilityController.h"
+#import "TextValidator.h"
 
 @interface SendInviteViewController ()
 
@@ -39,6 +39,7 @@
 - (void)customizeElements
 {
     [self.tfUserEmail.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
+    self.tfUserEmail.delegate = self;
     [self.btnInviteUser.layer setCornerRadius:BUTTON_CORNER_RADIUS_MEDIUM];
     
     [self.tfUserEmail setFont:[UIFont getDKCrayonFontWithSize:TEXTVIEW_MEDIUM]];
@@ -72,11 +73,20 @@
 {
 }
 
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == self.tfUserEmail) {
+        return [TextValidator allowInputCharForEmail:textField withNewString:string withRange:range];
+    } else {
+        return YES;
+    }
+}
+
 -(IBAction)inviteUserPressed:(id)sender
 {
     NSString* email = self.tfUserEmail.text;
     [self closeKeyboard];
-    if ([[UtilityController sharedInstance] validateEmailWithString:email]) {
+    if ([TextValidator validateEmailWithString:email]) {
         [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
         [[NetworkManager sharedInstance] postInviteToLoopByEmail:email withCallBack:^(RequestResult *requestResult) {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];

@@ -28,5 +28,5 @@
 - (NSString *)getErrorMessage:(NSError *)error;
 - (UILabel *)showEmptyView:(UIViewController *)viewController text:(NSString *)text;
 - (NSString *)getStringFromColor:(UIColor *)color;
-- (BOOL)validateEmailWithString:(NSString *)email;
+
 @end
