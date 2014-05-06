@@ -156,7 +156,7 @@ const int NUMBER_OF_ITEMS_SL = 5;
             skilleeList = nil;
             [self performSelector:@selector(allowLoadOnScroll) withObject:nil afterDelay:0.3];
             if ([skilleez count] == 0) {
-                NSString *message = [_userId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID] ? @"You have no skilleez. Please add some, to see them here" : @"This user have no skilleez";
+                NSString *message = [_userId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID] ? @"You have no skilleez. Please add some, to see them here" : @"This user has no skilleez";
                 self.emptyLabel = [[UtilityController sharedInstance] showEmptyView:self text:message];
             }
             [self.view addSubview:self.emptyLabel];
