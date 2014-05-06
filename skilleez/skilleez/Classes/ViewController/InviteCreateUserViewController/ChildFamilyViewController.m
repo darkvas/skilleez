@@ -47,7 +47,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.allowsSelection = NO;
     _canLoadOnScroll = YES;
-    _count = NUMBER_OF_ITEMS;
+    _count = NUMBER_OF_FRIENDS;
     _offset = 0;
     [self loadFamilyData:childId];
 }
@@ -68,7 +68,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.tableView.contentSize.height - self.tableView.contentOffset.y == 504 && _canLoadOnScroll) {
-        _count = NUMBER_OF_ITEMS;
+        _count = NUMBER_OF_FRIENDS;
         _offset = [_childrenMembers count];
         [self loadFamilyData:childId];
     }

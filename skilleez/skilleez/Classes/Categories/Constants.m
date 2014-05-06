@@ -15,6 +15,9 @@ const float BORDER_WIDTH_BIG = 5.0;
 const float BUTTON_CORNER_RADIUS_SMALL = 3.0;
 const float BUTTON_CORNER_RADIUS_MEDIUM = 5.0;
 
+const int NUMBER_OF_ITEMS = 5;
+const int NUMBER_OF_FRIENDS = 10;
+
 @implementation Constants
 
 @end

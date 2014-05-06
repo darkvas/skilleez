@@ -9,8 +9,6 @@
 #import "HomeViewController.h"
 #import "ColorManager.h"
 
-const int NUMBER_OF_ITEMS = 5;
-
 @interface HomeViewController ()
 {
     NSTimer *timerUpdateBadge;
