@@ -9,8 +9,6 @@
 #import "HomeViewController.h"
 #import "ColorManager.h"
 
-const int NUMBER_OF_ITEMS = 5;
-
 @interface HomeViewController ()
 {
     NSTimer *timerUpdateBadge;
@@ -74,13 +72,13 @@ const int NUMBER_OF_ITEMS = 5;
 
 - (void)loadCounts
 {
-    if([UserSettingsManager sharedInstance].IsAdult)
-        [self loadInvitationsCount];
-    //TODO: change on invitations count method when API will be ready
-    [self loadWaitingForApprovalCount];
+    if ([UserSettingsManager sharedInstance].IsAdult)
+        [self loadWaiingForApprovalCount];
+    else
+        [self loadWaitingForApprovalSkilleeCount];
 }
 
-- (void)loadWaitingForApprovalCount
+- (void)loadWaitingForApprovalSkilleeCount
 {
     [[NetworkManager sharedInstance] getWaitingForApprovalSkilleeCount:^(RequestResult *requestReturn) {
         if (requestReturn.isSuccess) {
@@ -94,16 +92,17 @@ const int NUMBER_OF_ITEMS = 5;
     }];
 }
 
-- (void)loadInvitationsCount
+- (void)loadWaiingForApprovalCount
 {
-    [[NetworkManager sharedInstance] getWaitingForApprovalInvitationCount:^(RequestResult *requestResult) {
-        if (requestResult.isSuccess) {
-            self._invitationsCount = [((NSNumber*)requestResult.firstObject) intValue];
+    [[NetworkManager sharedInstance] getWaitingForApprovalCount:^(RequestResult *requestReturn) {
+        int approvalCount = 0;
+        if (requestReturn.isSuccess) {
+            approvalCount = [((NSNumber*)requestReturn.firstObject) intValue];
+            NSLog(@"Waiting from approval count %i", approvalCount);
         } else {
-            self._invitationsCount = 0;
-            NSLog(@"Waiting invitations count error: %@", requestResult.error);
+            NSLog(@"Waiting from approval error: %@", requestReturn.error);
         }
-        [[UtilityController sharedInstance] setBadgeValue:(self._approvalCount + self._invitationsCount) forController:self];
+        [[UtilityController sharedInstance] setBadgeValue:approvalCount forController:self];
     }];
 }
 
@@ -154,7 +153,7 @@ const int NUMBER_OF_ITEMS = 5;
             break;
         }
     }
-    [self loadWaitingForApprovalCount];
+    [self loadCounts];
     [self highlightSelectedButton:(int)((UIButton *)sender).tag];
 }
 

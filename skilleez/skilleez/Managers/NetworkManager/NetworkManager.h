@@ -29,6 +29,7 @@ typedef void (^requestCallBack)(RequestResult* requestResult);
 -(void) getSkilleeList:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 -(void) getSkilleeListForUser:(NSString*) userId count: (int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
 -(void) getWaitingForApprovalSkilleez:(int) count offset: (int) offset withCallBack: (requestCallBack) callBack;
+- (void)getWaitingForApprovalCount:(requestCallBack)callBack;
 - (void)getWaitingForApprovalList:(requestCallBack)callBack;
 -(void) getWaitingForApprovalSkilleeCount: (requestCallBack) callBack;
 - (void)getWaitingForApprovalInvitationsList:(requestCallBack)callBack;
