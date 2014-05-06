@@ -16,7 +16,7 @@ static NSString *GET_SKILLEE_LIST_URI = @"api/Skillee/GetList";
 static NSString *GET_USER_SKILLEE_LIST_URI = @"api/Skillee/GetUserSkilleezList";
 static NSString *GET_WAITING_FOR_APPROVAL_LIST_URI = @"api/Skillee/GetWaitingForApprovalList";
 static NSString *GET_WAITING_FOR_APPROVAL_SKILLEEZ_URI = @"api/Skillee/GetWaitingForApprovalSkilleezList";
-static NSString *GET_WAITING_FOR_APPROVAL_COUNT = @"api/Skillee/GetWaitingForApprovalCount";
+static NSString *GET_WAITING_FOR_APPROVAL_SKILLEE_COUNT = @"api/Skillee/GetWaitingForApprovalSkilleezCount";
 static NSString *GET_FAVORITE_LIST = @"api/Skillee/GetFavoriteList";
 static NSString *GET_CAN_APPROVE = @"api/Skillee/CanApprove";
 
@@ -46,6 +46,7 @@ static NSString *POST_UNFOLLOW_USER = @"api/Loop/UnfollowUser";
 
 static NSString *GET_PENDING_INVITATIONS_TO_LOOP = @"api/Loop/GetPendingInvitationsToLoop";
 static NSString *GET_WAITING_FOR_APPROVAL_INVITATIONS_TO_LOOP = @"api/Loop/GetWaitingForApprovalInvitationsToLoop";
+static NSString *GET_WAITING_FOR_APPROVAL_INVITATIONS_COUNT = @"api/Loop/GetWaitingForApprovalInvitationsToLoopCount";
 static NSString *POST_INVITE_TO_LOOP_BY_USERID = @"api/Loop/InviteToLoopByUserId";
 static NSString *POST_INVITE_TO_LOOP_BY_EMAIL = @"api/Loop/InviteToLoopByEmail";
 static NSString *POST_ACCEPT_INVITATION_TO_LOOP = @"api/Loop/AcceptInvitationToLoop";
@@ -128,9 +129,15 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
     
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
                                                                                 method:RKRequestMethodGET
-                                                                           pathPattern:GET_WAITING_FOR_APPROVAL_COUNT
+                                                                           pathPattern:GET_WAITING_FOR_APPROVAL_SKILLEE_COUNT
                                                                                keyPath:nil
                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodGET
+                                                                            pathPattern:GET_WAITING_FOR_APPROVAL_INVITATIONS_COUNT
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
     
     [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
                                                                                  method:RKRequestMethodAny
@@ -405,11 +412,11 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
     [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
 }
 
--(void) getWaitingForApprovalCount: (requestCallBack) callBack
+-(void) getWaitingForApprovalSkilleeCount: (requestCallBack) callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?Count=%i&Offset=%i", GET_WAITING_FOR_APPROVAL_COUNT, 1, 0]
+    [manager getObjectsAtPath:GET_WAITING_FOR_APPROVAL_SKILLEE_COUNT
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
@@ -422,6 +429,22 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
      }];
 }
 
+-(void) getWaitingForApprovalInvitationCount: (requestCallBack) callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    [manager getObjectsAtPath:GET_WAITING_FOR_APPROVAL_INVITATIONS_COUNT
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         int resultCount = [((PostResponse*)mappingResult.firstObject).ReturnValue integerValue];
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:@(resultCount)]);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
+}
 
 - (void)getWaitingForApprovalList:(requestCallBack)callBack
 {

@@ -187,6 +187,7 @@
 		75EC2979190003F1007409BD /* AdultApprovalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75EC2977190003F1007409BD /* AdultApprovalViewController.xib */; };
 		75EC298119000A0F007409BD /* ChildApprovalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC297F19000A0F007409BD /* ChildApprovalViewController.m */; };
 		75EC298219000A0F007409BD /* ChildApprovalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75EC298019000A0F007409BD /* ChildApprovalViewController.xib */; };
+		8426AA581917B88800455D2F /* TextValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426AA571917B88800455D2F /* TextValidator.m */; };
 		8452291B18FEA94500D1D4B7 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8452291218FEA70900D1D4B7 /* libRestKit.a */; };
 		849D2DBB18E1C4CB00828ED4 /* FamilyMemberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 849D2DBA18E1C4CB00828ED4 /* FamilyMemberModel.m */; };
 		849D2DBE18E1CB8000828ED4 /* FamilyMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849D2DBD18E1CB8000828ED4 /* FamilyMemberCell.m */; };
@@ -596,6 +597,8 @@
 		8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8417A47D18CF0BE100E6BAE4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8417A47E18CF0BE100E6BAE4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8426AA561917B88800455D2F /* TextValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextValidator.h; sourceTree = "<group>"; };
+		8426AA571917B88800455D2F /* TextValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextValidator.m; sourceTree = "<group>"; };
 		8452290A18FEA70900D1D4B7 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = ../RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		849D2DB918E1C4CA00828ED4 /* FamilyMemberModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamilyMemberModel.h; sourceTree = "<group>"; };
 		849D2DBA18E1C4CB00828ED4 /* FamilyMemberModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamilyMemberModel.m; sourceTree = "<group>"; };
@@ -902,6 +905,8 @@
 				140CDEAA18EB042A001E97A7 /* UINavigationController+Push.m */,
 				75A1CD83190A59A6006860E9 /* Constants.h */,
 				75A1CD84190A59A6006860E9 /* Constants.m */,
+				8426AA561917B88800455D2F /* TextValidator.h */,
+				8426AA571917B88800455D2F /* TextValidator.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2055,6 +2060,7 @@
 				84E4D0D218F694DA002D264F /* MessageViewController.m in Sources */,
 				1465110C18E54F5A002C2B2A /* SelectFavoriteViewController.m in Sources */,
 				14F090AF18E1C96B000DAF80 /* ProfileTableCell.m in Sources */,
+				8426AA581917B88800455D2F /* TextValidator.m in Sources */,
 				14B1182E18F3BF5F002C022C /* ChildFamilyViewController.m in Sources */,
 				84E4D0D718F695D4002D264F /* MessageCell.m in Sources */,
 				84D73B9118EC2865007DDBDB /* AdultPermission.m in Sources */,

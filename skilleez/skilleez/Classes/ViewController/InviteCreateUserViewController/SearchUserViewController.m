@@ -12,9 +12,7 @@
 #import "NetworkManager.h"
 #import "ActivityIndicatorController.h"
 #import "FindUserViewController.h"
-
-const int kMaxUserNameLength = 50;
-static NSString *allowedLoginChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+#import "TextValidator.h"
 
 @interface SearchUserViewController ()
 
@@ -104,28 +102,10 @@ static NSString *allowedLoginChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmno
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField == self.tfUserName) {
-        return [self validateTextField:textField withNewString:string withRange:range withAllowedString:allowedLoginChars];
+        return [TextValidator allowInputCharForAccount:textField withNewString:string withRange:range];
     } else {
         return YES;
     }
-}
-
-- (BOOL)validateTextField:(UITextField *) textField withNewString: (NSString *)string withRange:(NSRange)range withAllowedString: (NSString *) allowedChars
-{
-    //MaxLenght
-    NSUInteger oldLength = [textField.text length];
-    NSUInteger replacementLength = [string length];
-    NSUInteger rangeLength = range.length;
-    
-    NSUInteger newLength = oldLength - rangeLength + replacementLength;
-    
-    BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
-    
-    //AllowedCharacters
-    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:allowedLoginChars] invertedSet];
-    
-    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-    return (newLength <= kMaxUserNameLength || returnKey) && [string isEqualToString:filtered];
 }
 
 @end

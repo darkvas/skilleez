@@ -10,6 +10,6 @@
 #import "KeyboardViewController.h"
 #import "CustomAlertView.h"
 
-@interface SendInviteViewController : KeyboardViewController
+@interface SendInviteViewController : KeyboardViewController <UITextFieldDelegate>
 
 @end
