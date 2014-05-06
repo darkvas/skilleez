@@ -15,6 +15,7 @@ static NSString *GET_USERINFO_URI = @"api/User/GetMyInfo";
 static NSString *GET_SKILLEE_LIST_URI = @"api/Skillee/GetList";
 static NSString *GET_USER_SKILLEE_LIST_URI = @"api/Skillee/GetUserSkilleezList";
 static NSString *GET_WAITING_FOR_APPROVAL_LIST_URI = @"api/Skillee/GetWaitingForApprovalList";
+static NSString *GET_WAITING_FOR_APPROVAL_COUNT = @"api/Skillee/GetWaitingForApprovalCount";
 static NSString *GET_WAITING_FOR_APPROVAL_SKILLEEZ_URI = @"api/Skillee/GetWaitingForApprovalSkilleezList";
 static NSString *GET_WAITING_FOR_APPROVAL_SKILLEE_COUNT = @"api/Skillee/GetWaitingForApprovalSkilleezCount";
 static NSString *GET_FAVORITE_LIST = @"api/Skillee/GetFavoriteList";
@@ -330,6 +331,12 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
                                                                             pathPattern:GET_WAITING_FOR_APPROVAL_INVITATIONS_TO_LOOP
                                                                                 keyPath:@"ReturnValue"
                                                                             statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
+    
+    [manager addResponseDescriptor: [RKResponseDescriptor responseDescriptorWithMapping:[PostResponse defineObjectMapping]
+                                                                                 method:RKRequestMethodAny
+                                                                            pathPattern:GET_WAITING_FOR_APPROVAL_COUNT
+                                                                                keyPath:nil
+                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]];
 }
 
 #pragma mark - User requests
@@ -410,6 +417,23 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
     NSString* requestUrl = [NSString stringWithFormat:@"%@?Count=%i&Offset=%i", GET_FAVORITE_LIST, count, offset];
     [self prepareSkilleeRequest];
     [self getSkilleeResultForUrl:requestUrl withCallBack: callBack];
+}
+
+- (void)getWaitingForApprovalCount:(requestCallBack)callBack
+{
+    [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
+    
+    [manager getObjectsAtPath:GET_WAITING_FOR_APPROVAL_COUNT
+                   parameters:nil
+                      success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
+     {
+         int resultCount = [((PostResponse*)mappingResult.firstObject).ReturnValue integerValue];
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithValue:@(resultCount)]);});
+     }
+                      failure:^(RKObjectRequestOperation * operaton, NSError * error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{callBack([[RequestResult alloc] initWithError:error]);});
+     }];
 }
 
 -(void) getWaitingForApprovalSkilleeCount: (requestCallBack) callBack

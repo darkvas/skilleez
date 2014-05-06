@@ -106,8 +106,6 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
             if([UserSettingsManager sharedInstance].remember)
                 [self saveLoginAndPassword];
             [self getAccountInformation];
-            HomeViewController *loop = [HomeViewController new];
-            [self.navigationController pushViewController:loop animated:YES];
         } else {
             NSString* loginErrorMessage = [self getLoginErrorMessage: requestReturn.error];
             CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:loginErrorMessage delegate:nil];
@@ -126,7 +124,9 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
 
 - (void)getAccountInformation
 {
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [[NetworkManager sharedInstance] getUserInfo:^(RequestResult *requestResult) {
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
         if (requestResult.isSuccess){
             UserInfo* userInfo = (UserInfo*)requestResult.firstObject;
             
@@ -135,8 +135,13 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
             [UserSettingsManager sharedInstance].IsVerified = userInfo.IsVerified;
             [UserSettingsManager sharedInstance].userInfo = userInfo;
             [self getAccountFriendList:userInfo.UserID];
+            HomeViewController *loop = [HomeViewController new];
+            [self.navigationController pushViewController:loop animated:YES];
         } else {
             NSLog(@"Error on GetUserInfo: %@", requestResult.error);
+            NSString* loginErrorMessage = [self getLoginErrorMessage: requestResult.error];
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:loginErrorMessage delegate:nil];
+            [alert show];
         }
     }];
 }
