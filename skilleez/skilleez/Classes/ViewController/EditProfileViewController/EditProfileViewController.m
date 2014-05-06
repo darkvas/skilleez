@@ -339,11 +339,11 @@ enum {
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField == self.nameTxt) {
-        return [TextValidator allowInputCharForText:textField withNewString:string withRange:range];
+        return [TextValidator allowInputCharForText:string withRangeLength:range.length withOldLength:textField.text.length];
     } else if (textField == self.loginTxt) {
-        return [TextValidator allowInputCharForAccount:textField withNewString:string withRange:range];
+        return [TextValidator allowInputCharForAccount:string withRangeLength:range.length withOldLength:textField.text.length];
     } else if (textField == self.passwordTxt) {
-        return [TextValidator allowInputCharForPassword:textField withNewString:string withRange:range];
+        return [TextValidator allowInputCharForPassword:string withRangeLength:range.length withOldLength:textField.text.length];
     } else {
         return YES;
     }

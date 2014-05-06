@@ -76,7 +76,7 @@
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField == self.tfUserEmail) {
-        return [TextValidator allowInputCharForEmail:textField withNewString:string withRange:range];
+        return [TextValidator allowInputCharForEmail:string withRangeLength:range.length withOldLength:textField.text.length];
     } else {
         return YES;
     }

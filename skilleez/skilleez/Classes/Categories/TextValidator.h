@@ -10,10 +10,10 @@
 
 @interface TextValidator : NSObject
 
-+ (BOOL)allowInputCharForAccount:(UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
-+ (BOOL)allowInputCharForPassword:(UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
-+ (BOOL)allowInputCharForText: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
-+ (BOOL)allowInputCharForEmail: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
++ (BOOL)allowInputCharForAccount:(NSString *) string withRangeLength:(NSUInteger) rangeLength withOldLength:(NSUInteger) oldLength;
++ (BOOL)allowInputCharForPassword:(NSString *) string withRangeLength:(NSUInteger) rangeLength withOldLength:(NSUInteger) oldLength;
++ (BOOL)allowInputCharForText:(NSString *) string withRangeLength:(NSUInteger) rangeLength withOldLength:(NSUInteger) oldLength;
++ (BOOL)allowInputCharForEmail:(NSString *) string withRangeLength:(NSUInteger) rangeLength withOldLength:(NSUInteger) oldLength;
 
 + (BOOL)validateEmailWithString:(NSString *) email;
 
