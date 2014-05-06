@@ -10,10 +10,12 @@
 
 const int kMaxLoginLength = 50;
 const int kMaxEmailLength = 100;
+const int kMaxTextLength = 250;
 
 static NSString *allowedLoginChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 static NSString *allowedPasswordChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_+-=,.@";
-static NSString *allowedEmailChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._%+-@";
+static NSString *allowedEmailChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._+-@";
+static NSString *allowedTextChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ,.!?:;_%+-=*/#()[]<>&$@";
 
 @implementation TextValidator
 
@@ -45,7 +47,7 @@ static NSString *allowedEmailChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmno
 }
 
 
-+ (BOOL)allowInputCharForPassword: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
++ (BOOL)allowInputCharForPassword: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range
 {
     return [self isAllowedInput:textField
                   withNewString:string
@@ -54,12 +56,16 @@ static NSString *allowedEmailChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmno
                withAllowedChars:allowedPasswordChars];
 }
 
-+ (BOOL)allowInputCharForText: (NSString*) string
++ (BOOL)allowInputCharForText: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range
 {
-    return YES;
+    return [self isAllowedInput:textField
+                  withNewString:string
+                      withRange:range
+                  withMaxLength:kMaxTextLength
+               withAllowedChars:allowedTextChars];
 }
 
-+ (BOOL)allowInputCharForEmail: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
++ (BOOL)allowInputCharForEmail: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range
 {
     return [self isAllowedInput:textField
                   withNewString:string

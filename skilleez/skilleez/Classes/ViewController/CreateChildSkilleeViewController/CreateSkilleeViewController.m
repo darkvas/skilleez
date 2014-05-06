@@ -15,6 +15,7 @@
 #import "CustomAlertView.h"
 #import "ColorManager.h"
 #import "UtilityController.h"
+#import "TextValidator.h"
 
 static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Pages.Terms.Url";
 
@@ -94,6 +95,14 @@ static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Acco
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if(textField == self.titleTxt) {
+        return [TextValidator allowInputCharForText:textField withNewString:string withRange:range];
+    }
+    return YES;
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

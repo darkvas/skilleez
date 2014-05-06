@@ -12,7 +12,7 @@
 
 + (BOOL)allowInputCharForAccount:(UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
 + (BOOL)allowInputCharForPassword:(UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
-+ (BOOL)allowInputCharForText:(NSString*) string;
++ (BOOL)allowInputCharForText: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
 + (BOOL)allowInputCharForEmail: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
 
 + (BOOL)validateEmailWithString:(NSString *) email;
