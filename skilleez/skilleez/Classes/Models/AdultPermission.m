@@ -29,12 +29,11 @@
     [mapping addAttributeMappingsFromDictionary:@{ @"Id": @"Id",
                                                    @"AdultId": @"AdultId",
                                                    @"ChildId": @"ChildId",
-                                                   @"ChildName": @"ChildName",
                                                    @"ChildAvatarUrl": @"ChildAvatarUrl",
                                                    @"ChangesApproval": @"ChangesApproval",
                                                    @"LoopApproval": @"LoopApproval",
                                                    @"ProfileApproval": @"ProfileApproval",
-                                                   @"MainFamilyUserId": @"MainFamilyUserId"}];
+                                                   @"IsModerator": @"IsModerator"}];
     return mapping;
 }
 

@@ -130,11 +130,9 @@ const NSString* DEFAULT_PERMISSION_ID = @"0";
 - (void) preparePermission
 {
     _permission.Id = _permission.Id ? _permission.Id : DEFAULT_PERMISSION_ID;
-    _permission.MainFamilyUserId = [UserSettingsManager sharedInstance].userInfo.UserID;
     _permission.AdultId = _adult.Id;
     _permission.ChildId = _child.Id;
     _permission.ChildAvatarUrl = _child.AvatarUrl;
-    _permission.ChildName = _child.FullName;
     
     _permission.ChangesApproval = changesState;
     _permission.LoopApproval = loopState;

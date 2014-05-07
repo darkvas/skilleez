@@ -49,7 +49,7 @@ typedef void (^requestCallBack)(RequestResult* requestResult);
 -(void) getFamilyMembers: (NSString*) userId withCallBack: (requestCallBack) callBack;
 -(void) postAddChildToFamily:(NSString*) childName withPass:(NSString*) childPassword withCallBack: (requestCallBack) callBack;
 -(void) postInviteAdultToFamily:(NSString*) email withCallBack: (requestCallBack) callBack;
--(void) getAdultPermissions: (NSString*) userId forAdultId: (NSString*) adultId withCallBack: (requestCallBack) callBack;
+- (void)getAdultPermissionsforAdultId:(NSString *)adultId withCallBack:(requestCallBack)callBack;
 - (void) postSetAdultPermissions:(AdultPermission*) permission withCallBack:(requestCallBack)callBack;
 
 -(void) getProfileInfoByLogin:(NSString*) login withCallBack:(requestCallBack)callBack;

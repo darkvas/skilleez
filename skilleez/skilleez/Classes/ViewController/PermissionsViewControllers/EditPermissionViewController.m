@@ -162,9 +162,9 @@ const int FONT_SIZE_EP = 21;
     }];
 }
 
-- (void) loadPermissionData
+- (void)loadPermissionData
 {
-    [[NetworkManager sharedInstance] getAdultPermissions:[UserSettingsManager sharedInstance].userInfo.UserID forAdultId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
+    [[NetworkManager sharedInstance] getAdultPermissionsforAdultId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             _permissions = [[NSMutableArray alloc] initWithArray: requestResult.returnArray];
             [self.tableView reloadData];

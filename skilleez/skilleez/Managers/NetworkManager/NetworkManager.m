@@ -778,11 +778,11 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
      }];
 }
 
--(void) getAdultPermissions: (NSString*) userId forAdultId: (NSString*) adultId withCallBack:(requestCallBack)callBack
+- (void)getAdultPermissionsforAdultId:(NSString *)adultId withCallBack:(requestCallBack)callBack
 {
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
-    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?MainFamilyUserId=%@&AdultId=%@", GET_ADULTPERMISSIONS, userId, adultId]
+    [manager getObjectsAtPath:[NSString stringWithFormat:@"%@?AdultId=%@", GET_ADULTPERMISSIONS, adultId]
                    parameters:nil
                       success:^(RKObjectRequestOperation * operaton, RKMappingResult *mappingResult)
      {
@@ -806,7 +806,7 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
     
     NSDictionary *jsonData = @{
                                @"Id": permission.Id,
-                               @"MainFamilyUserId": permission.MainFamilyUserId,
+                               @"IsModerator": permission.IsModerator ? @"true" : @"false",
                                @"AdultId": permission.AdultId,
                                @"ChildId": permission.ChildId,
                                @"ChangesApproval": permission.ChangesApproval ? @"true" : @"false",

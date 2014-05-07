@@ -13,13 +13,12 @@
 @property (nonatomic, strong) NSString* Id;
 @property (nonatomic, strong) NSString* AdultId;
 @property (nonatomic, strong) NSString* ChildId;
-@property (nonatomic, strong) NSString* ChildName;
 @property (nonatomic, strong) NSURL* ChildAvatarUrl;
 @property (nonatomic) BOOL ChangesApproval;
 @property (nonatomic) BOOL LoopApproval;
 @property (nonatomic) BOOL ProfileApproval;
-@property (nonatomic, strong) NSString* MainFamilyUserId;
+@property (nonatomic) BOOL IsModerator;
 
-+(RKObjectMapping*) defineObjectMapping;
++ (RKObjectMapping *)defineObjectMapping;
 
 @end
