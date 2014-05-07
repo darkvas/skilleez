@@ -12,6 +12,7 @@
 @interface HomeViewController ()
 {
     NSTimer *timerUpdateBadge;
+    BOOL _showMenu;
 }
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -36,7 +37,9 @@
     LoopViewController *loop = [[LoopViewController alloc] initWithParent:self];
     [self loadAnotherViewController:loop];
     [super viewDidLoad];
+    [self.view setExclusiveTouch:YES];
     self.createViewCtrl = [CreateSkilleeViewController new];
+    _showMenu = YES;
     self.menuCtrl = [[MenuViewController alloc] initWithController:self];
     self.menuCtrl.view.hidden = YES;
     self.menuCtrl.view.frame = CGRectMake(-320, 0, 320, 568);
@@ -124,12 +127,14 @@
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [self addChildViewController:viewController];
+    //[viewController didMoveToParentViewController:self];
     viewController.view.hidden = YES;
-    [self.contentView addSubview:viewController.view];
+    [self.contentView addSubview: viewController.view];
 }
 
 - (IBAction)loadItems:(id)sender
 {
+    [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
     switch (((UIButton *)sender).tag) {
         case 11:
             if ([UserSettingsManager sharedInstance].userInfo.IsAdult) {
@@ -198,37 +203,42 @@
 
 - (void)showMenu
 {
-    [self.createViewCtrl resignAll];
-    UIView* view = self.menuCtrl.view;
-    if (view.frame.origin.x == -64) {
-        [UIView animateWithDuration:0.4
-                              delay:0.0
-                            options: UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             self.transparentBtn.hidden = YES;
-                             CGRect frame = view.frame;
-                             frame.origin.y = 0;
-                             frame.origin.x = -320;
-                             view.frame = frame;
-                         }
-                         completion:^(BOOL finished) {
-         }];
-    } else {
-        view.hidden = NO;
-        [UIView animateWithDuration:0.4
-                              delay:0.0
-                            options: UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             self.transparentBtn.hidden = NO;
-                             CGRect frame = view.frame;
-                             frame.origin.y = 0;
-                             frame.origin.x = -64;
-                             view.frame = frame;
-                         }
-                         completion:^(BOOL finished) {
-         }];
+    if (_showMenu) {
+        _showMenu = NO;
+        [self.createViewCtrl resignAll];
+        UIView* view = self.menuCtrl.view;
+        if (view.frame.origin.x == -64) {
+            [UIView animateWithDuration:0.4
+                                  delay:0.0
+                                options: UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 self.transparentBtn.hidden = YES;
+                                 CGRect frame = view.frame;
+                                 frame.origin.y = 0;
+                                 frame.origin.x = -320;
+                                 view.frame = frame;
+                             }
+                             completion:^(BOOL finished) {
+                                 _showMenu = YES;
+             }];
+        } else {
+            view.hidden = NO;
+            [UIView animateWithDuration:0.4
+                                  delay:0.0
+                                options: UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 self.transparentBtn.hidden = NO;
+                                 CGRect frame = view.frame;
+                                 frame.origin.y = 0;
+                                 frame.origin.x = -64;
+                                 view.frame = frame;
+                             }
+                             completion:^(BOOL finished) {
+                                 _showMenu = YES;
+             }];
+        }
+        self.menuBtn.selected = !self.menuBtn.selected;
     }
-    self.menuBtn.selected = !self.menuBtn.selected;
 }
 
 - (void)highlightSelectedButton:(int)button

@@ -98,7 +98,7 @@ enum {
 {
     [self.imageView setImage:[UIImage imageNamed:[items objectAtIndex:indexPath.row]]];
     self.selectedImage = [items objectAtIndex:indexPath.row];
-     NSLog(@"selected color: %@", self.selectedImage);
+    NSLog(@"selected color: %@", self.selectedImage);
 }
 
 #pragma mark - Class methods
@@ -110,27 +110,28 @@ enum {
             items = sport;
             self.whatColorLbl.text = @"What is your favorite sport?";
             self.selectColorLbl.hidden = YES;
-            [self.imageView setImage:[profileInfo.FavoriteSport isEqualToString:@""] || !profileInfo.FavoriteSport ? [UIImage imageNamed:@"sport_baseball_icon.png"] : [UIImage imageNamed:profileInfo.FavoriteSport]];
+            self.selectedImage = [profileInfo.FavoriteSport isEqualToString:@""] || !profileInfo.FavoriteSport ? @"sport_baseball_icon.png" : profileInfo.FavoriteSport;
             break;
         case SUBJECT:
             items = subjects;
             self.whatColorLbl.text = @"What is your favorite school subject?";
             self.selectColorLbl.hidden = YES;
-            [self.imageView setImage:[profileInfo.FavoriteSchoolSubject isEqualToString:@""] || !profileInfo.FavoriteSchoolSubject ? [UIImage imageNamed:@"subject_art_icon.png"] : [UIImage imageNamed:profileInfo.FavoriteSchoolSubject]];
+            self.selectedImage = [profileInfo.FavoriteSchoolSubject isEqualToString:@""] || !profileInfo.FavoriteSchoolSubject ? @"subject_art_icon.png" : profileInfo.FavoriteSchoolSubject;
             break;
         case MUSIC:
             items = music;
             self.whatColorLbl.text = @"What is your favorite music style?";
-            [self.imageView setImage:[profileInfo.FavoriteTypeOfMusic isEqualToString:@""] || !profileInfo.FavoriteTypeOfMusic ? [UIImage imageNamed:@"music_classical_icon.png"] : [UIImage imageNamed:profileInfo.FavoriteTypeOfMusic]];
+            self.selectedImage = [profileInfo.FavoriteTypeOfMusic isEqualToString:@""] || !profileInfo.FavoriteTypeOfMusic ? @"music_classical_icon.png" : profileInfo.FavoriteTypeOfMusic;
             self.selectColorLbl.hidden = YES;
             break;
         default:
             items = food;
             self.whatColorLbl.text = @"What is your favorite food?";
-            [self.imageView setImage:[profileInfo.FavoriteFood isEqualToString:@""] || !profileInfo.FavoriteFood ? [UIImage imageNamed:@"food_blt_icon.png"] : [UIImage imageNamed:profileInfo.FavoriteFood]];
+            self.selectedImage = [profileInfo.FavoriteFood isEqualToString:@""] || !profileInfo.FavoriteFood ? @"food_blt_icon.png" : profileInfo.FavoriteFood;
             self.selectColorLbl.hidden = YES;
             break;
     }
+    [self.imageView setImage:[UIImage imageNamed:self.selectedImage]];
     [self.collectionView reloadData];
 }
 

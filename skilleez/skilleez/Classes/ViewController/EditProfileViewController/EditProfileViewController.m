@@ -417,8 +417,7 @@ enum {
 
 - (void)colorSelected:(UIColor *)color
 {
-    _profile.FavoriteColor = [[UtilityController sharedInstance] getStringFromColor:color];
-    
+    favoriteColor = color;
     ((TableItem *)questions[1]).image = [self getBlankImage:color];
     [self.tableView reloadData];
 }
