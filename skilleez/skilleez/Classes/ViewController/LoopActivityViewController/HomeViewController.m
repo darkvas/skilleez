@@ -135,6 +135,7 @@
 - (IBAction)loadItems:(id)sender
 {
     [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     switch (((UIButton *)sender).tag) {
         case 11:
             if ([UserSettingsManager sharedInstance].userInfo.IsAdult) {
