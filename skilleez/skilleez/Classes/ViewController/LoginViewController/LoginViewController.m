@@ -187,7 +187,7 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField == self.txtFieldUserName) {
-        return [TextValidator allowInputCharForAccount:textField withNewString:string withRange:range];
+        return [TextValidator allowInputCharForAccount:string withRangeLength:range.length withOldLength:textField.text.length];
     } else {
         return YES;
     }

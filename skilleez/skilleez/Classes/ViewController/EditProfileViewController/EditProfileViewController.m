@@ -19,6 +19,7 @@
 #import "UtilityController.h"
 #import "SkilleezListViewController.h"
 #import "ColorManager.h"
+#import "TextValidator.h"
 
 enum {
     SPORT = 0,
@@ -334,6 +335,19 @@ enum {
 }
 
 #pragma mark Private methods
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == self.nameTxt) {
+        return [TextValidator allowInputCharForText:string withRangeLength:range.length withOldLength:textField.text.length];
+    } else if (textField == self.loginTxt) {
+        return [TextValidator allowInputCharForAccount:string withRangeLength:range.length withOldLength:textField.text.length];
+    } else if (textField == self.passwordTxt) {
+        return [TextValidator allowInputCharForPassword:string withRangeLength:range.length withOldLength:textField.text.length];
+    } else {
+        return YES;
+    }
+}
 
 - (IBAction)editImagePressed:(id)sender
 {

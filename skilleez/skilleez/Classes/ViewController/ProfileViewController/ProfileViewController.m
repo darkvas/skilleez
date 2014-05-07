@@ -11,6 +11,7 @@
 #import "UIFont+DefaultFont.h"
 #import "ColorViewController.h"
 #import "UtilityController.h"
+#import "TextValidator.h"
 
 enum {
     SPORT = 0,
@@ -101,6 +102,9 @@ enum {
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         return NO;
+    }
+    if(textView == self.userDescTextView) {
+        return [TextValidator allowInputCharForText:text withRangeLength:range.length withOldLength:textView.text.length];
     }
     return YES;
 }

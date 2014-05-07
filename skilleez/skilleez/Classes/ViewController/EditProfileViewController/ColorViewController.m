@@ -28,6 +28,7 @@
 {
     if (self = [super init]) {
         profileInfo = profile;
+        self.selectedColor = profileInfo.Color;
     }
     return self;
 }
@@ -35,6 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    [self.view addSubview: navBar];
+    
     items = [NSArray arrayWithObjects:    [UIColor colorWithRed:0.99 green:0.43 blue:0.55 alpha:1.0],
                                           [UIColor colorWithRed:0.99 green:0.66 blue:0.18 alpha:1.0],
                                           [UIColor colorWithRed:0.99 green:0.77 blue:0.45 alpha:1.0],
@@ -53,18 +58,7 @@
                                           nil];
     [self customize];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
-    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
-    [self.view addSubview: navBar];
-    // Do any additional setup after loading the view from its nib.
-    self.colorImg.backgroundColor = profileInfo.Color;
-    if(profileInfo.Color)
-        self.colorImg.backgroundColor = profileInfo.Color;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.colorImg.backgroundColor = self.selectedColor;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -93,7 +87,6 @@
 {
     self.colorImg.backgroundColor = [items objectAtIndex:indexPath.row];
     self.selectedColor = self.colorImg.backgroundColor;
-    NSLog(@"selected color: %@", self.selectedColor);
 }
 
 #pragma mark - Class methods
@@ -105,7 +98,6 @@
 
 - (void)done
 {
-    NSLog(@"selected color: %@", self.selectedColor);
     [self.delegate colorSelected:self.selectedColor];
     [self.navigationController popViewControllerAnimated:YES];
 }

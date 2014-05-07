@@ -61,9 +61,9 @@
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField == self.tfAccountId) {
-        return [TextValidator allowInputCharForAccount:textField withNewString:string withRange:range];
+        return [TextValidator allowInputCharForAccount:string withRangeLength:range.length withOldLength:textField.text.length];
     } else {
-        return [TextValidator allowInputCharForPassword:textField withNewString:string withRange:range];
+        return [TextValidator allowInputCharForPassword:string withRangeLength:range.length withOldLength:textField.text.length];
     }
 }
 

@@ -10,28 +10,28 @@
 
 const int kMaxLoginLength = 50;
 const int kMaxEmailLength = 100;
+const int kMaxTextLength = 250;
 
 static NSString *allowedLoginChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 static NSString *allowedPasswordChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_+-=,.@";
-static NSString *allowedEmailChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._%+-@";
+static NSString *allowedEmailChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._+-@";
+static NSString *allowedTextChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ,.!?:;_%+-=*/#()[]<>&$@";
 
 @implementation TextValidator
 
-+ (BOOL)allowInputCharForAccount:(UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range
++ (BOOL)allowInputCharForAccount:(NSString *) string withRangeLength:(NSUInteger) rangeLength withOldLength:(NSUInteger) oldLength
 {
-    return [self isAllowedInput:textField
+    return [self isAllowedInput:oldLength
                   withNewString:string
-                      withRange:range
+                      withRange:rangeLength
                   withMaxLength:kMaxLoginLength
                withAllowedChars:allowedLoginChars];
 }
 
-+ (BOOL)isAllowedInput:(UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range withMaxLength: (int) maxLength withAllowedChars: (NSString *) allowedChars
++ (BOOL)isAllowedInput:(NSUInteger) oldLength withNewString:(NSString*) string withRange:(NSUInteger)rangeLength withMaxLength: (int) maxLength withAllowedChars: (NSString *) allowedChars
 {
     //MaxLenght
-    NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
-    NSUInteger rangeLength = range.length;
     
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
     
@@ -44,26 +44,29 @@ static NSString *allowedEmailChars = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmno
     return (newLength <= maxLength || returnKey) && [string isEqualToString:filtered];
 }
 
-
-+ (BOOL)allowInputCharForPassword: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
++ (BOOL)allowInputCharForPassword:(NSString *) string withRangeLength:(NSUInteger) rangeLength withOldLength:(NSUInteger) oldLength
 {
-    return [self isAllowedInput:textField
+    return [self isAllowedInput:oldLength
                   withNewString:string
-                      withRange:range
+                      withRange:rangeLength
                   withMaxLength:kMaxLoginLength
                withAllowedChars:allowedPasswordChars];
 }
 
-+ (BOOL)allowInputCharForText: (NSString*) string
++ (BOOL)allowInputCharForText:(NSString *) string withRangeLength:(NSUInteger) rangeLength withOldLength:(NSUInteger) oldLength
 {
-    return YES;
+    return [self isAllowedInput:oldLength
+                  withNewString:string
+                      withRange:rangeLength
+                  withMaxLength:kMaxTextLength
+               withAllowedChars:allowedTextChars];
 }
 
-+ (BOOL)allowInputCharForEmail: (UITextField *) textField withNewString:(NSString*) string withRange:(NSRange)range;
++ (BOOL)allowInputCharForEmail:(NSString *) string withRangeLength:(NSUInteger) rangeLength withOldLength:(NSUInteger) oldLength
 {
-    return [self isAllowedInput:textField
+    return [self isAllowedInput:oldLength
                   withNewString:string
-                      withRange:range
+                      withRange:rangeLength
                   withMaxLength:kMaxEmailLength
                withAllowedChars:allowedEmailChars];
 }

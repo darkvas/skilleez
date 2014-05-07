@@ -15,6 +15,7 @@
 #import "CustomAlertView.h"
 #import "ColorManager.h"
 #import "UtilityController.h"
+#import "TextValidator.h"
 
 static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Account/Pages.Terms.Url";
 
@@ -95,6 +96,14 @@ static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Acco
 
 #pragma mark - UITextFieldDelegate
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if(textField == self.titleTxt) {
+        return [TextValidator allowInputCharForText:string withRangeLength:range.length withOldLength:textField.text.length];
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
@@ -103,13 +112,15 @@ static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Acco
 
 #pragma mark - UITextViewDelegate
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         return NO;
     }
-    
+    if(textView == self.commentTxt) {
+        return [TextValidator allowInputCharForText:text withRangeLength:range.length withOldLength:textView.text.length];
+    }
     return YES;
 }
 
