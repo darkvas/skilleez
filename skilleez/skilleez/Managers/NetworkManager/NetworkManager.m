@@ -805,13 +805,12 @@ static NSString *POST_DISAPPROVE_INVITATION_TO_LOOP = @"api/Loop/DisapproveInvit
     [manager.HTTPClient setAuthorizationHeaderWithUsername:_username password:_password];
     
     NSDictionary *jsonData = @{
-                               @"Id": permission.Id,
-                               @"IsModerator": permission.IsModerator ? @"true" : @"false",
                                @"AdultId": permission.AdultId,
                                @"ChildId": permission.ChildId,
                                @"ChangesApproval": permission.ChangesApproval ? @"true" : @"false",
                                @"LoopApproval": permission.LoopApproval ? @"true" : @"false",
-                               @"ProfileApproval": permission.ProfileApproval ? @"true" : @"false"
+                               @"ProfileApproval": permission.ProfileApproval ? @"true" : @"false",
+                               @"IsModerator": permission.IsModerator ? @"true" : @"false"
                                };
     
     [manager postObject:nil path:POST_SETADULTPERMISSIONS parameters:jsonData

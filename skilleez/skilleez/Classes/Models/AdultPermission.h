@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString* Id;
 @property (nonatomic, strong) NSString* AdultId;
 @property (nonatomic, strong) NSString* ChildId;
+@property (nonatomic, strong) NSString* ChildName;
 @property (nonatomic, strong) NSURL* ChildAvatarUrl;
 @property (nonatomic) BOOL ChangesApproval;
 @property (nonatomic) BOOL LoopApproval;

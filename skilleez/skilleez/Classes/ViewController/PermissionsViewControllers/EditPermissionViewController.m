@@ -19,8 +19,8 @@
 const int FONT_SIZE_EP = 21;
 
 @interface EditPermissionViewController () {
-    FamilyMemberModel* _familyMember;
-    NSMutableArray* _childMembers;
+    FamilyMemberModel* _adultFamilyMember;
+    NSMutableArray* _loopMembers;
     NSMutableArray* _permissions;
 }
 @property (weak, nonatomic) IBOutlet UILabel *permitUsernameLbl;
@@ -35,7 +35,7 @@ const int FONT_SIZE_EP = 21;
 - (id) initWithMemberInfo: (FamilyMemberModel*) member
 {
     if (self = [super init]) {
-        _familyMember = member;
+        _adultFamilyMember = member;
     }
     return self;
 }
@@ -57,8 +57,7 @@ const int FONT_SIZE_EP = 21;
     [self.view addSubview: navBar];
     [self customize];
     
-    [self loadChildMembers];
-    [self loadPermissionData];
+    [self loadLoopData];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -75,33 +74,14 @@ const int FONT_SIZE_EP = 21;
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"EditPermissionTableCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    FamilyMemberModel* childMember = _childMembers[indexPath.row];
-    [cell fillCell: cell withMember:childMember andPermission:[self getPermissionForChild: childMember]];
+    [cell fillCell: cell withPermission:_permissions[indexPath.row]];
     cell.delegate = self;
     return cell;
 }
 
-- (AdultPermission *)getPermissionForChild:(FamilyMemberModel *)childMember
-{
-    for (AdultPermission *permission in _permissions) {
-        if ([permission.ChildId isEqualToString:childMember.Id])
-            return permission;
-    }
-    return [self getDefaultPermission];
-}
-
-- (AdultPermission *)getDefaultPermission
-{
-    AdultPermission *permission = [AdultPermission new];
-    permission.ChangesApproval = YES;
-    permission.LoopApproval = YES;
-    permission.ProfileApproval = YES;
-    return permission;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_childMembers count];
+    return [_permissions count];
 }
 
 #pragma mark UITableViewDelegate
@@ -119,9 +99,10 @@ const int FONT_SIZE_EP = 21;
 
 #pragma mark - EditPermissionDelegate
 
-- (void)editPermissions:(AdultPermission *)permission forMember:(FamilyMemberModel *)childMember
+- (void)editPermissions:(AdultPermission *)permission
 {
-    PermissionManagementViewController *management = [[PermissionManagementViewController alloc] initWithAdult: _familyMember withChild:childMember andPermission:permission];
+    PermissionManagementViewController *management = [[PermissionManagementViewController alloc] initWithAdult: _adultFamilyMember
+                                                                                                withPermission:permission];
     [self.navigationController pushViewController:management animated:YES];
 }
 
@@ -139,37 +120,75 @@ const int FONT_SIZE_EP = 21;
 
 - (void)customize
 {
+    self.tableView.delegate = self;
     self.permitLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.accountLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.permitUsernameLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
 }
-              
-- (void) loadChildMembers
+
+- (void)loadLoopData
 {
-    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getFamilyMembers:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
-            if(requestResult.isSuccess) {
-                _childMembers = [[NSMutableArray alloc]  init];
-                for (FamilyMemberModel* member in requestResult.returnArray) {
-                    if (!member.IsAdult)
-                        [_childMembers addObject:member];
-                }
-                [self.tableView reloadData];
-            } else {
-                NSLog(@"Get Family Members error: %@", requestResult.error);
-            }
-            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+    [[NetworkManager sharedInstance] getLoopById:_adultFamilyMember.Id count:100 offset:0 withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            _loopMembers = [[NSMutableArray alloc] initWithArray:requestResult.returnArray];
+            [self preparePermissionsNames];
+            [self.tableView reloadData];
+        }
     }];
 }
 
 - (void)loadPermissionData
 {
-    [[NetworkManager sharedInstance] getAdultPermissionsforAdultId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
+    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+    [[NetworkManager sharedInstance] getAdultPermissionsforAdultId:_adultFamilyMember.Id withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             _permissions = [[NSMutableArray alloc] initWithArray: requestResult.returnArray];
+            [self preparePermissionsNames];
             [self.tableView reloadData];
         } else {
             NSLog(@"Get Adult Permissions error: %@", requestResult.error);
+        }
+        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+    }];
+}
+
+- (void)preparePermissionsNames
+{
+    if(_permissions && _loopMembers) {
+        for (AdultPermission *permission in _permissions) {
+            if(!permission.ChildName || [permission.ChildName isEqualToString:@""])
+                permission.ChildName = [self findChildNameById:permission.ChildId inLoopMembers:_loopMembers];
+        }
+    }
+}
+
+- (NSString *)findChildNameById:(NSString *) childId inLoopMembers: (NSArray *)loopMembers
+{
+    for (ProfileInfo *profile in loopMembers) {
+        if ([profile.UserId isEqualToString:childId])
+            return profile.ScreenName ? profile.ScreenName : profile.Login;
+    }
+    return childId;
+}
+
+- (void)preparePermissionsNames: (NSArray *)permissions
+{
+    for (AdultPermission *permission in permissions) {
+        if(!permission.ChildName || [permission.ChildName isEqualToString:@""])
+            [self loadProfileDataForPermission: permission];
+    }
+}
+
+- (void)loadProfileDataForPermission:(AdultPermission *) permission
+{
+    [[NetworkManager sharedInstance] getProfileInfoByUserId:permission.ChildId withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess){
+            ProfileInfo* profile = ((ProfileInfo *)requestResult.firstObject);
+            if(!profile.ScreenName || [profile.ScreenName isEqualToString:@""])
+                permission.ChildName = profile.Login;
+            else
+                permission.ChildName = profile.ScreenName;
+            [self.tableView reloadData];
         }
     }];
 }

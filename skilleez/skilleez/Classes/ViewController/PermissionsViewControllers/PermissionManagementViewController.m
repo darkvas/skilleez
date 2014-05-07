@@ -20,7 +20,6 @@ const NSString* DEFAULT_PERMISSION_ID = @"0";
 @interface PermissionManagementViewController () {
     BOOL changesState, loopState, profileState;
     FamilyMemberModel* _adult;
-    FamilyMemberModel* _child;
     AdultPermission* _permission;
 }
 
@@ -44,11 +43,10 @@ const NSString* DEFAULT_PERMISSION_ID = @"0";
 
 @implementation PermissionManagementViewController
 
-- (id) initWithAdult: (FamilyMemberModel*) adult withChild: (FamilyMemberModel*) child andPermission: (AdultPermission*) permission
+- (id) initWithAdult: (FamilyMemberModel*) adult withPermission: (AdultPermission*) permission
 {
     if (self = [super init]) {
         _adult = adult;
-        _child = child;
         _permission = permission;
         changesState = permission.ChangesApproval;
         loopState = permission.LoopApproval;
@@ -70,12 +68,12 @@ const NSString* DEFAULT_PERMISSION_ID = @"0";
 {
     [super viewDidLoad];
     
-    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:_child.FullName leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
+    NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:_permission.ChildName leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     
     [self customize];
     
-    [self.userAvatarImg setImageWithURL: _child.AvatarUrl];
+    [self.userAvatarImg setImageWithURL: _permission.ChildAvatarUrl];
     self.usernameLbl.text = _adult.FullName;
     [self showState:changesState forButton:self.changesBtn];
     [self showState:loopState forButton:self.loopBtn];
@@ -97,8 +95,8 @@ const NSString* DEFAULT_PERMISSION_ID = @"0";
     self.userAvatarImg.layer.cornerRadius = 82.f;
     self.userAvatarImg.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.approvalLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_BIG];
-    self.userCanApproveLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
-    self.canApproveLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_SMALL];
+    self.userCanApproveLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.canApproveLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.usernameLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.changesLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.loopLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
@@ -131,8 +129,6 @@ const NSString* DEFAULT_PERMISSION_ID = @"0";
 {
     _permission.Id = _permission.Id ? _permission.Id : DEFAULT_PERMISSION_ID;
     _permission.AdultId = _adult.Id;
-    _permission.ChildId = _child.Id;
-    _permission.ChildAvatarUrl = _child.AvatarUrl;
     
     _permission.ChangesApproval = changesState;
     _permission.LoopApproval = loopState;

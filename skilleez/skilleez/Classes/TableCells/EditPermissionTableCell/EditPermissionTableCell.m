@@ -13,7 +13,6 @@
 
 @interface EditPermissionTableCell()
 {
-    FamilyMemberModel *_familyMember;
     AdultPermission* _permission;
 }
 
@@ -53,12 +52,11 @@
     // Configure the view for the selected state
 }
 
-- (void)fillCell:(EditPermissionTableCell*) cell withMember:(FamilyMemberModel*) childMember andPermission:(AdultPermission*) permission
+- (void)fillCell:(EditPermissionTableCell*) cell withPermission:(AdultPermission*) permission
 {
-    _familyMember = childMember;
     _permission = permission;
-    [cell.userAvatarImg setImageWithURL: childMember.AvatarUrl];
-    cell.usernameLbl.text = childMember.FullName;
+    [cell.userAvatarImg setImageWithURL: _permission.ChildAvatarUrl];
+    cell.usernameLbl.text = _permission.ChildName;
     
     if (_permission.ChangesApproval || _permission.LoopApproval || _permission.ProfileApproval)
         cell.permissionView.backgroundColor = [ColorManager colorForSelectedPermission];
@@ -68,6 +66,6 @@
 
 - (IBAction)editPermission:(id)sender
 {
-    [self.delegate editPermissions:_permission forMember:_familyMember];
+    [self.delegate editPermissions:_permission];
 }
 @end

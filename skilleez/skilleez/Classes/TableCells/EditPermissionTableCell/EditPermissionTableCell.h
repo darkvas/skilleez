@@ -14,7 +14,7 @@
 
 @required
 
-- (void)editPermissions:(AdultPermission*) permission forMember: (FamilyMemberModel*) familyMember;
+- (void)editPermissions:(AdultPermission*) permission;
 
 @end
 
@@ -23,6 +23,6 @@
 
 @property (nonatomic,strong) id delegate;
 
-- (void)fillCell:(EditPermissionTableCell*) cell withMember:(FamilyMemberModel*) childMember andPermission:(AdultPermission*) permission;
+- (void)fillCell:(EditPermissionTableCell*) cell withPermission:(AdultPermission*) permission;
 
 @end

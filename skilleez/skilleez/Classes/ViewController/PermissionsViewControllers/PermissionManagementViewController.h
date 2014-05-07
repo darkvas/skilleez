@@ -13,6 +13,6 @@
 
 @interface PermissionManagementViewController : UIViewController
 
-- (id) initWithAdult: (FamilyMemberModel*) adult withChild: (FamilyMemberModel*) child andPermission: (AdultPermission*) permission;
+- (id) initWithAdult: (FamilyMemberModel*) adult withPermission: (AdultPermission*) permission;
 
 @end
