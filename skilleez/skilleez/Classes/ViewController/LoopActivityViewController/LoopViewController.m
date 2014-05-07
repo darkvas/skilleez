@@ -53,15 +53,6 @@ static NSString *cellName = @"SimpleTableCell";
     [self loadSkilleeInBackground:(count + offset) offset:0];
 }
 
-- (void)didMoveToParentViewController:(UIViewController *)parent
-{
-    NSLog(@"dj");
-    HomeViewController *home = (HomeViewController *)parent;
-    [home.currentViewController.view removeFromSuperview];
-    [home.currentViewController removeFromParentViewController];
-    home.currentViewController = self;
-}
-
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

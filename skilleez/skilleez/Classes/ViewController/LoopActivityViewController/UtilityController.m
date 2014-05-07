@@ -100,6 +100,7 @@
     [home.currentViewController removeFromParentViewController];
     child.view.hidden = NO;
     home.currentViewController = child;
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
 }
 
 - (NSString *)getErrorMessage:(NSError *)error
