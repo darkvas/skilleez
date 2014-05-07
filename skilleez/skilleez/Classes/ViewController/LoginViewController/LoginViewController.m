@@ -135,6 +135,7 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
             [UserSettingsManager sharedInstance].IsVerified = userInfo.IsVerified;
             [UserSettingsManager sharedInstance].userInfo = userInfo;
             [self getAccountFriendList:userInfo.UserID];
+            [self getAccountPermissions:userInfo.UserID];
             HomeViewController *loop = [HomeViewController new];
             [self.navigationController pushViewController:loop animated:YES];
         } else {
@@ -153,6 +154,19 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
             [UserSettingsManager sharedInstance].friendsAndFamily = requestResult.returnArray;
         } else {
             NSLog(@"Error on GetFriendsAnsFamily: %@", requestResult.error);
+        }
+    }];
+}
+
+- (void)getAccountPermissions:(NSString *)userId
+{
+    [[NetworkManager sharedInstance] getAdultPermissionsforAdultId:userId withCallBack:^(RequestResult *requestResult) {
+        if(requestResult.isSuccess) {
+            for (AdultPermission *permission in requestResult.returnArray) {
+                NSLog(@"Permission adult: %@ for child: %@", permission.AdultId, permission.ChildId);
+            }
+        } else {
+            NSLog(@"Error on GetAccountPermissions: %@", requestResult.error);
         }
     }];
 }

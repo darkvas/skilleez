@@ -124,6 +124,7 @@ const int FONT_SIZE_EP = 21;
     self.permitLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.accountLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
     self.permitUsernameLbl.font = [UIFont getDKCrayonFontWithSize:LABEL_MEDIUM];
+    self.permitUsernameLbl.text = [NSString stringWithFormat: @"Permit %@ to approve skilleez and account changes", _adultFamilyMember.FullName];
 }
 
 - (void)loadLoopData
