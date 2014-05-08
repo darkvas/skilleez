@@ -75,7 +75,7 @@
 
 - (void)done
 {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)customize
