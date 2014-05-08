@@ -45,6 +45,9 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     self.txtFieldUserName.delegate = self;
     self.txtFieldUserPassword.delegate = self;
     [self loadSettings];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)loadSettings
@@ -56,12 +59,6 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
         self.txtFieldUserName.text = userSettings.username;
         self.txtFieldUserPassword.text = userSettings.password;
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -92,8 +89,11 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     [self.forgotPasswordBtn.titleLabel setFont:[UIFont getDKCrayonFontWithSize:LABEL_SMALL]];
 }
 
+#pragma mark login functions
+
 - (IBAction)loginPressed:(UIButton *)sender
 {
+    [self closeKeyboard];
     [self loginWithUsername:self.txtFieldUserName.text andPassword:self.txtFieldUserPassword.text];
 }
 
@@ -106,6 +106,8 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
             if([UserSettingsManager sharedInstance].remember)
                 [self saveLoginAndPassword];
             [self getAccountInformation];
+            [UserSettingsManager sharedInstance].username = self.txtFieldUserName.text;
+            [UserSettingsManager sharedInstance].password = self.txtFieldUserPassword.text;
         } else {
             NSString* loginErrorMessage = [self getLoginErrorMessage: requestReturn.error];
             CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:loginErrorMessage delegate:nil];
@@ -171,14 +173,6 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     }];
 }
 
-- (IBAction)rememberMePressed:(UIButton *)sender
-{
-    UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
-    
-    userSettings.remember = !userSettings.remember;
-    [sender setSelected:userSettings.remember];
-}
-
 - (void)saveLoginAndPassword
 {
     UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
@@ -186,6 +180,16 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     userSettings.password = self.txtFieldUserPassword.text;
     
     [userSettings saveSettings];
+}
+
+#pragma mark button pressed methods
+
+- (IBAction)rememberMePressed:(UIButton *)sender
+{
+    UserSettingsManager* userSettings = [UserSettingsManager sharedInstance];
+    
+    userSettings.remember = !userSettings.remember;
+    [sender setSelected:userSettings.remember];
 }
 
 - (IBAction)forgotPasswordPressed:(UIButton *)sender
@@ -198,13 +202,73 @@ static NSString *FORGOT_RASSWORD_URL = @"http://skilleezv3.elasticbeanstalk.com/
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:REGISTER_URL]];
 }
 
+#pragma mark validation input methods
+
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField == self.txtFieldUserName) {
         return [TextValidator allowInputCharForAccount:string withRangeLength:range.length withOldLength:textField.text.length];
-    } else {
+    } else if(textField == self.txtFieldUserPassword){
         return YES;
     }
+    return YES;
+}
+
+#pragma mark Keyboard moving
+
+float keyboardHeight;
+const float kMaxAvailableKeyboardHeight = 120.f;
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+-(void)keyboardWillShow: (NSNotification*) notification
+{
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
+    CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
+    keyboardHeight = keyboardFrameBeginRect.size.height > kMaxAvailableKeyboardHeight ? kMaxAvailableKeyboardHeight : keyboardFrameBeginRect.size.height;
+    
+    if (self.view.frame.origin.y >= 0) {
+        [self setViewMovedUp:YES];
+    } else if (self.view.frame.origin.y < 0) {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)keyboardWillHide
+{
+    if (self.view.frame.origin.y >= 0) {
+        [self setViewMovedUp:YES];
+    } else if (self.view.frame.origin.y < 0) {
+        [self setViewMovedUp:NO];
+    }
+}
+
+-(void)setViewMovedUp:(BOOL)movedUp
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    
+    CGRect rect = self.view.frame;
+    if (movedUp) {
+        rect.origin.y -= keyboardHeight;
+        rect.size.height += keyboardHeight;
+    } else {
+        rect.origin.y += keyboardHeight;
+        rect.size.height -= keyboardHeight;
+    }
+    self.view.frame = rect;
+    
+    [UIView commitAnimations];
+}
+
+- (void) closeKeyboard
+{
+    [self.view endEditing:YES];
 }
 
 @end

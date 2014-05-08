@@ -28,6 +28,8 @@ enum {
     FOOD = 3
 } Favorite;
 
+static NSString *ReloginMessage = @"You have changed password.\r\nPlease login to renew session";
+
 @interface EditProfileViewController () {
     NSArray *questions;
     float    offset;
@@ -381,11 +383,21 @@ enum {
         if(requestResult.isSuccess) {
             [self performSelector:@selector(updateAccountInformation) withObject:nil afterDelay:5];
             [self done];
+            [self checkPasswordChanged];
         } else {
             CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:[[UtilityController sharedInstance] getErrorMessage:requestResult.error] delegate:nil];
             [alert show];
         }
     }];
+}
+
+- (void)checkPasswordChanged
+{
+    if(_profile.Password && ![_profile.Password isEqualToString:@""])
+        if(![_profile.Password isEqualToString:[UserSettingsManager sharedInstance].password]){
+            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:ReloginMessage delegate:nil];
+            [alert show];
+        }
 }
 
 - (void)updateAccountInformation
