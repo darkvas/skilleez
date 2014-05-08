@@ -2268,7 +2268,7 @@
 				INFOPLIST_FILE = "Skilleez/Skilleez-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "283C23A5-39F8-43CB-8E94-8429F36A8460";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2290,7 +2290,7 @@
 				INFOPLIST_FILE = "Skilleez/Skilleez-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "283C23A5-39F8-43CB-8E94-8429F36A8460";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
