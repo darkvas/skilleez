@@ -115,8 +115,7 @@ const int NUMBER_OF_ITEMS_SL = 5;
 
 - (void)didSkiilleSelect:(SkilleeModel*) skillee
 {
-    BOOL canApprove = ![[UserSettingsManager sharedInstance].userInfo.UserID isEqualToString:skillee.UserId] && [UserSettingsManager sharedInstance].IsAdult;
-    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:canApprove];
+    SkilleeDetailViewController *detail = [[SkilleeDetailViewController alloc] initWithSkillee:skillee andApproveOpportunity:NO];
     [self.navigationController pushViewController:detail animated:YES];
 }
 
