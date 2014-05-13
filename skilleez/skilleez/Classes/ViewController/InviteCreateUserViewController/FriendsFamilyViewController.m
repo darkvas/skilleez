@@ -24,12 +24,14 @@
 {
     NSArray* _adultMembers;
     NSArray* _childrenMembers;
+    
 } 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *btnInviteToLoop;
 @property (weak, nonatomic) IBOutlet UIButton *btnCreateUser;
 @property (weak, nonatomic) IBOutlet UIButton *btnPendingInvites;
+@property (nonatomic) BOOL _canClick;
 
 -(IBAction) createNewUser:(id)sender;
 -(IBAction) inviteToLoop:(id)sender;
@@ -42,7 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self._canClick = YES;
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Friends & Family" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     [self customizeElements];
@@ -195,20 +197,38 @@
 
 -(IBAction) createNewUser:(id)sender
 {
-    NewUserTypeView *newUserTypeView = [NewUserTypeView new];
-    [self.navigationController pushViewController:newUserTypeView animated:YES];
+    if (self._canClick) {
+        self._canClick = NO;
+        NewUserTypeView *newUserTypeView = [NewUserTypeView new];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self._canClick = YES;
+        });
+        [self.navigationController pushViewController:newUserTypeView animated:YES];
+    }
 }
 
 -(IBAction) inviteToLoop:(id)sender
 {
-    InviteToLoopViewController *inviteToLoopView = [InviteToLoopViewController new];
-    [self.navigationController pushViewController:inviteToLoopView animated:YES];
+    if (self._canClick) {
+        self._canClick = NO;
+        InviteToLoopViewController *inviteToLoopView = [InviteToLoopViewController new];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self._canClick = YES;
+        });
+        [self.navigationController pushViewController:inviteToLoopView animated:YES];
+    }
 }
 
 -(IBAction) showPendingInvitations:(id)sender
 {
-    PendingInvitationsViewController *pendingInvitesView = [PendingInvitationsViewController new];
-    [self.navigationController pushViewController:pendingInvitesView animated:YES];
+    if (self._canClick) {
+        self._canClick = NO;
+        PendingInvitationsViewController *pendingInvitesView = [PendingInvitationsViewController new];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self._canClick = YES;
+        });
+        [self.navigationController pushViewController:pendingInvitesView animated:YES];
+    }
 }
 
 @end

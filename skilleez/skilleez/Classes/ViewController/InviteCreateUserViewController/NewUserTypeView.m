@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnCreateChild;
 @property (weak, nonatomic) IBOutlet UIButton *btnCreateAdult;
 @property (weak, nonatomic) IBOutlet UILabel *lblTypeAsk;
+@property (nonatomic) BOOL canClick;
 
 -(IBAction) createChildUser:(id)sender;
 -(IBAction) createAdultUser:(id)sender;
@@ -28,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.canClick = YES;
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"New User" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
 	
@@ -63,14 +64,26 @@
 
 -(IBAction) createChildUser:(id)sender
 {
-    CreateChildViewController *createChildView = [CreateChildViewController new];
-    [self.navigationController pushViewController:createChildView animated:YES];
+    if (self.canClick) {
+        self.canClick = NO;
+        CreateChildViewController *createChildView = [CreateChildViewController new];
+        [self.navigationController pushViewController:createChildView animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 -(IBAction) createAdultUser:(id)sender
 {
-    CreateAdultViewController *createAdultView = [CreateAdultViewController new];
-    [self.navigationController pushViewController:createAdultView animated:YES];
+    if (self.canClick) {
+        self.canClick = NO;
+        CreateAdultViewController *createAdultView = [CreateAdultViewController new];
+        [self.navigationController pushViewController:createAdultView animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 @end

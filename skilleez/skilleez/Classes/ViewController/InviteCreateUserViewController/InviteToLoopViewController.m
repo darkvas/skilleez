@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnSearchUser;
 @property (weak, nonatomic) IBOutlet UIButton *btnInviteUser;
 @property (weak, nonatomic) IBOutlet UILabel *lblInfo;
+@property (nonatomic) BOOL canClick;
 
 -(IBAction) searchUser:(id)sender;
 -(IBAction) inviteToSkilleez:(id)sender;
@@ -28,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.canClick = YES;
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"Invite to loop" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     
@@ -64,14 +65,26 @@
 
 -(IBAction) searchUser:(id)sender
 {
-    SearchUserViewController *searchUserView = [SearchUserViewController new];
-    [self.navigationController pushViewController:searchUserView animated:YES];
+    if (self.canClick) {
+        self.canClick = NO;
+        SearchUserViewController *searchUserView = [SearchUserViewController new];
+        [self.navigationController pushViewController:searchUserView animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 -(IBAction) inviteToSkilleez:(id)sender
 {
-    SendInviteViewController *sendInviteView = [SendInviteViewController new];
-    [self.navigationController pushViewController:sendInviteView animated:YES];
+    if (self.canClick) {
+        self.canClick = NO;
+        SendInviteViewController *sendInviteView = [SendInviteViewController new];
+        [self.navigationController pushViewController:sendInviteView animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 @end

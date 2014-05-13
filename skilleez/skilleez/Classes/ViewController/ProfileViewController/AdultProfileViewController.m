@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *profileBtn;
 @property (weak, nonatomic) IBOutlet UIButton *emailBtn;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
+@property (nonatomic) BOOL canClick;
 
 - (IBAction)showSkilleez:(id)sender;
 - (IBAction)showPermits:(id)sender;
@@ -53,7 +54,7 @@
 {
     [super viewDidLoad];
     [self customize];
-    
+    self.canClick = YES;
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:_familyMember.FullName leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     [self.userAvatarImg setImageWithURL: _familyMember.AvatarUrl];
@@ -105,30 +106,48 @@
 
 - (IBAction)showSkilleez:(id)sender
 {
-    SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:_familyMember.Id andTitle:_familyMember.FullName];
-    [self.navigationController pushViewController:skilleezView animated:YES];
+    if (self.canClick) {
+        self.canClick = NO;
+        SkilleezListViewController *skilleezView = [[SkilleezListViewController alloc] initWithUserId:_familyMember.Id andTitle:_familyMember.FullName];
+        [self.navigationController pushViewController:skilleezView animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 - (IBAction)showPermits:(id)sender
 {
-    EditPermissionViewController *editPermission = [[EditPermissionViewController alloc] initWithMemberInfo: _familyMember];
-    [self.navigationController pushViewController:editPermission animated:YES];
+    if (self.canClick) {
+        self.canClick = NO;
+        EditPermissionViewController *editPermission = [[EditPermissionViewController alloc] initWithMemberInfo: _familyMember];
+        [self.navigationController pushViewController:editPermission animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 - (IBAction)showProfile:(id)sender
 {
-    [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
-    [[NetworkManager sharedInstance] getProfileInfoByUserId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
-        [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
-        if(requestResult.isSuccess) {
-            ProfileInfo* profileInfo = (ProfileInfo*) requestResult.firstObject;
-            ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:[profileInfo.UserId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID]];
-            [self.navigationController pushViewController:profileView animated:YES];
-        } else {
-            CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Problem with loading user data. Try again!" delegate:nil];
-            [alert show];
-        }
-    }];
+    if (self.canClick) {
+        self.canClick = NO;
+        [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
+        [[NetworkManager sharedInstance] getProfileInfoByUserId:_familyMember.Id withCallBack:^(RequestResult *requestResult) {
+            [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
+            if(requestResult.isSuccess) {
+                ProfileInfo* profileInfo = (ProfileInfo*) requestResult.firstObject;
+                ProfileViewController *profileView = [[ProfileViewController alloc] initWithProfile:profileInfo editMode:[profileInfo.UserId isEqualToString:[UserSettingsManager sharedInstance].userInfo.UserID]];
+                [self.navigationController pushViewController:profileView animated:YES];
+            } else {
+                CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Problem with loading user data. Try again!" delegate:nil];
+                [alert show];
+            }
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 - (IBAction)showSettings:(id)sender
@@ -145,8 +164,14 @@
 
 - (IBAction)delete:(id)sender
 {
-    CustomAlertView *alertView = [[CustomAlertView alloc] initDefaultYesCancelWithText:@"Are you sure you want to remove this user from your loop?" delegate:nil];   
-    [alertView show];
+    if (self.canClick) {
+        self.canClick = NO;
+        CustomAlertView *alertView = [[CustomAlertView alloc] initDefaultYesCancelWithText:@"Are you sure you want to remove this user from your loop?" delegate:nil];
+        [alertView show];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 - (void)dismissAlert:(CustomAlertView *)alertView withButtonIndex:(NSInteger)buttonIndex

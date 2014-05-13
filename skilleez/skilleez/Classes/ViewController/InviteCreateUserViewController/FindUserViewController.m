@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblQuestion;
 @property (weak, nonatomic) IBOutlet UIButton *btnYes;
 @property (weak, nonatomic) IBOutlet UIButton *btnNo;
+@property (nonatomic) BOOL canClick;
 
 - (IBAction)buttonYesPressed:(id)sender;
 - (IBAction)buttonNoPressed:(id)sender;
@@ -52,6 +53,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.canClick = YES;
     NavigationBarView *navBar = [[NavigationBarView alloc] initWithViewController:self withTitle:@"find user" leftTitle:@"Cancel" rightButton:YES rightTitle:@"Done"];
     [self.view addSubview: navBar];
     [self customize];
@@ -88,7 +90,13 @@
 
 - (IBAction)buttonYesPressed:(id)sender
 {
-    [self askToInvite];
+    if (self.canClick) {
+        self.canClick = NO;
+        [self askToInvite];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 - (void)askToInvite
@@ -130,7 +138,13 @@
 
 - (IBAction)buttonNoPressed:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.canClick) {
+        self.canClick = NO;
+        [self.navigationController popViewControllerAnimated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 @end
