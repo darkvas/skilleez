@@ -44,6 +44,7 @@ typedef enum {
 @property (strong, nonatomic) UIViewController *fullScreenImage;
 @property (strong, nonatomic) IBOutlet UIView *rightMenu;
 @property (weak, nonatomic) IBOutlet UIView *leftView;
+@property (nonatomic) BOOL canClick;
 
 - (void)deny;
 - (void)approve;
@@ -72,6 +73,7 @@ typedef enum {
     [super viewDidLoad];
     [self setCellFonts];
     [self setSkillee];
+    self.canClick = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(orientationChanged:)
                                                  name:@"UIDeviceOrientationDidChangeNotification"
@@ -141,69 +143,87 @@ typedef enum {
 
 - (IBAction)back:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.canClick) {
+        self.canClick = NO;
+        [self.navigationController popViewControllerAnimated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 - (IBAction)showImage:(id)sender
 {
-    self.fullScreenImage = [[UIViewController alloc] init];
-    self.fullScreenImage.view.backgroundColor = [UIColor lightGrayColor];
-    self.fullScreenImage.view.userInteractionEnabled=YES;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 548)];
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.image = self.skilleeMediaImg.image;
-    imageView.tag = 1;
-    [self.fullScreenImage.view addSubview:imageView];
-    float scale = self.skilleeMediaImg.image.size.height / 160;
-    UIImage *image = [[UIImage alloc] initWithCGImage: self.skilleeMediaImg.image.CGImage scale: scale orientation: UIImageOrientationRight];
-    UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 548)];
-    img.contentMode = UIViewContentModeCenter;
-    img.image = image;
-    img.tag = 2;
-    img.hidden = YES;
-    [self.fullScreenImage.view addSubview:img];
-    UITapGestureRecognizer *modalTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissModalView)];
-    [self.fullScreenImage.view addGestureRecognizer:modalTap];
-    [self.navigationController pushViewController:self.fullScreenImage animated:YES];
+    if (self.canClick) {
+        self.canClick = NO;
+        self.fullScreenImage = [[UIViewController alloc] init];
+        self.fullScreenImage.view.backgroundColor = [UIColor lightGrayColor];
+        self.fullScreenImage.view.userInteractionEnabled=YES;
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 548)];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.image = self.skilleeMediaImg.image;
+        imageView.tag = 1;
+        [self.fullScreenImage.view addSubview:imageView];
+        float scale = self.skilleeMediaImg.image.size.height / 160;
+        UIImage *image = [[UIImage alloc] initWithCGImage: self.skilleeMediaImg.image.CGImage scale: scale orientation: UIImageOrientationRight];
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 548)];
+        img.contentMode = UIViewContentModeCenter;
+        img.image = image;
+        img.tag = 2;
+        img.hidden = YES;
+        [self.fullScreenImage.view addSubview:img];
+        UITapGestureRecognizer *modalTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissModalView)];
+        [self.fullScreenImage.view addGestureRecognizer:modalTap];
+        [self.navigationController pushViewController:self.fullScreenImage animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
+    }
 }
 
 - (IBAction)showMore:(id)sender
 {
-    self.more.selected = !self.more.selected;
-    UIView *view = self.leftView,
-    *view2 = self.rightMenu;
-    if (view.frame.origin.x == 0) {
-        [UIView animateWithDuration:0.4
-                              delay:0.0
-                            options: UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             CGRect frame = view.frame;
-                             frame.origin.y = 0;
-                             frame.origin.x = -80;
-                             view.frame = frame;
-                             CGRect frame2 = view2.frame;
-                             frame2.origin.y = 0;
-                             frame2.origin.x = 240;
-                             view2.frame = frame2;
-                         }
-                         completion:^(BOOL finished) {
-                         }];
-    } else {
-        [UIView animateWithDuration:0.4
-                              delay:0.0
-                            options: UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             CGRect frame = view.frame;
-                             frame.origin.y = 0;
-                             frame.origin.x = 0;
-                             view.frame = frame;
-                             CGRect frame2 = view2.frame;
-                             frame2.origin.y = 0;
-                             frame2.origin.x = 320;
-                             view2.frame = frame2;
-                         }
-                         completion:^(BOOL finished) {
-                         }];
+    if (self.canClick) {
+        self.canClick = NO;
+        self.more.selected = !self.more.selected;
+        UIView *view = self.leftView,
+        *view2 = self.rightMenu;
+        if (view.frame.origin.x == 0) {
+            [UIView animateWithDuration:0.4
+                                  delay:0.0
+                                options: UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 CGRect frame = view.frame;
+                                 frame.origin.y = 0;
+                                 frame.origin.x = -80;
+                                 view.frame = frame;
+                                 CGRect frame2 = view2.frame;
+                                 frame2.origin.y = 0;
+                                 frame2.origin.x = 240;
+                                 view2.frame = frame2;
+                             }
+                             completion:^(BOOL finished) {
+                             }];
+        } else {
+            [UIView animateWithDuration:0.4
+                                  delay:0.0
+                                options: UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 CGRect frame = view.frame;
+                                 frame.origin.y = 0;
+                                 frame.origin.x = 0;
+                                 view.frame = frame;
+                                 CGRect frame2 = view2.frame;
+                                 frame2.origin.y = 0;
+                                 frame2.origin.x = 320;
+                                 view2.frame = frame2;
+                             }
+                             completion:^(BOOL finished) {
+                             }];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.canClick = YES;
+        });
     }
 }
 
@@ -219,7 +239,7 @@ typedef enum {
         default:
             [self.navigationController popViewControllerCustom];
             break;
-    }
+        }
 }
 
 - (void)deny
