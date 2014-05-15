@@ -127,7 +127,6 @@
 {
     [[ActivityIndicatorController sharedInstance] startActivityIndicator:self];
     [self addChildViewController:viewController];
-    //[viewController didMoveToParentViewController:self];
     viewController.view.hidden = YES;
     [self.contentView addSubview: viewController.view];
 }

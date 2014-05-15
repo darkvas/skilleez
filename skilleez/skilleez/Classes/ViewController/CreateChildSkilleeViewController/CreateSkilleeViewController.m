@@ -239,7 +239,7 @@ static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Acco
 
 - (void)checkLaunchAbility
 {
-    if (chosenData && self.titleTxt.text.length > 0) {
+    if (self.titleTxt.text.length > 0) {
         self.launchBtn.enabled = YES;
     } else {
         self.launchBtn.enabled = NO;
@@ -288,6 +288,8 @@ static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Acco
         if(requestResult.isSuccess){
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
             [self clearFields];
+            HomeViewController *loop = [HomeViewController new];
+            [self.navigationController pushViewController:loop animated:YES];
         } else {
             [[ActivityIndicatorController sharedInstance] stopActivityIndicator];
             CustomAlertView *alert = [[CustomAlertView alloc] initDefaultOkWithText:@"Launch skillee failed" delegate:nil];
@@ -334,6 +336,9 @@ static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Acco
     self.clearPostOnBehalf.frame = CGRectMake(208, 0, 36, 36);
     [self.clearPostOnBehalf addTarget:self action:@selector(clearBehalf) forControlEvents:UIControlEventTouchUpInside];
     [self.postOnTxt addSubview:self.clearPostOnBehalf];
+    self.postOnTxt.text = [UserSettingsManager sharedInstance].userInfo.FirstName;
+    selectedBehalfID = [UserSettingsManager sharedInstance].userInfo.UserID;
+    self.clearPostOnBehalf.hidden = NO;
 }
 
 - (IBAction)pickImage:(id)sender
@@ -394,6 +399,12 @@ static const NSString *TERMS_URL = @"http://skilleezv3.elasticbeanstalk.com/Acco
     [[NetworkManager sharedInstance] getFriendsAnsFamily:userId withCallBack:^(RequestResult *requestResult) {
         if (requestResult.isSuccess) {
             childs = [NSMutableArray new];
+            FamilyMemberModel *me = [FamilyMemberModel new];
+            me.Id = [UserSettingsManager sharedInstance].userInfo.UserID;
+            me.IsAdult = [UserSettingsManager sharedInstance].IsAdult;
+            me.FullName = [UserSettingsManager sharedInstance].userInfo.FirstName;
+            me.AvatarUrl = [UserSettingsManager sharedInstance].userInfo.AvatarUrl;
+            [childs addObject:me];
             for (FamilyMemberModel *member in requestResult.returnArray) {
                 if(!member.IsAdult)
                     [childs addObject:member];
