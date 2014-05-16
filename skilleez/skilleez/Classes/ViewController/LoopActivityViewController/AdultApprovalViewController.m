@@ -60,8 +60,13 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[_items objectAtIndex:indexPath.row] isKindOfClass:[SkilleeModel class]])
+    if ([[_items objectAtIndex:indexPath.row] isKindOfClass:[SkilleeModel class]]) {
+        SkilleeModel *skilee = (SkilleeModel *)[_items objectAtIndex:indexPath.row];
+        if ([skilee.Comment isEqualToString:@""]) {
+            return 372;
+        }
         return 417;
+    }
     else
         return 490;
 }
@@ -79,8 +84,19 @@ static NSString *invitationCellName = @"InviteToLoopApprovalTableCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[_items objectAtIndex:indexPath.row] isKindOfClass:[SkilleeModel class]]) {
-        SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:skilleeCellName];
-        cell.delegate = self;
+        NSString *currentCell;
+        SkilleeModel *skilee = (SkilleeModel *)[_items objectAtIndex:indexPath.row];
+        if ([skilee.Comment isEqualToString:@""]) {
+            currentCell = @"AdultApprovalCellWithoutComment";
+        } else {
+            currentCell = skilleeCellName;
+        }
+        SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:currentCell];
+        if (cell == nil) {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:currentCell owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+            cell.delegate = self;
+        }
         [cell setSkilleezData:cell andSkilleez:[_items objectAtIndex:indexPath.row] andTag:indexPath.row];
         return cell;
     } else {

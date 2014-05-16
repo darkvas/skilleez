@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SimpleCellWithoutComment" rowHeight="420" id="HIy-Sl-qWC" customClass="SimpleTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HIy-Sl-qWC" id="Th6-iC-qof">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="371"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RXX-e4-tDx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jf5-cP-SQB">
+                                <rect key="frame" x="6" y="10" width="46" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Oct 21, 2014" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAF-Ni-Wzm">
+                                <rect key="frame" x="57" y="40" width="106" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Userovuch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRU-yR-FGP">
+                                <rect key="frame" x="57" y="14" width="170" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k4p-fb-3bK">
+                                <rect key="frame" x="272" y="13" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="arrow_next_.png"/>
+                                <state key="highlighted" image="arrow_next_press_.png"/>
+                                <connections>
+                                    <action selector="showSkille:" destination="HIy-Sl-qWC" eventType="touchUpInside" id="1k5-BG-erW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BG.png" translatesAutoresizingMaskIntoConstraints="NO" id="NL1-YQ-WjH">
+                        <rect key="frame" x="0.0" y="66" width="320" height="250"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gone fishing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6I-Ra-X6F">
+                        <rect key="frame" x="0.0" y="328" width="320" height="36"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Yaaahhoooooo! i have caught a fish" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGy-1B-2Fv">
+                        <rect key="frame" x="0.0" y="370" width="320" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tgc-Wb-MoR">
+                        <rect key="frame" x="0.0" y="370" width="320" height="2"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.27843138579999999" green="0.74509805439999999" blue="0.082352943720000002" alpha="1" colorSpace="deviceRGB"/>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="attachmentImg" destination="NL1-YQ-WjH" id="jNt-eX-OLB"/>
+                <outlet property="avatarImg" destination="Jf5-cP-SQB" id="qrh-0z-hcS"/>
+                <outlet property="dateLbl" destination="hAF-Ni-Wzm" id="Dc3-8w-IJd"/>
+                <outlet property="detailBtn" destination="k4p-fb-3bK" id="noH-ZB-4pO"/>
+                <outlet property="skilleezCommentLbl" destination="IGy-1B-2Fv" id="G7n-dE-N5S"/>
+                <outlet property="skilleezTitleLbl" destination="A6I-Ra-X6F" id="dIK-ii-qy7"/>
+                <outlet property="usernameLbl" destination="fRU-yR-FGP" id="jNE-gT-ao2"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="BG.png" width="320" height="568"/>
+        <image name="arrow_next_.png" width="11" height="20"/>
+        <image name="arrow_next_press_.png" width="11" height="20"/>
+    </resources>
+</document>

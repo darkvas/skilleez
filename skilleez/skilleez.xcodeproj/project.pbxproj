@@ -174,6 +174,8 @@
 		75A1CD9F190A86AC006860E9 /* warning2.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A1CD9E190A86AC006860E9 /* warning2.png */; };
 		75A48EE0190134EC008AFBFD /* MoreButtonTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A48EDF190134EC008AFBFD /* MoreButtonTableCell.m */; };
 		75A48EE219013500008AFBFD /* MoreButtonTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A48EE119013500008AFBFD /* MoreButtonTableCell.xib */; };
+		75B44E1A1926324000F55F17 /* AdultApprovalCellWithoutComment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75B44E191926324000F55F17 /* AdultApprovalCellWithoutComment.xib */; };
+		75B44E1F192632AA00F55F17 /* FavoriteCellWithoutComment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75B44E1E192632AA00F55F17 /* FavoriteCellWithoutComment.xib */; };
 		75D6CA2118FD54FD005FD2BA /* s_thumb_down_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA1D18FD54FD005FD2BA /* s_thumb_down_img.png */; };
 		75D6CA2218FD54FD005FD2BA /* s_thumb_down_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA1E18FD54FD005FD2BA /* s_thumb_down_img@2x.png */; };
 		75D6CA2318FD54FD005FD2BA /* s_thumb_up_img.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D6CA1F18FD54FD005FD2BA /* s_thumb_up_img.png */; };
@@ -187,6 +189,8 @@
 		75EC2979190003F1007409BD /* AdultApprovalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75EC2977190003F1007409BD /* AdultApprovalViewController.xib */; };
 		75EC298119000A0F007409BD /* ChildApprovalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC297F19000A0F007409BD /* ChildApprovalViewController.m */; };
 		75EC298219000A0F007409BD /* ChildApprovalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75EC298019000A0F007409BD /* ChildApprovalViewController.xib */; };
+		75F6ABB81925EDAD0061B494 /* SimpleCellWithoutComment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75F6ABB71925EDAD0061B494 /* SimpleCellWithoutComment.xib */; };
+		75F6ABBD1925F3750061B494 /* ChildApprovalCellWithoutComment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75F6ABBC1925F3750061B494 /* ChildApprovalCellWithoutComment.xib */; };
 		8426AA581917B88800455D2F /* TextValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426AA571917B88800455D2F /* TextValidator.m */; };
 		8452291B18FEA94500D1D4B7 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8452291218FEA70900D1D4B7 /* libRestKit.a */; };
 		849D2DBB18E1C4CB00828ED4 /* FamilyMemberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 849D2DBA18E1C4CB00828ED4 /* FamilyMemberModel.m */; };
@@ -574,6 +578,8 @@
 		75A48EDE190134EC008AFBFD /* MoreButtonTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreButtonTableCell.h; sourceTree = "<group>"; };
 		75A48EDF190134EC008AFBFD /* MoreButtonTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButtonTableCell.m; sourceTree = "<group>"; };
 		75A48EE119013500008AFBFD /* MoreButtonTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreButtonTableCell.xib; sourceTree = "<group>"; };
+		75B44E191926324000F55F17 /* AdultApprovalCellWithoutComment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdultApprovalCellWithoutComment.xib; sourceTree = "<group>"; };
+		75B44E1E192632AA00F55F17 /* FavoriteCellWithoutComment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoriteCellWithoutComment.xib; sourceTree = "<group>"; };
 		75D6CA1D18FD54FD005FD2BA /* s_thumb_down_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = s_thumb_down_img.png; sourceTree = "<group>"; };
 		75D6CA1E18FD54FD005FD2BA /* s_thumb_down_img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "s_thumb_down_img@2x.png"; sourceTree = "<group>"; };
 		75D6CA1F18FD54FD005FD2BA /* s_thumb_up_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = s_thumb_up_img.png; sourceTree = "<group>"; };
@@ -592,6 +598,8 @@
 		75EC297E19000A0F007409BD /* ChildApprovalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildApprovalViewController.h; sourceTree = "<group>"; };
 		75EC297F19000A0F007409BD /* ChildApprovalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildApprovalViewController.m; sourceTree = "<group>"; };
 		75EC298019000A0F007409BD /* ChildApprovalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildApprovalViewController.xib; sourceTree = "<group>"; };
+		75F6ABB71925EDAD0061B494 /* SimpleCellWithoutComment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleCellWithoutComment.xib; sourceTree = "<group>"; };
+		75F6ABBC1925F3750061B494 /* ChildApprovalCellWithoutComment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChildApprovalCellWithoutComment.xib; sourceTree = "<group>"; };
 		8417A47A18CF0BE100E6BAE4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8417A47B18CF0BE100E6BAE4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8417A47C18CF0BE100E6BAE4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -933,6 +941,7 @@
 				149232AA18D73A40001BAE8C /* AdultApprovalTableCell.h */,
 				149232AB18D73A40001BAE8C /* AdultApprovalTableCell.m */,
 				149232AC18D73A40001BAE8C /* AdultApprovalTableCell.xib */,
+				75B44E191926324000F55F17 /* AdultApprovalCellWithoutComment.xib */,
 			);
 			path = AdultApprovalTableCell;
 			sourceTree = "<group>";
@@ -943,6 +952,7 @@
 				149232AE18D73A40001BAE8C /* ChildApprovalTableCell.h */,
 				149232AF18D73A40001BAE8C /* ChildApprovalTableCell.m */,
 				149232B018D73A40001BAE8C /* ChildApprovalTableCell.xib */,
+				75F6ABBC1925F3750061B494 /* ChildApprovalCellWithoutComment.xib */,
 			);
 			path = ChildApprovalTableCell;
 			sourceTree = "<group>";
@@ -955,6 +965,7 @@
 				149232B418D73A40001BAE8C /* SimpleTableCell.xib */,
 				14A0851818F284D50056B6F3 /* CellFiller.h */,
 				14A0851918F284D50056B6F3 /* CellFiller.m */,
+				75F6ABB71925EDAD0061B494 /* SimpleCellWithoutComment.xib */,
 			);
 			path = SimpleTableCell;
 			sourceTree = "<group>";
@@ -965,6 +976,7 @@
 				149232C018D740CE001BAE8C /* FavoriteTableCell.h */,
 				149232C118D740CE001BAE8C /* FavoriteTableCell.m */,
 				149232C218D740CE001BAE8C /* FavoriteTableCell.xib */,
+				75B44E1E192632AA00F55F17 /* FavoriteCellWithoutComment.xib */,
 			);
 			path = FavoriteTableCell;
 			sourceTree = "<group>";
@@ -1825,6 +1837,7 @@
 				759DEAFE1907987A0027BCDB /* b_back_BTN@2x.png in Resources */,
 				84E3E13B18E45640000D8D0D /* create_user_BTN.png in Resources */,
 				14BCE6F518D9EEA40047F490 /* create_BTN_press@2x.png in Resources */,
+				75F6ABBD1925F3750061B494 /* ChildApprovalCellWithoutComment.xib in Resources */,
 				84D9E10218C9FD4900516E2D /* skilleez_app_icon_512.png in Resources */,
 				84E3E14C18E45640000D8D0D /* user_unselected@2x.png in Resources */,
 				75D6CA2418FD54FD005FD2BA /* s_thumb_up_img@2x.png in Resources */,
@@ -1876,6 +1889,7 @@
 				84E3E12F18E45640000D8D0D /* arrow_bleck.png in Resources */,
 				14BCE6F618D9EEA40047F490 /* extra_BTN.png in Resources */,
 				84CEC78F18E2FCF300DD55B5 /* CreateChildViewController.xib in Resources */,
+				75F6ABB81925EDAD0061B494 /* SimpleCellWithoutComment.xib in Resources */,
 				14AC9E2A18D836C500C3E228 /* thumb_up_.png in Resources */,
 				84D9E06118C9C3D500516E2D /* Images.xcassets in Resources */,
 				84E3E14618E45640000D8D0D /* search_icon_BTN@2x.png in Resources */,
@@ -1910,6 +1924,7 @@
 				84D9E0A818C9F32F00516E2D /* logo_img.png in Resources */,
 				14B0DFD718F7CEEB00B85DFB /* food_pasta_icon.png in Resources */,
 				84D9E0A918C9F32F00516E2D /* logo_img@2x.png in Resources */,
+				75B44E1F192632AA00F55F17 /* FavoriteCellWithoutComment.xib in Resources */,
 				84E3E14818E45640000D8D0D /* search_img@2x.png in Resources */,
 				14D5736E18EBFAF700E0137C /* ChildProfileViewController.xib in Resources */,
 				14B0DFFF18F923A800B85DFB /* InviteToLoopApprovalTableCell.xib in Resources */,
@@ -1918,6 +1933,7 @@
 				84E7F69618E07752003662CA /* FriendsFamilyViewController.xib in Resources */,
 				75A48EE219013500008AFBFD /* MoreButtonTableCell.xib in Resources */,
 				14B0DFE218F7CEEB00B85DFB /* music_rock_icon.png in Resources */,
+				75B44E1A1926324000F55F17 /* AdultApprovalCellWithoutComment.xib in Resources */,
 				84E4D0D318F694DA002D264F /* MessageViewController.xib in Resources */,
 				84E14ED818F5295A002E6D7F /* SkilleezListViewController.xib in Resources */,
 				84E3E13118E45640000D8D0D /* arrow_white.png in Resources */,

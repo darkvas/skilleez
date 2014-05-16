@@ -13,8 +13,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z5b-yw-jUB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z5b-yw-jUB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JmF-VM-kUr">
@@ -46,13 +46,21 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="320" id="ZLX-QU-7nH"/>
+                            <constraint firstAttribute="height" constant="66" id="eja-aL-ssx"/>
+                        </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BG.png" translatesAutoresizingMaskIntoConstraints="NO" id="We8-Y3-QQd">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BG.png" translatesAutoresizingMaskIntoConstraints="NO" id="We8-Y3-QQd">
                         <rect key="frame" x="0.0" y="66" width="320" height="250"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="250" id="R9C-mE-BUI"/>
+                            <constraint firstAttribute="width" constant="320" id="cCV-mu-A9t"/>
+                        </constraints>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gone fishing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SNF-Yk-sUv">
-                        <rect key="frame" x="0.0" y="332" width="320" height="36"/>
+                        <rect key="frame" x="0.0" y="328" width="320" height="36"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -65,13 +73,26 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9GO-cg-IOc">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9GO-cg-IOc">
                         <rect key="frame" x="0.0" y="415" width="320" height="2"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="320" id="1uX-N7-7J6"/>
+                            <constraint firstAttribute="height" constant="2" id="4EB-aY-VLk"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" red="0.27843138579999999" green="0.74509805439999999" blue="0.082352943720000002" alpha="1" colorSpace="deviceRGB"/>
+                <constraints>
+                    <constraint firstItem="We8-Y3-QQd" firstAttribute="top" secondItem="Qr7-Da-y4g" secondAttribute="top" constant="66" id="8gz-zc-4wC"/>
+                    <constraint firstItem="z5b-yw-jUB" firstAttribute="top" secondItem="Qr7-Da-y4g" secondAttribute="top" id="92i-hv-0CL"/>
+                    <constraint firstItem="z5b-yw-jUB" firstAttribute="leading" secondItem="Qr7-Da-y4g" secondAttribute="leading" id="ea8-Ly-Muf"/>
+                    <constraint firstItem="z5b-yw-jUB" firstAttribute="top" secondItem="9GO-cg-IOc" secondAttribute="top" priority="700" constant="-415" id="fri-ht-6Xf"/>
+                    <constraint firstItem="We8-Y3-QQd" firstAttribute="leading" secondItem="Qr7-Da-y4g" secondAttribute="leading" id="iUL-NS-kia"/>
+                    <constraint firstItem="9GO-cg-IOc" firstAttribute="leading" secondItem="Qr7-Da-y4g" secondAttribute="leading" id="tD2-k2-9SE"/>
+                    <constraint firstItem="z5b-yw-jUB" firstAttribute="top" relation="lessThanOrEqual" secondItem="9GO-cg-IOc" secondAttribute="top" priority="750" constant="-370" id="uev-Cy-4V4"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="attachmentImg" destination="We8-Y3-QQd" id="fFf-F5-Ovp"/>

@@ -62,6 +62,10 @@ static NSString *cellName = @"FavoriteTableCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SkilleeModel *skilee = (SkilleeModel *)[items objectAtIndex:indexPath.row];
+    if ([skilee.Comment isEqualToString:@""]) {
+        return 372;
+    }
     return 417;
 }
 
@@ -69,9 +73,16 @@ static NSString *cellName = @"FavoriteTableCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:cellName];
+    NSString *currentCell;
+    SkilleeModel *skilee = (SkilleeModel *)[items objectAtIndex:indexPath.row];
+    if ([skilee.Comment isEqualToString:@""]) {
+        currentCell = @"FavoriteCellWithoutComment";
+    } else {
+        currentCell = cellName;
+    }
+    SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:currentCell];
     if (cell == nil) {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:cellName owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:currentCell owner:self options:nil];
         cell = [nib objectAtIndex:0];
         cell.delegate = self;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(selectProfile:)];

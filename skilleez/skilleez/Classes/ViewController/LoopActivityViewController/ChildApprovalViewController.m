@@ -55,6 +55,10 @@ static NSString *skilleeCellName = @"ChildApprovalTableCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    SkilleeModel *skilee = (SkilleeModel *)[_items objectAtIndex:indexPath.row];
+    if ([skilee.Comment isEqualToString:@""]) {
+        return 417;
+    }
     return 462;
 }
 
@@ -68,10 +72,21 @@ static NSString *skilleeCellName = @"ChildApprovalTableCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:skilleeCellName];
-    cell.delegate = self;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(selectProfile:)];
-    [cell.avatarImg addGestureRecognizer:tap];
+    NSString *currentCell;
+    SkilleeModel *skilee = (SkilleeModel *)[_items objectAtIndex:indexPath.row];
+    if ([skilee.Comment isEqualToString:@""]) {
+        currentCell = @"ChildApprovalCellWithoutComment";
+    } else {
+        currentCell = skilleeCellName;
+    }
+    SimpleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:currentCell];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:currentCell owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+        cell.delegate = self;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:cell action:@selector(selectProfile:)];
+        [cell.avatarImg addGestureRecognizer:tap];
+    }
     [cell setSkilleezData:cell andSkilleez:[_items objectAtIndex:indexPath.row] andTag:indexPath.row];
     return cell;
 }
